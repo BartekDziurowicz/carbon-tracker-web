@@ -1,4 +1,4 @@
-0.11 (2024-03-19)
+0.11 (2024-04-)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/1)
 * Init application using npx create-react-app
