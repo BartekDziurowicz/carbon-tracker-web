@@ -1,0 +1,20 @@
+button {
+    width: 5rem;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(21, 174, 85);
+    color: rgb(21, 174, 85);
+    padding: 10px 20px;
+    margin: 0rem 3rem;
+    cursor: pointer;    
+}
+
+button:hover{
+    background-color: rgb(21, 174, 85);
+    color: white;
+}
+
+button:active {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(0, 160, 227);
+    color: rgb(0, 160, 227);
+}
