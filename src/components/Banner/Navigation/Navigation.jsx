@@ -1,12 +1,13 @@
-import { useState } from "react";
-import { AiOutlineLogout } from "react-icons/ai";
-import { BsBracesAsterisk } from "react-icons/bs";
-import { FaCubes } from "react-icons/fa";
-import { IoIosStats } from "react-icons/io";
-import { MdOutlineManageAccounts } from "react-icons/md";
-import { PiTreeStructure } from "react-icons/pi";
-import NavigationItem from "../NavigationItem/NavigationItem.jsx";
-import "./Navigation.css";
+import { useState } from 'react';
+import { AiOutlineLogout } from 'react-icons/ai';
+import { BsBracesAsterisk } from 'react-icons/bs';
+import { FaCubes } from 'react-icons/fa';
+import { IoIosStats } from 'react-icons/io';
+import { MdOutlineManageAccounts } from 'react-icons/md';
+import { PiTreeStructure } from 'react-icons/pi';
+import { $Navigation, $NavigationIcon } from './Navigation.styles.jsx';
+import NavigationItem from '../NavigationItem/NavigationItem.jsx';
+// import "./Navigation.css";
 
 export default function Navigation() {
   const [isSelected, setIsSelected] = useState(false);
@@ -17,11 +18,9 @@ export default function Navigation() {
 
   return (
     <>
-      <div id="navigation" className="diamond" onClick={selectionHandler}>
-        <div color="white">
-          <FaCubes className="navicon" />
-        </div>
-      </div>
+      <$Navigation onClick={selectionHandler}>
+        <$NavigationIcon><FaCubes /></$NavigationIcon>
+      </$Navigation>
 
       <NavigationItem name="Metrics" position={1} hidden={!isSelected}>
         <IoIosStats />
