@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AiOutlineLogin } from "react-icons/ai";
+import { AiOutlineLogout } from "react-icons/ai";
 import { BsBracesAsterisk } from "react-icons/bs";
 import { FaCubes } from "react-icons/fa";
 import { IoIosStats } from "react-icons/io";
@@ -22,55 +22,25 @@ export default function Navigation() {
           <FaCubes className="navicon" />
         </div>
       </div>
-      <NavigationItem
-        name="metrics"
-        className={
-          isSelected
-            ? "diamond item item_01"
-            : "diamond item item_01 item_hidden"
-        }
-      >
-        <IoIosStats className="item_icon" />
+
+      <NavigationItem name="Metrics" position={1} hidden={!isSelected}>
+        <IoIosStats />
       </NavigationItem>
-      <NavigationItem
-        name="selector"
-        className={
-          isSelected
-            ? "diamond item item_02"
-            : "diamond item item_02 item_hidden"
-        }
-      >
-        <BsBracesAsterisk className="item_icon" />
+
+      <NavigationItem name="Selector" position={2} hidden={!isSelected}>
+        <BsBracesAsterisk />
       </NavigationItem>
-      <NavigationItem
-        name="company"
-        className={
-          isSelected
-            ? "diamond item item_03"
-            : "diamond item item_03 item_hidden"
-        }
-      >
-        <PiTreeStructure className="item_icon" />
+
+      <NavigationItem name="Company" position={3} hidden={!isSelected}>
+        <PiTreeStructure />
       </NavigationItem>
-      <NavigationItem
-        name="user"
-        className={
-          isSelected
-            ? "diamond item item_04"
-            : "diamond item item_04 item_hidden"
-        }
-      >
-        <MdOutlineManageAccounts className="item_icon" />
+
+      <NavigationItem name="User" position={4} hidden={!isSelected}>
+        <MdOutlineManageAccounts />
       </NavigationItem>
-      <NavigationItem
-        name="login"
-        className={
-          isSelected
-            ? "diamond item item_05"
-            : "diamond item item_05 item_hidden"
-        }
-      >
-        <AiOutlineLogin className="item_icon" />
+
+      <NavigationItem name="Logout" position={5} hidden={!isSelected}>
+        <AiOutlineLogout />
       </NavigationItem>
     </>
   );

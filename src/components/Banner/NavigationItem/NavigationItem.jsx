@@ -1,10 +1,9 @@
-import "./NavigationItem.css";
+import { $NavigationItem, $NavigationItemIcon } from "./NavigationItem.styles";
 
-export default function NavigationItem({ name, children, ...props }) {
+export default function NavigationItem({ name, position, hidden, children }) {
   return (
-      <div {...props}>
-        {children}
-      </div>
-    
+      <$NavigationItem position={position} hidden={hidden}>
+        <$NavigationItemIcon>{children}</$NavigationItemIcon>
+      </$NavigationItem>
   );
 }
