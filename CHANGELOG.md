@@ -1,8 +1,9 @@
-0.11 (2024-04-)
+0.11 (2024-05-02)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/1)
 * Init application using npx create-react-app
-* Create banner and implement logo
+* Create Banner and Logo components
+* Create Naviagation component with navigation items including icons
 
 0.1 (2024-04-28)
 ===============

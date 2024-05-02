@@ -1,0 +1,45 @@
+#navigation {
+    width: 100px;
+    height: 100px;
+    right: 100px;
+    top: 40px;
+    z-index: 100;
+    background: linear-gradient(90deg, #15AE55, #6DE39E, #15AE55);
+    background-size: 400% 400%;
+    animation: gradient 5s infinite;
+}
+
+@keyframes gradient {
+    50% {
+        background-position: 100% 0;
+    }
+}
+
+.diamond {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    transform: rotate(45deg);
+    background: #15AE55;
+    margin: 10px;
+    cursor: pointer;
+    box-shadow: 1px 2px 10px #808080;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.diamond:active {
+    box-shadow: 0px 1px 2.5px #292929;
+    transition: 0.1s;
+}
+
+#navigation:hover, .diamond:hover{
+    background: #6DE39E;
+}
+
+.navicon {
+    fill: rgb(255, 255, 255);
+    font-size: 70px;
+    transform: rotate(-45deg);
+}
