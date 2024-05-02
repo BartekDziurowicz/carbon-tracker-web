@@ -1,4 +1,4 @@
-import { $Banner } from './Banner.styles.jsx';
+import $Banner from './Banner.styles.jsx';
 import Logo from './Logo/Logo.jsx';
 import Navigation from './Navigation/Navigation.jsx';
 
