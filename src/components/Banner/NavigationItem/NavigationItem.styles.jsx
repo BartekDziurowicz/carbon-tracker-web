@@ -40,5 +40,4 @@ export const $NavigationItemIcon = styled.div`
 
 export const $NavigationItemTooltip = styled.a`
   transform: rotate(-45deg);
-  z-index: 101;
 `;

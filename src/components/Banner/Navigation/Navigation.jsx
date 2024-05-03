@@ -7,7 +7,6 @@ import { MdOutlineManageAccounts } from 'react-icons/md';
 import { PiTreeStructure } from 'react-icons/pi';
 import { $Navigation, $NavigationIcon } from './Navigation.styles.jsx';
 import NavigationItem from '../NavigationItem/NavigationItem.jsx';
-// import "./Navigation.css";
 
 export default function Navigation() {
   const [isSelected, setIsSelected] = useState(false);
