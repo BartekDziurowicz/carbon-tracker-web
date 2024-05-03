@@ -1,4 +1,4 @@
-0.11 (2024-05-??)
+0.12 (2024-05-??)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/2)
 * Implement styled-components instead .css files

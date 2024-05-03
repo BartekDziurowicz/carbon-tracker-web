@@ -1,7 +1,8 @@
 import { styled } from "styled-components";
 
-const topValues = ["66px", "103px", "139px", "175px", "139px", "103px"];
-const rightValues = ["127px", "200px", "163px", "126px", "89px", "53px"];
+const TOP_VALUES = ["66px", "103px", "139px", "175px", "139px", "103px"];
+const RIGHT_VALUES = ["147px", "220px", "183px", "146px", "109px", "73px"];
+const Z_INDEX = [0, 50, 51, 52, 49, 48];
 
 export const $NavigationItem = styled.div`
   position: absolute;
@@ -16,10 +17,11 @@ export const $NavigationItem = styled.div`
   justify-content: center;
   align-items: center;
   transition: 0.5s;
+  z-index: ${({ hidden, position }) => hidden ? Z_INDEX[0] : Z_INDEX[position]};
   top: ${({ hidden, position }) =>
-    hidden ? topValues[0] : topValues[position]};
+    hidden ? TOP_VALUES[0] : TOP_VALUES[position]};
   right: ${({ hidden, position }) =>
-    hidden ? rightValues[0] : rightValues[position]};
+    hidden ? RIGHT_VALUES[0] : RIGHT_VALUES[position]};
 
   &:active {
     box-shadow: 0px 1px 2.5px #292929;
@@ -32,7 +34,11 @@ export const $NavigationItem = styled.div`
 `;
 
 export const $NavigationItemIcon = styled.div`
-  transform: rotate(-45deg);
   color: rgb(255, 255, 255);
   font-size: 35px;
+`;
+
+export const $NavigationItemTooltip = styled.a`
+  transform: rotate(-45deg);
+  z-index: 101;
 `;

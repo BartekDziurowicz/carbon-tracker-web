@@ -5,7 +5,7 @@ export const $Navigation = styled.div`
   transform: rotate(45deg);
   width: 100px;
   height: 100px;
-  right: 100px;
+  right: 120px;
   top: 40px;
   z-index: 100;
   background: linear-gradient(90deg, #15ae55, #6de39e, #15ae55);
