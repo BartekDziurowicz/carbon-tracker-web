@@ -5,8 +5,12 @@ export default function NavigationItem({ name, position, hidden, children }) {
 
   const TOOLTIP_PLACES= ['', 'left', 'left-end', 'bottom', 'right-end', 'right'];
 
+  function handleClick() {
+    console.log("TO DO HANDLER Nav item: " + name);
+  }
+
   return (
-    <$NavigationItem position={position} hidden={hidden}>
+    <$NavigationItem key={name} position={position} hidden={hidden} onClick={handleClick}>
       <$NavigationItemTooltip
         data-tooltip-id={"nav_item_tooltip_" + name}
         data-tooltip-content={name}
