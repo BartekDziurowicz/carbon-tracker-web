@@ -3,6 +3,7 @@
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/2)
 * Implement styled-components instead .css files
 * Add tooltips for navigation menu items
+* Create and implement Navigation context
 
 0.11 (2024-05-02)
 ===============

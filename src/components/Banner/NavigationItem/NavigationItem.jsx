@@ -1,16 +1,15 @@
+import { useContext } from 'react';
 import { Tooltip } from "react-tooltip";
+import { NavigationContext } from '../../../store/navigation-context.jsx';
 import { $NavigationItem, $NavigationItemIcon, $NavigationItemTooltip } from "./NavigationItem.styles";
 
+const TOOLTIP_PLACES= ['', 'left', 'left-end', 'bottom', 'right-end', 'right'];
+
 export default function NavigationItem({ name, position, hidden, children }) {
-
-  const TOOLTIP_PLACES= ['', 'left', 'left-end', 'bottom', 'right-end', 'right'];
-
-  function handleClick() {
-    console.log("TO DO HANDLER Nav item: " + name);
-  }
+  const { selectNavItemHandler } = useContext(NavigationContext);
 
   return (
-    <$NavigationItem key={name} position={position} hidden={hidden} onClick={handleClick}>
+    <$NavigationItem key={name} position={position} hidden={hidden} onClick={() => selectNavItemHandler(name)}>
       <$NavigationItemTooltip
         data-tooltip-id={"nav_item_tooltip_" + name}
         data-tooltip-content={name}
