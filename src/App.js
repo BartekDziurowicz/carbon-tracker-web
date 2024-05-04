@@ -1,11 +1,27 @@
-import Banner from './components/Banner/Banner.jsx'
+import { useState } from 'react';
+import Banner from './components/Banner/Banner.jsx';
+import { NavigationContext } from './store/navigation-context.jsx';
 
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 
 function App() {
+  const [selectedNavItem, setSelectedNavItem] = useState('Metrics');
+
+  function selectNavItemHandler(selectedItem) {
+    setSelectedNavItem(() => selectedItem);
+    //temp
+    console.log(selectedNavItem, selectedItem);
+  }
+
+  const ctxNavigation = {
+    selectedNavItem: selectedNavItem,
+    selectNavItemHandler: selectNavItemHandler
+  };
+
   return (
-    <Banner />
+    <NavigationContext.Provider value={ctxNavigation}>
+      <Banner />
+    </NavigationContext.Provider>
   );
 }
 

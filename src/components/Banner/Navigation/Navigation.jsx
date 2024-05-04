@@ -1,31 +1,55 @@
-import { useState } from "react";
-import { AiOutlineLogin } from "react-icons/ai";
+import { useContext, useState } from "react";
+import { AiOutlineLogout } from "react-icons/ai";
 import { BsBracesAsterisk } from "react-icons/bs";
 import { FaCubes } from "react-icons/fa";
 import { IoIosStats } from "react-icons/io";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { PiTreeStructure } from "react-icons/pi";
-import NavigationItem from '../NavigationItem/NavigationItem.jsx';
-import './Navigation.css';
+import {
+  $Navigation,
+  $NavigationIcon,
+  $NavigationSelectedItem,
+} from "./Navigation.styles.jsx";
+import NavigationItem from "../NavigationItem/NavigationItem.jsx";
+import { NavigationContext } from "../../../store/navigation-context.jsx";
 
 export default function Navigation() {
+  const [isSelected, setIsSelected] = useState(false);
+  const { selectedNavItem } = useContext(NavigationContext);
 
-    const [isSelected, setIsSelected] = useState(false);
+  function selectionHandler() {
+    setIsSelected((selection) => !selection);
+  }
 
-    function selectionHandler() {
-        setIsSelected(selection => !selection);
-    }
+  return (
+    <>
+      <$NavigationSelectedItem>{selectedNavItem.toUpperCase()}</$NavigationSelectedItem>
 
-    return (
-        <>
-            <div id='navigation' className='diamond' onClick={selectionHandler}>
-                <div color='white'><FaCubes className='navicon'/></div>
-            </div>
-            <NavigationItem name='metrics' className={isSelected ? 'diamond item item_01' : 'diamond item item_01 item_hidden'}><IoIosStats className='item_icon'/></NavigationItem>
-            <NavigationItem name='selector' className={isSelected ? 'diamond item item_02' : 'diamond item item_02 item_hidden'}><BsBracesAsterisk className='item_icon'/></NavigationItem>
-            <NavigationItem name='company' className={isSelected ? 'diamond item item_03' : 'diamond item item_03 item_hidden'}><PiTreeStructure className='item_icon'/></NavigationItem>
-            <NavigationItem name='user' className={isSelected ? 'diamond item item_04' : 'diamond item item_04 item_hidden'}><MdOutlineManageAccounts className='item_icon'/></NavigationItem>
-            <NavigationItem name='login' className={isSelected ? 'diamond item item_05' : 'diamond item item_05 item_hidden'}><AiOutlineLogin className='item_icon'/></NavigationItem>
-        </>
-    );
+      <$Navigation onClick={selectionHandler}>
+        <$NavigationIcon>
+          <FaCubes />
+        </$NavigationIcon>
+      </$Navigation>
+
+      <NavigationItem name="Metrics" position={1} hidden={!isSelected}>
+        <IoIosStats />
+      </NavigationItem>
+
+      <NavigationItem name="Selector" position={2} hidden={!isSelected}>
+        <BsBracesAsterisk />
+      </NavigationItem>
+
+      <NavigationItem name="Company" position={3} hidden={!isSelected}>
+        <PiTreeStructure />
+      </NavigationItem>
+
+      <NavigationItem name="User" position={4} hidden={!isSelected}>
+        <MdOutlineManageAccounts />
+      </NavigationItem>
+
+      <NavigationItem name="Logout" position={5} hidden={!isSelected}>
+        <AiOutlineLogout />
+      </NavigationItem>
+    </>
+  );
 }
