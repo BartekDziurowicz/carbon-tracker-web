@@ -49,4 +49,5 @@ export const $NavigationSelectedItem = styled.p`
   color: #2B2A29;
   font-size: 17px;
   font-weight: bold;
+  user-select: none;
 `;
