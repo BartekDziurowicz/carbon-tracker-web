@@ -39,3 +39,14 @@ export const $NavigationIcon = styled.div`
   color: rgb(255, 255, 255);
   font-size: 70px;
 `;
+
+export const $NavigationSelectedItem = styled.p`
+  width: 50px;
+  transform: rotate(-45deg);
+  position: absolute;
+  top: 45px;
+  right: 217px;
+  color: #2B2A29;
+  font-size: 17px;
+  font-weight: bold;
+`;
