@@ -1,7 +1,8 @@
 import { styled } from "styled-components";
 
 export const $Banner = styled.header`
-  position: absolute;
+  position: sticky;
+  top: 0;
   width: 100%;
   height: 100px;
   background-color: #ffffff;
