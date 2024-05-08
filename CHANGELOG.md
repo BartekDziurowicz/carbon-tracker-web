@@ -1,3 +1,8 @@
+0.13 (2024-05-??)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/3)
+* Create metrics stepper
+
 0.12 (2024-05-04)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/2)
