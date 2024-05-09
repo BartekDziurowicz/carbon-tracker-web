@@ -6,8 +6,8 @@ export const $MetricsCompany = styled.div`
     justify-content: center;
     align-items: center;
     align-content: flex-start;
-    row-gap: 10px;
-    column-gap: 10px;
+    row-gap: 20px;
+    column-gap: 20px;
 `;
 
 export default $MetricsCompany;

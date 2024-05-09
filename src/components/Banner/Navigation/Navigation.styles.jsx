@@ -1,4 +1,12 @@
 import { styled } from "styled-components";
+import {
+  appblack,
+  appgreen,
+  appgreenlight,
+  appgrey,
+  appgreydark,
+  appwhite,
+} from "../../../utils/colors.styles.jsx";
 
 export const $Navigation = styled.div`
   position: absolute;
@@ -8,23 +16,28 @@ export const $Navigation = styled.div`
   right: 120px;
   top: 40px;
   z-index: 100;
-  background: linear-gradient(90deg, #15ae55, #6de39e, #15ae55);
+  background: linear-gradient(
+    90deg,
+    ${appgreen},
+    ${appgreenlight},
+    ${appgreen}
+  );
   background-size: 400% 400%;
   animation: gradient 5s infinite;
   margin: 10px;
   cursor: pointer;
-  box-shadow: 1px 2px 10px #808080;
+  box-shadow: 1px 2px 10px ${appgrey};
   display: flex;
   justify-content: center;
   align-items: center;
 
   &:active {
-    box-shadow: 0px 1px 2.5px #292929;
+    box-shadow: 0px 1px 2.5px ${appgreydark};
     transition: 0.1s;
   }
 
   &:hover {
-    background: #6de39e;
+    background: ${appgreenlight};
   }
 
   @keyframes gradient {
@@ -36,7 +49,7 @@ export const $Navigation = styled.div`
 
 export const $NavigationIcon = styled.div`
   transform: rotate(-45deg);
-  color: rgb(255, 255, 255);
+  color: ${appwhite};
   font-size: 70px;
 `;
 
@@ -46,7 +59,7 @@ export const $NavigationSelectedItem = styled.p`
   position: absolute;
   top: 45px;
   right: 217px;
-  color: #2B2A29;
+  color: ${appblack};
   font-size: 17px;
   font-weight: bold;
   user-select: none;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Step from "./Step/Step.jsx";
 import { CiUser } from "react-icons/ci";
 import { GiOrganigram } from "react-icons/gi";
@@ -37,8 +37,6 @@ export default function MetricsStepper() {
         ))}
       </$MetricsStepper>
       <button onClick={stepHandler}>next</button>
-
-      
     </>
   );
 }
