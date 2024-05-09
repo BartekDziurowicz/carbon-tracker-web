@@ -1,22 +1,21 @@
 import { styled } from "styled-components";
 import {
   appblack,
+  appblue,
   appgreen,
-  appgreenlight,
   appgrey,
-  appgreydark,
   apporange,
   appred,
   appwhite,
-} from '../../../../../utils/colors.styles.jsx';
+} from "../../../../../utils/colors.styles.jsx";
 
 export const $CompanyItem = styled.div`
   min-width: 200px;
-  height: 150px;
   padding: 10px;
   cursor: pointer;
-  background-color: ${appwhite};
-  box-shadow: 1px 2px 10px #808080;
+  background-color: ${({ threshold }) =>
+    threshold === 0 ? appblack : appwhite};
+  box-shadow: 1px 2px 10px ${appgrey};
 
   & header {
     display: flex;
@@ -26,46 +25,76 @@ export const $CompanyItem = styled.div`
   }
 
   & icon {
-    color: ${appgreen};
+    color: ${({ threshold }) => {
+      switch (threshold) {
+        case 0:
+        case 1:
+          return appred;
+        case 2:
+          return apporange;
+        case 3:
+          return appgreen;
+        default:
+          return appblue;
+      }
+    }};
     font-size: 34px;
     text-align: left;
   }
 
   & name {
-    color: ${appblack};
+    color: ${({ threshold }) => (threshold !== 0 ? appblack : appwhite)};
     font-size: 18px;
     text-align: right;
   }
 
-  // & country {
-  //   color: grey;
-  //   font-size: 16px;
-  //   position: absolute;
-  //   width: 200px;
-  //   text-align: right;
-  //   float: right;
-  //   margin-top: 40px;
-  // }
+  & container {
+    display: flex;
+    direction: row-direction;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 10px 0;
+  }
 
-  // & location {
-  //   color: grey;
-  //   font-size: 12px;    
-  //   text-align: right;
-  //   float: right;
-  //   position: absolute;
-  //   width: 200px;
-  //   margin-top: 70px;
-  // }
+  & areas {
+      border: 1px solid ${({ threshold }) => {
+        switch (threshold) {
+          case 0:
+          case 1:
+            return appred;
+          case 2:
+            return apporange;
+          case 3:
+            return appgreen;
+          default:
+            return appblue;
+        }
+      }};
+      border-radius: 50%;
+      height: 34px;
+      width: 34px;
+      line-height: 33px;
+      text-align: center;
+      color: ${({ threshold }) => {
+        switch (threshold) {
+          case 0:
+          case 1:
+            return appred;
+          case 2:
+            return apporange;
+          case 3:
+            return appgreen;
+          default:
+            return appblue;
+        }
+      }};
+  }
 
-  // & areas {
-  //   border: 1px solid #15ae55;
-  //   border-radius: 50%;
-  //   position: absolute;
-  //   height: 34px;
-  //   width: 34px;
-  //   text-align: center    ;
-  //   margin-top: 50px;
-  // }
+  & location {
+    color: ${appgrey};
+    font-size: 12px;    
+    text-align: right;
+  }
 
   & carbon {
     display: flex;
@@ -74,7 +103,7 @@ export const $CompanyItem = styled.div`
   }
 
   & carbon :first-child {
-    color: ${appblack};
+    color: ${({ threshold }) => (threshold !== 0 ? appblack : appwhite)};
     font-size: 18px;
   }
 
@@ -83,18 +112,56 @@ export const $CompanyItem = styled.div`
   }
 
   & carbon :nth-child(3) {
-    color: ${({ carbonLimit, currentUsage }) => carbonLimit > currentUsage ? appgreen : appred };
+    color: ${({ threshold }) => {
+      switch (threshold) {
+        case 0:
+        case 1:
+          return appred;
+        case 2:
+          return apporange;
+        case 3:
+          return appgreen;
+        default:
+          return appblue;
+      }
+    }};
   }
 
   &:hover {
-    box-shadow: 1px 2px 10px ${appgreen};
-    transform: rotate(${({ index }) => index%2 === 0 ? '-1deg' : '1deg'});
+    box-shadow: 1px 2px 10px ${({ threshold }) => {
+      switch (threshold) {
+        case 0:
+          return appblack;
+        case 1:
+          return appred;
+        case 2:
+          return apporange;
+        case 3:
+          return appgreen;
+        default:
+          return appblue;
+      }
+    }};
+    transform: rotate(${({ index }) => (index % 2 === 0 ? "-1deg" : "1deg")});
 
   &:active {
-    box-shadow: 0px 1px 2.5px ${apporange};
+    box-shadow: 0px 1px 2.5px ${({ threshold }) => {
+      switch (threshold) {
+        case 0:
+          return appblack;
+        case 1:
+          return appred;
+        case 2:
+          return apporange;
+        case 3:
+          return appgreen;
+        default:
+          return appblue;
+      }
+    }};
   }
 
-  &:active icon {
-    color: ${apporange};
-  }
+  // &:active icon {
+  //   color: ${apporange};
+  // }
 `;

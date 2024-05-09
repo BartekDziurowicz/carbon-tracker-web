@@ -13,29 +13,38 @@ export default function CompanyItem({ company, currentUsage, index }) {
     location,
   } = company;
 
-  const areasCount = (id) => {
+  function areasCount(id) {
     // TODO api call to get numebr of areas where company.id = id
     // na razei mock, powinno byc jako useEffect
     return 12;
   }
 
+  function carbonBalance(id) {
+    // TODO api call to get thresholds by id
+    // meanwhile mock
+    const returnedThresholds = [200, 100, 90, 0];
+    const balance = parseFloat(((currentUsage/company.carbon_limit)*100).toFixed(2));
+    const threshold = returnedThresholds.findIndex((element) => balance > element);
+    return threshold;
+  }
+
   return (
-    <$CompanyItem carbonLimit={carbon_limit} currentUsage={currentUsage} index={index}>
+    <$CompanyItem threshold={carbonBalance(id)} index={index}>
       <header>
         <icon>
           <SiAwsorganizations />
         </icon>
-        <name>{name} </name>
+        <name>{name} {location.country.name}</name>
       </header>
-
-      {/* <country>{location.country.name} </country>
-      <location>
-        {street_number} {street} Str. {apartment_number !== null && <br />}
-        {apartment_number !== null && "Apt. " + apartment_number}
+      <container>
+        <areas>{areasCount(id)}</areas>
+        <location>
+        {street_number} {street} Str. {apartment_number !== null && "Apt. " + apartment_number}
         <br />
         {location.city}, {postal_code}
       </location>
-      <areas>{getAreasCount(1)}</areas>*/}
+      </container>
+
       <carbon> 
         <div>{carbon_limit}</div>
         <div>{currentUsage}</div>

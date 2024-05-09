@@ -7,9 +7,9 @@ export const $Step = styled.div`
   align-items: center;
   color: ${({ step, index }) =>
     index < step
-      ? appblack
-      : index === step
       ? appgreen
+      : index === step
+      ? appblack
       : appgrey};
   font-size: 12px;
   // cursor: pointer;

@@ -2,6 +2,7 @@
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/3)
 * Create metrics stepper
+* Add application colors to separate jsx file
 
 0.12 (2024-05-04)
 ===============
