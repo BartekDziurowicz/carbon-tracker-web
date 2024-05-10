@@ -46,7 +46,7 @@ function colorHandlerFe(threshold) {
   return threshold !== 0 ? appblack : appwhite;
 }
 
-export const $CompanyItem = styled.div`
+export const $AreaItem = styled.div`
   min-width: 200px;
   max-width: 300px;
   padding: 10px;
@@ -90,7 +90,7 @@ export const $Content = styled.div`
   margin: 10px 0;
 `;
 
-export const $Areas = styled.a`
+export const $Tribes = styled.a`
   & p {
     margin: 0;
     border-radius: 50%;

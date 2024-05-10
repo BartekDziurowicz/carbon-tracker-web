@@ -1,3 +1,11 @@
+0.14 (2024-05-10)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/4)
+* Refactor company item style by creting separate components and function
+* Add tooltips to company component
+* Implement functionality to switch between steps and rerender data
+* Create and style area items
+
 0.13 (2024-05-10)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/3)
