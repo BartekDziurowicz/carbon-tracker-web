@@ -119,7 +119,6 @@ export default function MetricsCompany() {
   function currentUsage(id) {
     // TODO api call to get numebr of areas where company.id = id
     // na razei mock, powinno byc jako useEffect
-    // chyba jakis useEffect
     return 90;
   }
 

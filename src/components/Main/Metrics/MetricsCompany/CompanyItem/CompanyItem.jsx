@@ -1,8 +1,12 @@
+import { useContext } from "react";
 import { SiAwsorganizations } from "react-icons/si";
 import { $CompanyItem } from "./CompanyItem.styles.jsx";
+import { MetricsContext } from "../../../../../store/metrics-context.jsx";
 
 export default function CompanyItem({ company, currentUsage, index }) {
-  let {
+  const { stepHandler } = useContext(MetricsContext);
+
+  const {
     id,
     name,
     postal_code,
@@ -23,29 +27,36 @@ export default function CompanyItem({ company, currentUsage, index }) {
     // TODO api call to get thresholds by id
     // meanwhile mock
     const returnedThresholds = [200, 100, 90, 0];
-    const balance = parseFloat(((currentUsage/company.carbon_limit)*100).toFixed(2));
-    const threshold = returnedThresholds.findIndex((element) => balance > element);
+    const balance = parseFloat(
+      ((currentUsage / company.carbon_limit) * 100).toFixed(2)
+    );
+    const threshold = returnedThresholds.findIndex(
+      (element) => balance > element
+    );
     return threshold;
   }
 
   return (
-    <$CompanyItem threshold={carbonBalance(id)} index={index}>
+    <$CompanyItem threshold={carbonBalance(id)} index={index} onClick={stepHandler}>
       <header>
         <icon>
           <SiAwsorganizations />
         </icon>
-        <name>{name} {location.country.name}</name>
+        <name>
+          {name} {location.country.name}
+        </name>
       </header>
       <container>
         <areas>{areasCount(id)}</areas>
         <location>
-        {street_number} {street} Str. {apartment_number !== null && "Apt. " + apartment_number}
-        <br />
-        {location.city}, {postal_code}
-      </location>
+          {street_number} {street} Str.{" "}
+          {apartment_number !== null && "Apt. " + apartment_number}
+          <br />
+          {location.city}, {postal_code}
+        </location>
       </container>
 
-      <carbon> 
+      <carbon>
         <div>{carbon_limit}</div>
         <div>{currentUsage}</div>
         <div>{carbon_limit - currentUsage}</div>
