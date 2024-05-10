@@ -52,7 +52,7 @@ export default function CompanyItem({ company, currentUsage, index }) {
         <$Icon $threshold={carbonBalance(id)}>
           <SiAwsorganizations />
         </$Icon>
-        <$Title>
+        <$Title $threshold={carbonBalance(id)}>
           {name} {location.country.name}
         </$Title>
       </$Head>

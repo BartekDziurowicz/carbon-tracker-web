@@ -24,8 +24,12 @@ function colorHandler(threshold) {
   }
 }
 
-function colorHandlerBlackWhite(threshold) {
+function colorHandlerBg(threshold) {
   return threshold === 0 ? appblack : appwhite;
+}
+
+function colorHandlerFe(threshold) {
+  return threshold !== 0 ? appblack : appwhite;
 }
 
 function colorHandlerContent(threshold) {
@@ -46,7 +50,7 @@ export const $CompanyItem = styled.div`
   min-width: 200px;
   padding: 10px;
   cursor: pointer;
-  background-color: ${({ $threshold }) => colorHandlerBlackWhite($threshold)};
+  background-color: ${({ $threshold }) => colorHandlerBg($threshold)};
   box-shadow: 1px 2px 10px ${appgrey};
 
   &:hover {
@@ -72,7 +76,7 @@ export const $Icon = styled.div`
 `;
 
 export const $Title = styled.div`
-  color: ${({ $threshold }) => colorHandlerBlackWhite($threshold)};
+  color: ${({ $threshold }) => colorHandlerFe($threshold)};
   font-size: 18px;
   text-align: right;
 `;
@@ -110,7 +114,7 @@ export const $Carbon = styled.a`
   justify-content: space-around;
 
   & :first-child {
-    color: ${({ $threshold }) => colorHandlerBlackWhite($threshold)};
+    color: ${({ $threshold }) => colorHandlerFe($threshold)};
     font-size: 18px;
   }
 
