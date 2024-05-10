@@ -1,4 +1,5 @@
-import { styled } from "styled-components";
+import { styled } from 'styled-components';
+import { appgreydark, appgreen, appgreenlight, appgrey, appwhite } from '../../../utils/colors.styles.jsx';
 
 const TOP_VALUES = ["66px", "103px", "139px", "175px", "139px", "103px"];
 const RIGHT_VALUES = ["147px", "220px", "183px", "146px", "109px", "73px"];
@@ -9,10 +10,10 @@ export const $NavigationItem = styled.div`
   width: 48px;
   height: 48px;
   transform: rotate(45deg);
-  background: #15ae55;
+  background: ${appgreen};
   margin: 10px;
   cursor: pointer;
-  box-shadow: 1px 2px 10px #808080;
+  box-shadow: 1px 2px 10px ${appgrey};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,17 +25,17 @@ export const $NavigationItem = styled.div`
     hidden ? RIGHT_VALUES[0] : RIGHT_VALUES[position]};
 
   &:active {
-    box-shadow: 0px 1px 2.5px #292929;
+    box-shadow: 0px 1px 2.5px ${appgreydark};
     transition: 0.1s;
   }
 
   &:hover {
-    background: #6de39e;
+    background: ${appgreenlight};
   }
 `;
 
 export const $NavigationItemIcon = styled.div`
-  color: rgb(255, 255, 255);
+  color: ${appwhite};
   font-size: 35px;
 `;
 

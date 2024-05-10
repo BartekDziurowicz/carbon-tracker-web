@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
 export const NavigationContext = createContext({
-  selectedNavItem: "Metrics",
+  selectedNavItem: 0,
   selectNavItemHandler: () => {},
 });

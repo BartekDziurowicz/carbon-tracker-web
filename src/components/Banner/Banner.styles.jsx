@@ -1,10 +1,12 @@
 import { styled } from "styled-components";
+import { appwhite } from '../../utils/colors.styles.jsx';
 
 export const $Banner = styled.header`
-  position: absolute;
+  position: sticky;
+  top: 0;
   width: 100%;
   height: 100px;
-  background-color: #ffffff;
+  background-color: ${appwhite};
   box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.5);
 `;
 

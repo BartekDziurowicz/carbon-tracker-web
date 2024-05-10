@@ -1,4 +1,4 @@
-import $HeaderLogo from './Logo.styles.jsx'
+import $HeaderLogo from './Logo.styles.jsx';
 import logo from '../../../assets/carbon-tracker-logo.svg';
 
 export default function Logo() {
