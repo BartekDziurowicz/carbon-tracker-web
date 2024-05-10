@@ -46,15 +46,15 @@ export const $CompanyItem = styled.div`
   min-width: 200px;
   padding: 10px;
   cursor: pointer;
-  background-color: ${({ threshold }) => colorHandlerBlackWhite(threshold)};
+  background-color: ${({ $threshold }) => colorHandlerBlackWhite($threshold)};
   box-shadow: 1px 2px 10px ${appgrey};
 
   &:hover {
-    box-shadow: 1px 2px 10px ${({ threshold }) => colorHandler(threshold)};
-    transform: rotate(${({ index }) => (index % 2 === 0 ? "-1deg" : "1deg")});
+    box-shadow: 1px 2px 10px ${({ $threshold }) => colorHandler($threshold)};
+    transform: rotate(${({ $index }) => ($index % 2 === 0 ? "-1deg" : "1deg")});
 
   &:active {
-    box-shadow: 0px 1px 2.5px ${({ threshold }) => colorHandler(threshold)};
+    box-shadow: 0px 1px 2.5px ${({ $threshold }) => colorHandler($threshold)};
   }
 `;
 
@@ -66,13 +66,13 @@ export const $Head = styled.div`
 `;
 
 export const $Icon = styled.div`
-  color: ${({ threshold }) => colorHandlerContent(threshold)};
+  color: ${({ $threshold }) => colorHandlerContent($threshold)};
   font-size: 34px;
   text-align: left;
 `;
 
 export const $Title = styled.div`
-  color: ${({ threshold }) => colorHandlerBlackWhite(threshold)};
+  color: ${({ $threshold }) => colorHandlerBlackWhite($threshold)};
   font-size: 18px;
   text-align: right;
 `;
@@ -93,8 +93,8 @@ export const $Areas = styled.a`
     width: 34px;
     line-height: 33px;
     text-align: center;
-    border: 1px solid ${({ threshold }) => colorHandlerContent(threshold)};
-    color: ${({ threshold }) => colorHandlerContent(threshold)};
+    border: 1px solid ${({ $threshold }) => colorHandlerContent($threshold)};
+    color: ${({ $threshold }) => colorHandlerContent($threshold)};
   }
 `;
 
@@ -110,7 +110,7 @@ export const $Carbon = styled.a`
   justify-content: space-around;
 
   & :first-child {
-    color: ${({ threshold }) => colorHandlerBlackWhite(threshold)};
+    color: ${({ $threshold }) => colorHandlerBlackWhite($threshold)};
     font-size: 18px;
   }
 
@@ -119,6 +119,6 @@ export const $Carbon = styled.a`
   }
 
   & :nth-child(3) {
-    color: ${({ threshold }) => colorHandlerContent(threshold)};
+    color: ${({ $threshold }) => colorHandlerContent($threshold)};
   }
 `;

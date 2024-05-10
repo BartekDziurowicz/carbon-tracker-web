@@ -9,7 +9,7 @@ export default function NavigationItem({ name, position, hidden, children }) {
   const { selectNavItemHandler } = useContext(NavigationContext);
 
   return (
-    <$NavigationItem key={name} position={position} hidden={hidden} onClick={() => selectNavItemHandler(name)}>
+    <$NavigationItem key={name} $position={position} hidden={hidden} onClick={() => selectNavItemHandler(name)}>
       <$NavigationItemTooltip
         data-tooltip-id={"nav_item_tooltip_" + name}
         data-tooltip-content={name}

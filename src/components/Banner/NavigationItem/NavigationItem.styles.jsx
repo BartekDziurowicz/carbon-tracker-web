@@ -18,11 +18,11 @@ export const $NavigationItem = styled.div`
   justify-content: center;
   align-items: center;
   transition: 0.5s;
-  z-index: ${({ hidden, position }) => hidden ? Z_INDEX[0] : Z_INDEX[position]};
-  top: ${({ hidden, position }) =>
-    hidden ? TOP_VALUES[0] : TOP_VALUES[position]};
-  right: ${({ hidden, position }) =>
-    hidden ? RIGHT_VALUES[0] : RIGHT_VALUES[position]};
+  z-index: ${({ hidden, $position }) => hidden ? Z_INDEX[0] : Z_INDEX[$position]};
+  top: ${({ hidden, $position }) =>
+    hidden ? TOP_VALUES[0] : TOP_VALUES[$position]};
+  right: ${({ hidden, $position }) =>
+    hidden ? RIGHT_VALUES[0] : RIGHT_VALUES[$position]};
 
   &:active {
     box-shadow: 0px 1px 2.5px ${appgreydark};

@@ -44,21 +44,21 @@ export default function CompanyItem({ company, currentUsage, index }) {
 
   return (
     <$CompanyItem
-      threshold={carbonBalance(id)}
-      index={index}
+      $threshold={carbonBalance(id)}
+      $index={index}
       onClick={stepHandler}
     >
-      <$Head>
-        <$Icon threshold={carbonBalance(id)}>
+      <$Head >
+        <$Icon $threshold={carbonBalance(id)}>
           <SiAwsorganizations />
         </$Icon>
-        <$Title threshold={carbonBalance(id)}>
+        <$Title>
           {name} {location.country.name}
         </$Title>
       </$Head>
       <$Content>
         <$Areas
-          threshold={carbonBalance(id)}
+          $threshold={carbonBalance(id)}
           data-tooltip-id={"descendant_tooltip_" + index}
           data-tooltip-content={TOOLTIPS.areas}
           data-tooltip-delay-show={1000}
@@ -76,7 +76,7 @@ export default function CompanyItem({ company, currentUsage, index }) {
       </$Content>
 
       <$Carbon
-        threshold={carbonBalance(id)}
+        $threshold={carbonBalance(id)}
         data-tooltip-id={"carbon_tooltip_" + index}
         data-tooltip-content={TOOLTIPS.carbon}
         data-tooltip-delay-show={1000}
