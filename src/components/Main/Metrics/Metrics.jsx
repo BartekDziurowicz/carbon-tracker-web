@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MetricsArea from "./MetricsArea/MetricsArea.jsx";
 import MetricsStepper from "./MetricsStepper/MetricsStepper.jsx";
 import MetricsCompany from "./MetricsCompany/MetricsCompany.jsx";
 import $Metrics from "./Metrics.styles.jsx";
@@ -18,11 +19,28 @@ export default function Metrics() {
     stepHandler: stepHandler,
   };
 
+  function contentDispatcher() {
+    switch (currentStep) {
+      case 0:
+        return <MetricsCompany />;
+      case 1:
+        return <MetricsArea />;
+      case 2:
+        return <div>2 Tribes</div>;
+      case 3:
+        return <div>3 Teams</div>;
+      case 4:
+        return <div>4 Employees</div>;
+      default:
+        return <div>Something went wrong...</div>
+    }
+  }
+
   return (
     <MetricsContext.Provider value={ctxMetrics}>
       <$Metrics>
         <MetricsStepper />
-        <MetricsCompany />
+        {contentDispatcher()}
       </$Metrics>
     </MetricsContext.Provider>
   );
