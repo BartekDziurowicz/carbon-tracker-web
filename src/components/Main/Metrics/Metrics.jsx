@@ -21,7 +21,7 @@ export default function Metrics() {
   return (
     <MetricsContext.Provider value={ctxMetrics}>
       <$Metrics>
-        <MetricsStepper currentStep={currentStep} />
+        <MetricsStepper />
         <MetricsCompany />
       </$Metrics>
     </MetricsContext.Provider>
