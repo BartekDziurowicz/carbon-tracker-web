@@ -1,3 +1,9 @@
+0.14 (2024-05-??)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/4)
+* Refactor company item style by creting separate components and function
+* Add tooltips to company component
+
 0.13 (2024-05-10)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/3)

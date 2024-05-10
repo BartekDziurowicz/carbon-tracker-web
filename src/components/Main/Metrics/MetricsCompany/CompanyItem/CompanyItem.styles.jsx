@@ -9,159 +9,116 @@ import {
   appwhite,
 } from "../../../../../utils/colors.styles.jsx";
 
+function colorHandler(threshold) {
+  switch (threshold) {
+    case 0:
+      return appblack;
+    case 1:
+      return appred;
+    case 2:
+      return apporange;
+    case 3:
+      return appgreen;
+    default:
+      return appblue;
+  }
+}
+
+function colorHandlerBlackWhite(threshold) {
+  return threshold === 0 ? appblack : appwhite;
+}
+
+function colorHandlerContent(threshold) {
+  switch (threshold) {
+    case 0:
+    case 1:
+      return appred;
+    case 2:
+      return apporange;
+    case 3:
+      return appgreen;
+    default:
+      return appblue;
+  }
+}
+
 export const $CompanyItem = styled.div`
   min-width: 200px;
   padding: 10px;
   cursor: pointer;
-  background-color: ${({ threshold }) =>
-    threshold === 0 ? appblack : appwhite};
+  background-color: ${({ threshold }) => colorHandlerBlackWhite(threshold)};
   box-shadow: 1px 2px 10px ${appgrey};
 
-  & header {
-    display: flex;
-    direction: row-direction;
-    justify-content: space-between;
-    gap: 20px;
-  }
-
-  & icon {
-    color: ${({ threshold }) => {
-      switch (threshold) {
-        case 0:
-        case 1:
-          return appred;
-        case 2:
-          return apporange;
-        case 3:
-          return appgreen;
-        default:
-          return appblue;
-      }
-    }};
-    font-size: 34px;
-    text-align: left;
-  }
-
-  & name {
-    color: ${({ threshold }) => (threshold !== 0 ? appblack : appwhite)};
-    font-size: 18px;
-    text-align: right;
-  }
-
-  & container {
-    display: flex;
-    direction: row-direction;
-    justify-content: space-between;
-    gap: 20px;
-    margin: 10px 0;
-  }
-
-  & areas {
-      border: 1px solid ${({ threshold }) => {
-        switch (threshold) {
-          case 0:
-          case 1:
-            return appred;
-          case 2:
-            return apporange;
-          case 3:
-            return appgreen;
-          default:
-            return appblue;
-        }
-      }};
-      border-radius: 50%;
-      height: 34px;
-      width: 34px;
-      line-height: 33px;
-      text-align: center;
-      color: ${({ threshold }) => {
-        switch (threshold) {
-          case 0:
-          case 1:
-            return appred;
-          case 2:
-            return apporange;
-          case 3:
-            return appgreen;
-          default:
-            return appblue;
-        }
-      }};
-  }
-
-  & location {
-    color: ${appgrey};
-    font-size: 12px;    
-    text-align: right;
-  }
-
-  & carbon {
-    display: flex;
-    direction: row-direction;
-    justify-content: space-around;
-  }
-
-  & carbon :first-child {
-    color: ${({ threshold }) => (threshold !== 0 ? appblack : appwhite)};
-    font-size: 18px;
-  }
-
-  & carbon :nth-child(2) {
-    color: ${appgrey};
-  }
-
-  & carbon :nth-child(3) {
-    color: ${({ threshold }) => {
-      switch (threshold) {
-        case 0:
-        case 1:
-          return appred;
-        case 2:
-          return apporange;
-        case 3:
-          return appgreen;
-        default:
-          return appblue;
-      }
-    }};
-  }
-
   &:hover {
-    box-shadow: 1px 2px 10px ${({ threshold }) => {
-      switch (threshold) {
-        case 0:
-          return appblack;
-        case 1:
-          return appred;
-        case 2:
-          return apporange;
-        case 3:
-          return appgreen;
-        default:
-          return appblue;
-      }
-    }};
+    box-shadow: 1px 2px 10px ${({ threshold }) => colorHandler(threshold)};
     transform: rotate(${({ index }) => (index % 2 === 0 ? "-1deg" : "1deg")});
 
   &:active {
-    box-shadow: 0px 1px 2.5px ${({ threshold }) => {
-      switch (threshold) {
-        case 0:
-          return appblack;
-        case 1:
-          return appred;
-        case 2:
-          return apporange;
-        case 3:
-          return appgreen;
-        default:
-          return appblue;
-      }
-    }};
+    box-shadow: 0px 1px 2.5px ${({ threshold }) => colorHandler(threshold)};
+  }
+`;
+
+export const $Head = styled.div`
+  display: flex;
+  direction: row-direction;
+  justify-content: space-between;
+  gap: 20px;
+`;
+
+export const $Icon = styled.div`
+  color: ${({ threshold }) => colorHandlerContent(threshold)};
+  font-size: 34px;
+  text-align: left;
+`;
+
+export const $Title = styled.div`
+  color: ${({ threshold }) => colorHandlerBlackWhite(threshold)};
+  font-size: 18px;
+  text-align: right;
+`;
+
+export const $Content = styled.div`
+  display: flex;
+  direction: row-direction;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 10px 0;
+`;
+
+export const $Areas = styled.a`
+  & p {
+    margin: 0;
+    border-radius: 50%;
+    height: 34px;
+    width: 34px;
+    line-height: 33px;
+    text-align: center;
+    border: 1px solid ${({ threshold }) => colorHandlerContent(threshold)};
+    color: ${({ threshold }) => colorHandlerContent(threshold)};
+  }
+`;
+
+export const $Location = styled.div`
+  color: ${appgrey};
+  font-size: 12px;
+  text-align: right;
+`;
+
+export const $Carbon = styled.a`
+  display: flex;
+  direction: row-direction;
+  justify-content: space-around;
+
+  & :first-child {
+    color: ${({ threshold }) => colorHandlerBlackWhite(threshold)};
+    font-size: 18px;
   }
 
-  // &:active icon {
-  //   color: ${apporange};
-  // }
+  & :nth-child(2) {
+    color: ${appgrey};
+  }
+
+  & :nth-child(3) {
+    color: ${({ threshold }) => colorHandlerContent(threshold)};
+  }
 `;
