@@ -1,5 +1,6 @@
 import { useState } from "react";
 import MetricsArea from "./MetricsArea/MetricsArea.jsx";
+import MetricsContent from "./MetricsContent/MetricsContent.jsx";
 import MetricsStepper from "./MetricsStepper/MetricsStepper.jsx";
 import MetricsCompany from "./MetricsCompany/MetricsCompany.jsx";
 import $Metrics from "./Metrics.styles.jsx";
@@ -22,7 +23,7 @@ export default function Metrics() {
   function contentDispatcher() {
     switch (currentStep) {
       case 0:
-        return <MetricsCompany />;
+        return <MetricsContent />;
       case 1:
         return <MetricsArea />;
       case 2:
