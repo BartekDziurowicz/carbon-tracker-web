@@ -1,38 +1,44 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Tooltip } from "react-tooltip";
-import { SiAwsorganizations } from "react-icons/si";
 import {
   $Carbon,
   $Content,
   $Descendants,
   $Head,
   $Icon,
-  $Location,
+  $Info,
   $MetricsItem,
   $Title,
 } from "./MetricsItem.styles.jsx";
-import { MetricsContext } from "../../../../../store/metrics-context.jsx";
+import { MetricsContext, STEPS } from "../../../../../store/metrics-context.jsx";
 
 const TOOLTIPS = {
-  descendants: "Number of Descendants", //descendant zalezny od rodzaju potomka, zmienna
   carbon: "Limit, current usage and balance of Carbon in kg",
 };
 
-export default function MetricsItem({ object, currentUsage, index }) {
-  const { stepHandler } = useContext(MetricsContext);
+function descendantTooltipHandler(currentStep, role) {
+  switch (currentStep) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      return STEPS[currentStep+1].stepName + "s";
+    case 4:
+      return role;
+  }
+}
 
-  //zależne od typu obiektu. moze props: type ? i useReducer w zaleznosci co ma zwrócic -> dla comany co innego niz area/tribe/team/employee
+export default function MetricsItem({ metric, index }) {
+  const { currentStep, stepHandler } = useContext(MetricsContext);
+  const [currentUsage, setCurrentUsage] = useState(0);
 
-  const {
-    id,
-    name,
-    postal_code,
-    street,
-    street_number,
-    apartment_number,
-    carbon_limit,
-    location,
-  } = object;
+  const { id, name, carbon_limit } = metric;
+
+  useEffect(() => {
+    // To DO strzal do bazy po current usage dla company/tribe etc
+    const usage = 90;
+    setCurrentUsage(usage);
+  }, []);
 
   function descendantsCount(id) {
     // w zaleznosci co ma zwrocic czy areas, tribes... inne dla employee
@@ -54,6 +60,77 @@ export default function MetricsItem({ object, currentUsage, index }) {
     return threshold;
   }
 
+  function infoHandler() {
+    switch (currentStep) {
+      case 0:
+        const {
+          postal_code,
+          street,
+          street_number,
+          apartment_number,
+          location,
+        } = metric;
+        return (
+          <$Info>
+            {location.country.name}
+            <br />
+            {street_number} {street} Str.{" "}
+            {apartment_number !== null && "Apt. " + apartment_number}
+            <br />
+            {location.city}, {postal_code}
+          </$Info>
+        );
+      case 1:
+        return (
+          <$Info>
+            {metric.company ? (
+              <>
+                {metric.company.name} <br />
+              </>
+            ) : (
+              "NOT FOUND"
+            )}
+          </$Info>
+        );
+      case 2:
+        return (
+          <$Info>
+            {metric.area ? (
+              <>
+                {metric.area.company.name} - {metric.area.name}
+              </>
+            ) : (
+              "NOT FOUND"
+            )}
+          </$Info>
+        );
+      case 3:
+        return (
+          <$Info>
+            {metric.tribe ? (
+              <>
+                {metric.tribe.area.company.name} - {metric.tribe.area.name} - {metric.tribe.name}                
+              </>
+            ) : (
+              "NOT FOUND"
+            )}
+          </$Info>
+        );
+      case 4:
+        return (
+          <$Info>
+            {metric.team ? (
+              <>
+                {metric.team.tribe.area.company.name} - {metric.team.tribe.area.name} - {metric.team.tribe.name} - {metric.team.name}                
+              </>
+            ) : (
+              "NOT FOUND"
+            )}
+          </$Info>
+        );
+    }
+  }
+
   return (
     <$MetricsItem
       $threshold={carbonBalance(id)}
@@ -61,30 +138,21 @@ export default function MetricsItem({ object, currentUsage, index }) {
       onClick={stepHandler}
     >
       <$Head>
-        <$Icon $threshold={carbonBalance(id)}>
-          <SiAwsorganizations />
-        </$Icon>
-        <$Title $threshold={carbonBalance(id)}>
-          {name} {location.country.name}
-        </$Title>
+        <$Icon $threshold={carbonBalance(id)}>{STEPS[currentStep].icon}</$Icon>
+        <$Title $threshold={carbonBalance(id)}>{name} {metric.surname && metric.surname}</$Title>
       </$Head>
       <$Content>
         <$Descendants
           $threshold={carbonBalance(id)}
           data-tooltip-id={"descendant_tooltip_" + index}
-          data-tooltip-content={TOOLTIPS.descendants}
+          data-tooltip-content={descendantTooltipHandler(currentStep, metric.role && metric.role)}
           data-tooltip-delay-show={1000}
           data-tooltip-place={"left"}
         >
-          <p>{descendantsCount(id)}</p>7
+          <p>{currentStep < 4 ? descendantsCount(id) : metric.role && metric.role.charAt(0)}</p>
           <Tooltip id={"descendant_tooltip_" + index} />
         </$Descendants>
-        <$Location>
-          {street_number} {street} Str.{" "}
-          {apartment_number !== null && "Apt. " + apartment_number}
-          <br />
-          {location.city}, {postal_code}
-        </$Location>
+        {infoHandler()}
       </$Content>
 
       <$Carbon

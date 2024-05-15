@@ -48,7 +48,7 @@ function colorHandlerFe(threshold) {
 
 export const $MetricsItem = styled.div`
   min-width: 200px;
-  max-width: 300px;
+  max-width: 250px;
   padding: 10px;
   cursor: pointer;
   background-color: ${({ $threshold }) => colorHandlerBg($threshold)};
@@ -103,7 +103,7 @@ export const $Descendants = styled.a`
   }
 `;
 
-export const $Location = styled.div`
+export const $Info = styled.div`
   color: ${appgrey};
   font-size: 12px;
   text-align: right;

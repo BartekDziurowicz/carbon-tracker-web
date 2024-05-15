@@ -9,7 +9,7 @@ export default function MetricsStepper() {
   return (
     <$MetricsStepper>
       {STEPS.map((step, index) => (
-        <Step key={index} stepName={step.id} step={currentStep} index={index}>
+        <Step key={index} stepName={step.stepName} step={currentStep} index={index}>
           {step.icon}
         </Step>
       ))}
