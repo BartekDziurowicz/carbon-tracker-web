@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-export const $MetricsArea = styled.div`
+export const $MetricsContent = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -9,3 +9,5 @@ export const $MetricsArea = styled.div`
   row-gap: 20px;
   column-gap: 20px;
 `;
+
+export default $MetricsContent;

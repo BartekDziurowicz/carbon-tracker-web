@@ -1,3 +1,8 @@
+0.15 (2024-05-15)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/5)
+* Refactor application and make metrics stepper items generic
+
 0.14 (2024-05-10)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/4)
