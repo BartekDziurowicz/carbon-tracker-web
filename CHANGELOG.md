@@ -1,3 +1,8 @@
+0.16 (2024-05-??)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/6)
+* Simplify data from server, all objects are not needed
+
 0.15 (2024-05-15)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/5)

@@ -6,14 +6,18 @@ import {
   $Descendants,
   $Head,
   $Icon,
-  $Info,
   $MetricsItem,
+  $Summary,
   $Title,
 } from "./MetricsItem.styles.jsx";
-import { MetricsContext, STEPS } from "../../../../../store/metrics-context.jsx";
+import {
+  MetricsContext,
+  STEPS,
+} from "../../../../../store/metrics-context.jsx";
 
 const TOOLTIPS = {
   carbon: "Limit, current usage and balance of Carbon in kg",
+  summary: "Carbon usage in %",
 };
 
 function descendantTooltipHandler(currentStep, role) {
@@ -22,7 +26,7 @@ function descendantTooltipHandler(currentStep, role) {
     case 1:
     case 2:
     case 3:
-      return STEPS[currentStep+1].stepName + "s";
+      return STEPS[currentStep + 1].stepName + "s";
     case 4:
       return role;
   }
@@ -68,20 +72,38 @@ export default function MetricsItem({ metric, index }) {
     >
       <$Head>
         <$Icon $threshold={carbonBalance(id)}>{STEPS[currentStep].icon}</$Icon>
-        <$Title $threshold={carbonBalance(id)}>{name} {metric.surname && metric.surname}</$Title>
+        <$Title $threshold={carbonBalance(id)}>
+          {name} {metric.surname && metric.surname}
+        </$Title>
       </$Head>
       <$Content>
         <$Descendants
           $threshold={carbonBalance(id)}
           data-tooltip-id={"descendant_tooltip_" + index}
-          data-tooltip-content={descendantTooltipHandler(currentStep, metric.role && metric.role)}
+          data-tooltip-content={descendantTooltipHandler(
+            currentStep,
+            metric.role && metric.role
+          )}
           data-tooltip-delay-show={1000}
           data-tooltip-place={"left"}
         >
-          <p>{currentStep < 4 ? descendantsCount(id) : metric.role && metric.role.charAt(0)}</p>
+          <p>
+            {currentStep < 4
+              ? descendantsCount(id)
+              : metric.role && metric.role.charAt(0)}
+          </p>
           <Tooltip id={"descendant_tooltip_" + index} />
         </$Descendants>
-        <$Info>120%</$Info>
+        <$Summary
+          $threshold={carbonBalance(id)}
+          data-tooltip-id={"summary_tooltip_" + index}
+          data-tooltip-content={TOOLTIPS.summary}
+          data-tooltip-delay-show={1000}
+          data-tooltip-place={"right"}
+        >
+          <p>120%</p>
+          <Tooltip id={"summary_tooltip_" + index} />
+        </$Summary>
       </$Content>
 
       <$Carbon
