@@ -2,104 +2,32 @@ export const Companies = [
   {
     id: 1,
     name: "ING Hubs Polska",
-    postal_code: "12-123",
-    street: "Zabrska",
-    street_number: 17,
-    apartment_number: 1,
     carbon_limit: 100.0,
-    location: {
-      id: 1,
-      city: "Katowice",
-      country: {
-        id: 3,
-        name: "Polska",
-      },
-    },
   },
   {
     id: 5,
     name: "ING Hubs Polska",
-    postal_code: "12-123",
-    street: "Zabrska",
-    street_number: 17,
-    apartment_number: 1,
     carbon_limit: 100.0,
-    location: {
-      id: 1,
-      city: "Katowice",
-      country: {
-        id: 3,
-        name: "Polska",
-      },
-    },
   },
   {
     id: 2,
     name: "ING Hubs Romania",
-    postal_code: "12-124",
-    street: "Kultury",
-    street_number: 232,
-    apartment_number: 32,
     carbon_limit: 95.0,
-    location: {
-      id: 3,
-      city: "Warszawa",
-      country: {
-        id: 4,
-        name: "Romania",
-      },
-    },
   },
   {
     id: 3,
     name: "ING Hubs Italy",
-    postal_code: "12-124",
-    street: "Zeusa",
-    street_number: 232,
-    apartment_number: 32,
     carbon_limit: 50.0,
-    location: {
-      id: 3,
-      city: "Roma",
-      country: {
-        id: 4,
-        name: "Italy",
-      },
-    },
   },
   {
     id: 6,
     name: "ING Hubs Polska",
-    postal_code: "12-123",
-    street: "Zabrska",
-    street_number: 17,
-    apartment_number: 1,
     carbon_limit: 100.0,
-    location: {
-      id: 1,
-      city: "Katowice",
-      country: {
-        id: 3,
-        name: "Polska",
-      },
-    },
   },
   {
     id: 7,
     name: "ING Hubs Philipines",
-    postal_code: "12-123",
-    street: "Zabrska",
-    street_number: 17,
-    apartment_number: 1,
     carbon_limit: 1.0,
-    location: {
-      id: 1,
-      city: "Katowice",
-      country: {
-        id: 3,
-        name: "Philipines",
-      },
-    },
   },
 ];
 
@@ -108,89 +36,21 @@ export const Areas = [
     id: 1,
     name: "Content and processing",
     carbon_limit: 60,
-    company: {
-      id: 1,
-      name: "ING Hubs Polska",
-      postal_code: "12-123",
-      street: "Zabrska",
-      street_number: 17,
-      apartment_number: 1,
-      carbon_limit: 100.0,
-      location: {
-        id: 1,
-        city: "Katowice",
-        country: {
-          id: 3,
-          name: "Polska",
-        },
-      },
-    },
   },
   {
     id: 2,
     name: "Content",
     carbon_limit: 42,
-    company: {
-      id: 5,
-      name: "ING Hubs Netherlands",
-      postal_code: "12-123",
-      street: "Zabrska",
-      street_number: 17,
-      apartment_number: 1,
-      carbon_limit: 100.0,
-      location: {
-        id: 1,
-        city: "Katowice",
-        country: {
-          id: 3,
-          name: "Polska",
-        },
-      },
-    },
   },
   {
     id: 3,
     name: "Processing",
     carbon_limit: 33.0,
-    company: {
-      id: 2,
-      name: "ING Hubs Philipines",
-      postal_code: "12-124",
-      street: "Kultury",
-      street_number: 232,
-      apartment_number: 32,
-      carbon_limit: 95.0,
-      location: {
-        id: 3,
-        city: "Warszawa",
-        country: {
-          id: 4,
-          name: "Romania",
-        },
-      },
-    },
   },
   {
     id: 4,
     name: "Interaction",
     carbon_limit: 10,
-    company: {
-      id: 3,
-      name: "ING Hubs Sydney",
-      postal_code: "12-124",
-      street: "Zeusa",
-      street_number: 232,
-      apartment_number: 32,
-      carbon_limit: 50.0,
-      location: {
-        id: 3,
-        city: "Roma",
-        country: {
-          id: 4,
-          name: "Italy",
-        },
-      },
-    },
   },
 ];
 
@@ -199,109 +59,21 @@ export const Tribes = [
     id: 1,
     name: "Lorem",
     carbon_limit: 60,
-    area: {
-      id: 1,
-      name: "Content and processing",
-      carbon_limit: 60,
-      company: {
-        id: 1,
-        name: "ING Hubs Philipines",
-        postal_code: "12-123",
-        street: "Zabrska",
-        street_number: 17,
-        apartment_number: 1,
-        carbon_limit: 100.0,
-        location: {
-          id: 1,
-          city: "Katowice",
-          country: {
-            id: 3,
-            name: "Polska",
-          },
-        },
-      },
-    },
   },
   {
     id: 2,
     name: "Ipsum",
     carbon_limit: 60,
-    area: {
-      id: 2,
-      name: "Content",
-      carbon_limit: 42,
-      company: {
-        id: 5,
-        name: "ING Hubs Polska",
-        postal_code: "12-123",
-        street: "Zabrska",
-        street_number: 17,
-        apartment_number: 1,
-        carbon_limit: 100.0,
-        location: {
-          id: 1,
-          city: "Katowice",
-          country: {
-            id: 3,
-            name: "Polska",
-          },
-        },
-      },
-    },
   },
   {
     id: 3,
     name: "Dolor",
     carbon_limit: 60,
-    area: {
-      id: 3,
-      name: "Processing",
-      carbon_limit: 33.0,
-      company: {
-        id: 2,
-        name: "ING Hubs Polska",
-        postal_code: "12-124",
-        street: "Kultury",
-        street_number: 232,
-        apartment_number: 32,
-        carbon_limit: 95.0,
-        location: {
-          id: 3,
-          city: "Warszawa",
-          country: {
-            id: 4,
-            name: "Romania",
-          },
-        },
-      },
-    },
   },
   {
     id: 4,
     name: "Sit Amet",
     carbon_limit: 60,
-    area: {
-      id: 4,
-      name: "Interaction",
-      carbon_limit: 10,
-      company: {
-        id: 3,
-        name: "ING Hubs Sydney",
-        postal_code: "12-124",
-        street: "Zeusa",
-        street_number: 232,
-        apartment_number: 32,
-        carbon_limit: 50.0,
-        location: {
-          id: 3,
-          city: "Roma",
-          country: {
-            id: 4,
-            name: "Italy",
-          },
-        },
-      },
-    },
   },
 ];
 
@@ -310,129 +82,21 @@ export const Teams = [
     id: 1,
     name: "LoremTeam",
     carbon_limit: 15,
-    tribe: {
-      id: 1,
-      name: "Lorem",
-      carbon_limit: 60,
-      area: {
-        id: 1,
-        name: "Content and processing",
-        carbon_limit: 60,
-        company: {
-          id: 1,
-          name: "ING Hubs Philipines",
-          postal_code: "12-123",
-          street: "Zabrska",
-          street_number: 17,
-          apartment_number: 1,
-          carbon_limit: 100.0,
-          location: {
-            id: 1,
-            city: "Katowice",
-            country: {
-              id: 3,
-              name: "Polska",
-            },
-          },
-        },
-      },
-    },
   },
   {
     id: 1,
     name: "IpsumTeam",
     carbon_limit: 15,
-    tribe: {
-      id: 2,
-      name: "Ipsum",
-      carbon_limit: 60,
-      area: {
-        id: 2,
-        name: "Content",
-        carbon_limit: 42,
-        company: {
-          id: 5,
-          name: "ING Hubs Polska",
-          postal_code: "12-123",
-          street: "Zabrska",
-          street_number: 17,
-          apartment_number: 1,
-          carbon_limit: 100.0,
-          location: {
-            id: 1,
-            city: "Katowice",
-            country: {
-              id: 3,
-              name: "Polska",
-            },
-          },
-        },
-      },
-    },
   },
   {
     id: 1,
     name: "DolorTeam",
     carbon_limit: 15,
-    tribe: {
-      id: 3,
-      name: "Dolor",
-      carbon_limit: 60,
-      area: {
-        id: 3,
-        name: "Processing",
-        carbon_limit: 33.0,
-        company: {
-          id: 2,
-          name: "ING Hubs Polska",
-          postal_code: "12-124",
-          street: "Kultury",
-          street_number: 232,
-          apartment_number: 32,
-          carbon_limit: 95.0,
-          location: {
-            id: 3,
-            city: "Warszawa",
-            country: {
-              id: 4,
-              name: "Romania",
-            },
-          },
-        },
-      },
-    },
   },
   {
     id: 1,
     name: "SitAmet Team",
     carbon_limit: 15,
-    tribe: {
-      id: 4,
-      name: "Sit Amet",
-      carbon_limit: 60,
-      area: {
-        id: 4,
-        name: "Interaction",
-        carbon_limit: 10,
-        company: {
-          id: 3,
-          name: "ING Hubs Sydney",
-          postal_code: "12-124",
-          street: "Zeusa",
-          street_number: 232,
-          apartment_number: 32,
-          carbon_limit: 50.0,
-          location: {
-            id: 3,
-            city: "Roma",
-            country: {
-              id: 4,
-              name: "Italy",
-            },
-          },
-        },
-      },
-    },
   },
 ];
 

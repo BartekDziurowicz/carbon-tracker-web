@@ -1,5 +1,6 @@
 import { useState } from "react";
 import MetricsContent from "./MetricsContent/MetricsContent.jsx";
+import MetricsEmployee from "./MetricsEmployee/MetricsEmployee.jsx";
 import MetricsStepper from "./MetricsStepper/MetricsStepper.jsx";
 import $Metrics from "./Metrics.styles.jsx";
 import { MetricsContext, STEPS } from "../../../store/metrics-context.jsx";
@@ -27,9 +28,9 @@ export default function Metrics() {
       case 4:
         return <MetricsContent />;
       case 5:
-        return <>Single employee stats and info</>
+        return <MetricsEmployee />
       default:
-        return <div>Something went wrong...</div>
+        return <>Index out of range</>
     }
   }
 

@@ -60,77 +60,6 @@ export default function MetricsItem({ metric, index }) {
     return threshold;
   }
 
-  function infoHandler() {
-    switch (currentStep) {
-      case 0:
-        const {
-          postal_code,
-          street,
-          street_number,
-          apartment_number,
-          location,
-        } = metric;
-        return (
-          <$Info>
-            {location.country.name}
-            <br />
-            {street_number} {street} Str.{" "}
-            {apartment_number !== null && "Apt. " + apartment_number}
-            <br />
-            {location.city}, {postal_code}
-          </$Info>
-        );
-      case 1:
-        return (
-          <$Info>
-            {metric.company ? (
-              <>
-                {metric.company.name} <br />
-              </>
-            ) : (
-              "NOT FOUND"
-            )}
-          </$Info>
-        );
-      case 2:
-        return (
-          <$Info>
-            {metric.area ? (
-              <>
-                {metric.area.company.name} - {metric.area.name}
-              </>
-            ) : (
-              "NOT FOUND"
-            )}
-          </$Info>
-        );
-      case 3:
-        return (
-          <$Info>
-            {metric.tribe ? (
-              <>
-                {metric.tribe.area.company.name} - {metric.tribe.area.name} - {metric.tribe.name}                
-              </>
-            ) : (
-              "NOT FOUND"
-            )}
-          </$Info>
-        );
-      case 4:
-        return (
-          <$Info>
-            {metric.team ? (
-              <>
-                {metric.team.tribe.area.company.name} - {metric.team.tribe.area.name} - {metric.team.tribe.name} - {metric.team.name}                
-              </>
-            ) : (
-              "NOT FOUND"
-            )}
-          </$Info>
-        );
-    }
-  }
-
   return (
     <$MetricsItem
       $threshold={carbonBalance(id)}
@@ -152,7 +81,7 @@ export default function MetricsItem({ metric, index }) {
           <p>{currentStep < 4 ? descendantsCount(id) : metric.role && metric.role.charAt(0)}</p>
           <Tooltip id={"descendant_tooltip_" + index} />
         </$Descendants>
-        {infoHandler()}
+        <$Info>120%</$Info>
       </$Content>
 
       <$Carbon

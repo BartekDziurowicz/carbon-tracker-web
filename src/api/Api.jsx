@@ -19,3 +19,7 @@ export function apiCallToGetTeams(tribeId) {
 export function apiCallToGetEmployees(teamId) {
   return Mock.Employees;
 }
+
+export function apiCallToGetEmployeeMetric(employeeId) {
+  return Mock.Employees[0];
+}
