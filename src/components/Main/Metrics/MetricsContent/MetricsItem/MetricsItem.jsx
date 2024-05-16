@@ -37,6 +37,8 @@ export default function MetricsItem({ metric, index }) {
   const [currentUsage, setCurrentUsage] = useState(0);
 
   const { id, name, carbon_limit } = metric;
+  const usage = ((currentUsage / carbon_limit) * 100).toFixed(2) + " %";
+  const threshold = carbonBalance(id);
 
   useEffect(() => {
     // To DO strzal do bazy po current usage dla company/tribe etc
@@ -54,10 +56,9 @@ export default function MetricsItem({ metric, index }) {
   function carbonBalance(id) {
     // TODO api call to get thresholds by id
     // meanwhile mock
+    // threshold powinienb byc gdzies wyzej i moze w kontekscie albo storage
     const returnedThresholds = [200, 100, 90, 0];
-    const balance = parseFloat(
-      ((currentUsage / carbon_limit) * 100).toFixed(2)
-    );
+    const balance = parseFloat(usage);
     const threshold = returnedThresholds.findIndex(
       (element) => balance > element
     );
@@ -66,19 +67,19 @@ export default function MetricsItem({ metric, index }) {
 
   return (
     <$MetricsItem
-      $threshold={carbonBalance(id)}
+      $threshold={threshold}
       $index={index}
       onClick={stepHandler}
     >
       <$Head>
-        <$Icon $threshold={carbonBalance(id)}>{STEPS[currentStep].icon}</$Icon>
-        <$Title $threshold={carbonBalance(id)}>
+        <$Icon $threshold={threshold}>{STEPS[currentStep].icon}</$Icon>
+        <$Title $threshold={threshold}>
           {name} {metric.surname && metric.surname}
         </$Title>
       </$Head>
       <$Content>
         <$Descendants
-          $threshold={carbonBalance(id)}
+          $threshold={threshold}
           data-tooltip-id={"descendant_tooltip_" + index}
           data-tooltip-content={descendantTooltipHandler(
             currentStep,
@@ -95,19 +96,19 @@ export default function MetricsItem({ metric, index }) {
           <Tooltip id={"descendant_tooltip_" + index} />
         </$Descendants>
         <$Summary
-          $threshold={carbonBalance(id)}
+          $threshold={threshold}
           data-tooltip-id={"summary_tooltip_" + index}
           data-tooltip-content={TOOLTIPS.summary}
           data-tooltip-delay-show={1000}
           data-tooltip-place={"right"}
         >
-          <p>120%</p>
+          <p>{usage}</p>
           <Tooltip id={"summary_tooltip_" + index} />
         </$Summary>
       </$Content>
 
       <$Carbon
-        $threshold={carbonBalance(id)}
+        $threshold={threshold}
         data-tooltip-id={"carbon_tooltip_" + index}
         data-tooltip-content={TOOLTIPS.carbon}
         data-tooltip-delay-show={1000}

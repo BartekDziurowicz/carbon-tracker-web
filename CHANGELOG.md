@@ -2,6 +2,8 @@
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/6)
 * Simplify data from server, all objects are not needed
+* Change object info to carbon sumamry with new style and tooltip
+* Add constants to handle threshold value and carbon usage value
 
 0.15 (2024-05-15)
 ===============
