@@ -4,6 +4,8 @@
 * Simplify data from server, all objects are not needed
 * Change object info to carbon sumamry with new style and tooltip
 * Add constants to handle threshold value and carbon usage value
+* Create mocked api calls 
+* Develop and style all employee info components
 
 0.15 (2024-05-15)
 ===============

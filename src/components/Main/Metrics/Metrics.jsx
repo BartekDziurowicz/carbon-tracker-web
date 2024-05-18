@@ -30,7 +30,7 @@ export default function Metrics() {
       case 5:
         return <MetricsEmployee />
       default:
-        return <>Index out of range</>
+        console.log("Index out of range.");
     }
   }
 
