@@ -5,9 +5,9 @@ export const appgreen = '#15AE55';
 export const appgreenlight = '#6de39e';
 export const appgrey = '#808080';
 export const appgreydark = '#292929';
+export const appgreylight = '#EAEAEA'
 export const apporange = '#F7941D';
 export const apppink = '#F6A7C9';
 export const appred = '#EE1C25';
 export const appwhite = '#FFFFFF';
 export const appyellow = '#FFDD16';
-//#f0ad4e

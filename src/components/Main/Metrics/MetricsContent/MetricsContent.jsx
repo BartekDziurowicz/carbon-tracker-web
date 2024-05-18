@@ -15,7 +15,6 @@ export default function MetricsContent() {
   return (
     <$MetricsContent>
       {availableMetrics.map((metric, index) => {
-        {console.log(index, metric)}
         return <MetricsItem key={index} metric={metric} index={index} />;
       })}
     </$MetricsContent>

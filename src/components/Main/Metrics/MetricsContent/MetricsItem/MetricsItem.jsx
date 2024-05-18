@@ -6,14 +6,18 @@ import {
   $Descendants,
   $Head,
   $Icon,
-  $Info,
   $MetricsItem,
+  $Summary,
   $Title,
 } from "./MetricsItem.styles.jsx";
-import { MetricsContext, STEPS } from "../../../../../store/metrics-context.jsx";
+import {
+  MetricsContext,
+  STEPS,
+} from "../../../../../store/metrics-context.jsx";
 
 const TOOLTIPS = {
   carbon: "Limit, current usage and balance of Carbon in kg",
+  summary: "Carbon usage in %",
 };
 
 function descendantTooltipHandler(currentStep, role) {
@@ -22,7 +26,7 @@ function descendantTooltipHandler(currentStep, role) {
     case 1:
     case 2:
     case 3:
-      return STEPS[currentStep+1].stepName + "s";
+      return STEPS[currentStep + 1].stepName + "s";
     case 4:
       return role;
   }
@@ -33,6 +37,8 @@ export default function MetricsItem({ metric, index }) {
   const [currentUsage, setCurrentUsage] = useState(0);
 
   const { id, name, carbon_limit } = metric;
+  const usage = ((currentUsage / carbon_limit) * 100).toFixed(2) + " %";
+  const threshold = carbonBalance(id);
 
   useEffect(() => {
     // To DO strzal do bazy po current usage dla company/tribe etc
@@ -50,113 +56,59 @@ export default function MetricsItem({ metric, index }) {
   function carbonBalance(id) {
     // TODO api call to get thresholds by id
     // meanwhile mock
+    // threshold powinienb byc gdzies wyzej i moze w kontekscie albo storage
     const returnedThresholds = [200, 100, 90, 0];
-    const balance = parseFloat(
-      ((currentUsage / carbon_limit) * 100).toFixed(2)
-    );
+    const balance = parseFloat(usage);
     const threshold = returnedThresholds.findIndex(
       (element) => balance > element
     );
     return threshold;
   }
 
-  function infoHandler() {
-    switch (currentStep) {
-      case 0:
-        const {
-          postal_code,
-          street,
-          street_number,
-          apartment_number,
-          location,
-        } = metric;
-        return (
-          <$Info>
-            {location.country.name}
-            <br />
-            {street_number} {street} Str.{" "}
-            {apartment_number !== null && "Apt. " + apartment_number}
-            <br />
-            {location.city}, {postal_code}
-          </$Info>
-        );
-      case 1:
-        return (
-          <$Info>
-            {metric.company ? (
-              <>
-                {metric.company.name} <br />
-              </>
-            ) : (
-              "NOT FOUND"
-            )}
-          </$Info>
-        );
-      case 2:
-        return (
-          <$Info>
-            {metric.area ? (
-              <>
-                {metric.area.company.name} - {metric.area.name}
-              </>
-            ) : (
-              "NOT FOUND"
-            )}
-          </$Info>
-        );
-      case 3:
-        return (
-          <$Info>
-            {metric.tribe ? (
-              <>
-                {metric.tribe.area.company.name} - {metric.tribe.area.name} - {metric.tribe.name}                
-              </>
-            ) : (
-              "NOT FOUND"
-            )}
-          </$Info>
-        );
-      case 4:
-        return (
-          <$Info>
-            {metric.team ? (
-              <>
-                {metric.team.tribe.area.company.name} - {metric.team.tribe.area.name} - {metric.team.tribe.name} - {metric.team.name}                
-              </>
-            ) : (
-              "NOT FOUND"
-            )}
-          </$Info>
-        );
-    }
-  }
-
   return (
     <$MetricsItem
-      $threshold={carbonBalance(id)}
+      $threshold={threshold}
       $index={index}
       onClick={stepHandler}
     >
       <$Head>
-        <$Icon $threshold={carbonBalance(id)}>{STEPS[currentStep].icon}</$Icon>
-        <$Title $threshold={carbonBalance(id)}>{name} {metric.surname && metric.surname}</$Title>
+        <$Icon $threshold={threshold}>{STEPS[currentStep].icon}</$Icon>
+        <$Title $threshold={threshold}>
+          {name} {metric.surname && metric.surname}
+        </$Title>
       </$Head>
       <$Content>
         <$Descendants
-          $threshold={carbonBalance(id)}
+          $threshold={threshold}
           data-tooltip-id={"descendant_tooltip_" + index}
-          data-tooltip-content={descendantTooltipHandler(currentStep, metric.role && metric.role)}
+          data-tooltip-content={descendantTooltipHandler(
+            currentStep,
+            metric.role && metric.role
+          )}
           data-tooltip-delay-show={1000}
           data-tooltip-place={"left"}
         >
-          <p>{currentStep < 4 ? descendantsCount(id) : metric.role && metric.role.charAt(0)}</p>
+          <p>
+            {currentStep < 4
+              ? descendantsCount(id)
+              : metric.role && metric.role.charAt(0)}
+          </p>
           <Tooltip id={"descendant_tooltip_" + index} />
         </$Descendants>
-        {infoHandler()}
+        <$Summary
+          $threshold={threshold}
+          data-tooltip-id={"summary_tooltip_" + index}
+          data-tooltip-content={TOOLTIPS.summary}
+          data-tooltip-delay-show={1000}
+          data-tooltip-place={"right"}
+        >
+          <p>{usage}</p>
+          <Tooltip id={"summary_tooltip_" + index} />
+        </$Summary>
       </$Content>
 
       <$Carbon
-        $threshold={carbonBalance(id)}
+        $threshold={threshold}
         data-tooltip-id={"carbon_tooltip_" + index}
         data-tooltip-content={TOOLTIPS.carbon}
         data-tooltip-delay-show={1000}

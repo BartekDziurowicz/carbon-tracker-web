@@ -26,6 +26,8 @@ export function apiCallForMetrics(step, id) {
       return Api.apiCallToGetTeams(id);
     case 4:
       return Api.apiCallToGetEmployees(id);
+    default:
+      console.log("Index out of range.");
   }
 }
 

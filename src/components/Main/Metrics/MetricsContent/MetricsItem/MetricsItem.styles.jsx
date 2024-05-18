@@ -103,10 +103,13 @@ export const $Descendants = styled.a`
   }
 `;
 
-export const $Info = styled.div`
-  color: ${appgrey};
-  font-size: 12px;
-  text-align: right;
+export const $Summary = styled.a`
+  & p {
+    margin: 0;
+    color: ${({ $threshold }) => colorHandlerContent($threshold)};
+    font-size: 24px;
+    text-align: right;
+  }
 `;
 
 export const $Carbon = styled.a`
