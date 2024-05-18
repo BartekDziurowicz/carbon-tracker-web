@@ -14,15 +14,34 @@ export default function MetricsEmployee() {
     setEmployeeMetric((_prevMetrics) => metrics);
   }, [employeeMetric]);
 
-  const { id, corporate_key, email, name, surname, role, carbon_limit, location, office_id, workstation_id } = employeeMetric;
-  const employee = { id, corporate_key, email, name, surname, role, carbon_limit, location };
+  const {
+    id,
+    corporate_key,
+    email,
+    name,
+    surname,
+    role,
+    carbon_limit,
+    location,
+    office_id,
+    workstation_id,
+  } = employeeMetric;
+  const employee = {
+    id,
+    corporate_key,
+    email,
+    name,
+    surname,
+    role,
+    carbon_limit,
+    location,
+  };
   const { team } = employeeMetric;
 
   return (
     <$MetricsEmployee>
       <Employee employee={employee} />
       <Office office={office_id} />
-      <Team team={team} />
       <Workstation workstation={workstation_id} />
     </$MetricsEmployee>
   );

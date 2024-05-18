@@ -117,38 +117,7 @@ export const Employees = [
         name: "Poland",
       },
     },
-    team: {
-      id: 1,
-      name: "GDMSSync",
-      carbon_limit: 1.4,
-      tribe: {
-        id: 1,
-        name: "Content",
-        carbon_limit: 2.4,
-        area: {
-          id: 1,
-          name: "Interaction",
-          carbon_limit: 3.4,
-          company: {
-            id: 1,
-            name: "ING Hubs",
-            postal_code: "12-345",
-            street: "streetName",
-            street_number: 1,
-            apartment_number: 2,
-            carbon_limit: 5.4,
-            location: {
-              id: 1,
-              city: "Katowice",
-              country: {
-                id: 1,
-                name: "Poland",
-              },
-            },
-          },
-        },
-      },
-    },
+    team_id: 3,
     office_id: 1,
     workstation_id: 2,
   },
@@ -170,6 +139,39 @@ export const Office = {
     },
   },
 };
+
+export const Team = {
+  id: 1,
+  name: "GDMSSync",
+  carbon_limit: 1.4,
+  tribe: {
+    id: 1,
+    name: "Content",
+    carbon_limit: 2.4,
+    area: {
+      id: 1,
+      name: "Interaction",
+      carbon_limit: 3.4,
+      company: {
+        id: 1,
+        name: "ING Hubs",
+        postal_code: "12-345",
+        street: "streetName",
+        street_number: 1,
+        apartment_number: 2,
+        carbon_limit: 5.4,
+        location: {
+          id: 1,
+          city: "Katowice",
+          country: {
+            id: 1,
+            name: "Poland",
+          },
+        },
+      },
+    },
+  },
+}
 
 export const Workstation = {
   id: 1,

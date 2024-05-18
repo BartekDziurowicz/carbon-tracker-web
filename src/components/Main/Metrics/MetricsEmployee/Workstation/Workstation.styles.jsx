@@ -35,7 +35,7 @@ export const $Icon = styled.div`
 
 export const $Title = styled.div`
   color: ${appblue};
-  font-size: 20px;
+  font-size: 18px;
   text-align: right;
 `;
 
