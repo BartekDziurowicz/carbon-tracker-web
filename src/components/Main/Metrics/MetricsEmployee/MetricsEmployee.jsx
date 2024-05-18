@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
+import Carbon from "./Carbon/Carbon.jsx";
 import Employee from "./Employee/Employee.jsx";
 import Office from "./Office/Office.jsx";
-import Team from "./Team/Team.jsx";
 import Workstation from "./Workstation/Workstation.jsx";
 import { $MetricsEmployee } from "./MetricsEmployee.styles.jsx";
 import { apiCallToGetEmployeeMetric } from "../../../../api/Api.jsx";
@@ -27,13 +27,11 @@ export default function MetricsEmployee() {
     workstation_id,
   } = employeeMetric;
   const employee = {
-    id,
     corporate_key,
     email,
     name,
     surname,
     role,
-    carbon_limit,
     location,
   };
   const { team } = employeeMetric;
@@ -43,6 +41,7 @@ export default function MetricsEmployee() {
       <Employee employee={employee} />
       <Office office={office_id} />
       <Workstation workstation={workstation_id} />
+      <Carbon employeeId={id, carbon_limit} />
     </$MetricsEmployee>
   );
 }

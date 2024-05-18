@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CSSTransition } from "react-transition-group";
 import { FiArrowDownCircle, FiArrowRightCircle } from "react-icons/fi";
+import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowRight } from "react-icons/md";
 import {
   $Children,
   $Dropdown,
@@ -9,7 +10,7 @@ import {
   $Title,
 } from "../Dropdown/Dropdown.styles.jsx";
 
-export default function Dropdown({ title, children }) {
+export default function Dropdown({ title, details, children }) {
   const [isOpen, setIsOpen] = useState(false);
 
   function toggleDropdown() {
@@ -17,9 +18,18 @@ export default function Dropdown({ title, children }) {
   }
 
   return (
-    <$Dropdown>
+    <$Dropdown $details={details}>
       <$Head onClick={toggleDropdown}>
-        <$Icon>{isOpen ? <FiArrowDownCircle /> : <FiArrowRightCircle />}</$Icon>
+        {details ? (
+          <$Icon>
+            {isOpen ? <MdOutlineKeyboardArrowDown /> : <MdOutlineKeyboardArrowRight />}
+          </$Icon>
+        ) : (
+          <$Icon>
+            {isOpen ? <FiArrowDownCircle /> : <FiArrowRightCircle />}
+          </$Icon>
+        )}
+        {/* <$Icon>{isOpen ? <FiArrowDownCircle /> : <FiArrowRightCircle />}</$Icon> */}
         <$Title>{title}</$Title>
       </$Head>
       <CSSTransition
