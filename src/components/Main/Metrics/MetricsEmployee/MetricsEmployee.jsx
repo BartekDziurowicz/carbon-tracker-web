@@ -41,7 +41,7 @@ export default function MetricsEmployee() {
       <Employee employee={employee} />
       <Office office={office_id} />
       <Workstation workstation={workstation_id} />
-      <Carbon employeeId={id, carbon_limit} />
+      <Carbon employeeId={id} carbonLimit={carbon_limit}/>
     </$MetricsEmployee>
   );
 }

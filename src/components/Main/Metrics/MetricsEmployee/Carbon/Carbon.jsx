@@ -13,7 +13,7 @@ import {
 
 const TITLE = "Carbon footprint";
 
-export default function Carbon({ employeId, carbon_limit }) {
+export default function Carbon({ employeId, carbonLimit }) {
 
   const [carbonUsage, setCarbonUsage] = useState();
 
