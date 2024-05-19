@@ -14,16 +14,29 @@ import {
 const TITLE = "Carbon footprint";
 
 export default function Carbon({ employeId, carbonLimit }) {
-
-  const [carbonUsage, setCarbonUsage] = useState();
+  const [carbonUsage, setCarbonUsage] = useState({});
 
   useEffect(() => {
-    // To DO strzal do bazy po current usage dla uzytkonika
-    const usage = apiCallToGetEmployeeCarbonFootprint(employeId);
-    setCarbonUsage(usage);
-  }, []);
+    if (carbonLimit !== undefined && carbonLimit !== null) {
+      // To DO strzal do bazy po current usage dla uzytkonika
+      let usage = apiCallToGetEmployeeCarbonFootprint(employeId);
+      const { usageKg, usageCpuKg, usageRamKg } = usage;
+      const usagePercent = ((usageKg / carbonLimit) * 100).toFixed(4);
+      const usageCpuPercent = ((usageCpuKg / usageKg) * 100).toFixed(4);
+      const usageRamPercent = ((usageRamKg / usageKg) * 100).toFixed(4);
+      const balance = carbonLimit - usageKg;
 
-  // function to calculate usage
+      usage = {
+        ...usage,
+        usagePercent,
+        usageCpuPercent,
+        usageRamPercent,
+        balance,
+      };
+
+      setCarbonUsage(usage);
+    }
+  }, [carbonLimit]);
 
   return (
     <$Carbon>
@@ -36,47 +49,46 @@ export default function Carbon({ employeId, carbonLimit }) {
 
       <$Content>
         <div>Current usage [%]</div>
-        <div>90</div>
+        <div>{carbonUsage.usagePercent}</div>
       </$Content>
       <Dropdown details={true} title={"Details"}>
         <$Content>
           <div>Processor [%]</div>
-          <div>65</div>
+          <div>{carbonUsage.usageCpuPercent}</div>
         </$Content>
         <$Content>
           <div>RAM memory [%]</div>
-          <div>35</div>
+          <div>{carbonUsage.usageRamPercent}</div>
         </$Content>
       </Dropdown>
 
       <$Line />
       <$Content>
         <div>Current usage [kg]</div>
-        <div>50</div>
+        <div>{carbonUsage.usageKg}</div>
       </$Content>
       <Dropdown details={true} title={"Details"}>
         <$Content>
           <div>Processor [kg]</div>
-          <div>32.5</div>
+          <div>{carbonUsage.usageCpuKg}</div>
         </$Content>
         <$Content>
           <div>RAM memory [kg]</div>
-          <div>17.5</div>
+          <div>{carbonUsage.usageRamKg}</div>
         </$Content>
       </Dropdown>
 
       <$Line />
       <$Content>
         <div>Limit [kg]</div>
-        <div>100</div>
+        <div>{carbonLimit}</div>
       </$Content>
 
       <$Line />
       <$Content>
         <div>Bilance [kg]</div>
-        <div>50</div>
+        <div>{carbonUsage.balance}</div>
       </$Content>
-
     </$Carbon>
   );
 }

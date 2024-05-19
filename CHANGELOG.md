@@ -1,3 +1,8 @@
+0.17 (2024-05-??)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/7)
+* Create Carbon footprint column in employee info
+
 0.16 (2024-05-18)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/6)
