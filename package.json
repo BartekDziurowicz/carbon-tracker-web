@@ -12,6 +12,7 @@
     "react-scripts": "^5.0.1",
     "react-tooltip": "^5.26.4",
     "react-transition-group": "^4.4.5",
+    "recharts": "^2.12.7",
     "styled-components": "^6.1.9",
     "web-vitals": "^2.1.4"
   },
@@ -38,5 +39,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.24.5",
+    "@babel/core": "^7.24.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
+    "@babel/plugin-syntax-jsx": "^7.24.1",
+    "@babel/preset-env": "^7.24.5"
   }
 }

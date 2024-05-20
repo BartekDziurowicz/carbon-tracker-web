@@ -11,3 +11,8 @@ export const apppink = '#F6A7C9';
 export const appred = '#EE1C25';
 export const appwhite = '#FFFFFF';
 export const appyellow = '#FFDD16';
+
+export const chartgreen = "#82ca9d";
+export const chartblue = "#0088FE";
+export const chartorange = "#ffc658";
+export const chartviolet = "#8884d8"

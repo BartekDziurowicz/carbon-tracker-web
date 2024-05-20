@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import Carbon from "./Carbon/Carbon.jsx";
 import Employee from "./Employee/Employee.jsx";
 import Office from "./Office/Office.jsx";
+import BarChartComponent from "./BarChart/BarChart.jsx";
 import Workstation from "./Workstation/Workstation.jsx";
+import PieChartComponent from "./PieChart/PieChart.jsx";
 import { $MetricsEmployee } from "./MetricsEmployee.styles.jsx";
 import { apiCallToGetEmployeeMetric } from "../../../../api/Api.jsx";
 
@@ -42,6 +44,8 @@ export default function MetricsEmployee() {
       <Office office={office_id} />
       <Workstation workstation={workstation_id} />
       <Carbon employeeId={id} carbonLimit={carbon_limit}/>
+      <BarChartComponent />
+      <PieChartComponent />
     </$MetricsEmployee>
   );
 }
