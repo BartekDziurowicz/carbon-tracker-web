@@ -8,8 +8,8 @@ export const $MetricsEmployee = styled.div`
   grid-template-rows: 1fr 1fr;
   gap: 20px 20px;
   grid-template-areas:
-    "Employee Workstation Carbon"
-    "Office Workstation Carbon";
+    "Employee Workstation Carbon PieChart"
+    "Office Workstation Carbon BarChart";
 
   & :first-child {
     grid-area: Employee;
@@ -25,5 +25,13 @@ export const $MetricsEmployee = styled.div`
 
   & :nth-child(4) {
     grid-area: Carbon;
+  }
+
+  & :nth-child(5) {
+    grid-area: PieChart;
+  }
+
+  & :nth-child(6) {
+    grid-area: BarChart;
   }
 `;

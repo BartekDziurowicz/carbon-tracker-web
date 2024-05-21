@@ -1,8 +1,9 @@
 import { styled } from "styled-components";
-import { appblue } from "../../../../../utils/colors.styles.jsx";
+import { appblack, appblue } from "../../../../../utils/colors.styles.jsx";
 
 export const $Dropdown = styled.div`
   display: block;
+  color: ${({ $details }) => $details ? appblack : appblue};
 `;
 
 export const $Children = styled.div`
@@ -39,13 +40,13 @@ export const $Head = styled.div`
 `;
 
 export const $Icon = styled.div`
-  color: ${appblue};
+  // color: ${appblue};
   font-size: 26px;
   text-align: left;
 `;
 
 export const $Title = styled.div`
-  color: ${appblue};
+  // color: ${appblue};
   font-size: 16px;
   text-align: right;
 `;

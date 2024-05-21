@@ -1,3 +1,10 @@
+0.17 (2024-05-21)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/7)
+* Create carbon footprint column in employee info
+* Create current footprint bar chart in employee info
+* Create footprint by component pie chart in employee info
+
 0.16 (2024-05-18)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/6)

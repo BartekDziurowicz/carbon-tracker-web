@@ -31,3 +31,7 @@ export function apiCallToGetEmployeeOffice(officeId) {
 export function apiCallToGetEmployeeWorkstation(workstationId) {
   return Mock.Workstation;
 }
+
+export function apiCallToGetEmployeeCarbonFootprint(employeeId) {
+  return Mock.Carbon;
+}
