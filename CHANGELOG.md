@@ -1,4 +1,4 @@
-0.18 (2024-05-??)
+0.18 (2024-05-21)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/8)
 * Add clickable stepper and implement functionality for previosus steps
