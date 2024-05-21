@@ -19,8 +19,8 @@ export default function Carbon({ carbonFootprint, carbonLimit }) {
     if (carbonFootprint !== undefined && carbonFootprint !== null && carbonLimit !== undefined && carbonLimit !== null) {
       const { footprintKg, footprintCpuKg, footprintRamKg } = carbonFootprint;
       const footprintPercent = ((footprintKg / carbonLimit) * 100).toFixed(4);
-      const footprintCpuPercent = ((footprintCpuKg / footprintKg) * 100).toFixed(4);
-      const footprintRamPercent = ((footprintRamKg / footprintKg) * 100).toFixed(4);
+      const footprintCpuPercent = ((footprintCpuKg / footprintKg) * 100).toFixed(2);
+      const footprintRamPercent = ((footprintRamKg / footprintKg) * 100).toFixed(2);
       const balance = carbonLimit - footprintKg;
 
       const footprint = {
