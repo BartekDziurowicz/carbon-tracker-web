@@ -8,7 +8,7 @@ import {
   $PieChartComponent,
   $Title,
 } from "./PieChart.styles.jsx";
-import { chartgreen, chartblue } from "../../../../../utils/colors.styles.jsx";
+import { appwhite, chartgreen, chartblue } from "../../../../../utils/colors.styles.jsx";
 
 const TITLE = "Footprint by Component [%]";
 const COLORS = [chartgreen, chartblue];
@@ -31,7 +31,7 @@ const renderCustomizedLabel = ({
     <text
       x={x}
       y={y}
-      fill="white"
+      fill={appwhite}
       textAnchor={x > cx ? "start" : "end"}
       dominantBaseline="central"
     >
@@ -81,8 +81,8 @@ export default function PieChartComponent({ carbonFootprint }) {
             cy="50%"
             labelLine={false}
             label={renderCustomizedLabel}
-            outerRadius={80}
-            fill="#8884d8"
+            outerRadius={75}
+            fill={appwhite}
             dataKey="value"
           >
             {currentFootprint.map((entry, index) => (
