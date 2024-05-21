@@ -6,7 +6,14 @@ import $Metrics from "./Metrics.styles.jsx";
 import { MetricsContext, STEPS } from "../../../store/metrics-context.jsx";
 
 export default function Metrics() {
-  const [currentStep, setCurrentStep] = useState(0);
+  const [currentStep, setCurrentStep] = useState(() => {
+    let stepItemInfo = JSON.parse(sessionStorage.getItem("stepItemInfo"));
+    if (stepItemInfo === undefined || stepItemInfo === null) {      
+      return 0;
+    } else {
+      return stepItemInfo.length;
+    }
+  });
 
   function stepHandler(stepIndex) {
     if (stepIndex >=0 ) {

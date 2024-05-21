@@ -2,6 +2,7 @@
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/8)
 * Add clickable stepper and implement functionality for previosus steps
+* Value for step is set from session storage, page can be refreshed
 
 0.17 (2024-05-21)
 ===============
