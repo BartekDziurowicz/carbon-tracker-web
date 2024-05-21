@@ -7,6 +7,7 @@ import {
 } from "../../../../../utils/colors.styles.jsx";
 
 export const $Step = styled.div`
+  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,7 +18,8 @@ export const $Step = styled.div`
   user-select: none;
   position: relative;
   border-radius: 50%;
-  min-width: 50px;
+  min-width: 200px;
+  max-width: 200px;
 
   &:hover {
     color: ${({ step, $index }) => ($index < step ? appgreenlight : "")};
