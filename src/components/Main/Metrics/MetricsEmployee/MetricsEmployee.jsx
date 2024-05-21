@@ -49,7 +49,7 @@ export default function MetricsEmployee() {
       <Workstation workstation={workstation_id} />
       <Carbon employeeId={id} carbonFootprint={carbonFootprint} carbonLimit={carbon_limit} />
       <BarChartComponent carbonFootprint={carbonFootprint} carbonLimit={carbon_limit} />
-      <PieChartComponent />
+      <PieChartComponent carbonFootprint={carbonFootprint} />
     </$MetricsEmployee>
   );
 }

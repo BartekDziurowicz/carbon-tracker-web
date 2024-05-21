@@ -1,11 +1,5 @@
-import { useState } from "react";
-import {
-  Cell,
-  PieChart,
-  Pie,
-  Legend,
-  Tooltip,
-} from "recharts";
+import { useEffect, useState } from "react";
+import { Cell, PieChart, Pie, Legend, Tooltip } from "recharts";
 import { FaChartPie } from "react-icons/fa";
 import {
   $Content,
@@ -15,11 +9,6 @@ import {
   $Title,
 } from "./PieChart.styles.jsx";
 import { chartgreen, chartblue } from "../../../../../utils/colors.styles.jsx";
-
-const data = [
-  { name: "CPU", value: 35 },
-  { name: "RAM", value: 12 },
-];
 
 const TITLE = "Footprint by Component [%]";
 const COLORS = [chartgreen, chartblue];
@@ -51,35 +40,59 @@ const renderCustomizedLabel = ({
   );
 };
 
-export default function PieChartComponent() {
+export default function PieChartComponent({ carbonFootprint }) {
+  const [currentFootprint, setCurrentFootprint] = useState([
+    { name: "CPU", value: 0 },
+    { name: "RAM", value: 0 },
+  ]);
+
+  useEffect(() => {
+    if (carbonFootprint !== undefined && carbonFootprint !== null) {
+      setCurrentFootprint((_prevCarbonFootprint) => {
+        return [
+          {
+            name: "CPU",
+            value: carbonFootprint.footprintCpuKg,
+          },
+          {
+            name: "RAM",
+            value: carbonFootprint.footprintRamKg,
+          },
+        ];
+      });
+    }
+  }, [carbonFootprint]);
+
   return (
     <$PieChartComponent>
       <$Head>
-        <$Icon><FaChartPie /></$Icon>
+        <$Icon>
+          <FaChartPie />
+        </$Icon>
         <$Title>{TITLE}</$Title>
       </$Head>
       <$Content>
-          <PieChart width={200} height={200}>
-            <Tooltip />
-            <Legend />
-            <Pie
-              data={data}
-              cx="50%"
-              cy="50%"
-              labelLine={false}
-              label={renderCustomizedLabel}
-              outerRadius={80}
-              fill="#8884d8"
-              dataKey="value"
-            >
-              {data.map((entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={COLORS[index % COLORS.length]}
-                />
-              ))}
-            </Pie>
-          </PieChart>
+        <PieChart width={200} height={200}>
+          <Tooltip />
+          <Legend />
+          <Pie
+            data={currentFootprint}
+            cx="50%"
+            cy="50%"
+            labelLine={false}
+            label={renderCustomizedLabel}
+            outerRadius={80}
+            fill="#8884d8"
+            dataKey="value"
+          >
+            {currentFootprint.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={COLORS[index % COLORS.length]}
+              />
+            ))}
+          </Pie>
+        </PieChart>
       </$Content>
     </$PieChartComponent>
   );

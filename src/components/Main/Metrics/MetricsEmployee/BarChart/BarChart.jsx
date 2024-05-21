@@ -22,15 +22,6 @@ import {
   chartblue,
 } from "../../../../../utils/colors.styles.jsx";
 
-const carbon = [
-  {
-    name: "",
-    Limit: 0,
-    RAM: 0,
-    CPU: 0,
-  },
-];
-
 const TITLE = "Current footprint [kg]";
 
 export default function BarChartComponent({ carbonFootprint, carbonLimit }) {
