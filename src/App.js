@@ -10,8 +10,6 @@ function App() {
 
   function selectNavItemHandler(selectedItem) {
     setSelectedNavItem(() => selectedItem);
-    //temp
-    console.log(selectedNavItem, selectedItem);
   }
 
   const ctxNavigation = {

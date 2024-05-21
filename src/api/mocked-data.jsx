@@ -233,7 +233,7 @@ export const Workstation = {
 }
 
 export const Carbon = {
-  usageKg: 42,
-  usageCpuKg: 32,
-  usageRamKg: 10,
+  footprintKg: 2,
+  footprintCpuKg: 0.7,
+  footprintRamKg: 2.8,
 }

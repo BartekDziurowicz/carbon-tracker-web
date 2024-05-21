@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GiFootprint } from "react-icons/gi";
 import Dropdown from "../Dropdown/Dropdown.jsx";
-import { apiCallToGetEmployeeCarbonFootprint } from "../../../../../api/Api.jsx";
 import {
   $Carbon,
   $Content,
@@ -13,30 +12,28 @@ import {
 
 const TITLE = "Carbon footprint";
 
-export default function Carbon({ employeId, carbonLimit }) {
-  const [carbonUsage, setCarbonUsage] = useState({});
+export default function Carbon({ carbonFootprint, carbonLimit }) {
+  const [currentFootprint, setCurrentFootprint] = useState({});
 
   useEffect(() => {
-    if (carbonLimit !== undefined && carbonLimit !== null) {
-      // To DO strzal do bazy po current usage dla uzytkonika
-      let usage = apiCallToGetEmployeeCarbonFootprint(employeId);
-      const { usageKg, usageCpuKg, usageRamKg } = usage;
-      const usagePercent = ((usageKg / carbonLimit) * 100).toFixed(4);
-      const usageCpuPercent = ((usageCpuKg / usageKg) * 100).toFixed(4);
-      const usageRamPercent = ((usageRamKg / usageKg) * 100).toFixed(4);
-      const balance = carbonLimit - usageKg;
+    if (carbonFootprint !== undefined && carbonFootprint !== null && carbonLimit !== undefined && carbonLimit !== null) {
+      const { footprintKg, footprintCpuKg, footprintRamKg } = carbonFootprint;
+      const footprintPercent = ((footprintKg / carbonLimit) * 100).toFixed(4);
+      const footprintCpuPercent = ((footprintCpuKg / footprintKg) * 100).toFixed(4);
+      const footprintRamPercent = ((footprintRamKg / footprintKg) * 100).toFixed(4);
+      const balance = carbonLimit - footprintKg;
 
-      usage = {
-        ...usage,
-        usagePercent,
-        usageCpuPercent,
-        usageRamPercent,
+      const footprint = {
+        ...carbonFootprint,
+        footprintPercent,
+        footprintCpuPercent,
+        footprintRamPercent,
         balance,
       };
-
-      setCarbonUsage(usage);
+      
+      setCurrentFootprint(footprint);
     }
-  }, [carbonLimit]);
+  }, [carbonFootprint, carbonLimit]);
 
   return (
     <$Carbon>
@@ -49,32 +46,32 @@ export default function Carbon({ employeId, carbonLimit }) {
 
       <$Content>
         <div>Current usage [%]</div>
-        <div>{carbonUsage.usagePercent}</div>
+        <div>{currentFootprint.footprintPercent}</div>
       </$Content>
       <Dropdown details={true} title={"Details"}>
         <$Content>
           <div>Processor [%]</div>
-          <div>{carbonUsage.usageCpuPercent}</div>
+          <div>{currentFootprint.footprintCpuPercent}</div>
         </$Content>
         <$Content>
           <div>RAM memory [%]</div>
-          <div>{carbonUsage.usageRamPercent}</div>
+          <div>{currentFootprint.footprintRamPercent}</div>
         </$Content>
       </Dropdown>
 
       <$Line />
       <$Content>
         <div>Current usage [kg]</div>
-        <div>{carbonUsage.usageKg}</div>
+        <div>{currentFootprint.footprintKg}</div>
       </$Content>
       <Dropdown details={true} title={"Details"}>
         <$Content>
           <div>Processor [kg]</div>
-          <div>{carbonUsage.usageCpuKg}</div>
+          <div>{currentFootprint.footprintCpuKg}</div>
         </$Content>
         <$Content>
           <div>RAM memory [kg]</div>
-          <div>{carbonUsage.usageRamKg}</div>
+          <div>{currentFootprint.footprintRamKg}</div>
         </$Content>
       </Dropdown>
 
@@ -87,7 +84,7 @@ export default function Carbon({ employeId, carbonLimit }) {
       <$Line />
       <$Content>
         <div>Bilance [kg]</div>
-        <div>{carbonUsage.balance}</div>
+        <div>{currentFootprint.balance}</div>
       </$Content>
     </$Carbon>
   );

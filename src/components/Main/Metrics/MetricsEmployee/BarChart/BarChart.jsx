@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -24,41 +25,69 @@ import {
 const carbon = [
   {
     name: "",
-    Limit: 20,
-    RAM: 45,
-    CPU: 9,
+    Limit: 0,
+    RAM: 0,
+    CPU: 0,
   },
 ];
 
 const TITLE = "Current footprint [kg]";
 
-export default function BarChartComponent() {
+export default function BarChartComponent({ carbonFootprint, carbonLimit }) {
+  const [currentFootprint, setCurrentFootprint] = useState([{}]);
+
+  useEffect(() => {
+    if (
+      carbonFootprint !== undefined &&
+      carbonFootprint !== null &&
+      carbonLimit !== undefined &&
+      carbonLimit !== null
+    ) {
+      setCurrentFootprint((_prevCarbonFootprint) => {
+        return [{
+          name: "",
+          Limit: carbonLimit,
+          RAM: carbonFootprint.footprintRamKg,
+          CPU: carbonFootprint.footprintCpuKg,
+        }];
+      });
+    }
+  }, [carbonFootprint, carbonLimit]);
+
   return (
     <$BarChartComponent>
       <$Head>
-        <$Icon><FaChartBar /></$Icon>
+        <$Icon>
+          <FaChartBar />
+        </$Icon>
         <$Title>{TITLE}</$Title>
       </$Head>
       <$Content>
-        <BarChart
-          data={carbon}
-          width={300} height={200}
-          margin={{
-            top: 20,
-            right: 30,
-            left: -10,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="2 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="Limit" fill={appgrey} />
-          <Bar dataKey="CPU" stackId="a" fill={chartblue} />
-          <Bar dataKey="RAM" stackId="a" fill={chartgreen} />
-        </BarChart>
+        {currentFootprint !== undefined && currentFootprint !== null ?
+        (
+          <BarChart
+            data={currentFootprint}
+            width={300}
+            height={200}
+            margin={{
+              top: 20,
+              right: 30,
+              left: -10,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="2 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="Limit" fill={appgrey} />
+            <Bar dataKey="CPU" stackId="a" fill={chartblue} />
+            <Bar dataKey="RAM" stackId="a" fill={chartgreen} />
+          </BarChart>
+        ) : (
+          ""
+        )}
       </$Content>
     </$BarChartComponent>
   );

@@ -6,7 +6,10 @@ import BarChartComponent from "./BarChart/BarChart.jsx";
 import Workstation from "./Workstation/Workstation.jsx";
 import PieChartComponent from "./PieChart/PieChart.jsx";
 import { $MetricsEmployee } from "./MetricsEmployee.styles.jsx";
-import { apiCallToGetEmployeeMetric } from "../../../../api/Api.jsx";
+import {
+  apiCallToGetEmployeeMetric,
+  apiCallToGetEmployeeCarbonFootprint,
+} from "../../../../api/Api.jsx";
 
 export default function MetricsEmployee() {
   const [employeeMetric, setEmployeeMetric] = useState({});
@@ -15,6 +18,8 @@ export default function MetricsEmployee() {
     const metrics = apiCallToGetEmployeeMetric(0);
     setEmployeeMetric((_prevMetrics) => metrics);
   }, [employeeMetric]);
+
+  const carbonFootprint = apiCallToGetEmployeeCarbonFootprint(1);
 
   const {
     id,
@@ -36,15 +41,14 @@ export default function MetricsEmployee() {
     role,
     location,
   };
-  const { team } = employeeMetric;
 
   return (
     <$MetricsEmployee>
       <Employee employee={employee} />
       <Office office={office_id} />
       <Workstation workstation={workstation_id} />
-      <Carbon employeeId={id} carbonLimit={carbon_limit}/>
-      <BarChartComponent />
+      <Carbon employeeId={id} carbonFootprint={carbonFootprint} carbonLimit={carbon_limit} />
+      <BarChartComponent carbonFootprint={carbonFootprint} carbonLimit={carbon_limit} />
       <PieChartComponent />
     </$MetricsEmployee>
   );
