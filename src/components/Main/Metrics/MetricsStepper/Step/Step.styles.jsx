@@ -12,7 +12,8 @@ export const $Step = styled.div`
   color: ${({ step, $index }) =>
     $index < step ? appgreen : $index === step ? appblack : appgrey};
   font-size: 12px;
-  // cursor: pointer;
+  cursor: ${({ step, $index }) =>
+    $index < step ? "pointer" : ""};
   user-select: none;
   position: relative;
   border-radius: 50%;

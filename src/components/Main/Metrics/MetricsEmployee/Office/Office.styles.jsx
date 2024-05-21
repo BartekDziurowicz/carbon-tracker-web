@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import {
   appblack,
-  appblue,
+  appgreen,
   appgrey,
   appgreylight,
   appwhite,
@@ -28,13 +28,13 @@ export const $Head = styled.div`
 `;
 
 export const $Icon = styled.div`
-  color: ${appblue};
+  color: ${appgreen};
   font-size: 34px;
   text-align: left;
 `;
 
 export const $Title = styled.div`
-  color: ${appblue};
+  color: ${appgreen};
   font-size: 20px;
   text-align: right;
 `;

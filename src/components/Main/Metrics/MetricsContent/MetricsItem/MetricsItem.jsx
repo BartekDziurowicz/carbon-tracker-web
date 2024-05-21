@@ -32,7 +32,7 @@ function descendantTooltipHandler(currentStep, role) {
   }
 }
 
-export default function MetricsItem({ metric, index }) {
+export default function MetricsItem({ metric, index, stepInfoHandler }) {
   const { currentStep, stepHandler } = useContext(MetricsContext);
   const [currentUsage, setCurrentUsage] = useState(0);
 
@@ -58,6 +58,7 @@ export default function MetricsItem({ metric, index }) {
     // meanwhile mock
     // threshold powinienb byc gdzies wyzej i moze w kontekscie albo storage
     const returnedThresholds = [200, 100, 90, 0];
+    
     const balance = parseFloat(usage);
     const threshold = returnedThresholds.findIndex(
       (element) => balance > element
@@ -65,11 +66,16 @@ export default function MetricsItem({ metric, index }) {
     return threshold;
   }
 
+  function stepValueAndStepInfoHandler() {
+    stepInfoHandler(id, name);
+    stepHandler();
+  }
+
   return (
     <$MetricsItem
       $threshold={threshold}
       $index={index}
-      onClick={stepHandler}
+      onClick={stepValueAndStepInfoHandler}
     >
       <$Head>
         <$Icon $threshold={threshold}>{STEPS[currentStep].icon}</$Icon>

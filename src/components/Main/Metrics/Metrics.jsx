@@ -8,10 +8,14 @@ import { MetricsContext, STEPS } from "../../../store/metrics-context.jsx";
 export default function Metrics() {
   const [currentStep, setCurrentStep] = useState(0);
 
-  function stepHandler() {
-    setCurrentStep((prevStep) =>
-      prevStep === STEPS.length ? prevStep : prevStep + 1
-    );
+  function stepHandler(stepIndex) {
+    if (stepIndex >=0 ) {
+      setCurrentStep((_prevStep) => stepIndex);
+    } else {
+      setCurrentStep((_prevStep) =>
+        _prevStep === STEPS.length ? _prevStep : _prevStep + 1
+      );
+    }
   }
 
   const ctxMetrics = {
