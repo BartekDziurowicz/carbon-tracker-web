@@ -25,11 +25,13 @@ import {
 const TITLE = "Current footprint [kg]";
 
 export default function BarChartComponent({ carbonFootprint, carbonLimit }) {
+  console.log("<BarChart />");
   const [currentFootprint, setCurrentFootprint] = useState([
     { name: "", Limit: 0, RAM: 0, CPU: 0 },
   ]);
 
   useEffect(() => {
+    console.log("<BarChart useEffect/>");
     if (
       carbonFootprint !== undefined &&
       carbonFootprint !== null &&

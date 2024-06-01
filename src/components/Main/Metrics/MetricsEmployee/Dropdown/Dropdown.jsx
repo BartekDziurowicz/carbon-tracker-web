@@ -11,10 +11,11 @@ import {
 } from "../Dropdown/Dropdown.styles.jsx";
 
 export default function Dropdown({ title, details, children }) {
+  console.log("<Dropdown />");
   const [isOpen, setIsOpen] = useState(false);
 
   function toggleDropdown() {
-    setIsOpen((_prevIsOpen) => !isOpen);
+    setIsOpen((_prevIsOpen) => !_prevIsOpen);
   }
 
   return (
@@ -29,7 +30,6 @@ export default function Dropdown({ title, details, children }) {
             {isOpen ? <FiArrowDownCircle /> : <FiArrowRightCircle />}
           </$Icon>
         )}
-        {/* <$Icon>{isOpen ? <FiArrowDownCircle /> : <FiArrowRightCircle />}</$Icon> */}
         <$Title>{title}</$Title>
       </$Head>
       <CSSTransition

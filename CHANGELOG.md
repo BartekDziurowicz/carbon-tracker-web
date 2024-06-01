@@ -1,3 +1,8 @@
+0.19 (2024-05-??)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/9)
+* 
+
 0.18 (2024-05-21)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/8)

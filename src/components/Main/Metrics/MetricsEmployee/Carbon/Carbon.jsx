@@ -13,9 +13,11 @@ import {
 const TITLE = "Carbon footprint";
 
 export default function Carbon({ carbonFootprint, carbonLimit }) {
+  console.log("<Carbon />");
   const [currentFootprint, setCurrentFootprint] = useState({});
 
   useEffect(() => {
+    console.log("<Carbon useEffect/>");
     if (carbonFootprint !== undefined && carbonFootprint !== null && carbonLimit !== undefined && carbonLimit !== null) {
       const { footprintKg, footprintCpuKg, footprintRamKg } = carbonFootprint;
       const footprintPercent = ((footprintKg / carbonLimit) * 100).toFixed(4);

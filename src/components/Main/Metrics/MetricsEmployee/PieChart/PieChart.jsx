@@ -41,12 +41,14 @@ const renderCustomizedLabel = ({
 };
 
 export default function PieChartComponent({ carbonFootprint }) {
+  console.log("<PieChart />");
   const [currentFootprint, setCurrentFootprint] = useState([
     { name: "CPU", value: 0 },
     { name: "RAM", value: 0 },
   ]);
 
   useEffect(() => {
+    console.log("<PieChart useEffect/>");
     if (carbonFootprint !== undefined && carbonFootprint !== null) {
       setCurrentFootprint((_prevCarbonFootprint) => {
         return [

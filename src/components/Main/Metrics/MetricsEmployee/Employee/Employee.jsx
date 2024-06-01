@@ -9,6 +9,7 @@ import {
 } from "./Employee.styles.jsx";
 
 export default function Employee({ employee }) {
+  console.log("<Employee />");
   const {
     id,
     corporate_key,

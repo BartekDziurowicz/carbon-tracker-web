@@ -12,12 +12,14 @@ import {
 } from "./Workstation.styles.jsx";
 
 export default function Workstation({ workstation_id }) {
+  console.log("<Workstation />");
   const [employeeWorkstation, setEmployeeWorkstation] = useState({});
 
   useEffect(() => {
+    console.log("<Workstation useEffect/>");
     const workstation = apiCallToGetEmployeeWorkstation(workstation_id);
     setEmployeeWorkstation((_prevWorkstation) => workstation);
-  }, [employeeWorkstation]);
+  }, [workstation_id]);
 
   const { model, name, producer, system, processor, memories } = employeeWorkstation;
   let eproducer;

@@ -12,12 +12,14 @@ import {
 } from "../../../../api/Api.jsx";
 
 export default function MetricsEmployee() {
+  console.log("<MetricsEmployee />");
   const [employeeMetric, setEmployeeMetric] = useState({});
 
   useEffect(() => {
+    console.log("<MetricsEmployee useEffect/>");
     const metrics = apiCallToGetEmployeeMetric(0);
     setEmployeeMetric((_prevMetrics) => metrics);
-  }, [employeeMetric]);
+  }, []);
 
   const carbonFootprint = apiCallToGetEmployeeCarbonFootprint(1);
 

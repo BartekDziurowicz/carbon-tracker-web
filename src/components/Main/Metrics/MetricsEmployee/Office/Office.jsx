@@ -11,12 +11,14 @@ import {
 } from "./Office.styles.jsx";
 
 export default function Office({ office_id }) {
+  console.log("<Office />");
   const [employeeOffice, setEmployeeOffice] = useState({});
 
   useEffect(() => {
+    console.log("<Office useEffect/>");
     const office = apiCallToGetEmployeeOffice(office_id);
     setEmployeeOffice((_prevOffice) => office);
-  }, [employeeOffice]);
+  }, []);
 
   const { apartment_number, name, street, street_number, location } = employeeOffice;
   let ecity;
