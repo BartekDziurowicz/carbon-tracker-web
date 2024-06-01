@@ -11,7 +11,7 @@ import {
   $Workstation,
 } from "./Workstation.styles.jsx";
 
-function Workstation({ workstation_id }) {
+const Workstation = memo(function Workstation({ workstation_id }) {
   const [employeeWorkstation, setEmployeeWorkstation] = useState({});
 
   useEffect(() => {
@@ -19,7 +19,8 @@ function Workstation({ workstation_id }) {
     setEmployeeWorkstation((_prevWorkstation) => workstation);
   }, [workstation_id]);
 
-  const { model, name, producer, system, processor, memories } = employeeWorkstation;
+  const { model, name, producer, system, processor, memories } =
+    employeeWorkstation;
   let eproducer;
   if (producer) {
     eproducer = producer.name;
@@ -150,6 +151,6 @@ function Workstation({ workstation_id }) {
       </Dropdown>
     </$Workstation>
   );
-}
+});
 
-export default memo(Workstation);
+export default Workstation;

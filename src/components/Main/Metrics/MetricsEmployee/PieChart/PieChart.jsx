@@ -8,7 +8,11 @@ import {
   $PieChartComponent,
   $Title,
 } from "./PieChart.styles.jsx";
-import { appwhite, chartgreen, chartblue } from "../../../../../utils/colors.styles.jsx";
+import {
+  appwhite,
+  chartgreen,
+  chartblue,
+} from "../../../../../utils/colors.styles.jsx";
 
 const TITLE = "Footprint by Component [%]";
 const COLORS = [chartgreen, chartblue];
@@ -40,7 +44,7 @@ const renderCustomizedLabel = ({
   );
 };
 
-function PieChartComponent({ carbonFootprint }) {
+const PieChartComponent = memo(function PieChartComponent({ carbonFootprint }) {
   const [currentFootprint, setCurrentFootprint] = useState([
     { name: "CPU", value: 0 },
     { name: "RAM", value: 0 },
@@ -96,6 +100,6 @@ function PieChartComponent({ carbonFootprint }) {
       </$Content>
     </$PieChartComponent>
   );
-}
+});
 
-export default memo(PieChartComponent);
+export default PieChartComponent;

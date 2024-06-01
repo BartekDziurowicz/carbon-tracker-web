@@ -10,7 +10,7 @@ import {
   $Title,
 } from "./Office.styles.jsx";
 
-function Office({ office_id }) {
+const Office = memo(function Office({ office_id }) {
   const [employeeOffice, setEmployeeOffice] = useState({});
 
   useEffect(() => {
@@ -64,6 +64,6 @@ function Office({ office_id }) {
       </$Content>
     </$Office>
   );
-}
+});
 
-export default memo(Office);
+export default Office;

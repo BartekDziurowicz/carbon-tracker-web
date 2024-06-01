@@ -24,7 +24,7 @@ import {
 
 const TITLE = "Current footprint [kg]";
 
-function BarChartComponent({ carbonFootprint, carbonLimit }) {
+const BarChartComponent = memo(function BarChartComponent({ carbonFootprint, carbonLimit }) {
   const [currentFootprint, setCurrentFootprint] = useState([
     { name: "", Limit: 0, RAM: 0, CPU: 0 },
   ]);
@@ -81,6 +81,6 @@ function BarChartComponent({ carbonFootprint, carbonLimit }) {
       </$Content>
     </$BarChartComponent>
   );
-}
+});
 
-export default memo(BarChartComponent);
+export default BarChartComponent;

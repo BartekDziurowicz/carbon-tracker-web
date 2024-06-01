@@ -12,7 +12,7 @@ import {
 
 const TITLE = "Carbon footprint";
 
-function Carbon({ carbonFootprint, carbonLimit }) {
+const Carbon = memo(function Carbon({ carbonFootprint, carbonLimit }) {
   const [currentFootprint, setCurrentFootprint] = useState({});
 
   useEffect(() => {
@@ -88,6 +88,6 @@ function Carbon({ carbonFootprint, carbonLimit }) {
       </$Content>
     </$Carbon>
   );
-}
+});
 
-export default memo(Carbon);
+export default Carbon;

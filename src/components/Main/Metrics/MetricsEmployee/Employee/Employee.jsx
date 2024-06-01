@@ -9,7 +9,7 @@ import {
   $Title,
 } from "./Employee.styles.jsx";
 
-function Employee({ employee }) {
+const Employee = memo(function Employee({ employee }) {
   const {
     id,
     corporate_key,
@@ -67,6 +67,6 @@ function Employee({ employee }) {
       </$Content>
     </$Employee>
   );
-}
+});
 
-export default memo(Employee);
+export default Employee;

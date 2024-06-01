@@ -1,7 +1,7 @@
 0.19 (2024-05-??)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/9)
-* 
+* Optimialization using memo, useMemo and useCallback
 
 0.18 (2024-05-21)
 ===============
