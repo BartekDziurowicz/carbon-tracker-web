@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import Dropdown from "../Dropdown/Dropdown.jsx";
 import { HiOutlineComputerDesktop } from "react-icons/hi2";
 import { apiCallToGetEmployeeWorkstation } from "../../../../../api/Api.jsx";
@@ -11,12 +11,10 @@ import {
   $Workstation,
 } from "./Workstation.styles.jsx";
 
-export default function Workstation({ workstation_id }) {
-  console.log("<Workstation />");
+function Workstation({ workstation_id }) {
   const [employeeWorkstation, setEmployeeWorkstation] = useState({});
 
   useEffect(() => {
-    console.log("<Workstation useEffect/>");
     const workstation = apiCallToGetEmployeeWorkstation(workstation_id);
     setEmployeeWorkstation((_prevWorkstation) => workstation);
   }, [workstation_id]);
@@ -153,3 +151,5 @@ export default function Workstation({ workstation_id }) {
     </$Workstation>
   );
 }
+
+export default memo(Workstation);

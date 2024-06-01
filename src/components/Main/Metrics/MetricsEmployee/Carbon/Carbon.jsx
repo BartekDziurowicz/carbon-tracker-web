@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { GiFootprint } from "react-icons/gi";
 import Dropdown from "../Dropdown/Dropdown.jsx";
 import {
@@ -12,12 +12,10 @@ import {
 
 const TITLE = "Carbon footprint";
 
-export default function Carbon({ carbonFootprint, carbonLimit }) {
-  console.log("<Carbon />");
+function Carbon({ carbonFootprint, carbonLimit }) {
   const [currentFootprint, setCurrentFootprint] = useState({});
 
   useEffect(() => {
-    console.log("<Carbon useEffect/>");
     if (carbonFootprint !== undefined && carbonFootprint !== null && carbonLimit !== undefined && carbonLimit !== null) {
       const { footprintKg, footprintCpuKg, footprintRamKg } = carbonFootprint;
       const footprintPercent = ((footprintKg / carbonLimit) * 100).toFixed(4);
@@ -91,3 +89,5 @@ export default function Carbon({ carbonFootprint, carbonLimit }) {
     </$Carbon>
   );
 }
+
+export default memo(Carbon);

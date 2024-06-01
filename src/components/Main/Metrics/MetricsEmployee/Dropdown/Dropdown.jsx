@@ -11,7 +11,6 @@ import {
 } from "../Dropdown/Dropdown.styles.jsx";
 
 export default function Dropdown({ title, details, children }) {
-  console.log("<Dropdown />");
   const [isOpen, setIsOpen] = useState(false);
 
   function toggleDropdown() {

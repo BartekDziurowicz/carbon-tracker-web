@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { Cell, PieChart, Pie, Legend, Tooltip } from "recharts";
 import { FaChartPie } from "react-icons/fa";
 import {
@@ -40,15 +40,13 @@ const renderCustomizedLabel = ({
   );
 };
 
-export default function PieChartComponent({ carbonFootprint }) {
-  console.log("<PieChart />");
+function PieChartComponent({ carbonFootprint }) {
   const [currentFootprint, setCurrentFootprint] = useState([
     { name: "CPU", value: 0 },
     { name: "RAM", value: 0 },
   ]);
 
   useEffect(() => {
-    console.log("<PieChart useEffect/>");
     if (carbonFootprint !== undefined && carbonFootprint !== null) {
       setCurrentFootprint((_prevCarbonFootprint) => {
         return [
@@ -99,3 +97,5 @@ export default function PieChartComponent({ carbonFootprint }) {
     </$PieChartComponent>
   );
 }
+
+export default memo(PieChartComponent);

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -24,14 +24,12 @@ import {
 
 const TITLE = "Current footprint [kg]";
 
-export default function BarChartComponent({ carbonFootprint, carbonLimit }) {
-  console.log("<BarChart />");
+function BarChartComponent({ carbonFootprint, carbonLimit }) {
   const [currentFootprint, setCurrentFootprint] = useState([
     { name: "", Limit: 0, RAM: 0, CPU: 0 },
   ]);
 
   useEffect(() => {
-    console.log("<BarChart useEffect/>");
     if (
       carbonFootprint !== undefined &&
       carbonFootprint !== null &&
@@ -84,3 +82,5 @@ export default function BarChartComponent({ carbonFootprint, carbonLimit }) {
     </$BarChartComponent>
   );
 }
+
+export default memo(BarChartComponent);

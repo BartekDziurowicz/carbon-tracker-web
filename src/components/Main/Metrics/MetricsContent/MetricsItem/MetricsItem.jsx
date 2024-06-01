@@ -58,7 +58,7 @@ export default function MetricsItem({ metric, index, stepInfoHandler }) {
     // meanwhile mock
     // threshold powinienb byc gdzies wyzej i moze w kontekscie albo storage
     const returnedThresholds = [200, 100, 90, 0];
-    
+
     const balance = parseFloat(usage);
     const threshold = returnedThresholds.findIndex(
       (element) => balance > element
