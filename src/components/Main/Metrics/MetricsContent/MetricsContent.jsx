@@ -7,10 +7,19 @@ export default function MetricsContent() {
   const { currentStep } = useContext(MetricsContext);
   const [availableMetrics, setAvailableMetrics] = useState([]);
 
-  useEffect(() => {  
-    const metrics = apiCallForMetrics(currentStep, 0);
-    setAvailableMetrics((_prevMetrics) => metrics);
-  }, [currentStep])
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        await apiCallForMetrics(currentStep, 0).then(resData => {
+          setAvailableMetrics((_prevMetrics) => resData);
+        });        
+      } catch (error) {
+        //TODO
+      }
+    }
+
+    fetchData()
+  }, [currentStep]);
 
   const sessionStorageStepHandler = useCallback((itemId, itemName) => {
     let stepItemInfo = JSON.parse(sessionStorage.getItem("stepItemInfo"));

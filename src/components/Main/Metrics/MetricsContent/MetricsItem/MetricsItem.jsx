@@ -36,8 +36,8 @@ export default function MetricsItem({ metric, index, stepInfoHandler }) {
   const { currentStep, stepHandler, thresholds } = useContext(MetricsContext);
   const [currentUsage, setCurrentUsage] = useState(0);
 
-  const { id, name, carbon_limit } = metric;
-  const usage = ((currentUsage / carbon_limit) * 100).toFixed(2) + " %";
+  const { id, name, carbonLimit } = metric;
+  const usage = ((currentUsage / carbonLimit) * 100).toFixed(2) + " %";
   const threshold = carbonBalance();
 
   useEffect(() => {
@@ -115,9 +115,9 @@ export default function MetricsItem({ metric, index, stepInfoHandler }) {
         data-tooltip-delay-show={1000}
         data-tooltip-place={"bottom"}
       >
-        <div>{carbon_limit}</div>
+        <div>{carbonLimit}</div>
         <div>{currentUsage}</div>
-        <div>{carbon_limit - currentUsage}</div>
+        <div>{carbonLimit - currentUsage}</div>
         <Tooltip id={"carbon_tooltip_" + index} />
       </$Carbon>
     </$MetricsItem>

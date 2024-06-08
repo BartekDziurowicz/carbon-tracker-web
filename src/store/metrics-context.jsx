@@ -14,10 +14,10 @@ export const STEPS = [
   { stepName: "Employee", icon: <CiUser /> },
 ];
 
-export function apiCallForMetrics(step, id) {
+export async function apiCallForMetrics(step, id) {
   switch (step) {
     case 0:
-      return Api.apiCallToGetCompanies();
+      return await Api.apiCallToGetCompanies();
     case 1:
       return Api.apiCallToGetAreas(id);
     case 2:

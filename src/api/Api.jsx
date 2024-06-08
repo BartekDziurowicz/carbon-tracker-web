@@ -1,8 +1,6 @@
 import * as Mock from "./mocked-data.jsx";
 
-export function apiCallToGetCompanies() {
-  return Mock.Companies;
-}
+
 
 export function apiCallToGetAreas(companyId) {
   return Mock.Areas;
@@ -44,6 +42,16 @@ export async function apiCallToGetCarbonThresholds() {
     throw new Error("Failed to get carbon thresholds.");
   }
 
-  console.log(resData);
+  return resData;
+}
+
+export async function apiCallToGetCompanies() {
+  const response = await fetch('http://localhost:8080/company/companies');
+  const resData = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Failed to get companies.");
+  }
+
   return resData;
 }
