@@ -35,3 +35,15 @@ export function apiCallToGetEmployeeWorkstation(workstationId) {
 export function apiCallToGetEmployeeCarbonFootprint(employeeId) {
   return Mock.Carbon;
 }
+
+export async function apiCallToGetCarbonThresholds() {
+  const response = await fetch('http://localhost:8080/threshold/thresholds');
+  const resData = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Failed to get carbon thresholds.");
+  }
+
+  console.log(resData);
+  return resData;
+}

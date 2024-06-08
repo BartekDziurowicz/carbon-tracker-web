@@ -33,12 +33,12 @@ function descendantTooltipHandler(currentStep, role) {
 }
 
 export default function MetricsItem({ metric, index, stepInfoHandler }) {
-  const { currentStep, stepHandler } = useContext(MetricsContext);
+  const { currentStep, stepHandler, thresholds } = useContext(MetricsContext);
   const [currentUsage, setCurrentUsage] = useState(0);
 
   const { id, name, carbon_limit } = metric;
   const usage = ((currentUsage / carbon_limit) * 100).toFixed(2) + " %";
-  const threshold = carbonBalance(id);
+  const threshold = carbonBalance();
 
   useEffect(() => {
     // To DO strzal do bazy po current usage dla company/tribe etc
@@ -53,14 +53,9 @@ export default function MetricsItem({ metric, index, stepInfoHandler }) {
     return 12;
   }
 
-  function carbonBalance(id) {
-    // TODO api call to get thresholds by id
-    // meanwhile mock
-    // threshold powinienb byc gdzies wyzej i moze w kontekscie albo storage
-    const returnedThresholds = [200, 100, 90, 0];
-
+  function carbonBalance() {
     const balance = parseFloat(usage);
-    const threshold = returnedThresholds.findIndex(
+    const threshold = thresholds.findIndex(
       (element) => balance > element
     );
     return threshold;

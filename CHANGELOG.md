@@ -1,7 +1,8 @@
-0.19 (2024-05-??)
+0.19 (2024-06-??)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/9)
 * Optimialization using memo, useMemo and useCallback
+* Create first api call for carbon threshold
 
 0.18 (2024-05-21)
 ===============

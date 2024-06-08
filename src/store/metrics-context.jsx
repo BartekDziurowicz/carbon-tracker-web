@@ -34,4 +34,5 @@ export function apiCallForMetrics(step, id) {
 export const MetricsContext = createContext({
   currentStep: 0,
   stepHandler: () => {},
+  thresholds: [0, 0, 0, 0],
 });
