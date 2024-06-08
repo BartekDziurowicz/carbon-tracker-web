@@ -15,12 +15,11 @@ export const STEPS = [
 ];
 
 export async function apiCallForMetrics(step) {
+  const { itemId, itemName } = determineIdAndName(step);
   switch (step) {
     case 0:
-      determineIdAndName(step)
       return await Api.apiCallToGetCompanies();
     case 1:
-      const { itemId, itemName } = determineIdAndName(step)
       return await Api.apiCallToGetAreas(itemId, itemName);
     case 2:
       return Api.apiCallToGetTribes(0);
@@ -35,7 +34,7 @@ export async function apiCallForMetrics(step) {
 
 function determineIdAndName(step) {
   const stepItemInfo = JSON.parse(sessionStorage.getItem("stepItemInfo"));
-  return stepItemInfo[step -1];
+  return step !== 0 ? stepItemInfo[step-1] : {};
 }
 
 export const MetricsContext = createContext({
