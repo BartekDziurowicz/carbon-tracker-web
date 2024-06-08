@@ -1,11 +1,5 @@
 import * as Mock from "./mocked-data.jsx";
 
-
-
-export function apiCallToGetAreas(companyId) {
-  return Mock.Areas;
-}
-
 export function apiCallToGetTribes(areaId) {
   return Mock.Tribes;
 }
@@ -51,6 +45,17 @@ export async function apiCallToGetCompanies() {
 
   if (!response.ok) {
     throw new Error("Failed to get companies.");
+  }
+
+  return resData;
+}
+
+export async function apiCallToGetAreas(companyId, companyName) {
+  const response = await fetch('http://localhost:8080/area/areas?id='+companyId+'&company='+companyName);
+  const resData = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Failed to get areas.");
   }
 
   return resData;

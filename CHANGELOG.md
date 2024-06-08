@@ -3,7 +3,8 @@
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/9)
 * Optimialization using memo, useMemo and useCallback
 * Create and implement api call for carbon thresholds
-* Create and implement api call for all companies
+* Create and implement api call for companies
+* Create and implement api call for areas
 
 0.18 (2024-05-21)
 ===============

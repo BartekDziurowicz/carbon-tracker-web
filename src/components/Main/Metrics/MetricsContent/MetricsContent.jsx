@@ -10,7 +10,7 @@ export default function MetricsContent() {
   useEffect(() => {
     async function fetchData() {
       try {
-        await apiCallForMetrics(currentStep, 0).then(resData => {
+        await apiCallForMetrics(currentStep).then(resData => {
           setAvailableMetrics((_prevMetrics) => resData);
         });        
       } catch (error) {
