@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -24,7 +24,7 @@ import {
 
 const TITLE = "Current footprint [kg]";
 
-export default function BarChartComponent({ carbonFootprint, carbonLimit }) {
+const BarChartComponent = memo(function BarChartComponent({ carbonFootprint, carbonLimit }) {
   const [currentFootprint, setCurrentFootprint] = useState([
     { name: "", Limit: 0, RAM: 0, CPU: 0 },
   ]);
@@ -81,4 +81,6 @@ export default function BarChartComponent({ carbonFootprint, carbonLimit }) {
       </$Content>
     </$BarChartComponent>
   );
-}
+});
+
+export default BarChartComponent;

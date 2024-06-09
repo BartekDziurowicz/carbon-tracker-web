@@ -1,105 +1,3 @@
-export const Companies = [
-  {
-    id: 1,
-    name: "ING Hubs Polska",
-    carbon_limit: 100.0,
-  },
-  {
-    id: 5,
-    name: "ING Hubs Polska",
-    carbon_limit: 100.0,
-  },
-  {
-    id: 2,
-    name: "ING Hubs Romania",
-    carbon_limit: 95.0,
-  },
-  {
-    id: 3,
-    name: "ING Hubs Italy",
-    carbon_limit: 50.0,
-  },
-  {
-    id: 6,
-    name: "ING Hubs Polska",
-    carbon_limit: 100.0,
-  },
-  {
-    id: 7,
-    name: "ING Hubs Philipines",
-    carbon_limit: 1.0,
-  },
-];
-
-export const Areas = [
-  {
-    id: 1,
-    name: "Content and processing",
-    carbon_limit: 60,
-  },
-  {
-    id: 2,
-    name: "Content",
-    carbon_limit: 42,
-  },
-  {
-    id: 3,
-    name: "Processing",
-    carbon_limit: 33.0,
-  },
-  {
-    id: 4,
-    name: "Interaction",
-    carbon_limit: 10,
-  },
-];
-
-export const Tribes = [
-  {
-    id: 1,
-    name: "Lorem",
-    carbon_limit: 60,
-  },
-  {
-    id: 2,
-    name: "Ipsum",
-    carbon_limit: 60,
-  },
-  {
-    id: 3,
-    name: "Dolor",
-    carbon_limit: 60,
-  },
-  {
-    id: 4,
-    name: "Sit Amet",
-    carbon_limit: 60,
-  },
-];
-
-export const Teams = [
-  {
-    id: 1,
-    name: "LoremTeam",
-    carbon_limit: 15,
-  },
-  {
-    id: 1,
-    name: "IpsumTeam",
-    carbon_limit: 15,
-  },
-  {
-    id: 1,
-    name: "DolorTeam",
-    carbon_limit: 15,
-  },
-  {
-    id: 1,
-    name: "SitAmet Team",
-    carbon_limit: 15,
-  },
-];
-
 export const Employees = [
   {
     id: 3,
@@ -108,6 +6,7 @@ export const Employees = [
     name: "Bartosz",
     surname: "Dziurowicz",
     role: "Developer",
+    
     carbon_limit: 0.4,
     location: {
       id: 1,

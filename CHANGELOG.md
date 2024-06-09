@@ -1,3 +1,14 @@
+0.19 (2024-06-09)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/9)
+* Optimialization using memo, useMemo and useCallback
+* Create and implement api call for carbon thresholds
+* Create and implement api call for companies
+* Create and implement api call for areas
+* Create and implement api call for tribes
+* Create and implement api call for teams
+* Create and implement api call for employees
+
 0.18 (2024-05-21)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/8)

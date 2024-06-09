@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Carbon from "./Carbon/Carbon.jsx";
 import Employee from "./Employee/Employee.jsx";
 import Office from "./Office/Office.jsx";
@@ -17,9 +17,11 @@ export default function MetricsEmployee() {
   useEffect(() => {
     const metrics = apiCallToGetEmployeeMetric(0);
     setEmployeeMetric((_prevMetrics) => metrics);
-  }, [employeeMetric]);
+  }, []);
 
-  const carbonFootprint = apiCallToGetEmployeeCarbonFootprint(1);
+  const carbonFootprint = useMemo(() => {
+    return apiCallToGetEmployeeCarbonFootprint(0);
+  }, [employeeMetric]);
 
   const {
     id,

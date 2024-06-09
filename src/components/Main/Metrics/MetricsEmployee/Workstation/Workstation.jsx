@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import Dropdown from "../Dropdown/Dropdown.jsx";
 import { HiOutlineComputerDesktop } from "react-icons/hi2";
 import { apiCallToGetEmployeeWorkstation } from "../../../../../api/Api.jsx";
@@ -11,15 +11,16 @@ import {
   $Workstation,
 } from "./Workstation.styles.jsx";
 
-export default function Workstation({ workstation_id }) {
+const Workstation = memo(function Workstation({ workstation_id }) {
   const [employeeWorkstation, setEmployeeWorkstation] = useState({});
 
   useEffect(() => {
     const workstation = apiCallToGetEmployeeWorkstation(workstation_id);
     setEmployeeWorkstation((_prevWorkstation) => workstation);
-  }, [employeeWorkstation]);
+  }, [workstation_id]);
 
-  const { model, name, producer, system, processor, memories } = employeeWorkstation;
+  const { model, name, producer, system, processor, memories } =
+    employeeWorkstation;
   let eproducer;
   if (producer) {
     eproducer = producer.name;
@@ -150,4 +151,6 @@ export default function Workstation({ workstation_id }) {
       </Dropdown>
     </$Workstation>
   );
-}
+});
+
+export default Workstation;

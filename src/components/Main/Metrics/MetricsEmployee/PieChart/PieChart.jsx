@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { Cell, PieChart, Pie, Legend, Tooltip } from "recharts";
 import { FaChartPie } from "react-icons/fa";
 import {
@@ -8,7 +8,11 @@ import {
   $PieChartComponent,
   $Title,
 } from "./PieChart.styles.jsx";
-import { appwhite, chartgreen, chartblue } from "../../../../../utils/colors.styles.jsx";
+import {
+  appwhite,
+  chartgreen,
+  chartblue,
+} from "../../../../../utils/colors.styles.jsx";
 
 const TITLE = "Footprint by Component [%]";
 const COLORS = [chartgreen, chartblue];
@@ -40,7 +44,7 @@ const renderCustomizedLabel = ({
   );
 };
 
-export default function PieChartComponent({ carbonFootprint }) {
+const PieChartComponent = memo(function PieChartComponent({ carbonFootprint }) {
   const [currentFootprint, setCurrentFootprint] = useState([
     { name: "CPU", value: 0 },
     { name: "RAM", value: 0 },
@@ -96,4 +100,6 @@ export default function PieChartComponent({ carbonFootprint }) {
       </$Content>
     </$PieChartComponent>
   );
-}
+});
+
+export default PieChartComponent;

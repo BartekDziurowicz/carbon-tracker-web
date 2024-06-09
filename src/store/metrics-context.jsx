@@ -14,24 +14,31 @@ export const STEPS = [
   { stepName: "Employee", icon: <CiUser /> },
 ];
 
-export function apiCallForMetrics(step, id) {
+export async function apiCallForMetrics(step) {
+  const { itemId, itemName } = determineIdAndName(step);
   switch (step) {
     case 0:
-      return Api.apiCallToGetCompanies();
+      return await Api.apiCallToGetCompanies();
     case 1:
-      return Api.apiCallToGetAreas(id);
+      return await Api.apiCallToGetAreas(itemId, itemName);
     case 2:
-      return Api.apiCallToGetTribes(id);
+      return await Api.apiCallToGetTribes(itemId, itemName);
     case 3:
-      return Api.apiCallToGetTeams(id);
+      return await Api.apiCallToGetTeams(itemId, itemName);
     case 4:
-      return Api.apiCallToGetEmployees(id);
+      return await Api.apiCallToGetEmployees(itemId, itemName);
     default:
       console.log("Index out of range.");
   }
 }
 
+function determineIdAndName(step) {
+  const stepItemInfo = JSON.parse(sessionStorage.getItem("stepItemInfo"));
+  return step !== 0 ? stepItemInfo[step-1] : {};
+}
+
 export const MetricsContext = createContext({
   currentStep: 0,
   stepHandler: () => {},
+  thresholds: [0, 0, 0, 0],
 });

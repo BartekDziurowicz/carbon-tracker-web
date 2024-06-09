@@ -1,22 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MetricsContent from "./MetricsContent/MetricsContent.jsx";
 import MetricsEmployee from "./MetricsEmployee/MetricsEmployee.jsx";
 import MetricsStepper from "./MetricsStepper/MetricsStepper.jsx";
 import $Metrics from "./Metrics.styles.jsx";
 import { MetricsContext, STEPS } from "../../../store/metrics-context.jsx";
+import { apiCallToGetCarbonThresholds } from "../../../api/Api.jsx";
 
 export default function Metrics() {
   const [currentStep, setCurrentStep] = useState(() => {
     let stepItemInfo = JSON.parse(sessionStorage.getItem("stepItemInfo"));
-    if (stepItemInfo === undefined || stepItemInfo === null) {      
+    if (stepItemInfo === undefined || stepItemInfo === null) {
       return 0;
     } else {
       return stepItemInfo.length;
     }
   });
 
+  const [thresholds, setThresholds] = useState([0, 0, 0, 0]);
+
+  useEffect(() => {
+    async function fetchThresholds() {
+      try {
+        const thresholdsObjects = await apiCallToGetCarbonThresholds();
+        const thresholdsValues = await thresholdsObjects
+          .sort((a, b) => b.threshold - a.threshold)
+          .map((object) => object.threshold);
+        setThresholds(thresholdsValues);
+      } catch (error) {
+        //TODO
+      }
+    }
+    fetchThresholds();
+  }, []);
+
   function stepHandler(stepIndex) {
-    if (stepIndex >=0 ) {
+    if (stepIndex >= 0) {
       setCurrentStep((_prevStep) => stepIndex);
     } else {
       setCurrentStep((_prevStep) =>
@@ -28,6 +46,7 @@ export default function Metrics() {
   const ctxMetrics = {
     currentStep: currentStep,
     stepHandler: stepHandler,
+    thresholds: thresholds,
   };
 
   function contentDispatcher() {
@@ -39,7 +58,7 @@ export default function Metrics() {
       case 4:
         return <MetricsContent />;
       case 5:
-        return <MetricsEmployee />
+        return <MetricsEmployee />;
       default:
         console.log("Index out of range.");
     }

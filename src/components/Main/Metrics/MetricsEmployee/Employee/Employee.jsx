@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { PiFolderUserLight } from "react-icons/pi";
 import {
   $Content,
@@ -8,7 +9,7 @@ import {
   $Title,
 } from "./Employee.styles.jsx";
 
-export default function Employee({ employee }) {
+const Employee = memo(function Employee({ employee }) {
   const {
     id,
     corporate_key,
@@ -66,4 +67,6 @@ export default function Employee({ employee }) {
       </$Content>
     </$Employee>
   );
-}
+});
+
+export default Employee;

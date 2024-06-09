@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { RiBuilding2Line } from "react-icons/ri";
 import { apiCallToGetEmployeeOffice } from "../../../../../api/Api.jsx";
 import {
@@ -10,13 +10,13 @@ import {
   $Title,
 } from "./Office.styles.jsx";
 
-export default function Office({ office_id }) {
+const Office = memo(function Office({ office_id }) {
   const [employeeOffice, setEmployeeOffice] = useState({});
 
   useEffect(() => {
     const office = apiCallToGetEmployeeOffice(office_id);
     setEmployeeOffice((_prevOffice) => office);
-  }, [employeeOffice]);
+  }, [office_id]);
 
   const { apartment_number, name, street, street_number, location } = employeeOffice;
   let ecity;
@@ -64,4 +64,6 @@ export default function Office({ office_id }) {
       </$Content>
     </$Office>
   );
-}
+});
+
+export default Office;

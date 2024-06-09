@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { GiFootprint } from "react-icons/gi";
 import Dropdown from "../Dropdown/Dropdown.jsx";
 import {
@@ -12,7 +12,7 @@ import {
 
 const TITLE = "Carbon footprint";
 
-export default function Carbon({ carbonFootprint, carbonLimit }) {
+const Carbon = memo(function Carbon({ carbonFootprint, carbonLimit }) {
   const [currentFootprint, setCurrentFootprint] = useState({});
 
   useEffect(() => {
@@ -88,4 +88,6 @@ export default function Carbon({ carbonFootprint, carbonLimit }) {
       </$Content>
     </$Carbon>
   );
-}
+});
+
+export default Carbon;

@@ -30,7 +30,7 @@ export default function Step({ index, step, stepName, children }) {
   return (
     <$Step $index={index} step={step} onClick={index < step ? () => stepValueAndStepInfoHandler(index) : () => {}}>
       <div>{children}</div>
-      {stepName}<br /> {getItemName()}
+      {stepName}<br />{getItemName()}
     </$Step>
   );
 }
