@@ -22,11 +22,11 @@ export async function apiCallForMetrics(step) {
     case 1:
       return await Api.apiCallToGetAreas(itemId, itemName);
     case 2:
-      return Api.apiCallToGetTribes(0);
+      return await Api.apiCallToGetTribes(itemId, itemName);
     case 3:
-      return Api.apiCallToGetTeams(0);
+      return await Api.apiCallToGetTeams(itemId, itemName);
     case 4:
-      return Api.apiCallToGetEmployees(0);
+      return await Api.apiCallToGetEmployees(itemId, itemName);
     default:
       console.log("Index out of range.");
   }

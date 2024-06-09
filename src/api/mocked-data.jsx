@@ -1,49 +1,3 @@
-export const Tribes = [
-  {
-    id: 1,
-    name: "Lorem",
-    carbon_limit: 60,
-  },
-  {
-    id: 2,
-    name: "Ipsum",
-    carbon_limit: 60,
-  },
-  {
-    id: 3,
-    name: "Dolor",
-    carbon_limit: 60,
-  },
-  {
-    id: 4,
-    name: "Sit Amet",
-    carbon_limit: 60,
-  },
-];
-
-export const Teams = [
-  {
-    id: 1,
-    name: "LoremTeam",
-    carbon_limit: 15,
-  },
-  {
-    id: 1,
-    name: "IpsumTeam",
-    carbon_limit: 15,
-  },
-  {
-    id: 1,
-    name: "DolorTeam",
-    carbon_limit: 15,
-  },
-  {
-    id: 1,
-    name: "SitAmet Team",
-    carbon_limit: 15,
-  },
-];
-
 export const Employees = [
   {
     id: 3,
@@ -52,6 +6,7 @@ export const Employees = [
     name: "Bartosz",
     surname: "Dziurowicz",
     role: "Developer",
+    
     carbon_limit: 0.4,
     location: {
       id: 1,

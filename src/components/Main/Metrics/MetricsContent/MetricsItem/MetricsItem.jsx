@@ -28,7 +28,7 @@ function descendantTooltipHandler(currentStep, role) {
     case 3:
       return STEPS[currentStep + 1].stepName + "s";
     case 4:
-      return role;
+      return role ? role.name : "";
   }
 }
 
@@ -51,6 +51,10 @@ export default function MetricsItem({ metric, index, stepInfoHandler }) {
     // TODO api call to get numebr of areas where company.id = id
     // na razei mock, powinno byc jako useEffect
     return 12;
+  }
+
+  function roleAsDescendant() {
+    return metric.role && metric.role.name.charAt(0);
   }
 
   function carbonBalance() {
@@ -92,7 +96,7 @@ export default function MetricsItem({ metric, index, stepInfoHandler }) {
           <p>
             {currentStep < 4
               ? descendantsCount(id)
-              : metric.role && metric.role.charAt(0)}
+              : roleAsDescendant()}
           </p>
           <Tooltip id={"descendant_tooltip_" + index} />
         </$Descendants>

@@ -5,6 +5,9 @@
 * Create and implement api call for carbon thresholds
 * Create and implement api call for companies
 * Create and implement api call for areas
+* Create and implement api call for tribes
+* Create and implement api call for teams
+* Create and implement api call for employees
 
 0.18 (2024-05-21)
 ===============
