@@ -28,7 +28,7 @@ export async function apiCallToGetCarbonThresholds() {
 }
 
 export async function apiCallToGetCompanies() {
-  const response = await fetch('http://localhost:8080/company/companies');
+  const response = await fetch('http://localhost:8080/company/companies?isSimple=true');
   const resData = await response.json();
 
   if (!response.ok) {
@@ -39,7 +39,7 @@ export async function apiCallToGetCompanies() {
 }
 
 export async function apiCallToGetAreas(companyId, companyName) {
-  const response = await fetch('http://localhost:8080/area/areas?id='+companyId+'&company='+companyName);
+  const response = await fetch('http://localhost:8080/area/areas?id='+companyId+'&company='+companyName+'&isSimple=true');
   const resData = await response.json();
 
   if (!response.ok) {
@@ -50,7 +50,7 @@ export async function apiCallToGetAreas(companyId, companyName) {
 }
 
 export async function apiCallToGetTribes(areaId, areaName) {
-  const response = await fetch('http://localhost:8080/tribe/tribes?id='+areaId+'&area='+areaName);
+  const response = await fetch('http://localhost:8080/tribe/tribes?id='+areaId+'&area='+areaName+'&isSimple=true');
   const resData = await response.json();
 
   if (!response.ok) {
@@ -61,7 +61,7 @@ export async function apiCallToGetTribes(areaId, areaName) {
 }
 
 export async function apiCallToGetTeams(tribeId, tribeName) {
-  const response = await fetch('http://localhost:8080/team/teams?id='+tribeId+'&tribe='+tribeName);
+  const response = await fetch('http://localhost:8080/team/teams?id='+tribeId+'&tribe='+tribeName+'&isSimple=true');
   const resData = await response.json();
 
   if (!response.ok) {
@@ -72,7 +72,7 @@ export async function apiCallToGetTeams(tribeId, tribeName) {
 }
 
 export async function apiCallToGetEmployees(teamId, teamName) {
-  const response = await fetch('http://localhost:8080/employee/allByTeam?id='+teamId+'&team='+teamName);
+  const response = await fetch('http://localhost:8080/employee/allByTeam?id='+teamId+'&team='+teamName+'&isSimple=true');
   const resData = await response.json();
 
   if (!response.ok) {
