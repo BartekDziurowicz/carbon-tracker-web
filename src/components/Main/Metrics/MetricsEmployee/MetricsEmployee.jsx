@@ -17,8 +17,8 @@ export default function MetricsEmployee() {
     async function fetchData() {
       try {
         await apiCallForMetrics(currentStep).then(resData => {
-          const { id, corporate_key, email, name, surname, role, carbonLimit, location, workstation } = resData;
-          setEmployeeMetric((_prevMetrics) => ({ id, corporate_key, email, name, surname, role, carbonLimit, location, workstation }));
+          const { id, corporateKey, email, name, surname, role, carbonLimit, location, office, workstation } = resData;
+          setEmployeeMetric((_prevMetrics) => ({ id, corporateKey, email, name, surname, role, carbonLimit, location, office, workstation }));
         });
       } catch (error) {
         console.log(error);
@@ -35,7 +35,7 @@ export default function MetricsEmployee() {
 
   function getEmployeeData() {
     return {
-      corporate_key: employeeMetric.corporate_key,
+      corporateKey: employeeMetric.corporateKey,
       email: employeeMetric.email, 
       name: employeeMetric.name, 
       surname: employeeMetric.surname,
@@ -46,17 +46,35 @@ export default function MetricsEmployee() {
   }
 
   function getOfficeData() {
-    return {}
+    const { office } = employeeMetric;
+    if (office) {
+      return {
+        name: office.name,
+        street: office.street,
+        streetNumber: office.streetNumber,
+        apartmentNumber: office.apartmentNumber,
+        postalCode: office.postalCode,
+        city: office.location && office.location.city,
+        country: office.location && office.location.country && office.location.country.name
+      }
+    }
+    return {};
   }
 
   function getWorkstationData() {
+    const { workstation } = employeeMetric;
+    if (workstation) {
+      return {
+        
+      }
+    }
     return {}
   }
 
   return (
     <$MetricsEmployee>
       <Employee employee={getEmployeeData()} />
-      <Office office={employeeMetric.office_id} />
+      <Office office={getOfficeData()} />
       <Workstation workstation={employeeMetric.workstation} />
       <Carbon employeeId={employeeMetric.id} carbonFootprint={carbonFootprint} carbonLimit={employeeMetric.carbonLimit} />
       <BarChartComponent carbonFootprint={carbonFootprint} carbonLimit={employeeMetric.carbonLimit} />

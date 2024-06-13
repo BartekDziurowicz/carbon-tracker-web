@@ -23,12 +23,12 @@ const Employee = memo(function Employee({ employee }) {
           <PiFolderUserLight />
         </$Icon>
         <$Title>
-          {employee.name} {employee.surname}
+          {employeeData.name} {employeeData.surname}
         </$Title>
       </$Head>
       <$Content>
         <div>Corporate key:</div>
-        <div>{employeeData.corporate_key}</div>
+        <div>{employeeData.corporateKey}</div>
       </$Content>
       <$Line />
       <$Content>
