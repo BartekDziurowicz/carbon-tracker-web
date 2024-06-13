@@ -2,6 +2,7 @@
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/10)
 * Align endpoints and api calls with backend
+* Change Employee component to handle api call
 
 0.19 (2024-06-09)
 ===============

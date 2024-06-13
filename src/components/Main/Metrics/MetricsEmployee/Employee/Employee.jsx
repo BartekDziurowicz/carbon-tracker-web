@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 import { PiFolderUserLight } from "react-icons/pi";
 import {
   $Content,
@@ -10,26 +10,11 @@ import {
 } from "./Employee.styles.jsx";
 
 const Employee = memo(function Employee({ employee }) {
-  const {
-    id,
-    corporate_key,
-    email,
-    name,
-    surname,
-    role,
-    carbon_limit,
-    location,
-  } = employee;
-  let ecity;
-  let ecountry;
+  const [employeeData, setEmployeeData] = useState(employee);
 
-  if (location) {
-    const { city, country } = location;
-    ecity = city;
-    if (country) {
-      ecountry = country.name;
-    }
-  }
+  useEffect(() => {
+    setEmployeeData((_prevEmployeeData) => employee)
+  }, [employee])
 
   return (
     <$Employee>
@@ -38,32 +23,32 @@ const Employee = memo(function Employee({ employee }) {
           <PiFolderUserLight />
         </$Icon>
         <$Title>
-          {name} {surname}
+          {employee.name} {employee.surname}
         </$Title>
       </$Head>
       <$Content>
         <div>Corporate key:</div>
-        <div>{corporate_key}</div>
+        <div>{employeeData.corporate_key}</div>
       </$Content>
       <$Line />
       <$Content>
         <div>eMail:</div>
-        <div>{email}</div>
+        <div>{employeeData.email}</div>
       </$Content>
       <$Line />
       <$Content>
         <div>Role:</div>
-        <div>{role}</div>
+        <div>{employeeData.role}</div>
       </$Content>
       <$Line />
       <$Content>
         <div>City:</div>
-        <div>{ecity}</div>
+        <div>{employeeData.city}</div>
       </$Content>
       <$Line />
       <$Content>
         <div>Country:</div>
-        <div>{ecountry}</div>
+        <div>{employeeData.country}</div>
       </$Content>
     </$Employee>
   );

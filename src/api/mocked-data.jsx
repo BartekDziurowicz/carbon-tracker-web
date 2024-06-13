@@ -1,27 +1,3 @@
-export const Employees = [
-  {
-    id: 3,
-    corporate_key: "Bartek",
-    email: "email@mail.com",
-    name: "Bartosz",
-    surname: "Dziurowicz",
-    role: "Developer",
-    
-    carbon_limit: 0.4,
-    location: {
-      id: 1,
-      city: "Katowice",
-      country: {
-        id: 1,
-        name: "Poland",
-      },
-    },
-    team_id: 3,
-    office_id: 1,
-    workstation_id: 2,
-  },
-];
-
 export const Office = {
   id: 1,
   name: "KatowiceOffice",

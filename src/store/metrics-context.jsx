@@ -27,6 +27,8 @@ export async function apiCallForMetrics(step) {
       return await Api.apiCallToGetTeams(itemId, itemName);
     case 4:
       return await Api.apiCallToGetEmployees(itemId, itemName);
+    case 5:
+      return await Api.apiCallToGetEmployeeMetric(itemId, itemName);
     default:
       console.log("Index out of range.");
   }

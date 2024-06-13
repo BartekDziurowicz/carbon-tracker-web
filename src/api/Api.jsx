@@ -1,9 +1,5 @@
 import * as Mock from "./mocked-data.jsx";
 
-export function apiCallToGetEmployeeMetric(employeeId) {
-  return Mock.Employees[0];
-}
-
 export function apiCallToGetEmployeeOffice(officeId) {
   return Mock.Office;
 }
@@ -77,6 +73,17 @@ export async function apiCallToGetEmployees(teamId, teamName) {
 
   if (!response.ok) {
     throw new Error("Failed to get employees.");
+  }
+
+  return resData;
+}
+
+export async function apiCallToGetEmployeeMetric(employeeId, corporateKey) {
+  const response = await fetch('http://localhost:8080/employee/employee?id='+employeeId+'&ck='+corporateKey);
+  const resData = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Failed to get employee.");
   }
 
   return resData;
