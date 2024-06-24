@@ -63,19 +63,14 @@ export default function MetricsEmployee() {
 
   function getWorkstationData() {
     const { workstation } = employeeMetric;
-    if (workstation) {
-      return {
-        
-      }
-    }
-    return {}
+    return workstation ? workstation : {};
   }
 
   return (
     <$MetricsEmployee>
       <Employee employee={getEmployeeData()} />
       <Office office={getOfficeData()} />
-      <Workstation workstation={employeeMetric.workstation} />
+      <Workstation workstation={getWorkstationData()} />
       <Carbon employeeId={employeeMetric.id} carbonFootprint={carbonFootprint} carbonLimit={employeeMetric.carbonLimit} />
       <BarChartComponent carbonFootprint={carbonFootprint} carbonLimit={employeeMetric.carbonLimit} />
       <PieChartComponent carbonFootprint={carbonFootprint} />

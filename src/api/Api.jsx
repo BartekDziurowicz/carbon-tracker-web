@@ -1,9 +1,5 @@
 import * as Mock from "./mocked-data.jsx";
 
-export function apiCallToGetEmployeeWorkstation(workstationId) {
-  return Mock.Workstation;
-}
-
 export function apiCallToGetEmployeeCarbonFootprint(employeeId) {
   return Mock.Carbon;
 }

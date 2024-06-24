@@ -18,7 +18,7 @@ const Carbon = memo(function Carbon({ carbonFootprint, carbonLimit }) {
   useEffect(() => {
     if (carbonFootprint !== undefined && carbonFootprint !== null && carbonLimit !== undefined && carbonLimit !== null) {
       const { footprintKg, footprintCpuKg, footprintRamKg } = carbonFootprint;
-      const footprintPercent = ((footprintKg / carbonLimit) * 100).toFixed(4);
+      const footprintPercent = ((footprintKg / carbonLimit) * 100).toFixed(2);
       const footprintCpuPercent = ((footprintCpuKg / footprintKg) * 100).toFixed(2);
       const footprintRamPercent = ((footprintRamKg / footprintKg) * 100).toFixed(2);
       const balance = carbonLimit - footprintKg;
