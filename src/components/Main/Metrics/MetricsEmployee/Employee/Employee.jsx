@@ -10,11 +10,25 @@ import {
 } from "./Employee.styles.jsx";
 
 const Employee = memo(function Employee({ employee }) {
-  const [employeeData, setEmployeeData] = useState(employee);
+  const [employeeData, setEmployeeData] = useState({});
 
   useEffect(() => {
-    setEmployeeData((_prevEmployeeData) => employee)
+    const { corporateKey, email, name, surname, role: urole, location: ulocation } = employee;
+    const role = urole ? getRoleData(urole) : "";
+    const location = ulocation ? getLocationData(ulocation) : {};
+    setEmployeeData((_prevEmployeeData) => ({ corporateKey, email, name, surname, role, ...location }))
   }, [employee])
+
+  function getRoleData(data) {
+    const { name } = data;
+    return name;
+  }
+
+  function getLocationData(data) {
+    const { city, country: ucountry } = data;
+    const location = { city, country: ucountry && ucountry.name};
+    return location;
+  }
 
   return (
     <$Employee>

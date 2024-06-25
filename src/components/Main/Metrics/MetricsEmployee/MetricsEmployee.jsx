@@ -34,31 +34,13 @@ export default function MetricsEmployee() {
   }, [employeeMetric]);
 
   function getEmployeeData() {
-    return {
-      corporateKey: employeeMetric.corporateKey,
-      email: employeeMetric.email, 
-      name: employeeMetric.name, 
-      surname: employeeMetric.surname,
-      role: employeeMetric.role && employeeMetric.role.name,
-      city: employeeMetric.location && employeeMetric.location.city,
-      country: employeeMetric.location && employeeMetric.location.country && employeeMetric.location.country.name
-    }
+    const { corporateKey, email, name, surname, role, location } = employeeMetric;
+    return { corporateKey, email, name, surname, role, location };
   }
 
   function getOfficeData() {
     const { office } = employeeMetric;
-    if (office) {
-      return {
-        name: office.name,
-        street: office.street,
-        streetNumber: office.streetNumber,
-        apartmentNumber: office.apartmentNumber,
-        postalCode: office.postalCode,
-        city: office.location && office.location.city,
-        country: office.location && office.location.country && office.location.country.name
-      }
-    }
-    return {};
+    return office ? office : {};
   }
 
   function getWorkstationData() {

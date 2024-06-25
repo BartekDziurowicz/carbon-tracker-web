@@ -14,33 +14,33 @@ const Workstation = memo(function Workstation({ workstation }) {
   const [employeeWorkstation, setEmployeeWorkstation] = useState({processor: {}, system: {}, memories: []});
 
   useEffect(() => {
-    const {name, model} = workstation;
-    const {producer: uproducer, processor: uprocessor, system: usystem, memories: umemories} = workstation;
-    const producer = uproducer ? _getProducerData(uproducer) : '';
-    const processor = uprocessor ? _getProcessorData(uprocessor) : {};
-    const system = usystem ? _getSystemData(usystem) : {};
-    const memories = umemories ? _getMemoriesData(umemories) : [];
-    setEmployeeWorkstation((_prevWorkstation) => ({name, model, producer, processor, system, memories}));
+    const { name, model } = workstation;
+    const { producer: uproducer, processor: uprocessor, system: usystem, memories: umemories } = workstation;
+    const producer = uproducer ? getProducerData(uproducer) : '';
+    const processor = uprocessor ? getProcessorData(uprocessor) : {};
+    const system = usystem ? getSystemData(usystem) : {};
+    const memories = umemories ? getMemoriesData(umemories) : [];
+    setEmployeeWorkstation((_prevWorkstation) => ({ name, model, producer, processor, system, memories }));
   }, [workstation]);
 
-  function _getProducerData(data) {
-      const {name} = data;
+  function getProducerData(data) {
+      const { name } = data;
       return name;
   }
 
-  function _getProcessorData(data) {
+  function getProcessorData(data) {
       const {name, cores, threads, tdp, clock, identifier, manufacturer: umanufacturer} = data;
       const processor = {name, cores, threads, tdp, clock, identifier, manufacturer: umanufacturer && umanufacturer.name};
       return processor;
   }
 
-  function _getSystemData(data) {
+  function getSystemData(data) {
       const {bitness, family, version, vendor: uvendor} = data;
       const system = {bitness, family, version, vendor: uvendor && uvendor.name};
       return system;
   }
 
-  function _getMemoriesData(data) {
+  function getMemoriesData(data) {
     let memories = [];
     data.forEach((element) => {
       const {capacity, clock, type, partNumber, voltage, manufacturer: umanufacturer} = element;

@@ -10,11 +10,19 @@ import {
 } from "./Office.styles.jsx";
 
 const Office = memo(function Office({ office }) {
-  const [employeeOffice, setEmployeeOffice] = useState(office);
+  const [employeeOffice, setEmployeeOffice] = useState({});
 
   useEffect(() => {
-    setEmployeeOffice((_prevOffice) => office);
+    const { name, street, streetNumber, apartmentNumber, postalCode, location: ulocation } = office;
+    const location = ulocation ? getLocationData(ulocation) : '';
+    setEmployeeOffice((_prevOffice) => ({name, street, streetNumber, apartmentNumber, postalCode, ...location}));
   }, [office]);
+
+  function getLocationData(data) {
+    const { city, country: ucountry } = data;
+    const location = { city, country: ucountry && ucountry.name};
+    return location;
+  }
 
   return (
     <$Office>
