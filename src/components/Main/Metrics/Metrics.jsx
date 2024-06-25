@@ -27,6 +27,7 @@ export default function Metrics() {
           .map((object) => object.threshold);
         setThresholds(thresholdsValues);
       } catch (error) {
+        console.log(error);
         //TODO
       }
     }

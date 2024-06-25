@@ -36,7 +36,7 @@ export default function MetricsItem({ metric, index, stepInfoHandler }) {
   const { currentStep, stepHandler, thresholds } = useContext(MetricsContext);
   const [currentUsage, setCurrentUsage] = useState(0);
 
-  const { id, name, carbonLimit } = metric;
+  const { id, name, carbonLimit, corporateKey } = metric;
   const usage = ((currentUsage / carbonLimit) * 100).toFixed(2) + " %";
   const threshold = carbonBalance();
 
@@ -66,7 +66,7 @@ export default function MetricsItem({ metric, index, stepInfoHandler }) {
   }
 
   function stepValueAndStepInfoHandler() {
-    stepInfoHandler(id, name);
+    stepInfoHandler(id, corporateKey ? corporateKey : name);
     stepHandler();
   }
 

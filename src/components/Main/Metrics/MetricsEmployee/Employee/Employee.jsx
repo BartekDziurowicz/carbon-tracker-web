@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 import { PiFolderUserLight } from "react-icons/pi";
 import {
   $Content,
@@ -10,25 +10,24 @@ import {
 } from "./Employee.styles.jsx";
 
 const Employee = memo(function Employee({ employee }) {
-  const {
-    id,
-    corporate_key,
-    email,
-    name,
-    surname,
-    role,
-    carbon_limit,
-    location,
-  } = employee;
-  let ecity;
-  let ecountry;
+  const [employeeData, setEmployeeData] = useState({});
 
-  if (location) {
-    const { city, country } = location;
-    ecity = city;
-    if (country) {
-      ecountry = country.name;
-    }
+  useEffect(() => {
+    const { corporateKey, email, name, surname, role: urole, location: ulocation } = employee;
+    const role = urole ? getRoleData(urole) : "";
+    const location = ulocation ? getLocationData(ulocation) : {};
+    setEmployeeData((_prevEmployeeData) => ({ corporateKey, email, name, surname, role, ...location }))
+  }, [employee])
+
+  function getRoleData(data) {
+    const { name } = data;
+    return name;
+  }
+
+  function getLocationData(data) {
+    const { city, country: ucountry } = data;
+    const location = { city, country: ucountry && ucountry.name};
+    return location;
   }
 
   return (
@@ -38,32 +37,32 @@ const Employee = memo(function Employee({ employee }) {
           <PiFolderUserLight />
         </$Icon>
         <$Title>
-          {name} {surname}
+          {employeeData.name} {employeeData.surname}
         </$Title>
       </$Head>
       <$Content>
         <div>Corporate key:</div>
-        <div>{corporate_key}</div>
+        <div>{employeeData.corporateKey}</div>
       </$Content>
       <$Line />
       <$Content>
         <div>eMail:</div>
-        <div>{email}</div>
+        <div>{employeeData.email}</div>
       </$Content>
       <$Line />
       <$Content>
         <div>Role:</div>
-        <div>{role}</div>
+        <div>{employeeData.role}</div>
       </$Content>
       <$Line />
       <$Content>
         <div>City:</div>
-        <div>{ecity}</div>
+        <div>{employeeData.city}</div>
       </$Content>
       <$Line />
       <$Content>
         <div>Country:</div>
-        <div>{ecountry}</div>
+        <div>{employeeData.country}</div>
       </$Content>
     </$Employee>
   );

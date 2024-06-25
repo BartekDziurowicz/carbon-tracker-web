@@ -1,3 +1,10 @@
+0.20 (2024-06-25)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/10)
+* Align endpoints and api calls with backend
+* Change Employee, Office and Workstation components to handle api call
+* Move destructuring to proper components
+
 0.19 (2024-06-09)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/9)

@@ -1,7 +1,6 @@
 import { memo, useEffect, useState } from "react";
 import Dropdown from "../Dropdown/Dropdown.jsx";
 import { HiOutlineComputerDesktop } from "react-icons/hi2";
-import { apiCallToGetEmployeeWorkstation } from "../../../../../api/Api.jsx";
 import {
   $Content,
   $Head,
@@ -11,35 +10,44 @@ import {
   $Workstation,
 } from "./Workstation.styles.jsx";
 
-const Workstation = memo(function Workstation({ workstation_id }) {
-  const [employeeWorkstation, setEmployeeWorkstation] = useState({});
+const Workstation = memo(function Workstation({ workstation }) {
+  const [employeeWorkstation, setEmployeeWorkstation] = useState({processor: {}, system: {}, memories: []});
 
   useEffect(() => {
-    const workstation = apiCallToGetEmployeeWorkstation(workstation_id);
-    setEmployeeWorkstation((_prevWorkstation) => workstation);
-  }, [workstation_id]);
+    const { name, model } = workstation;
+    const { producer: uproducer, processor: uprocessor, system: usystem, memories: umemories } = workstation;
+    const producer = uproducer ? getProducerData(uproducer) : '';
+    const processor = uprocessor ? getProcessorData(uprocessor) : {};
+    const system = usystem ? getSystemData(usystem) : {};
+    const memories = umemories ? getMemoriesData(umemories) : [];
+    setEmployeeWorkstation((_prevWorkstation) => ({ name, model, producer, processor, system, memories }));
+  }, [workstation]);
 
-  const { model, name, producer, system, processor, memories } =
-    employeeWorkstation;
-  let eproducer;
-  if (producer) {
-    eproducer = producer.name;
+  function getProducerData(data) {
+      const { name } = data;
+      return name;
   }
-  let esystem = { vendor: { name: "", id: 0 } };
-  if (system) {
-    esystem = system;
+
+  function getProcessorData(data) {
+      const {name, cores, threads, tdp, clock, identifier, manufacturer: umanufacturer} = data;
+      const processor = {name, cores, threads, tdp, clock, identifier, manufacturer: umanufacturer && umanufacturer.name};
+      return processor;
   }
-  let eprocessor = { manufacturer: { name: "", id: 0 } };
-  if (processor) {
-    eprocessor = processor;
+
+  function getSystemData(data) {
+      const {bitness, family, version, vendor: uvendor} = data;
+      const system = {bitness, family, version, vendor: uvendor && uvendor.name};
+      return system;
   }
-  let ememories = [];
-  let ememory = { manufacturer: { name: "", id: 0 } };
-  if (memories) {
-    memories.forEach((element) => {
-      ememory = element;
-      ememories = [...ememories, ememory];
-    });
+
+  function getMemoriesData(data) {
+    let memories = [];
+    data.forEach((element) => {
+      const {capacity, clock, type, partNumber, voltage, manufacturer: umanufacturer} = element;
+      const memory = {capacity, clock, type, partNumber, voltage, manufacturer: umanufacturer && umanufacturer.name};
+      memories = [...memories, memory];
+    })
+    return memories;
   }
 
   return (
@@ -48,34 +56,34 @@ const Workstation = memo(function Workstation({ workstation_id }) {
         <$Icon>
           <HiOutlineComputerDesktop />
         </$Icon>
-        <$Title>{name}</$Title>
+        <$Title>{employeeWorkstation.name}</$Title>
       </$Head>
       <$Content>
         <div>Producer</div>
-        <div>{eproducer}</div>
+        <div>{employeeWorkstation.producer}</div>
       </$Content>
       <$Content>
         <div>Model</div>
-        <div>{model}</div>
+        <div>{employeeWorkstation.model}</div>
       </$Content>
       <$Line />
 
       <Dropdown title={"System"}>
         <$Content>
           <div>Vendor</div>
-          <div>{esystem.vendor.name}</div>
+          <div>{employeeWorkstation.system.vendor}</div>
         </$Content>
         <$Content>
           <div>Family</div>
-          <div>{esystem.family}</div>
+          <div>{employeeWorkstation.system.family}</div>
         </$Content>
         <$Content>
           <div>Version</div>
-          <div>{esystem.version}</div>
+          <div>{employeeWorkstation.system.version}</div>
         </$Content>
         <$Content>
           <div>Bitness</div>
-          <div>{esystem.bitness}</div>
+          <div>{employeeWorkstation.system.bitness}</div>
         </$Content>
       </Dropdown>
 
@@ -83,37 +91,37 @@ const Workstation = memo(function Workstation({ workstation_id }) {
       <Dropdown title={"Processor"}>
         <$Content>
           <div>Manufacturer</div>
-          <div>{eprocessor.manufacturer.name}</div>
+          <div>{employeeWorkstation.processor.manufacturer}</div>
         </$Content>
         <$Content>
           <div>Name</div>
-          <div>{eprocessor.name}</div>
+          <div>{employeeWorkstation.processor.name}</div>
         </$Content>
         <$Content>
           <div>Identifier</div>
-          <div>{eprocessor.identifier}</div>
+          <div>{employeeWorkstation.processor.identifier}</div>
         </$Content>
         <$Content>
           <div>Clock [GHz]</div>
-          <div>{eprocessor.clock}</div>
+          <div>{employeeWorkstation.processor.clock}</div>
         </$Content>
         <$Content>
           <div>Cores</div>
-          <div>{eprocessor.cores}</div>
+          <div>{employeeWorkstation.processor.cores}</div>
         </$Content>
         <$Content>
           <div>Threads</div>
-          <div>{eprocessor.threads}</div>
+          <div>{employeeWorkstation.processor.threads}</div>
         </$Content>
         <$Content>
           <div>Thermal Design Power [W]:</div>
-          <div>{eprocessor.tdp}</div>
+          <div>{employeeWorkstation.processor.tdp}</div>
         </$Content>
       </Dropdown>
 
       <$Line />
       <Dropdown title={"RAM"}>
-        {ememories.map((memory, index) => {
+        {employeeWorkstation.memories.map((memory, index) => {
           return (
             <div key={index}>
               <$Content>
@@ -122,11 +130,11 @@ const Workstation = memo(function Workstation({ workstation_id }) {
               </$Content>
               <$Content>
                 <div>Manufacturer</div>
-                <div>{memory.manufacturer.name}</div>
+                <div>{memory.manufacturer}</div>
               </$Content>
               <$Content>
                 <div>Model</div>
-                <div>{memory.part_number}</div>
+                <div>{memory.partNumber}</div>
               </$Content>
               <$Content>
                 <div>Type</div>
