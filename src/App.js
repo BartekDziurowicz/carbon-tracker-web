@@ -1,30 +1,23 @@
-import { useState } from "react";
-import Banner from "./components/Banner/Banner.jsx";
-import Main from './components/Main/Main.jsx';
-import { NavigationContext } from "./store/navigation-context.jsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Root from "./Root.js";
+import Metrics from "./components/Main/Metrics/Metrics.jsx";
+import Selector from "./components/Main/Selector/Selector.jsx";
 
 import "./App.css";
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    children: [
+      { index: true, element: <Metrics /> },
+      { path: '/selector', element: <Selector />},
+    ],
+  },
+]);
+
 function App() {
-  const [selectedNavItem, setSelectedNavItem] = useState("Metrics");
-
-  function selectNavItemHandler(selectedItem) {
-    setSelectedNavItem(() => selectedItem);
-  }
-
-  const ctxNavigation = {
-    selectedNavItem: selectedNavItem,
-    selectNavItemHandler: selectNavItemHandler,
-  };
-
-  return (
-    <>
-      <NavigationContext.Provider value={ctxNavigation}>
-        <Banner />
-        <Main />
-      </NavigationContext.Provider>      
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
