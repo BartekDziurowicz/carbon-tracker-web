@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import { AiOutlineLogout } from "react-icons/ai";
 import { BsBracesAsterisk } from "react-icons/bs";
 import { FaCubes } from "react-icons/fa";
@@ -23,7 +24,9 @@ export default function Navigation() {
 
   return (
     <>
-      <$NavigationSelectedItem>{selectedNavItem.toUpperCase()}</$NavigationSelectedItem>
+      <$NavigationSelectedItem>
+        {selectedNavItem.toUpperCase()}
+      </$NavigationSelectedItem>
 
       <$Navigation onClick={selectionHandler}>
         <$NavigationIcon>
@@ -31,13 +34,17 @@ export default function Navigation() {
         </$NavigationIcon>
       </$Navigation>
 
-      <NavigationItem name="Metrics" position={1} hidden={!isSelected}>
-        <IoIosStats />
-      </NavigationItem>
+      <Link to="">
+        <NavigationItem name="Metrics" position={1} hidden={!isSelected}>
+          <IoIosStats />
+        </NavigationItem>
+      </Link>
 
-      <NavigationItem name="Selector" position={2} hidden={!isSelected}>
-        <BsBracesAsterisk />
-      </NavigationItem>
+      <Link to="/selector">
+        <NavigationItem name="Selector" position={2} hidden={!isSelected}>
+          <BsBracesAsterisk />
+        </NavigationItem>
+      </Link>
 
       <NavigationItem name="Company" position={3} hidden={!isSelected}>
         <PiTreeStructure />
