@@ -46,17 +46,23 @@ export default function Navigation() {
         </NavigationItem>
       </Link>
 
-      <NavigationItem name="Company" position={3} hidden={!isSelected}>
-        <PiTreeStructure />
-      </NavigationItem>
+      <Link to="/company">
+        <NavigationItem name="Company" position={3} hidden={!isSelected}>
+          <PiTreeStructure />
+        </NavigationItem>
+      </Link>
 
-      <NavigationItem name="User" position={4} hidden={!isSelected}>
-        <MdOutlineManageAccounts />
-      </NavigationItem>
+      <Link to="/user">
+        <NavigationItem name="User" position={4} hidden={!isSelected}>
+          <MdOutlineManageAccounts />
+        </NavigationItem>
+      </Link>
 
-      <NavigationItem name="Logout" position={5} hidden={!isSelected}>
-        <AiOutlineLogout />
-      </NavigationItem>
+      <Link to="/logout">
+        <NavigationItem name="Logout" position={5} hidden={!isSelected}>
+          <AiOutlineLogout />
+        </NavigationItem>
+      </Link>
     </>
   );
 }
