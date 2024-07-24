@@ -3,6 +3,7 @@
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/11)
 * Install react-router-dom and implement router
 * Add Metrics and Selector nav items routing
+* Add loaders for Metrics and Selector routes
 
 0.20 (2024-06-25)
 ===============

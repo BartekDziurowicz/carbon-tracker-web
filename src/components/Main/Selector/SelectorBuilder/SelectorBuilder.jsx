@@ -6,7 +6,7 @@ export default function SelectorBuilder() {
   return (
     <$SelectorBuilder>
       <BuilderButton />
-      <BuilderFilter />      
+      <BuilderFilter />
     </$SelectorBuilder>
   );
 }

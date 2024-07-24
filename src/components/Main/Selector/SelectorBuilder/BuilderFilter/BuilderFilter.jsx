@@ -8,7 +8,11 @@ export default function BuilderItem() {
   return (
     <$BuilderFilter>
       <select>
-        {selectorFilters.map(filter => <option>{filter.name}</option>)}
+        {selectorFilters
+          .filter((filter) => filter.enabled)
+          .map((filter) => (
+            <option key={filter.id}>{filter.name}</option>
+          ))}
       </select>
     </$BuilderFilter>
   );

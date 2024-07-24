@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useLoaderData } from "react-router-dom";
 import MetricsContent from "./MetricsContent/MetricsContent.jsx";
 import MetricsEmployee from "./MetricsEmployee/MetricsEmployee.jsx";
 import MetricsStepper from "./MetricsStepper/MetricsStepper.jsx";
@@ -7,6 +8,8 @@ import { MetricsContext, STEPS } from "../../../store/metrics-context.jsx";
 import { apiCallToGetCarbonThresholds } from "../../../api/Api.jsx";
 
 export default function Metrics() {
+  const thresholds = useLoaderData();
+  
   const [currentStep, setCurrentStep] = useState(() => {
     let stepItemInfo = JSON.parse(sessionStorage.getItem("stepItemInfo"));
     if (stepItemInfo === undefined || stepItemInfo === null) {
@@ -15,24 +18,6 @@ export default function Metrics() {
       return stepItemInfo.length;
     }
   });
-
-  const [thresholds, setThresholds] = useState([0, 0, 0, 0]);
-
-  useEffect(() => {
-    async function fetchThresholds() {
-      try {
-        const thresholdsObjects = await apiCallToGetCarbonThresholds();
-        const thresholdsValues = await thresholdsObjects
-          .sort((a, b) => b.threshold - a.threshold)
-          .map((object) => object.threshold);
-        setThresholds(thresholdsValues);
-      } catch (error) {
-        console.log(error);
-        //TODO
-      }
-    }
-    fetchThresholds();
-  }, []);
 
   function stepHandler(stepIndex) {
     if (stepIndex >= 0) {
@@ -45,9 +30,9 @@ export default function Metrics() {
   }
 
   const ctxMetrics = {
-    currentStep: currentStep,
-    stepHandler: stepHandler,
-    thresholds: thresholds,
+    currentStep,
+    stepHandler,
+    thresholds,
   };
 
   function contentDispatcher() {
@@ -73,4 +58,17 @@ export default function Metrics() {
       </$Metrics>
     </MetricsContext.Provider>
   );
+}
+
+export async function thresholdsLoader() {
+  try {
+    const thresholdsObjects = await apiCallToGetCarbonThresholds();
+    const thresholdsValues = await thresholdsObjects
+      .sort((a, b) => b.threshold - a.threshold)
+      .map((object) => object.threshold);
+    return thresholdsValues;
+  } catch (error) {
+    console.log(error);
+    //TODO
+  }
 }
