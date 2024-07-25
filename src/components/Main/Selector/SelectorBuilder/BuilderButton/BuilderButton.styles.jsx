@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 import {
   appgreen,
   appgreenlight,
+  appgrey,
   appwhite,
 } from "../../../../../utils/colors.styles.jsx";
 
@@ -10,19 +11,22 @@ export const $BuilderButton = styled.div`
   text-align: center;
   display: flex;
   align-items: center;
-  color: ${appwhite};
-  background: ${appgreen};
-  cursor: pointer;
+  color: ${({ showCriteria }) => showCriteria !== "" ? appwhite : appgrey};
+  background: ${({ showCriteria }) => showCriteria !== "" ? appgreen : ""};
+  cursor: ${({ showCriteria }) => showCriteria !== "" ? 'pointer' : ''};
+  border: ${({ showCriteria }) => showCriteria !== "" ? `1px solid ${appgreen}` : `1px solid ${appgrey}`};
   user-select: none;
-  padding: 7px 8px;
+  padding: 5px 8px;
   transition: 0.5s;
 
   &:hover {
-    background: ${appgreenlight};
+    background: ${({ showCriteria }) => showCriteria !== "" ? appgreenlight : ""};
+    border: ${({ showCriteria }) => showCriteria !== "" ? `1px solid ${appgreenlight}` : `1px solid ${appgrey}`};
   }
 
   &:active {
-    color: ${appgreen};
+    color: ${({ showCriteria }) => showCriteria !== "" ? appgreen : appgrey};
+    border: ${({ showCriteria }) => showCriteria !== "" ? `1px solid ${appgreenlight}` : `1px solid ${appgrey}`};
   }
 
   & div {
