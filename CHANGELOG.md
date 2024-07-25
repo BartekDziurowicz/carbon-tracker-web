@@ -4,6 +4,7 @@
 * Install react-router-dom and implement router
 * Add Metrics and Selector nav items routing
 * Add loaders for Metrics and Selector routes
+* Create and implement context and reducer for selector
 
 0.20 (2024-06-25)
 ===============

@@ -14,7 +14,7 @@ export const $BuilderButton = styled.div`
   background: ${appgreen};
   cursor: pointer;
   user-select: none;
-  padding: 1px 8px;
+  padding: 7px 8px;
   transition: 0.5s;
 
   &:hover {
@@ -26,6 +26,8 @@ export const $BuilderButton = styled.div`
   }
 
   & div {
+    display: flex;
+    align-self: center;
     font-size: 27px;
     position: relative;
   }
