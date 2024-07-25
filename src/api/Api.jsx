@@ -4,6 +4,22 @@ export function apiCallToGetEmployeeCarbonFootprint(employeeId) {
   return Mock.Carbon;
 }
 
+export async function apiCallToGetFilterValues(filter) {
+  if (!filter) {
+    return [];
+  }
+
+  const extractedFilter = filter.split(' ');
+  const response = await fetch('http://localhost:8080/' + extractedFilter.pop() + '/filters');
+  const resData = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Failed to get " + filter + " filters.");
+  }
+
+  return resData;
+}
+
 export async function apiCallToGetCarbonThresholds() {
   const response = await fetch('http://localhost:8080/threshold/thresholds');
   const resData = await response.json();

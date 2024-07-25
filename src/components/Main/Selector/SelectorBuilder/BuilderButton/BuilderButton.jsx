@@ -7,7 +7,7 @@ export default function BuilderButton() {
     const { showCriteria } = useContext(SelectorContext);
 
     return(
-        <$BuilderButton showCriteria={showCriteria}>
+        <$BuilderButton $showCriteria={showCriteria}>
             <div><IoSearch /></div>
             &nbsp;Show
         </ $BuilderButton>
