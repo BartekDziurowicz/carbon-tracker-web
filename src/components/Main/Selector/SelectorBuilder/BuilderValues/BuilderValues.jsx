@@ -14,6 +14,7 @@ export default function BuilderValues() {
         await apiCallToGetFilterValues(tempWhereCriteria.key).then(
           (resData) => {
             setFilterValues((_prevFilterValues) => resData);
+            setTempWhereCriteria({ ...tempWhereCriteria, value: resData ? resData[0].name : null});
           }
         );
       } catch (error) {
@@ -21,20 +22,18 @@ export default function BuilderValues() {
       }
     }
     fetchData();
+    
   }, [tempWhereCriteria.key]);
 
   function handleWhereCriteriaChange(event) {
-    setTempWhereCriteria({ ...tempWhereCriteria, value: [event.target.value] });
+    setTempWhereCriteria({ ...tempWhereCriteria, value: event.target.value });
   }
 
   return (
     <$BuilderValues>
-      <select onChange={handleWhereCriteriaChange}>
-        <option disabled selected>
-          -- select --
-        </option>
+      <select onChange={handleWhereCriteriaChange} defaultValue={"0"}>
         {filterValues.map((filterValue) => (
-          <option key={filterValue.id}>{filterValue.name}</option>
+          <option value={filterValue.id} key={filterValue.id}>{filterValue.name}</option>
         ))}
       </select>
     </$BuilderValues>

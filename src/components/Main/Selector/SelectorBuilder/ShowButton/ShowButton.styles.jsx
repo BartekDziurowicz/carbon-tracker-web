@@ -6,7 +6,7 @@ import {
   appwhite,
 } from "../../../../../utils/colors.styles.jsx";
 
-export const $BuilderButton = styled.div`
+export const $ShowButton = styled.div`
   font-size: 12px;
   text-align: center;
   display: flex;

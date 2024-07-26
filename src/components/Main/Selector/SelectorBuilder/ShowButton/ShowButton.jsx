@@ -1,15 +1,15 @@
 import { useContext } from "react";
 import { SelectorContext } from "../../../../../store/selector-context.jsx";
 import { IoSearch } from "react-icons/io5";
-import { $BuilderButton } from "./BuilderButton.styles.jsx";
+import { $ShowButton } from "./ShowButton.styles.jsx";
 
-export default function BuilderButton() {
+export default function ShowButton() {
     const { showCriteria } = useContext(SelectorContext);
 
     return(
-        <$BuilderButton $showCriteria={showCriteria}>
+        <$ShowButton $showCriteria={showCriteria}>
             <div><IoSearch /></div>
             &nbsp;Show
-        </ $BuilderButton>
+        </ $ShowButton>
     )
 }

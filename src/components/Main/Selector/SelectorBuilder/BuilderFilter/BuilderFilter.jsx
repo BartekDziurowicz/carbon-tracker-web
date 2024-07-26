@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { SelectorContext } from "../../../../../store/selector-context.jsx";
-import $BuilderFilter from "./BuilderFilter.styled.jsx";
+import $BuilderFilter from "./BuilderFilter.styles.jsx";
 
 export default function BuilderItem({ criteria }) {
   const { selectorFilters, setShowCriteria, setTempWhereCriteria } = useContext(SelectorContext);
@@ -10,13 +10,13 @@ export default function BuilderItem({ criteria }) {
   }
 
   function handleWhereCriteriaChange(event) {
-    setTempWhereCriteria({key: event.target.value, value: []});
+    setTempWhereCriteria({key: event.target.value, value: null});
   }
 
   return (
     <$BuilderFilter>
-      <select onChange={criteria === "show" ? handleShowCriteriaChange : handleWhereCriteriaChange}>
-        <option disabled selected>-- select --</option>
+      <select onChange={criteria === "show" ? handleShowCriteriaChange : handleWhereCriteriaChange} defaultValue="default">
+        <option disabled value="default">-- select --</option>
         {selectorFilters
           .filter((filter) => filter.enabled)
           .map((filter) => (

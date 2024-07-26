@@ -5,7 +5,7 @@ export const SelectorContext = createContext({
   setShowCriteria: () => {},
   whereCriteria: [],
   setWhereCriteria: () => {},
-  tempWhereCriteria: {key: "", value: []},
+  tempWhereCriteria: {key: "", value: ""},
   setTempWhereCriteria: () => {},
   selectorFilters: [],
   setSelectorFilters: () => {}
@@ -58,7 +58,7 @@ export default function SelectorContextProvider({ children }) {
     {
       showCriteria: "",
       whereCriteria: [],
-      tempWhereCriteria: {key: "", value: []},
+      tempWhereCriteria: {key: "", value: ""},
       selectorFilters: []
     }
   )
