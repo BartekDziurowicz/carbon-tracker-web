@@ -1,4 +1,4 @@
-0.21 (2024-07-??)
+0.21 (2024-07-27)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/11)
 * Install react-router-dom and implement router
