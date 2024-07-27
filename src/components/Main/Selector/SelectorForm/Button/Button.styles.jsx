@@ -1,20 +1,20 @@
 import { styled } from "styled-components";
 import {
-  appgreen,
-  appgreenlight,
-  appgrey,
-  appwhite,
-} from "../../../../../utils/colors.styles.jsx";
+    appgreen,
+    appgreenlight,
+    appgrey,
+    appwhite,
+  } from "../../../../../utils/colors.styles.jsx";
 
-export const $AddButton = styled.div`
+export const $Button = styled.button`
   font-size: 12px;
   text-align: center;
   display: flex;
   align-items: center;
-  color: ${({ $enabled }) => $enabled ? appwhite : appgrey};
-  background: ${({ $enabled }) => $enabled ? appgreen : ""};
-  cursor: ${({ $enabled }) => $enabled ? 'pointer' : ''};
-  border: ${({ $enabled }) => $enabled ? `1px solid ${appgreen}` : `1px solid ${appgrey}`};
+  color: ${({ $enabled }) => $enabled === true ? appwhite : appgrey};
+  background: ${({ $enabled}) => $enabled === true ? appgreen : ""};
+  cursor: ${({ $enabled }) => $enabled === true ? 'pointer' : ''};
+  border: ${({ $enabled }) => $enabled === true ? `1px solid ${appgreen}` : `1px solid ${appgrey}`};
   user-select: none;
   padding: 5px 8px;
   transition: 0.5s;
@@ -32,7 +32,7 @@ export const $AddButton = styled.div`
   & div {
     display: flex;
     align-self: center;
-    font-size: 23px;
+    font-size: 27px;
     position: relative;
   }
 `;

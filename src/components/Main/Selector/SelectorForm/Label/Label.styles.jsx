@@ -3,7 +3,7 @@ import {
   appgrey
 } from "../../../../../utils/colors.styles.jsx";
 
-export const $BuilderLabel = styled.div`
+export const $Label = styled.div`
   font-size: 12px;
   text-align: center;
   display: flex;
@@ -16,7 +16,7 @@ export const $BuilderLabel = styled.div`
   & div {
     display: flex;
     align-self: center;
-    font-size: 22px;
+    font-size: 23px;
     position: relative;
   }
 `;

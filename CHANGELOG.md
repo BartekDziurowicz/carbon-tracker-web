@@ -6,6 +6,7 @@
 * Add loaders for Metrics and Selector routes
 * Create and implement context and reducer for selector
 * Implement new api call for filters and response handler
+* Create selector form
 
 0.20 (2024-06-25)
 ===============

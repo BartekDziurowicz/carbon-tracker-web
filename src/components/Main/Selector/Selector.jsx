@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
-import SelectorBuilder from "./SelectorBuilder/SelectorBuilder.jsx";
+import SelectorForm from "./SelectorForm/SelectorForm.jsx";
 import { SelectorContext } from "../../../store/selector-context.jsx";
 import $Selector from "./Selector.styles.jsx";
 
@@ -16,9 +16,9 @@ export default function Selector() {
   return (
     <>
       <$Selector>
-        <SelectorBuilder />
-      </$Selector>
-      charts elements
+        <SelectorForm />
+        charts elements
+      </$Selector>      
     </>
   );
 }
