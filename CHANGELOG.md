@@ -1,3 +1,9 @@
+0.22 (2024-07-??)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/12)
+* Create filters section and logic
+* Extend selector context by deleting filters
+
 0.21 (2024-07-27)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/11)

@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 import SelectorForm from "./SelectorForm/SelectorForm.jsx";
+import SelectorCurrentFilters from "./SelectorCurrentFilters/SelectorCurrentFilters.jsx";
 import { SelectorContext } from "../../../store/selector-context.jsx";
 import $Selector from "./Selector.styles.jsx";
 
@@ -17,6 +18,7 @@ export default function Selector() {
     <>
       <$Selector>
         <SelectorForm />
+        <SelectorCurrentFilters />
         charts elements
       </$Selector>      
     </>

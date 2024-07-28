@@ -1,9 +1,9 @@
 import { $Button } from "./Button.styles.jsx";
 
-export default function Button({ enabled, name, children }) {
+export default function Button({ enabled, name, children, ...props}) {
 
     return(
-        <$Button $enabled={enabled}>
+        <$Button $enabled={enabled} {...props}>
             <div>{ children }</div>
             &nbsp;{ name }
         </ $Button>

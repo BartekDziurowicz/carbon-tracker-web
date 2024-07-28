@@ -21,9 +21,8 @@ function selectorReducer(state, action) {
 
   if (action.type === 'SET_WHERE_CRITERIA') {
     const updatedWhereCriteria = [...state.whereCriteria];
-
     const existingWhereCriteriaIndex = updatedWhereCriteria.findIndex(criteria => criteria.key === action.payload.key);
-    if (existingWhereCriteriaIndex) {
+    if (existingWhereCriteriaIndex !== -1) {
       updatedWhereCriteria[existingWhereCriteriaIndex] = action.payload;
     } else {
       updatedWhereCriteria.push(action.payload);
@@ -31,7 +30,7 @@ function selectorReducer(state, action) {
 
     return {
       ...state,
-      whereCriteria: updatedWhereCriteria
+      whereCriteria: [...updatedWhereCriteria]
     }
   }
 
