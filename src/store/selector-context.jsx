@@ -19,6 +19,19 @@ function selectorReducer(state, action) {
     }
   }
 
+  if (action.type === 'DELETE_WHERE_CRITERIA') {
+    const updatedWhereCriteria = [...state.whereCriteria];
+    // const existingWhereCriteriaIndex = updatedWhereCriteria.findIndex(criteria => criteria.key === action.payload);
+    // if (existingWhereCriteriaIndex !== -1) {
+      updatedWhereCriteria.splice(action.payload, 1);
+    // }
+
+    return {
+      ...state,
+      whereCriteria: [...updatedWhereCriteria]
+    }
+  }
+
   if (action.type === 'SET_WHERE_CRITERIA') {
     const updatedWhereCriteria = [...state.whereCriteria];
     const existingWhereCriteriaIndex = updatedWhereCriteria.findIndex(criteria => criteria.key === action.payload.key);
@@ -69,6 +82,13 @@ export default function SelectorContextProvider({ children }) {
     })
   }
 
+  function deleteWhereCriteriaHandler(criteriaIndex) {
+    selectorDispatch({
+      type: 'DELETE_WHERE_CRITERIA',
+      payload: criteriaIndex
+    })
+  }
+
   function setWhereCriteriaHandler(whereCriteria) {
     selectorDispatch({
       type: 'SET_WHERE_CRITERIA',
@@ -95,6 +115,7 @@ export default function SelectorContextProvider({ children }) {
     setShowCriteria: setShowCriteriaHandler,
     whereCriteria: selectorState.whereCriteria,
     setWhereCriteria: setWhereCriteriaHandler,
+    deleteWhereCriteria: deleteWhereCriteriaHandler,
     tempWhereCriteria: selectorState.tempWhereCriteria,
     setTempWhereCriteria: setTempWhereCriteriaHandler,
     selectorFilters: selectorState.selectorFilters,
