@@ -3,6 +3,7 @@
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/12)
 * Create filters section and logic
 * Extend selector context by deleting filters
+* Implement id in filter value object
 
 0.21 (2024-07-27)
 ===============

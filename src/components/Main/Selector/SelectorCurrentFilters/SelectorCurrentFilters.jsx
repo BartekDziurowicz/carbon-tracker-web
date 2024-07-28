@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { Tooltip } from "react-tooltip";
 import { FaTrash } from "react-icons/fa";
 import { FaTrashArrowUp } from "react-icons/fa6";
-import { RiDeleteBin4Fill } from "react-icons/ri";
 import { SelectorContext } from "../../../../store/selector-context.jsx";
 import {
   $SelectorCurrentFilters,
@@ -50,7 +49,7 @@ export default function SelectorCurrentFilters() {
             data-tooltip-delay-show={1000}
             data-tooltip-place={"top"}
           >
-            <$DeleteButton $type={"remove_all"} onClick={clearWhereCriteria}>
+            <$DeleteButton $type={"remove_all"} onClick={clearWhereCriteriaHandler}>
               <FaTrash />
             </$DeleteButton>
             <Tooltip id={"remove_all"} />

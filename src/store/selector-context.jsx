@@ -7,7 +7,7 @@ export const SelectorContext = createContext({
   setWhereCriteria: () => {},
   clearWhereCriteria: () => {},
   deleteWhereCriteria: () => {},
-  tempWhereCriteria: { key: "", value: "" },
+  tempWhereCriteria: { key: "", value: "", id: "" },
   setTempWhereCriteria: () => {},
   selectorFilters: [],
   setSelectorFilters: () => {},

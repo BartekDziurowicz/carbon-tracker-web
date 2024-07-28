@@ -19,6 +19,7 @@ export default function SelectorForm() {
     tempWhereCriteria,
     setTempWhereCriteria,
     setWhereCriteria,
+    whereCriteria
   } = useContext(SelectorContext);
 
   function handleShowCriteriaChange(event) {
@@ -26,12 +27,14 @@ export default function SelectorForm() {
   }
 
   function handleWhereCriteriaChange(event) {
-    setTempWhereCriteria({ key: event.target.value, value: "" });
+    setTempWhereCriteria({ key: event.target.value, value: "", id: "" });
   }
 
   function temporary(event) {
     event.preventDefault();
     console.log("show", showCriteria);
+    console.log("v", tempWhereCriteria);
+    console.log("c", whereCriteria);
   }
 
   function setWhereCriteriaHandler() {
