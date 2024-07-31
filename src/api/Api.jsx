@@ -4,6 +4,17 @@ export function apiCallToGetEmployeeCarbonFootprint(employeeId) {
   return Mock.Carbon;
 }
 
+export async function apiCallToGetCalculatedMetrics() {
+  const response = await fetch('http://localhost:8080/metrics/get');
+  const resData = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Failed to get calculated metrics");
+  }
+
+  return resData;
+}
+
 export async function apiCallToGetFilterValues(filter) {
   if (!filter) {
     return [];

@@ -10,6 +10,7 @@ import Button from "./Button/Button.jsx";
 import Label from "./Label/Label.jsx";
 import SelectKey from "./Select/SelectKey.jsx";
 import SelectValue from "./Select/SelectValue.jsx";
+import { apiCallToGetCalculatedMetrics } from "../../../../api/Api.jsx";
 import $SelectorForm from "./SelectorForm.styles.jsx";
 
 export default function SelectorForm() {
@@ -19,7 +20,8 @@ export default function SelectorForm() {
     tempWhereCriteria,
     setTempWhereCriteria,
     setWhereCriteria,
-    whereCriteria
+    calculatedMetrics,
+    setCalculatedMetrics
   } = useContext(SelectorContext);
 
   function handleShowCriteriaChange(event) {
@@ -30,11 +32,17 @@ export default function SelectorForm() {
     setTempWhereCriteria({ key: event.target.value, value: "", id: "" });
   }
 
-  function temporary(event) {
+  async function fetchCalculatedMetrics(event) {
     event.preventDefault();
-    console.log("show", showCriteria);
-    console.log("v", tempWhereCriteria);
-    console.log("c", whereCriteria);
+    try {
+      await apiCallToGetCalculatedMetrics().then(resData => {
+        setCalculatedMetrics(resData);
+      });
+      console.log("cm", calculatedMetrics);
+    } catch (error) {
+      console.log(error);
+      //TODO
+    }
   }
 
   function setWhereCriteriaHandler() {
@@ -42,7 +50,7 @@ export default function SelectorForm() {
   }
 
   return (
-    <$SelectorForm onSubmit={temporary}>
+    <$SelectorForm onSubmit={fetchCalculatedMetrics}>
       <Button type="submit" name="Show" enabled={showCriteria !== ""}>
         <IoSearch />
       </Button>

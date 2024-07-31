@@ -11,6 +11,8 @@ export const SelectorContext = createContext({
   setTempWhereCriteria: () => {},
   selectorFilters: [],
   setSelectorFilters: () => {},
+  calculatedMetrics: [],
+  setCalculatedMetrics: () => {}
 });
 
 function selectorReducer(state, action) {
@@ -72,6 +74,13 @@ function selectorReducer(state, action) {
     };
   }
 
+  if (action.type === "SET_CALCULATED_METRICS") {
+    return {
+      ...state,
+      calculatedMetrics: action.payload,
+    }
+  }
+
   return state;
 }
 
@@ -81,6 +90,7 @@ export default function SelectorContextProvider({ children }) {
     whereCriteria: [],
     tempWhereCriteria: { key: "", value: "" },
     selectorFilters: [],
+    calculatedMetrics: [],
   });
 
   function setShowCriteriaHandler(showCriteria) {
@@ -124,6 +134,13 @@ export default function SelectorContextProvider({ children }) {
     });
   }
 
+  function setCalculatedMetricsHandler(calculatedMetrics) {
+    selectorDispatch({
+      type: "SET_CALCULATED_METRICS",
+      payload: calculatedMetrics,
+    })
+  }
+
   const ctxSelector = {
     showCriteria: selectorState.showCriteria,
     setShowCriteria: setShowCriteriaHandler,
@@ -135,6 +152,8 @@ export default function SelectorContextProvider({ children }) {
     setTempWhereCriteria: setTempWhereCriteriaHandler,
     selectorFilters: selectorState.selectorFilters,
     setSelectorFilters: setSelectorFiltersHandler,
+    calculatedMetrics: selectorState.calculatedMetrics,
+    setCalculatedMetrics: setCalculatedMetricsHandler,
   };
 
   return (

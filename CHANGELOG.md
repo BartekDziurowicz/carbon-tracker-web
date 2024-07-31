@@ -1,9 +1,10 @@
-0.22 (2024-07-??)
+0.22 (2024-08-??)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/12)
 * Create filters section and logic
 * Extend selector context by deleting filters
 * Implement id in filter value object
+* Create new api call to get calculated metrics and implement it into proper button
 
 0.21 (2024-07-27)
 ===============
