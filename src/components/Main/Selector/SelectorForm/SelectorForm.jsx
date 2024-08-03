@@ -19,6 +19,7 @@ export default function SelectorForm() {
     setShowCriteria,
     tempWhereCriteria,
     setTempWhereCriteria,
+    whereCriteria,
     setWhereCriteria,
     calculatedMetrics,
     setCalculatedMetrics
@@ -34,11 +35,16 @@ export default function SelectorForm() {
 
   async function fetchCalculatedMetrics(event) {
     event.preventDefault();
+
+    const whereCriteriaMap = whereCriteria.reduce((accumulator, criteria) => {
+      accumulator[criteria.key] = criteria.id;
+      return accumulator;
+    }, {});
+
     try {
-      await apiCallToGetCalculatedMetrics().then(resData => {
+      await apiCallToGetCalculatedMetrics(showCriteria, whereCriteriaMap).then(resData => {
         setCalculatedMetrics(resData);
       });
-      console.log("cm", calculatedMetrics);
     } catch (error) {
       console.log(error);
       //TODO
