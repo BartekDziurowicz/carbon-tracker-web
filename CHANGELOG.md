@@ -5,6 +5,7 @@
 * Extend selector context by deleting filters
 * Implement id in filter value object
 * Create new api call to get calculated metrics and implement it into proper button
+* Implement charts for selector and proper functiosn to calculate usage and footprint
 
 0.21 (2024-07-27)
 ===============
