@@ -4,6 +4,24 @@ export function apiCallToGetEmployeeCarbonFootprint(employeeId) {
   return Mock.Carbon;
 }
 
+export async function apiCallToGetCalculatedMetrics(group, criteria) {
+  const response = await fetch('http://localhost:8080/metrics/get?group='+group, {
+    method: 'POST',
+    body: JSON.stringify(criteria),
+    headers: {
+      'Content-Type': 'application/json',
+      'X-HTTP-Method-Override': 'GET'
+    }
+  });
+  const resData = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Failed to get calculated metrics");
+  }
+
+  return resData;
+}
+
 export async function apiCallToGetFilterValues(filter) {
   if (!filter) {
     return [];

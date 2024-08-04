@@ -18,6 +18,7 @@ export default function SelectValue() {
             setTempWhereCriteria({
               ...tempWhereCriteria,
               value: resData ? resData[0].name : null,
+              id: resData ? resData[0].id : null,
             });
             setFirstOption(resData ? resData[0].name : "");
           }
@@ -31,13 +32,15 @@ export default function SelectValue() {
 
   function handleWhereCriteriaChange(event) {
     setFirstOption(event.target.value);
-    setTempWhereCriteria({ ...tempWhereCriteria, value: event.target.value });
+    const selectedOption = event.target.options[event.target.selectedIndex];
+    const selectedKey = selectedOption.getAttribute('id');
+    setTempWhereCriteria({ ...tempWhereCriteria, value: event.target.value, id: selectedKey });
   }
 
   return (
     <$Select onChange={handleWhereCriteriaChange} value={firstOption} disabled={filterValues.length === 0}>
-      {filterValues.map((filterValue) => (
-        <option key={filterValue.id}>{filterValue.name}</option>
+      {filterValues.map((filterValue, index) => (
+        <option id={filterValue.id} key={index}>{filterValue.name}</option>
       ))}
     </$Select>
   );
