@@ -22,7 +22,7 @@ import {
   chartblue,
 } from "../../../../../utils/colors.styles.jsx";
 
-const TITLE = "Current footprint [kg]";
+const TITLE = "Current footprint [kgCO₂e]";
 
 const BarChartComponent = memo(function BarChartComponent({ carbonFootprint, carbonLimit }) {
   const [currentFootprint, setCurrentFootprint] = useState([

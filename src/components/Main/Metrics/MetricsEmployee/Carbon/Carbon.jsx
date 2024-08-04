@@ -61,29 +61,29 @@ const Carbon = memo(function Carbon({ carbonFootprint, carbonLimit }) {
 
       <$Line />
       <$Content>
-        <div>Current usage [kg]</div>
+        <div>Current usage [kgCO₂e]</div>
         <div>{currentFootprint.footprintKg}</div>
       </$Content>
       <Dropdown details={true} title={"Details"}>
         <$Content>
-          <div>Processor [kg]</div>
+          <div>Processor [kgCO₂e]</div>
           <div>{currentFootprint.footprintCpuKg}</div>
         </$Content>
         <$Content>
-          <div>RAM memory [kg]</div>
+          <div>RAM memory [kgCO₂e]</div>
           <div>{currentFootprint.footprintRamKg}</div>
         </$Content>
       </Dropdown>
 
       <$Line />
       <$Content>
-        <div>Limit [kg]</div>
+        <div>Limit [kgCO₂e]</div>
         <div>{carbonLimit}</div>
       </$Content>
 
       <$Line />
       <$Content>
-        <div>Bilance [kg]</div>
+        <div>Bilance [kgCO₂e]</div>
         <div>{currentFootprint.balance}</div>
       </$Content>
     </$Carbon>
