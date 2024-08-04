@@ -24,6 +24,29 @@ export default function LineChartComponent({ style, title, type, children }) {
   useEffect(() => {
     let data = [];
     switch (type) {
+      case "total_carbon_avg":
+        console.log(calculatedMetrics);
+        data = calculatedMetrics.reduce((acc, obj) => {
+          const { period_start } = obj;
+          if (!acc[period_start]) {
+            acc[period_start] = {
+              name: period_start,
+              Footprint: 0,
+              RAM: 0,
+              CPU: 0,
+            };
+          }
+          acc[period_start].Footprint +=
+            (obj.mem_carbon_avg + obj.proc_carbon_avg);
+          acc[period_start].RAM += obj.mem_carbon_avg;
+          acc[period_start].CPU += obj.proc_carbon_avg;
+          // TODO podzielic przez odpowiednie okresy,
+          // poniewaz jednostka to co2e/h, wiec w przypadku 15 minutowego interwalu dzielimy przez 4
+          // do zrobienia razem z periodem w formie z wyszukiwaniem
+          return acc;
+        }, {});
+        console.log("total", data);
+        break;
       case "proc_carbon_avg":
         data = calculatedMetrics.reduce((acc, obj) => {
           const { period_start, proc_carbon_avg, group_name } = obj;
@@ -33,6 +56,7 @@ export default function LineChartComponent({ style, title, type, children }) {
           acc[period_start][group_name] = proc_carbon_avg;
           return acc;
         }, {});
+        console.log("proc", data);
         break;
       case "proc_usage_avg":
         data = calculatedMetrics.reduce((acc, obj) => {
@@ -97,8 +121,17 @@ export default function LineChartComponent({ style, title, type, children }) {
           <Line
             dot={false}
             type="monotone"
-            dataKey="Content Interaction"
+            // dataKey="Content Interaction"
+            dataKey="Footprint"
             stroke="#8884d8"
+          />
+          <Line dot={false} type="monotone" dataKey="CPU" stroke="#E4080A" />
+          <Line dot={false} type="monotone" dataKey="RAM" stroke="#5DE2E7" />
+          <Line
+            dot={false}
+            type="monotone"
+            dataKey="Content Interaction"
+            stroke="#5DE2E7"
           />
         </LineChart>
       </ResponsiveContainer>

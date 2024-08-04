@@ -8,14 +8,16 @@ import { FaMemory, FaChartBar } from "react-icons/fa";
 import { PiCpuFill } from "react-icons/pi";
 import { MdCo2 } from "react-icons/md";
 import { CgMathPercent } from "react-icons/cg";
+import { TbSum } from "react-icons/tb";
 import { SelectorContext } from "../../../store/selector-context.jsx";
 import $Selector from "./Selector.styles.jsx";
 
 const TITLE = {
-  cpuCarbon: "CPU carbon footprint [kgCO₂e]",
+  cpuCarbon: "CPU carbon footprint [kgCO₂e/h]",
   cpuUsage: "CPU usage [%]",
-  memCarbon: "RAM carbon footprint [kgCO₂e]",
+  memCarbon: "RAM carbon footprint [kgCO₂e/h]",
   memUsage: "RAM usage [%]",
+  totalCarbon: "Total carbon footprint [kgCO₂e]"
 };
 
 export default function Selector() {
@@ -32,6 +34,11 @@ export default function Selector() {
       <$Selector>
         <SelectorForm />
         <SelectorCurrentFilters />
+        <LineChartComponent title={TITLE.totalCarbon} type="total_carbon_avg" style="total_carbon">
+          <GiFootprint />
+          <TbSum />
+          <MdCo2 />
+        </LineChartComponent>
         <LineChartComponent title={TITLE.cpuCarbon} type="proc_carbon_avg" style="carbon">
           <GiFootprint />
           <PiCpuFill />

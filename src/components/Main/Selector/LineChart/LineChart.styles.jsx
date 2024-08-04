@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { appblack, appgrey, appgreydark, apporange, appwhite } from "../../../../utils/colors.styles.jsx";
+import { appblack, appgrey, apporange, appwhite } from "../../../../utils/colors.styles.jsx";
 
 export const $LineChartComponent = styled.div`
   padding: 10px;
@@ -16,8 +16,8 @@ export const $Head = styled.div`
 `;
 
 export const $Icon = styled.div`
-  color: ${({ $style }) => $style === "carbon" ? appgrey : apporange};
-  font-size: 26px;
+  color: ${({ $style }) => $style === "carbon" ? appgrey : $style === "total_carbon" ? appblack : apporange};
+  font-size: ${({$style}) => $style === "total_carbon" ? "32px" : "26px"};
   text-align: left;
 
   & > * {
@@ -26,7 +26,7 @@ export const $Icon = styled.div`
 `;
 
 export const $Title = styled.div`
-  color: ${({ $style }) => $style === "carbon" ? appgrey : apporange};
-  font-size: 16px;
+  color: ${({ $style }) => $style === "carbon" ? appgrey : $style === "total_carbon" ? appblack : apporange};
+  font-size: ${({$style}) => $style === "total_carbon" ? "18px" : "16px"};
   text-align: right;
 `;
