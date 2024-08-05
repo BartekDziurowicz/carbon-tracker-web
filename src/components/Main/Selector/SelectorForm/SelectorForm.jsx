@@ -21,8 +21,7 @@ export default function SelectorForm() {
     setTempWhereCriteria,
     whereCriteria,
     setWhereCriteria,
-    calculatedMetrics,
-    setCalculatedMetrics
+    setCalculatedMetrics,
   } = useContext(SelectorContext);
 
   function handleShowCriteriaChange(event) {
@@ -41,8 +40,14 @@ export default function SelectorForm() {
       return accumulator;
     }, {});
 
+    const moment = require('moment');
+    const date = new Date();
+    const startDate = moment().startOf('month').format('DD-MM-YYYY HH:mm:ss');
+    const endDate = moment(date).format('DD-MM-YYYY HH:mm:ss');
+    const period = 900;
+
     try {
-      await apiCallToGetCalculatedMetrics(showCriteria, whereCriteriaMap).then(resData => {
+      await apiCallToGetCalculatedMetrics(showCriteria, startDate, endDate, period, whereCriteriaMap).then(resData => {
         setCalculatedMetrics(resData);
       });
     } catch (error) {
