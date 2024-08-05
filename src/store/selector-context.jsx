@@ -12,7 +12,7 @@ export const SelectorContext = createContext({
   selectorFilters: [],
   setSelectorFilters: () => {},
   calculatedMetrics: [],
-  setCalculatedMetrics: () => {}
+  setCalculatedMetrics: () => {},
 });
 
 function selectorReducer(state, action) {
@@ -85,6 +85,7 @@ function selectorReducer(state, action) {
 }
 
 export default function SelectorContextProvider({ children }) {
+
   const [selectorState, selectorDispatch] = useReducer(selectorReducer, {
     showCriteria: "",
     whereCriteria: [],

@@ -1,3 +1,9 @@
+0.23 (2024-08-05)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/13)
+* Extend metrics api call by mandatory parameters
+* Adjust line charts logic to handle generic groups and colors
+
 0.22 (2024-08-04)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/12)
