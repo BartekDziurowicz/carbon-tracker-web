@@ -1,3 +1,12 @@
+import { $Company } from "./Company.styles.jsx";
+
 export default function Company() {
-    return <h1>COMPANY</h1>
+  return (
+    <$Company>
+      <div>test title</div>
+      <div>test hmenu</div>
+      <div>test vmenu</div>
+      <div>test content</div>
+    </$Company>
+  );
 }

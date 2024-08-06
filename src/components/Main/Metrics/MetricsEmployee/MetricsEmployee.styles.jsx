@@ -1,12 +1,11 @@
 import { styled } from "styled-components";
 
 export const $MetricsEmployee = styled.div`
-  padding: 0 20px;
   display: grid;
   grid-auto-flow: column dense;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  gap: 20px 20px;
+  gap: 15px 15px;
   grid-template-areas:
     "Employee Workstation Carbon PieChart"
     "Office Workstation Carbon BarChart";
