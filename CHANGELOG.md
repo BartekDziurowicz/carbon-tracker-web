@@ -1,3 +1,8 @@
+0.24 (2024-08-??)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/14)
+* Create VMenu and Title in Company section with proper styling
+
 0.23 (2024-08-05)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/13)

@@ -30,7 +30,6 @@ export default function Selector() {
   }, []);
 
   return (
-    <>
       <$Selector>
         <SelectorForm />
         <SelectorCurrentFilters />
@@ -60,7 +59,6 @@ export default function Selector() {
           <CgMathPercent />
         </LineChartComponent>
       </$Selector>
-    </>
   );
 }
 

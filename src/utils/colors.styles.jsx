@@ -1,5 +1,6 @@
 export const appblack = '#2B2A29';
 export const appblue = '#00A0E3';
+export const appbluelight = '#00A0E3';
 export const appbrown = '#B3794A';
 export const appgreen = '#15AE55';
 export const appgreenlight = '#6de39e';

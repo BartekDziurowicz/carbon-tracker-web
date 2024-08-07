@@ -1,12 +1,15 @@
+import { useContext } from "react";
 import { $Company } from "./Company.styles.jsx";
+import Title from "./Title/Title.jsx";
+import VMenu from "./VMenu/VMenu.jsx";
 
 export default function Company() {
   return (
     <$Company>
-      <div>test title</div>
-      <div>test hmenu</div>
-      <div>test vmenu</div>
-      <div>test content</div>
+      <Title />
+      <Title />
+      <VMenu />
+      <VMenu />
     </$Company>
   );
 }

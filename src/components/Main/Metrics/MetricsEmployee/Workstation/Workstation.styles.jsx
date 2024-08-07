@@ -11,7 +11,6 @@ export const $Workstation = styled.div`
   padding: 10px;
   min-width: 200px;
   max-width: 400px;
-  padding: 10px;
   background: ${appwhite};
   box-shadow: 1px 2px 10px ${appgrey};
 `;
