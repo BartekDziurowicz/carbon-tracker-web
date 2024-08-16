@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { $Company } from "./Company.styles.jsx";
+import Table from "./Table/Table.jsx";
 import Title from "./Title/Title.jsx";
 import VMenu from "./VMenu/VMenu.jsx";
 
@@ -9,7 +10,7 @@ export default function Company() {
       <Title />
       <Title />
       <VMenu />
-      <VMenu />
+      <Table />
     </$Company>
   );
 }

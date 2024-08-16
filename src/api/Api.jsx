@@ -39,7 +39,7 @@ export async function apiCallToGetFilterValues(filter) {
 
   const extractedFilter = filter.split(" ");
   const response = await fetch(
-    "http://localhost:8080/" + extractedFilter.pop() + "/filters"
+    "http://localhost:8080/" + extractedFilter.pop().toLowerCase() + "/filters"
   );
   const resData = await response.json();
 

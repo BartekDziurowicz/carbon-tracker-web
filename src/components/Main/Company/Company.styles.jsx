@@ -7,8 +7,7 @@ export const $Company = styled.div`
     gap: 15px 15px;
     grid-template-areas:
         "Title HMenu"
-        "VMenu Content"
-        "empty Content";
+        "VMenu Content";
 
     & :first-child {
         grid-area: Title;

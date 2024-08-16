@@ -11,19 +11,19 @@ export default function VMenu() {
     <$VMenu>
       <Dropdown title="Organization">
         {ORGANIZATION.map((item, index) => (
-          <$MenuItem $submenu="Organization" key={index} onClick={() => setSelected(item.name)}>{item.name}</$MenuItem>
+          <$MenuItem key={index} $active={item.name === selected} onClick={() => setSelected(item.name)}>{item.name}</$MenuItem>
         ))}
       </Dropdown>
       <$Line />
       <Dropdown title="Metrics">
         {METRICS.map((item, index) => (
-          <$MenuItem $submenu="Metrics" key={index} onClick={() => setSelected(item.name)}>{item.name}</$MenuItem>
+          <$MenuItem key={index} $active={item.name === selected} onClick={() => setSelected(item.name)}>{item.name}</$MenuItem>
         ))}
       </Dropdown>
       <$Line />
       <Dropdown title="Equipment">
         {EQUIPMENT.map((item, index) => (
-          <$MenuItem $submenu="Equipment" key={index} onClick={() => setSelected(item.name)}>{item.name}</$MenuItem>
+          <$MenuItem key={index} $active={item.name === selected} onClick={() => setSelected(item.name)}>{item.name}</$MenuItem>
         ))}
       </Dropdown>
     </$VMenu>

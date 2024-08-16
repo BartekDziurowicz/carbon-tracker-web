@@ -1,9 +1,7 @@
 import { styled } from "styled-components";
 import {
-  appblue,
   appwhite,
   appgrey,
-  appgreenlight,
   appgreylight,
   apporange,
 } from "../../../../utils/colors.styles.jsx";
@@ -21,6 +19,7 @@ export const $Line = styled.hr`
 
 export const $MenuItem = styled.div`
   margin: 2px 10px;
+  color: ${({$active}) => $active ? apporange : ""};
 
   &:hover {
     color: ${apporange};
