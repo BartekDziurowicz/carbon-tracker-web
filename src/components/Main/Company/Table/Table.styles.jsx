@@ -23,13 +23,6 @@ export const $Table = styled.table`
   width: 100%;
   border-collapse: collapse;
 
-  & th {
-    color: ${appwhite};
-    background-color: ${appgrey};
-    padding: 8px 20px;
-    font-size: 14px;
-  }
-
   & td {
     font-size: 12px;
     padding: 10px 10px;
@@ -65,17 +58,3 @@ export const $IconCell = styled.div`
     }
   }
 `
-
-// export const $THead = styled.thead`
-
-// `;
-
-// export const $TBody = styled.tbody`
-
-// `
-
-// export const $TRow = styled.tr`
-// `
-
-// export const $TData = styled.td`
-// `

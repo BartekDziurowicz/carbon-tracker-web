@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import {
   flexRender,
   getCoreRowModel,
+  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { Box, Flex } from "@chakra-ui/react";
@@ -9,15 +10,11 @@ import { CompanyContext } from "../../../../store/company-context.jsx";
 import { apiCallToGetListOfEntities } from "../../../../api/Api.jsx";
 import { getTableColumns } from "./Table.utils.jsx";
 import {
-  $Resizer,
   $TableContainer,
   $TableBox,
   $Table,
-  $THead,
-  $TRow,
-  $TBody,
-  $TData,
 } from "./Table.styles.jsx";
+import Header from "./Header/Header.jsx";
 
 export default function Table() {
   const [tableData, setTableData] = useState({
@@ -30,12 +27,7 @@ export default function Table() {
     data: tableData.data,
     columns: tableData.columns,
     getCoreRowModel: getCoreRowModel(),
-    defaultColumn: {
-      width: "auto"
-    },
-    options: {
-      stretchH: "last",
-    }
+    getSortedRowModel: getSortedRowModel(),
   });
 
   useEffect(() => {
@@ -65,18 +57,7 @@ export default function Table() {
                 {table.getHeaderGroups().map((headerGroup) => (
                   <tr key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
-                      <th
-                        key={header.id}
-                        style={{ width: header.getSize() }}
-                        colSpan={header.colSpan}
-                      >
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
-                      </th>
+                      <Header header={header} />
                     ))}
                   </tr>
                 ))}
