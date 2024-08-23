@@ -61,6 +61,42 @@ export async function apiCallToGetCarbonThresholds() {
   return resData;
 }
 
+export async function apiCallToGetListOfEntities(entity, id, name, isSimple) {
+  let endpoint;
+
+  switch (entity) {
+    case "country": endpoint = "/countries"; break;
+    case "location": endpoint = "/locations?id=" + id + "&country=" + name + "&isSimple=" + isSimple; break;
+    case "office": endpoint = "/offices?id=" + id + "&city=" + name + "&isSimple=" + isSimple; break;
+    case "company": endpoint = "/companies?id=" + id + "&city=" + name + "&isSimple=" + isSimple; break;
+    case "area": endpoint = "/areas?id=" + id + "&company=" + name + "&isSimple=" + isSimple; break;
+    case "tribe": endpoint = "/tribes?id=" + id + "&area=" + name + "&isSimple=" + isSimple; break;
+    case "team": endpoint = "/teams?id=" + id + "&tribe=" + name + "&isSimple=" + isSimple; break;
+    case "employee": endpoint = "/allByTeam?id=" + id + "&team=" + name + "&isSimple=" + isSimple; break;
+    case "role": endpoint = "/roles"; break;
+
+    case "workstation": endpoint = "/workstations?id=" + id + "&producer=" + name + "&isSimple=" + isSimple; break;
+    case "producer": endpoint = "/producers"; break;
+    case "system": endpoint = "/systems?id=" + id + "&vendor=" + name + "&isSimple=" + isSimple; break;
+    case "vendor": endpoint = "/vendors"; break;
+    case "processor": endpoint = "/processors?id=" + id + "&manufacturer=" + name + "&isSimple=" + isSimple; break;
+    case "memory": endpoint = "/memories?id=" + id + "&manufacturer=" + name + "&isSimple=" + isSimple; break;
+    case "manufacturer": endpoint = "/manufacturers"; break;
+  }
+
+  const response = await fetch(
+    "http://localhost:8080/" + entity + endpoint
+  );
+
+  const resData = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Failed to get companies.");
+  }
+
+  return resData;
+}
+
 export async function apiCallToGetCompanies() {
   const response = await fetch(
     "http://localhost:8080/company/companies?isSimple=true"

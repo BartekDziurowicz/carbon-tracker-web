@@ -6,11 +6,12 @@ import {
 } from "@tanstack/react-table";
 import { Box, Flex } from "@chakra-ui/react";
 import { CompanyContext } from "../../../../store/company-context.jsx";
-import { apiCallToGetFilterValues } from "../../../../api/Api.jsx";
+import { apiCallToGetListOfEntities } from "../../../../api/Api.jsx";
 import { getTableColumns } from "./Table.utils.jsx";
 import {
   $Resizer,
   $TableContainer,
+  $TableBox,
   $Table,
   $THead,
   $TRow,
@@ -19,21 +20,30 @@ import {
 } from "./Table.styles.jsx";
 
 export default function Table() {
-  const [tableData, setTableData] = useState({data: [{}], columns: [{accessorKey: "na", id: "na", header: "na"}]});
+  const [tableData, setTableData] = useState({
+    data: [{}],
+    columns: [{ accessorKey: "na", id: "na", header: "na" }],
+  });
   const { selected } = useContext(CompanyContext);
 
   const table = useReactTable({
     data: tableData.data,
     columns: tableData.columns,
     getCoreRowModel: getCoreRowModel(),
+    defaultColumn: {
+      width: "auto"
+    },
+    options: {
+      stretchH: "last",
+    }
   });
 
   useEffect(() => {
     async function fetchData() {
       try {
-        await apiCallToGetFilterValues(selected).then((resData) => {
+        await apiCallToGetListOfEntities(selected.toLowerCase(), 0, "", true).then((resData) => {
           const columns = getTableColumns(resData[0]);
-          const table = {data: resData, columns: columns};
+          const table = { data: resData, columns: columns };
           setTableData((_prevInventory) => table);
         });
       } catch (error) {
@@ -46,16 +56,15 @@ export default function Table() {
 
   return (
     <$TableContainer>
-      <$Table width="100%">
+      <$TableBox width="100%">
         <Flex height="98%" direction={"column"} gap={2} p={2} grow="1">
-          <Flex alignItems={"center"}></Flex>
+          <Flex alignItems={"center"}>search</Flex>
           <Box flex="1" overflow="auto">
-            <table style={{ overfow: "auto" }}>
-
+            <$Table>
               <thead>
-                {table.getHeaderGroups().map((headerGroup) => 
+                {table.getHeaderGroups().map((headerGroup) => (
                   <tr key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => 
+                    {headerGroup.headers.map((header) => (
                       <th
                         key={header.id}
                         style={{ width: header.getSize() }}
@@ -68,9 +77,9 @@ export default function Table() {
                               header.getContext()
                             )}
                       </th>
-                    )}
+                    ))}
                   </tr>
-                )}
+                ))}
               </thead>
 
               <tbody>
@@ -89,9 +98,9 @@ export default function Table() {
               </tbody>
 
               <tfoot>
-                {table.getFooterGroups().map((footerGroup) => 
+                {table.getFooterGroups().map((footerGroup) => (
                   <tr>
-                    {footerGroup.headers.map((footer) => 
+                    {footerGroup.headers.map((footer) => (
                       <td>
                         {footer.isPlaceholder
                           ? null
@@ -100,14 +109,14 @@ export default function Table() {
                               footer.getContext()
                             )}
                       </td>
-                    )}
+                    ))}
                   </tr>
-                )}
+                ))}
               </tfoot>
-            </table>
+            </$Table>
           </Box>
         </Flex>
-      </$Table>
+      </$TableBox>
     </$TableContainer>
   );
 }
