@@ -1,4 +1,5 @@
 import { flexRender } from "@tanstack/react-table";
+import { Tooltip } from "react-tooltip";
 import { $Header, $HeaderBox, $HeaderIcon } from "./Header.styles.jsx";
 import {
   FaArrowAltCircleDown,
@@ -15,7 +16,13 @@ export default function Header({ header }) {
       ) : (
         <$HeaderBox>
           {flexRender(header.column.columnDef.header, header.getContext())}{" "}
-          <$HeaderIcon onClick={header.column.getToggleSortingHandler()}>
+          <$HeaderIcon
+            onClick={header.column.getToggleSortingHandler()}
+            data-tooltip-id={"header_item_tooltip" + header.column.id}
+            data-tooltip-content={isSorted === "desc" ? "descending" : isSorted === "asc" ? "ascending" : "none"}
+            data-tooltip-delay-show={1000}
+            data-tooltip-place={"top"}
+          >
             {isSorted === "desc" ? (
               <FaArrowAltCircleUp />
             ) : isSorted === "asc" ? (
@@ -23,6 +30,7 @@ export default function Header({ header }) {
             ) : (
               <FaSort />
             )}
+            <Tooltip id={"header_item_tooltip" + header.column.id} />
           </$HeaderIcon>
         </$HeaderBox>
       )}

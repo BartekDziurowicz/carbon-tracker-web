@@ -11,7 +11,7 @@ export const $HeaderBox = styled.div`
   column-gap: 10px;
 `;
 
-export const $HeaderIcon = styled.div`
+export const $HeaderIcon = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
