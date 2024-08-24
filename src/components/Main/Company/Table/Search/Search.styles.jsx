@@ -22,7 +22,7 @@ export const $Input = styled.input`
     padding: 5px 5px 5px 5px;
     width: 300px;
     font-size: 14px;
-    border: 1px solid ${appgrey};
+    border: 1px solid ${({$color}) => colorHandler($color)};
     color: ${appgrey};
     height: 24px;
 

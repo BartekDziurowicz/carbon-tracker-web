@@ -5,7 +5,7 @@ export default function Search({ color, onChange }) {
   return (
     <$Search>
       <$Icon $color={color}><CiSearch /></$Icon>
-      <$Input placeholder="Search..." onChange={onChange} />
+      <$Input $color={color} placeholder="Search..." onChange={onChange} />
     </$Search>
   );
 }
