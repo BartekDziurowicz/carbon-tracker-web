@@ -4,6 +4,7 @@ import {
   getCoreRowModel,
   getFilteredRowModel,
   getSortedRowModel,
+  getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { fuzzyFilter } from "./Table.utils.jsx";
@@ -14,6 +15,7 @@ import { getTableColumns } from "./Table.utils.jsx";
 import { $TableContainer, $TableBox, $Table } from "./Table.styles.jsx";
 import Header from "./Header/Header.jsx";
 import Search from "./Search/Search.jsx";
+import Pagination from "./Pagination/Pagination.jsx";
 
 export default function Table() {
   const [tableData, setTableData] = useState({
@@ -32,6 +34,7 @@ export default function Table() {
       fuzzy: fuzzyFilter,
     },
     globalFilterFn: fuzzyFilter,
+    getPaginationRowModel: getPaginationRowModel(),
   });
 
   useEffect(() => {
@@ -87,7 +90,7 @@ export default function Table() {
                 ))}
               </tbody>
 
-              <tfoot>
+              {/* <tfoot>
                 {table.getFooterGroups().map((footerGroup) => (
                   <tr>
                     {footerGroup.headers.map((footer) => (
@@ -102,9 +105,10 @@ export default function Table() {
                     ))}
                   </tr>
                 ))}
-              </tfoot>
+              </tfoot> */}
             </$Table>
           </Box>
+          <Pagination table={table} color={selected}/>
         </Flex>
       </$TableBox>
     </$TableContainer>

@@ -1,7 +1,7 @@
 import { rankItem } from "@tanstack/match-sorter-utils";
 import { $IconCell, $IconHeader } from "./Table.styles.jsx";
 import { FaPlusSquare } from "react-icons/fa";
-import { appblue, appblack, appgreen } from "../../../../utils/colors.styles.jsx";
+import { appblue, appblack, appgreen, appgreylight } from "../../../../utils/colors.styles.jsx";
 
 export function getTableColumns(object, selected) {
   let columns = [];
@@ -56,5 +56,7 @@ export function colorHandler(submenu) {
     case "Memory":
     case "Manufacturer":
       return appblue;
+    default:
+      return appgreylight;
   }
 }

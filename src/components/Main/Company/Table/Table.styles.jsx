@@ -55,6 +55,7 @@ export const $IconCell = styled.div`
   & :first-child {
     &:hover {
       color: ${apporange};
+      cursor: pointer;
     }
   }
 `
