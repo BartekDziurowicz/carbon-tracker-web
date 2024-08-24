@@ -1,7 +1,9 @@
+import { rankItem } from "@tanstack/match-sorter-utils";
 import { $IconCell, $IconHeader } from "./Table.styles.jsx";
 import { FaPlusSquare } from "react-icons/fa";
+import { appblue, appblack, appgreen } from "../../../../utils/colors.styles.jsx";
 
-export function getTableColumns(object) {
+export function getTableColumns(object, selected) {
   let columns = [];
 
   for (const field in object) {
@@ -17,8 +19,42 @@ export function getTableColumns(object) {
   columns.push({
     id: "expand",
     header: () => <$IconHeader><FaPlusSquare /></$IconHeader>,
-    cell: () => <$IconCell><FaPlusSquare /></$IconCell>,
+    cell: () => <$IconCell $color={selected}><FaPlusSquare /></$IconCell>,
   })
 
   return columns;
+}
+
+export const fuzzyFilter = (row, columnId, value, addMeta) => {
+  const itemRank = rankItem(row.getValue(columnId), value);
+
+  addMeta({itemRank});
+
+  return itemRank.passed;
+};
+
+export function colorHandler(submenu) {
+  switch (submenu) {
+    case "Country":
+    case "Location":
+    case "Office":
+    case "Area":
+    case "Company":
+    case "Tribe":
+    case "Team":
+    case "Employee":
+    case "Role":
+      return appgreen;
+    case "Threshold":
+    case "Filter":
+      return appblack;
+    case "Workstation":
+    case "Producer":
+    case "System":
+    case "Vendor":
+    case "Processor":
+    case "Memory":
+    case "Manufacturer":
+      return appblue;
+  }
 }

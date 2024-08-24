@@ -8,9 +8,8 @@ export default function Company() {
   return (
     <$Company>
       <Title />
-      <Title />
-      <VMenu />
       <Table />
+      <VMenu />      
     </$Company>
   );
 }

@@ -7,10 +7,10 @@ import {
   FaSort,
 } from "react-icons/fa";
 
-export default function Header({ header }) {
+export default function Header({ color, header }) {
   const isSorted = header.column.getIsSorted();
   return (
-    <$Header key={header.id} width={header.getSize()} $colSpan={header.colSpan}>
+    <$Header key={header.id} width={header.getSize()} $colSpan={header.colSpan} $color={color}>
       {header.isPlaceholder ? null : header.column.id === "expand" ? (
         flexRender(header.column.columnDef.header, header.getContext())
       ) : (

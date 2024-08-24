@@ -1,31 +1,5 @@
 import { styled } from "styled-components";
-import { appgreen, appblack, appblue } from "../../../../utils/colors.styles.jsx"
-
-function colorHandler(submenu) {
-  switch (submenu) {
-    case "Country":
-    case "Location":
-    case "Office":
-    case "Area":
-    case "Company":
-    case "Tribe":
-    case "Team":
-    case "Employee":
-    case "Role":
-      return appgreen;
-    case "Threshold":
-    case "Filter":
-      return appblack;
-    case "Workstation":
-    case "Producer":
-    case "System":
-    case "Vendor":
-    case "Processor":
-    case "Memory":
-    case "Manufacturer":
-      return appblue;
-  }
-}
+import { colorHandler } from "../Table/Table.utils.jsx";
 
 export const $Title = styled.div`
   display: flex;

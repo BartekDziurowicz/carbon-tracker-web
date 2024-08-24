@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
+import { colorHandler } from "../Table.utils.jsx";
 import {
   appwhite,
-  appgrey,
   apporange,
 } from "../../../../../utils/colors.styles.jsx";
 
@@ -26,7 +26,7 @@ export const $HeaderIcon = styled.a`
 
 export const $Header = styled.th`
   color: ${appwhite};
-  background-color: ${appgrey};
+  background-color: ${({$color}) => colorHandler($color)};
   padding: 8px 20px;
   font-size: 14px;
   width: ${(width) => width};

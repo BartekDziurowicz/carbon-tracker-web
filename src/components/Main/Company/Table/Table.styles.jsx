@@ -1,8 +1,8 @@
 import { styled } from "styled-components";
+import { colorHandler } from "./Table.utils.jsx";
 import {
   appwhite,
   appgrey,
-  appgreen,
   apporange,
   appgreylight,
 } from "../../../../utils/colors.styles.jsx";
@@ -44,7 +44,7 @@ export const $IconHeader = styled.div`
 `
 
 export const $IconCell = styled.div`
-  color: ${appgreen};
+  color: ${({$color}) => colorHandler($color)};
   font-size: 20px;
   text-align: center;
   display: flex;

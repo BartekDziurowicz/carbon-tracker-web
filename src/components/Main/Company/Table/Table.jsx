@@ -2,19 +2,18 @@ import { useContext, useEffect, useState } from "react";
 import {
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { Box, Flex } from "@chakra-ui/react";
+import { fuzzyFilter } from "./Table.utils.jsx";
+import { Box, Flex, Input } from "@chakra-ui/react";
 import { CompanyContext } from "../../../../store/company-context.jsx";
 import { apiCallToGetListOfEntities } from "../../../../api/Api.jsx";
 import { getTableColumns } from "./Table.utils.jsx";
-import {
-  $TableContainer,
-  $TableBox,
-  $Table,
-} from "./Table.styles.jsx";
+import { $TableContainer, $TableBox, $Table } from "./Table.styles.jsx";
 import Header from "./Header/Header.jsx";
+import Search from "./Search/Search.jsx";
 
 export default function Table() {
   const [tableData, setTableData] = useState({
@@ -28,13 +27,23 @@ export default function Table() {
     columns: tableData.columns,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    filterFns: {
+      fuzzy: fuzzyFilter,
+    },
+    globalFilterFn: fuzzyFilter,
   });
 
   useEffect(() => {
     async function fetchData() {
       try {
-        await apiCallToGetListOfEntities(selected.toLowerCase(), 0, "", true).then((resData) => {
-          const columns = getTableColumns(resData[0]);
+        await apiCallToGetListOfEntities(
+          selected.toLowerCase(),
+          0,
+          "",
+          true
+        ).then((resData) => {
+          const columns = getTableColumns(resData[0], selected);
           const table = { data: resData, columns: columns };
           setTableData((_prevInventory) => table);
         });
@@ -48,16 +57,16 @@ export default function Table() {
 
   return (
     <$TableContainer>
+      <Search color={selected} onChange={(e) => table.setGlobalFilter(e.target.value)} />
       <$TableBox width="100%">
         <Flex height="98%" direction={"column"} gap={2} p={2} grow="1">
-          <Flex alignItems={"center"}>search</Flex>
           <Box flex="1" overflow="auto">
             <$Table>
               <thead>
                 {table.getHeaderGroups().map((headerGroup) => (
                   <tr key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
-                      <Header header={header} />
+                      <Header header={header} color={selected}/>
                     ))}
                   </tr>
                 ))}

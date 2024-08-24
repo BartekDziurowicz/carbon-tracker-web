@@ -6,15 +6,11 @@ export const $Company = styled.div`
     grid-template-rows: 64px auto auto;
     gap: 15px 15px;
     grid-template-areas:
-        "Title HMenu"
+        "Title Content"
         "VMenu Content";
 
     & :first-child {
         grid-area: Title;
-    }
-
-    & :nth-child(2) {
-        grid-area: HMenu;
     }
 
     & :nth-child(3) {
