@@ -8,7 +8,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { fuzzyFilter } from "./Table.utils.jsx";
-import { Box, Flex, Input } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { CompanyContext } from "../../../../store/company-context.jsx";
 import { apiCallToGetListOfEntities } from "../../../../api/Api.jsx";
 import { getTableColumns } from "./Table.utils.jsx";
@@ -16,6 +16,7 @@ import { $TableContainer, $TableBox, $Table } from "./Table.styles.jsx";
 import Header from "./Header/Header.jsx";
 import Search from "./Search/Search.jsx";
 import Pagination from "./Pagination/Pagination.jsx";
+import RowDetail from "./RowDetail/RowDetail.jsx";
 
 export default function Table() {
   const [tableData, setTableData] = useState({
@@ -35,6 +36,7 @@ export default function Table() {
     },
     globalFilterFn: fuzzyFilter,
     getPaginationRowModel: getPaginationRowModel(),
+    getRowCanExpand: () => true,
   });
 
   useEffect(() => {
@@ -60,7 +62,10 @@ export default function Table() {
 
   return (
     <$TableContainer>
-      <Search color={selected} onChange={(e) => table.setGlobalFilter(e.target.value)} />
+      <Search
+        color={selected}
+        onChange={(e) => table.setGlobalFilter(e.target.value)}
+      />
       <$TableBox width="100%">
         <Flex height="98%" direction={"column"} gap={2} p={2} grow="1">
           <Box flex="1" overflow="auto">
@@ -69,7 +74,7 @@ export default function Table() {
                 {table.getHeaderGroups().map((headerGroup) => (
                   <tr key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
-                      <Header header={header} color={selected}/>
+                      <Header header={header} color={selected} />
                     ))}
                   </tr>
                 ))}
@@ -77,16 +82,25 @@ export default function Table() {
 
               <tbody>
                 {table.getRowModel().rows.map((row) => (
-                  <tr>
-                    {row.getVisibleCells().map((cell) => (
-                      <td>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </td>
-                    ))}
-                  </tr>
+                  <>
+                    <tr>
+                      {row.getVisibleCells().map((cell) => (
+                        <td>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </td>
+                      ))}
+                    </tr>
+                    {row.getIsExpanded() && (
+                      <tr>
+                        <td colSpan={row.getVisibleCells().length}>
+                          <RowDetail entityId={row.original.id} entityName={selected} />
+                        </td>
+                      </tr>
+                    )}
+                  </>
                 ))}
               </tbody>
 
@@ -108,7 +122,7 @@ export default function Table() {
               </tfoot> */}
             </$Table>
           </Box>
-          <Pagination table={table} color={selected}/>
+          <Pagination table={table} color={selected} />
         </Flex>
       </$TableBox>
     </$TableContainer>

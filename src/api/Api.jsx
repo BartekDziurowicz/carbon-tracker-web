@@ -61,6 +61,42 @@ export async function apiCallToGetCarbonThresholds() {
   return resData;
 }
 
+export async function apiCallToGetSingleEntity(id, name, entity) {
+  let endpoint;
+
+  switch (entity) {
+    case "country": endpoint = "/countries"; break;
+    case "location": endpoint = "/locations?id=" + id + "&country=" + name; break;
+    case "office": endpoint = "/offices?id=" + id + "&city=" + name; break;
+    case "company": endpoint = "/companies?id=" + id + "&city=" + name; break;
+    case "area": endpoint = "/area?id=" + id + "&name=" + name; break;
+    case "tribe": endpoint = "/tribes?id=" + id + "&area=" + name; break;
+    case "team": endpoint = "/teams?id=" + id + "&tribe=" + name; break;
+    case "employee": endpoint = "/allByTeam?id=" + id + "&team=" + name; break;
+    case "role": endpoint = "/roles"; break;
+
+    case "workstation": endpoint = "/workstations?id=" + id + "&producer=" + name; break;
+    case "producer": endpoint = "/producers"; break;
+    case "system": endpoint = "/systems?id=" + id + "&vendor=" + name; break;
+    case "vendor": endpoint = "/vendors"; break;
+    case "processor": endpoint = "/processors?id=" + id + "&manufacturer=" + name; break;
+    case "memory": endpoint = "/memories?id=" + id + "&manufacturer=" + name; break;
+    case "manufacturer": endpoint = "/manufacturers"; break;
+  }
+
+  const response = await fetch(
+    "http://localhost:8080/" + entity + endpoint
+  );
+
+  const resData = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Failed to get companies.");
+  }
+
+  return resData;
+}
+
 export async function apiCallToGetListOfEntities(entity, id, name, isSimple) {
   let endpoint;
 

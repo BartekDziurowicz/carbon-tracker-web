@@ -1,7 +1,12 @@
 import { rankItem } from "@tanstack/match-sorter-utils";
 import { $IconCell, $IconHeader } from "./Table.styles.jsx";
-import { FaPlusSquare } from "react-icons/fa";
-import { appblue, appblack, appgreen, appgreylight } from "../../../../utils/colors.styles.jsx";
+import { FaPlusSquare, FaMinusSquare } from "react-icons/fa";
+import {
+  appblue,
+  appblack,
+  appgreen,
+  appgreylight,
+} from "../../../../utils/colors.styles.jsx";
 
 export function getTableColumns(object, selected) {
   let columns = [];
@@ -18,9 +23,18 @@ export function getTableColumns(object, selected) {
 
   columns.push({
     id: "expand",
-    header: () => <$IconHeader><FaPlusSquare /></$IconHeader>,
-    cell: () => <$IconCell $color={selected}><FaPlusSquare /></$IconCell>,
-  })
+    header: () => (
+      <$IconHeader>
+        <FaPlusSquare />
+      </$IconHeader>
+    ),
+    cell: ({ row }) =>
+      row.getCanExpand() ? (
+        <$IconCell $color={selected} onClick={row.getToggleExpandedHandler()}>
+          {row.getIsExpanded() ? <FaMinusSquare /> : <FaPlusSquare />}
+        </$IconCell>
+      ) : null,
+  });
 
   return columns;
 }
@@ -28,7 +42,7 @@ export function getTableColumns(object, selected) {
 export const fuzzyFilter = (row, columnId, value, addMeta) => {
   const itemRank = rankItem(row.getValue(columnId), value);
 
-  addMeta({itemRank});
+  addMeta({ itemRank });
 
   return itemRank.passed;
 };
