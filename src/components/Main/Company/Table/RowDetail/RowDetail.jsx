@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { $RowDetail } from "./RowDetail.styles.jsx";
 import { apiCallToGetSingleEntity } from "../../../../../api/Api.jsx";
 
-export default function RowDetail({ entityId, entityName }) {
+export default function RowDetail({ entityId, entityName, name }) {
   const [entity, setEntity] = useState({});
 
   useEffect(() => {
@@ -10,7 +10,7 @@ export default function RowDetail({ entityId, entityName }) {
       try {
         await apiCallToGetSingleEntity(
           entityId,
-          "name",
+          name,
           entityName.toLowerCase()
         ).then((resData) => {
           setEntity(_prevEntity => resData);

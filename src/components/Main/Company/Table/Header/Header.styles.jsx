@@ -8,7 +8,7 @@ import {
 export const $HeaderBox = styled.div`
   display: flex;
   justify-content: center;
-  column-gap: 10px;
+  column-gap: 7px;
 `;
 
 export const $HeaderIcon = styled.a`

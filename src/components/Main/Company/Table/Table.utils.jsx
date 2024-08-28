@@ -47,6 +47,16 @@ export const fuzzyFilter = (row, columnId, value, addMeta) => {
   return itemRank.passed;
 };
 
+export function determineFieldNameHandler(rowOriginal, selected) {
+  switch (selected) {
+    case "Location": return rowOriginal.city;
+    case "Employee": return rowOriginal.corporateKey;
+    case "System": return rowOriginal.family;
+    case "Memory": return rowOriginal.partNumber;
+    default: return rowOriginal.name;
+  }
+}
+
 export function colorHandler(submenu) {
   switch (submenu) {
     case "Country":

@@ -11,7 +11,7 @@ import { fuzzyFilter } from "./Table.utils.jsx";
 import { Box, Flex } from "@chakra-ui/react";
 import { CompanyContext } from "../../../../store/company-context.jsx";
 import { apiCallToGetListOfEntities } from "../../../../api/Api.jsx";
-import { getTableColumns } from "./Table.utils.jsx";
+import { getTableColumns, determineFieldNameHandler } from "./Table.utils.jsx";
 import { $TableContainer, $TableBox, $Table } from "./Table.styles.jsx";
 import Header from "./Header/Header.jsx";
 import Search from "./Search/Search.jsx";
@@ -96,7 +96,7 @@ export default function Table() {
                     {row.getIsExpanded() && (
                       <tr>
                         <td colSpan={row.getVisibleCells().length}>
-                          <RowDetail entityId={row.original.id} entityName={selected} />
+                          <RowDetail entityId={row.original.id} entityName={selected} name={determineFieldNameHandler(row.original, selected)} />
                         </td>
                       </tr>
                     )}
@@ -104,22 +104,6 @@ export default function Table() {
                 ))}
               </tbody>
 
-              {/* <tfoot>
-                {table.getFooterGroups().map((footerGroup) => (
-                  <tr>
-                    {footerGroup.headers.map((footer) => (
-                      <td>
-                        {footer.isPlaceholder
-                          ? null
-                          : flexRender(
-                              footer.column.columnDef.footer,
-                              footer.getContext()
-                            )}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tfoot> */}
             </$Table>
           </Box>
           <Pagination table={table} color={selected} />
