@@ -4,7 +4,7 @@
 * Create VMenu and Title in Company section with proper styling
 * Create generic endpoint for retrieve entities for manage
 * Create and implement tansack table to view entities
-* Implement sorting in table
+* Implement sorting and pinning in table
 
 0.23 (2024-08-05)
 ===============

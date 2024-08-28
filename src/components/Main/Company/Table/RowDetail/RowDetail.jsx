@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react";
 import { $RowDetail } from "./RowDetail.styles.jsx";
+import Country from "./DetailView/Country.jsx";
 import { apiCallToGetSingleEntity } from "../../../../../api/Api.jsx";
+
+function rowDetailViewHandler(entityName, entity) {
+  switch (entityName) {
+    case "Country": return <Country entity={entity} entityName={entityName}/>;
+    default: return <>Error</>;
+  }
+}
 
 export default function RowDetail({ entityId, entityName, name }) {
   const [entity, setEntity] = useState({});
@@ -25,7 +33,7 @@ export default function RowDetail({ entityId, entityName, name }) {
 
   return (
     <$RowDetail>
-      {JSON.stringify(entity)}
+      {rowDetailViewHandler(entityName, entity)}
     </$RowDetail>
   );
 }

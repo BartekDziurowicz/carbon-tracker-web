@@ -24,6 +24,7 @@ export const $DeleteButton = styled.button`
     color: ${appgreen};
 
     &:hover {
+        cursor: pointer;
         color: ${apporange};
     }
 
