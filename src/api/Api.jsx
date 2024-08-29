@@ -139,6 +139,26 @@ export async function apiCallToGetListOfEntities(entity, id, name, isSimple) {
   return resData;
 }
 
+export async function apiCallToUpdateEntity(entity, updatedEntity) {
+  const response = await fetch(
+    "http://localhost:8080/" + entity + "/update",
+    {
+      method: "PUT",
+      body: JSON.stringify(updatedEntity),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const resData = await response.text();
+
+  if (!response.ok) {
+    throw new Error("Failed to update entity");
+  }
+
+  return resData;
+}
+
 export async function apiCallToGetCompanies() {
   const response = await fetch(
     "http://localhost:8080/company/companies?isSimple=true"

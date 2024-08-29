@@ -50,7 +50,7 @@ export default function Table() {
         ).then((resData) => {
           const columns = getTableColumns(resData[0], selected);
           const table = { data: resData, columns: columns };
-          setTableData((_prevInventory) => table);
+          setTableData((_prevData) => table);
         });
       } catch (error) {
         //TODO
@@ -59,6 +59,15 @@ export default function Table() {
 
     fetchData();
   }, [selected]);
+
+  const updateRowHandler = (rowIndex, newData) => {
+    setTableData((_prevData) => {
+      const data = _prevData.data.map((row, index) =>
+        index === rowIndex ? newData : row
+      );
+      return { ..._prevData, data };
+    });
+  };
 
   return (
     <$TableContainer>
@@ -81,11 +90,11 @@ export default function Table() {
               </thead>
 
               <tbody>
-                {table.getRowModel().rows.map((row) => (
+                {table.getRowModel().rows.map((row, index) => (
                   <>
-                    <tr>
-                      {row.getVisibleCells().map((cell) => (
-                        <td>
+                    <tr key={index}>
+                      {row.getVisibleCells().map((cell, index) => (
+                        <td key={index}>
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext()
@@ -96,14 +105,22 @@ export default function Table() {
                     {row.getIsExpanded() && (
                       <tr>
                         <td colSpan={row.getVisibleCells().length}>
-                          <RowDetail entityId={row.original.id} entityName={selected} name={determineFieldNameHandler(row.original, selected)} />
+                          <RowDetail
+                            entityId={row.original.id}
+                            entityName={selected}
+                            name={determineFieldNameHandler(
+                              row.original,
+                              selected
+                            )}
+                            updateRowHandler={updateRowHandler}
+                            rowIndex={index}
+                          />
                         </td>
                       </tr>
                     )}
                   </>
                 ))}
               </tbody>
-
             </$Table>
           </Box>
           <Pagination table={table} color={selected} />

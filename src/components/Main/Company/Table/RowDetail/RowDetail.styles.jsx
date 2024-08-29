@@ -6,6 +6,10 @@ export const $RowDetail = styled.div`
     display: block;
 `
 
+export const $RowForm = styled.form`
+    display: block;
+`
+
 export const $RowDetailsHeader = styled.div`
     display: flex;
     justify-content: space-evenly;

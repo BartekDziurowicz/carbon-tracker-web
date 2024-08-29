@@ -6,6 +6,7 @@ import {
   appblack,
   appgreen,
   appgreylight,
+  appred,
 } from "../../../../utils/colors.styles.jsx";
 
 export function getTableColumns(object, selected) {
@@ -80,6 +81,8 @@ export function colorHandler(submenu) {
     case "Memory":
     case "Manufacturer":
       return appblue;
+    case "delete":
+      return appred;
     default:
       return appgreylight;
   }
