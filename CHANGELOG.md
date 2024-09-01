@@ -7,7 +7,7 @@
 * Implement sorting and pinning in table
 * Develop details with icons menu
 * Add functionality to save, delete and childs buttons
-* Create childs view
+* Create childs view and info / error label
 
 0.23 (2024-08-05)
 ===============
