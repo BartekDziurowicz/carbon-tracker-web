@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { $RowDetail } from "./RowDetail.styles.jsx";
 import Country from "./DetailView/Country.jsx";
 import { apiCallToGetSingleEntity } from "../../../../../api/Api.jsx";
 
@@ -47,8 +46,6 @@ export default function RowDetail({
   }, [entityId, entityName]);
 
   return (
-    // <$RowDetail>
     rowDetailViewHandler(entityName, entity, updateRowHandler, rowIndex)
-    // </$RowDetail>
   );
 }

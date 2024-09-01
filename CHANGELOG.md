@@ -5,6 +5,9 @@
 * Create generic endpoint for retrieve entities for manage
 * Create and implement tansack table to view entities
 * Implement sorting and pinning in table
+* Develop details with icons menu
+* Add functionality to save, delete and childs buttons
+* Create childs view
 
 0.23 (2024-08-05)
 ===============

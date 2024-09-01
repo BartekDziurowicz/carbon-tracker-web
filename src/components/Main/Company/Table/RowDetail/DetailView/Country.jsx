@@ -1,3 +1,8 @@
+import { memo, useRef, useState } from "react";
+import { Tooltip } from "react-tooltip";
+import { PiTreeStructureFill, PiTreeStructureLight } from "react-icons/pi";
+import { FaTrashCan } from "react-icons/fa6";
+import { FaSave } from "react-icons/fa";
 import {
   $RowButton,
   $RowDetailsHeader,
@@ -5,14 +10,30 @@ import {
   $RowInputField,
   $RowInputLabel,
   $RowForm,
+  $RowStatusLabel,
 } from "../RowDetail.styles";
-import { apiCallToUpdateEntity } from "../../../../../../api/Api.jsx";
+import Childs from "../Childs/Childs.jsx";
+import {
+  apiCallToUpdateEntity,
+  apiCallToDeleteEntity,
+  apiCallToGetEntityChilds,
+} from "../../../../../../api/Api.jsx";
 
 const FIELDS = [{ name: "id" }, { name: "name" }];
 
-export default function Country({ entity, entityName, updateRowHandler, rowIndex }) {
+const Country = memo(function Country({
+  entity,
+  entityName,
+  updateRowHandler,
+  rowIndex,
+}) {
+  const [response, setResponse] = useState(null);
+  const [showParents, setShowParents] = useState(false);
+  const [showChilds, setShowChilds] = useState(false);
 
-  function handleSubmit(event) {
+  const childs = useRef([]);
+
+  async function handleSubmit(event) {
     event.preventDefault();
 
     const form = event.target;
@@ -20,6 +41,10 @@ export default function Country({ entity, entityName, updateRowHandler, rowIndex
     disabledElements.forEach((element) => (element.disabled = false));
 
     const fd = new FormData(form);
+
+    const action = form.querySelector(
+      'button[type="submit"][name="action"]:focus'
+    ).value;
 
     form.querySelectorAll("input").forEach((element) => {
       if (!element.value && element.placeholder) {
@@ -31,15 +56,52 @@ export default function Country({ entity, entityName, updateRowHandler, rowIndex
 
     disabledElements.forEach((element) => (element.disabled = true));
 
-    const resData = apiCallToUpdateEntity(entityName.toLowerCase(), formData);
-    // TODO res Data await i pokazac respone w jakiejs labelce
-    updateRowHandler(rowIndex, formData);
+    let resData;
+
+    try {
+      if (action === "save") {
+        resData = await apiCallToUpdateEntity(
+          entityName.toLowerCase(),
+          formData
+        );
+        updateRowHandler(rowIndex, formData);
+      } else {
+        resData = await apiCallToDeleteEntity(
+          entityName.toLowerCase(),
+          fd.get("id"),
+          fd.get("name")
+        );
+      }
+    } catch (error) {
+      resData = error;
+    }
+
+    setResponse((_prevResponse) => resData);
+
+    setTimeout(() => {
+      setResponse(null);
+    }, 5000);
+  }
+
+  async function showChildHandler() {
+    let resData;
+    try {
+      resData = await apiCallToGetEntityChilds(
+        entityName.toLowerCase(),
+        entity[FIELDS[0].name],
+        entity[FIELDS[1].name]
+      );
+    } catch (error) {
+      resData = error;
+    }
+    childs.current = resData;
+    setShowChilds((_prevState) => !_prevState);
   }
 
   return (
     <$RowForm onSubmit={handleSubmit}>
       <$RowDetailsHeader>
-        <$RowDetailsBox $justify="center">
+        <$RowDetailsBox $justify="center" $gap="10px">
           <$RowInputLabel>{FIELDS[0].name}</$RowInputLabel>
           <$RowInputField
             name={FIELDS[0].name}
@@ -49,7 +111,7 @@ export default function Country({ entity, entityName, updateRowHandler, rowIndex
             placeholder={entity[FIELDS[0].name]}
           ></$RowInputField>
         </$RowDetailsBox>
-        <$RowDetailsBox $justify="center">
+        <$RowDetailsBox $justify="center" $gap="10px">
           <$RowInputLabel>{FIELDS[1].name}</$RowInputLabel>
           <$RowInputField
             name={FIELDS[1].name}
@@ -59,16 +121,86 @@ export default function Country({ entity, entityName, updateRowHandler, rowIndex
             $color={entityName}
           ></$RowInputField>
         </$RowDetailsBox>
-        <$RowDetailsBox $justify="flex-end">
+        <$RowDetailsBox $justify="flex-end" $gap="0px">
           <$RowButton
             type="submit"
+            name="action"
+            value="save"
             $color={entityName}
+            $size="16px"
           >
-            Save
+            <a
+              data-tooltip-id={"save"}
+              data-tooltip-content={"Save"}
+              data-tooltip-delay-show={1000}
+              data-tooltip-place={"top"}
+            >
+              <FaSave />
+              <Tooltip id={"save"} />
+            </a>
           </$RowButton>
-          <$RowButton $color="delete">Delete</$RowButton>
+          <$RowButton
+            type="submit"
+            name="action"
+            value="delete"
+            $color="delete"
+            $size="13px"
+          >
+            <a
+              data-tooltip-id={"delete"}
+              data-tooltip-content={"Delete"}
+              data-tooltip-delay-show={1000}
+              data-tooltip-place={"top"}
+            >
+              <FaTrashCan />
+              <Tooltip id={"delete"} />
+            </a>
+          </$RowButton>
+          <$RowButton
+            type="button"
+            $color={entityName}
+            $size="16px"
+            onClick={() => setShowParents((_prevState) => !_prevState)}
+          >
+            <a
+              data-tooltip-id={"parents"}
+              data-tooltip-content={"Parents"}
+              data-tooltip-delay-show={1000}
+              data-tooltip-place={"top"}
+            >
+              <PiTreeStructureFill />
+              <Tooltip id={"parents"} />
+            </a>
+          </$RowButton>
+          <$RowButton
+            type="button"
+            $color={entityName}
+            $size="16px"
+            onClick={showChildHandler}
+          >
+            <a
+              data-tooltip-id={"childs"}
+              data-tooltip-content={"Childs"}
+              data-tooltip-delay-show={1000}
+              data-tooltip-place={"top"}
+            >
+              <PiTreeStructureLight />
+              <Tooltip id={"childs"} />
+            </a>
+          </$RowButton>
         </$RowDetailsBox>
       </$RowDetailsHeader>
+      {response === null ? (
+        ""
+      ) : response.message === undefined ? (
+        <$RowStatusLabel $color="ok">{response}</$RowStatusLabel>
+      ) : (
+        <$RowStatusLabel $color="error">{response.message}</$RowStatusLabel>
+      )}
+      {showParents && <$RowDetailsHeader>parents</$RowDetailsHeader>}
+      {showChilds && <Childs ref={childs} childName="Locations:" color={entityName}><PiTreeStructureLight /></Childs>}
     </$RowForm>
   );
-}
+});
+
+export default Country;

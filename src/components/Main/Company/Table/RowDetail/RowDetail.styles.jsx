@@ -2,10 +2,6 @@ import { styled } from "styled-components";
 import { colorHandler } from "../Table.utils.jsx";
 import { appgrey, apporange } from "../../../../../utils/colors.styles.jsx";
 
-export const $RowDetail = styled.div`
-    display: block;
-`
-
 export const $RowForm = styled.form`
     display: block;
 `
@@ -20,7 +16,7 @@ export const $RowDetailsBox = styled.div`
     display: flex;
     justify-content: ${({$justify}) => $justify};
     align-items: center;
-    gap: 10px;
+    gap: ${({$gap}) => $gap};
     width: 100%;
 `
 
@@ -44,6 +40,7 @@ export const $RowInputField = styled.input`
 
 export const $RowButton = styled.button`
     border: 0px;
+    font-size: ${({$size}) => $size};
     background-color: inherit;
     color: ${({$color}) => colorHandler($color)};
 
@@ -55,4 +52,22 @@ export const $RowButton = styled.button`
     &:active {
         color: ${apporange};
     }
+
+    & :nth-child(2) {
+        font-size: 12px;
+    }
+`
+
+export const $RowStatusLabel = styled.div`
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    color: ${({$color}) => colorHandler($color)};
+    padding: 10px 0 0 0;
+`
+
+export const $Childs = styled.div`
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
 `

@@ -139,6 +139,26 @@ export async function apiCallToGetListOfEntities(entity, id, name, isSimple) {
   return resData;
 }
 
+export async function apiCallToGetEntityChilds(entity, id, name) {
+  let endpoint;
+
+  switch (entity) {
+    case "country": endpoint = "location/cities?id=" + id + "&country=" + name;
+  }
+
+  const response = await fetch(
+    "http://localhost:8080/" + endpoint
+  );
+
+  const resData = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Failed to get childs.");
+  }
+
+  return resData;
+}
+
 export async function apiCallToUpdateEntity(entity, updatedEntity) {
   const response = await fetch(
     "http://localhost:8080/" + entity + "/update",
@@ -153,7 +173,23 @@ export async function apiCallToUpdateEntity(entity, updatedEntity) {
   const resData = await response.text();
 
   if (!response.ok) {
-    throw new Error("Failed to update entity");
+    throw new Error(resData);
+  }
+
+  return resData;
+}
+
+export async function apiCallToDeleteEntity(entity, id, name) {
+  const response = await fetch(
+    "http://localhost:8080/" + entity + "/delete?id=" + id + "&name=" + name,
+    {
+      method: "DELETE",
+    }
+  );
+  const resData = await response.text();
+
+  if (!response.ok) {
+    throw new Error(resData);
   }
 
   return resData;

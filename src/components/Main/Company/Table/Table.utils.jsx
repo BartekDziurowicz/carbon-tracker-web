@@ -69,6 +69,7 @@ export function colorHandler(submenu) {
     case "Team":
     case "Employee":
     case "Role":
+    case "ok":
       return appgreen;
     case "Threshold":
     case "Filter":
@@ -82,6 +83,7 @@ export function colorHandler(submenu) {
     case "Manufacturer":
       return appblue;
     case "delete":
+    case "error":
       return appred;
     default:
       return appgreylight;
