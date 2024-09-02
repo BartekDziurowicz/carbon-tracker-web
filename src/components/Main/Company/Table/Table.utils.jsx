@@ -17,7 +17,7 @@ export function getTableColumns(object, selected) {
       columns.push({
         accessorKey: field,
         id: field,
-        header: field.charAt(0).toUpperCase() + field.slice(1),
+        header: () => <label>{field.charAt(0).toUpperCase() + field.slice(1)}</label>,
       });
     }
   }

@@ -6,11 +6,11 @@ export const $Childs = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 5px;
     padding: 2px 0 0 0;
 `
 
-export const $Child = styled.div`
+export const $Child = styled.label`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -18,6 +18,7 @@ export const $Child = styled.div`
     border: 1px solid ${appgrey};
     border-radius: 5px 5px;
     padding: 1px 4px 2px 4px;
+    font-size: 10px;
     text-align: center;
 `
 
@@ -25,13 +26,14 @@ export const $Line = styled.hr`
   border: 1px dashed ${appgreylight};
 `;
 
-export const $Title = styled.div`
+export const $Title = styled.label`
     display: flex;
     item-align: center;
     justify-content: center;
     gap: 4px;
+    font-size: 11px;
     color: ${({$color}) => colorHandler($color)};
-    padding-right: 8px;
+    padding-right: 5px;
 
     & :first-child {
         font-size: 16px;

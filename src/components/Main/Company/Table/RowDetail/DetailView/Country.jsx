@@ -13,10 +13,10 @@ import {
   $RowStatusLabel,
 } from "../RowDetail.styles";
 import Childs from "../Childs/Childs.jsx";
+import Parents from "../Parents/Parents.jsx";
 import {
   apiCallToUpdateEntity,
   apiCallToDeleteEntity,
-  apiCallToGetEntityChilds,
 } from "../../../../../../api/Api.jsx";
 
 const FIELDS = [{ name: "id" }, { name: "name" }];
@@ -31,7 +31,7 @@ const Country = memo(function Country({
   const [showParents, setShowParents] = useState(false);
   const [showChilds, setShowChilds] = useState(false);
 
-  const childs = useRef([]);
+  const parents = useRef({});
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -83,19 +83,9 @@ const Country = memo(function Country({
     }, 5000);
   }
 
-  async function showChildHandler() {
-    let resData;
-    try {
-      resData = await apiCallToGetEntityChilds(
-        entityName.toLowerCase(),
-        entity[FIELDS[0].name],
-        entity[FIELDS[1].name]
-      );
-    } catch (error) {
-      resData = error;
-    }
-    childs.current = resData;
-    setShowChilds((_prevState) => !_prevState);
+  function showParentHandler() {
+    parents.current = entity;
+    setShowParents((_prevState) => !_prevState);
   }
 
   return (
@@ -160,7 +150,7 @@ const Country = memo(function Country({
             type="button"
             $color={entityName}
             $size="16px"
-            onClick={() => setShowParents((_prevState) => !_prevState)}
+            onClick={showParentHandler}
           >
             <a
               data-tooltip-id={"parents"}
@@ -176,7 +166,7 @@ const Country = memo(function Country({
             type="button"
             $color={entityName}
             $size="16px"
-            onClick={showChildHandler}
+            onClick={() => setShowChilds((_prevState) => !_prevState)}
           >
             <a
               data-tooltip-id={"childs"}
@@ -197,8 +187,16 @@ const Country = memo(function Country({
       ) : (
         <$RowStatusLabel $color="error">{response.message}</$RowStatusLabel>
       )}
-      {showParents && <$RowDetailsHeader>parents</$RowDetailsHeader>}
-      {showChilds && <Childs ref={childs} childName="Locations:" color={entityName}><PiTreeStructureLight /></Childs>}
+      {showParents && <Parents ref={parents} />}
+      {showChilds && (
+        <Childs
+          objId={entity[FIELDS[0].name]}
+          objName={entity[FIELDS[1].name]}
+          entityName={entityName}
+        >
+          <PiTreeStructureLight />
+        </Childs>
+      )}
     </$RowForm>
   );
 });
