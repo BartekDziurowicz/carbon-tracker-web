@@ -25,7 +25,7 @@ export const $Table = styled.table`
 
   & td {
     font-size: 12px;
-    padding: 10px 10px;
+    padding: 10px 0;
     text-align: center;
   }
 
@@ -50,7 +50,7 @@ export const $IconCell = styled.div`
   display: flex;
   align-items: center;
   justify-content: end;
-  padding-right: 10px;
+  padding-right: 20px;
 
   & :first-child {
     &:hover {

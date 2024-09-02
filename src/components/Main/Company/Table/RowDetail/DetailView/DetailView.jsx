@@ -7,13 +7,12 @@ import {
   $RowButton,
   $RowDetailsHeader,
   $RowDetailsBox,
-  $RowInputField,
-  $RowInputLabel,
   $RowForm,
   $RowStatusLabel,
-} from "../RowDetail.styles";
+} from "../RowDetail.styles.jsx";
 import Childs from "../Childs/Childs.jsx";
 import Parents from "../Parents/Parents.jsx";
+import { entityMappingHandler } from "./DetailView.utils.jsx";
 import {
   apiCallToUpdateEntity,
   apiCallToDeleteEntity,
@@ -88,32 +87,13 @@ const Country = memo(function Country({
     setShowParents((_prevState) => !_prevState);
   }
 
+  const mappedObject = entityMappingHandler(entity, entityName);
+
   return (
     <$RowForm onSubmit={handleSubmit}>
       <$RowDetailsHeader>
-        <$RowDetailsBox $justify="center" $gap="10px">
+        {Object.values(mappedObject)}
 
-          <$RowInputLabel>{FIELDS[0].name}</$RowInputLabel>
-          <$RowInputField
-            name={FIELDS[0].name}
-            $width="15%"
-            $align="center"
-            disabled
-            placeholder={entity[FIELDS[0].name]}
-          ></$RowInputField>
-        </$RowDetailsBox>
-
-        <$RowDetailsBox $justify="center" $gap="10px">
-          <$RowInputLabel>{FIELDS[1].name}</$RowInputLabel>
-          <$RowInputField
-            name={FIELDS[1].name}
-            $width="50%"
-            $align="center"
-            placeholder={entity[FIELDS[1].name]}
-            $color={entityName}
-          ></$RowInputField>
-        </$RowDetailsBox>
-        
         <$RowDetailsBox $justify="flex-end" $gap="0px">
           <$RowButton
             type="submit"

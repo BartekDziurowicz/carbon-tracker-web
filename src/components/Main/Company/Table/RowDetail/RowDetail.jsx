@@ -1,22 +1,6 @@
 import { useEffect, useState } from "react";
-import Country from "./DetailView/Country.jsx";
+import DetailView from "./DetailView/DetailView.jsx";
 import { apiCallToGetSingleEntity } from "../../../../../api/Api.jsx";
-
-function rowDetailViewHandler(entityName, entity, updateRowHandler, rowIndex) {
-  switch (entityName) {
-    case "Country":
-      return (
-        <Country
-          entity={entity}
-          entityName={entityName}
-          updateRowHandler={updateRowHandler}
-          rowIndex={rowIndex}
-        />
-      );
-    default:
-      return <>Error</>;
-  }
-}
 
 export default function RowDetail({
   entityId,
@@ -46,6 +30,11 @@ export default function RowDetail({
   }, [entityId, entityName]);
 
   return (
-    rowDetailViewHandler(entityName, entity, updateRowHandler, rowIndex)
+    <DetailView
+      entity={entity}
+      entityName={entityName}
+      updateRowHandler={updateRowHandler}
+      rowIndex={rowIndex}
+    />
   );
 }

@@ -6,4 +6,5 @@ export const $Parents = styled.div`
     justify-content: center;
     gap: 5px;
     padding: 2px 0 0 0;
+    font-size: 11px;
 `

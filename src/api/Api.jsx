@@ -269,7 +269,7 @@ export async function apiCallToUpdateEntity(entity, updatedEntity) {
   const resData = await response.text();
 
   if (!response.ok) {
-    throw new Error(resData.message !== undefined ? resData.message : "Failed to update entity.");
+    throw new Error(resData.message !== undefined ? "Failed to update entity." : resData);
   }
 
   return resData;

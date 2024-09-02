@@ -8,8 +8,8 @@ export const $RowForm = styled.form`
 
 export const $RowDetailsHeader = styled.div`
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    justify-content: space-between;
+    // align-items: center;
 `;
 
 export const $RowDetailsBox = styled.div`
@@ -20,15 +20,10 @@ export const $RowDetailsBox = styled.div`
     width: 100%;
 `
 
-export const $RowInputLabel = styled.label`
-    color: ${appgrey};
-    font-size: 12px;
-`
-
 export const $RowInputField = styled.input`
-    width: ${({$width}) => $width};
+    width: 95%;
     text-align: ${({$align}) => $align};
-    font-size: 13px;
+    font-size: 12px;
     color: ${appgrey};
     border: 1px solid ${({$color}) => colorHandler($color)};
 
