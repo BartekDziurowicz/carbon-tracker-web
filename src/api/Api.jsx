@@ -13,7 +13,13 @@ export async function apiCallToGetCalculatedMetrics(
 ) {
   const response = await fetch(
     "http://localhost:8080/metrics/get?group=" +
-      group + "&start=" + startDate + "&end=" + endDate + "&period="+period,
+      group +
+      "&start=" +
+      startDate +
+      "&end=" +
+      endDate +
+      "&period=" +
+      period,
     {
       method: "POST",
       body: JSON.stringify(criteria),
@@ -65,31 +71,65 @@ export async function apiCallToGetSingleEntity(id, name, entity) {
   let endpoint;
 
   switch (entity) {
-    case "country": endpoint = "/country?id=" + id + "&name=" + name; break;
-    case "location": endpoint = "/location?id=" + id + "&city=" + name; break;
-    case "office": endpoint = "/office?id=" + id + "&name=" + name; break;
-    case "company": endpoint = "/company?id=" + id + "&name=" + name; break;
-    case "area": endpoint = "/area?id=" + id + "&name=" + name; break;
-    case "tribe": endpoint = "/tribe?id=" + id + "&name=" + name; break;
-    case "team": endpoint = "/team?id=" + id + "&name=" + name; break;
-    case "employee": endpoint = "/employee?id=" + id + "&ck=" + name; break;
-    case "role": endpoint = "/role?id=" + id + "&name=" + name; break;
+    case "country":
+      endpoint = "/country?id=" + id + "&name=" + name;
+      break;
+    case "location":
+      endpoint = "/location?id=" + id + "&city=" + name;
+      break;
+    case "office":
+      endpoint = "/office?id=" + id + "&name=" + name;
+      break;
+    case "company":
+      endpoint = "/company?id=" + id + "&name=" + name;
+      break;
+    case "area":
+      endpoint = "/area?id=" + id + "&name=" + name;
+      break;
+    case "tribe":
+      endpoint = "/tribe?id=" + id + "&name=" + name;
+      break;
+    case "team":
+      endpoint = "/team?id=" + id + "&name=" + name;
+      break;
+    case "employee":
+      endpoint = "/employee?id=" + id + "&ck=" + name;
+      break;
+    case "role":
+      endpoint = "/role?id=" + id + "&name=" + name;
+      break;
 
-    case "threshold": endpoint = "/threshold?id=" + id + "&name=" + name; break;
-    case "filter": endpoint = "/filter?id=" + id + "&name=" + name; break;
+    case "threshold":
+      endpoint = "/threshold?id=" + id + "&name=" + name;
+      break;
+    case "filter":
+      endpoint = "/filter?id=" + id + "&name=" + name;
+      break;
 
-    case "workstation": endpoint = "/workstation?id=" + id + "&name=" + name; break;
-    case "producer": endpoint = "/producer?id=" + id + "&name=" + name; break;
-    case "system": endpoint = "/system?id=" + id + "&name=" + name; break;
-    case "vendor": endpoint = "/vendor?id=" + id + "&name=" + name; break;
-    case "processor": endpoint = "/processor?id=" + id + "&name=" + name; break;
-    case "memory": endpoint = "/memory?id=" + id + "&number=" + name; break;
-    case "manufacturer": endpoint = "/manufacturer?id=" + id + "&name=" + name; break;
+    case "workstation":
+      endpoint = "/workstation?id=" + id + "&name=" + name;
+      break;
+    case "producer":
+      endpoint = "/producer?id=" + id + "&name=" + name;
+      break;
+    case "system":
+      endpoint = "/system?id=" + id + "&name=" + name;
+      break;
+    case "vendor":
+      endpoint = "/vendor?id=" + id + "&name=" + name;
+      break;
+    case "processor":
+      endpoint = "/processor?id=" + id + "&name=" + name;
+      break;
+    case "memory":
+      endpoint = "/memory?id=" + id + "&number=" + name;
+      break;
+    case "manufacturer":
+      endpoint = "/manufacturer?id=" + id + "&name=" + name;
+      break;
   }
 
-  const response = await fetch(
-    "http://localhost:8080/" + entity + endpoint
-  );
+  const response = await fetch("http://localhost:8080/" + entity + endpoint);
 
   const resData = await response.json();
 
@@ -104,31 +144,89 @@ export async function apiCallToGetListOfEntities(entity, id, name, isSimple) {
   let endpoint;
 
   switch (entity) {
-    case "country": endpoint = "/countries"; break;
-    case "location": endpoint = "/locations?id=" + id + "&country=" + name + "&isSimple=" + isSimple; break;
-    case "office": endpoint = "/offices?id=" + id + "&city=" + name + "&isSimple=" + isSimple; break;
-    case "company": endpoint = "/companies?id=" + id + "&city=" + name + "&isSimple=" + isSimple; break;
-    case "area": endpoint = "/areas?id=" + id + "&company=" + name + "&isSimple=" + isSimple; break;
-    case "tribe": endpoint = "/tribes?id=" + id + "&area=" + name + "&isSimple=" + isSimple; break;
-    case "team": endpoint = "/teams?id=" + id + "&tribe=" + name + "&isSimple=" + isSimple; break;
-    case "employee": endpoint = "/allByTeam?id=" + id + "&team=" + name + "&isSimple=" + isSimple; break;
-    case "role": endpoint = "/roles"; break;
+    case "country":
+      endpoint = "/countries";
+      break;
+    case "location":
+      endpoint =
+        "/locations?id=" + id + "&country=" + name + "&isSimple=" + isSimple;
+      break;
+    case "office":
+      endpoint =
+        "/offices?id=" + id + "&city=" + name + "&isSimple=" + isSimple;
+      break;
+    case "company":
+      endpoint =
+        "/companies?id=" + id + "&city=" + name + "&isSimple=" + isSimple;
+      break;
+    case "area":
+      endpoint =
+        "/areas?id=" + id + "&company=" + name + "&isSimple=" + isSimple;
+      break;
+    case "tribe":
+      endpoint = "/tribes?id=" + id + "&area=" + name + "&isSimple=" + isSimple;
+      break;
+    case "team":
+      endpoint = "/teams?id=" + id + "&tribe=" + name + "&isSimple=" + isSimple;
+      break;
+    case "employee":
+      endpoint =
+        "/allByTeam?id=" + id + "&team=" + name + "&isSimple=" + isSimple;
+      break;
+    case "role":
+      endpoint = "/roles";
+      break;
 
-    case "filter": endpoint = "/filters"; break;
-    case "threshold": endpoint = "/thresholds"; break;
+    case "filter":
+      endpoint = "/filters";
+      break;
+    case "threshold":
+      endpoint = "/thresholds";
+      break;
 
-    case "workstation": endpoint = "/workstations?id=" + id + "&producer=" + name + "&isSimple=" + isSimple; break;
-    case "producer": endpoint = "/producers"; break;
-    case "system": endpoint = "/systems?id=" + id + "&vendor=" + name + "&isSimple=" + isSimple; break;
-    case "vendor": endpoint = "/vendors"; break;
-    case "processor": endpoint = "/processors?id=" + id + "&manufacturer=" + name + "&isSimple=" + isSimple; break;
-    case "memory": endpoint = "/memories?id=" + id + "&manufacturer=" + name + "&isSimple=" + isSimple; break;
-    case "manufacturer": endpoint = "/manufacturers"; break;
+    case "workstation":
+      endpoint =
+        "/workstations?id=" +
+        id +
+        "&producer=" +
+        name +
+        "&isSimple=" +
+        isSimple;
+      break;
+    case "producer":
+      endpoint = "/producers";
+      break;
+    case "system":
+      endpoint =
+        "/systems?id=" + id + "&vendor=" + name + "&isSimple=" + isSimple;
+      break;
+    case "vendor":
+      endpoint = "/vendors";
+      break;
+    case "processor":
+      endpoint =
+        "/processors?id=" +
+        id +
+        "&manufacturer=" +
+        name +
+        "&isSimple=" +
+        isSimple;
+      break;
+    case "memory":
+      endpoint =
+        "/memories?id=" +
+        id +
+        "&manufacturer=" +
+        name +
+        "&isSimple=" +
+        isSimple;
+      break;
+    case "manufacturer":
+      endpoint = "/manufacturers";
+      break;
   }
 
-  const response = await fetch(
-    "http://localhost:8080/" + entity + endpoint
-  );
+  const response = await fetch("http://localhost:8080/" + entity + endpoint);
 
   const resData = await response.json();
 
@@ -143,37 +241,35 @@ export async function apiCallToGetEntityChilds(entity, id, name) {
   let endpoint;
 
   switch (entity) {
-    case "country": endpoint = "location/cities?id=" + id + "&country=" + name;
+    case "country":
+      endpoint = "location/cities?id=" + id + "&country=" + name;
   }
 
-  const response = await fetch(
-    "http://localhost:8080/" + endpoint
-  );
+  const response = await fetch("http://localhost:8080/" + endpoint);
 
   const resData = await response.json();
 
   if (!response.ok) {
-    throw new Error("Failed to get childs.");
+    throw new Error(
+      resData.message !== undefined ? resData.message : "Failed to get childs."
+    );
   }
 
   return resData;
 }
 
 export async function apiCallToUpdateEntity(entity, updatedEntity) {
-  const response = await fetch(
-    "http://localhost:8080/" + entity + "/update",
-    {
-      method: "PUT",
-      body: JSON.stringify(updatedEntity),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  const response = await fetch("http://localhost:8080/" + entity + "/update", {
+    method: "PUT",
+    body: JSON.stringify(updatedEntity),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
   const resData = await response.text();
 
   if (!response.ok) {
-    throw new Error(resData);
+    throw new Error(resData.message !== undefined ? resData.message : "Failed to update entity.");
   }
 
   return resData;

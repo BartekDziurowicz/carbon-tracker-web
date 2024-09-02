@@ -92,6 +92,7 @@ const Country = memo(function Country({
     <$RowForm onSubmit={handleSubmit}>
       <$RowDetailsHeader>
         <$RowDetailsBox $justify="center" $gap="10px">
+
           <$RowInputLabel>{FIELDS[0].name}</$RowInputLabel>
           <$RowInputField
             name={FIELDS[0].name}
@@ -101,6 +102,7 @@ const Country = memo(function Country({
             placeholder={entity[FIELDS[0].name]}
           ></$RowInputField>
         </$RowDetailsBox>
+
         <$RowDetailsBox $justify="center" $gap="10px">
           <$RowInputLabel>{FIELDS[1].name}</$RowInputLabel>
           <$RowInputField
@@ -111,6 +113,7 @@ const Country = memo(function Country({
             $color={entityName}
           ></$RowInputField>
         </$RowDetailsBox>
+        
         <$RowDetailsBox $justify="flex-end" $gap="0px">
           <$RowButton
             type="submit"
