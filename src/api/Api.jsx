@@ -259,7 +259,41 @@ export async function apiCallToGetEntityChilds(
       endpoints.push(
         childEntities[1].toLowerCase() + "/names?id=" + id + "&location=" + name
       );
-      // endpoints.push(childEntities[2].toLowerCase() + "/names?id=" + id + "&location=" + name);
+      endpoints.push(
+        childEntities[2].toLowerCase() + "/ckByLocation?id=" + id + "&location=" + name
+      );
+      break;
+    case "office":
+      endpoints.push(
+        childEntities[0].toLowerCase() + "/ckByOffice?id=" + id + "&office=" + name
+      );
+      break;
+    case "company":
+      endpoints.push(
+        childEntities[0].toLowerCase() + "/names?id=" + id + "&company=" + name
+      );
+      break;
+    case "area":
+      endpoints.push(
+        childEntities[0].toLowerCase() + "/names?id=" + id + "&area=" + name
+      );
+      break;
+    case "tribe":
+      endpoints.push(
+        childEntities[0].toLowerCase() + "/names?id=" + id + "&tribe=" + name
+      );
+      break;
+    case "team":
+      endpoints.push(
+        childEntities[0].toLowerCase() + "/ckByTeam?id=" + id + "&team=" + name
+      );
+      break;
+    case "employee":
+      break;
+    case "role":
+      endpoints.push(
+        childEntities[0].toLowerCase() + "/ckByRole?id=" + id + "&team=" + name
+      );
       break;
   }
 
@@ -269,7 +303,7 @@ export async function apiCallToGetEntityChilds(
 
   if (response.ok) {
     resData = await response.json();
-  } else if(response.status === 404) {
+  } else if (response.status === 404) {
     resData = [];
   } else {
     throw new Error("Failed to get childs. Error code: " + response.status);
