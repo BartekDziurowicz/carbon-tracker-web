@@ -40,6 +40,7 @@ export default function Table() {
   });
 
   useEffect(() => {
+    
     async function fetchData() {
       try {
         await apiCallToGetListOfEntities(

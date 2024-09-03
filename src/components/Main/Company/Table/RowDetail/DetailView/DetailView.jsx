@@ -12,7 +12,10 @@ import {
 } from "../RowDetail.styles.jsx";
 import Childs from "../Childs/Childs.jsx";
 import Parents from "../Parents/Parents.jsx";
-import { entityMappingHandler } from "./DetailView.utils.jsx";
+import {
+  entityMappingHandler,
+  determinateChildsHandler,
+} from "./DetailView.utils.jsx";
 import {
   apiCallToUpdateEntity,
   apiCallToDeleteEntity,
@@ -171,15 +174,19 @@ const Country = memo(function Country({
         <$RowStatusLabel $color="error">{response.message}</$RowStatusLabel>
       )}
       {showParents && <Parents ref={parents} />}
-      {showChilds && (
-        <Childs
-          objId={entity[FIELDS[0].name]}
-          objName={entity[FIELDS[1].name]}
-          entityName={entityName}
-        >
-          <PiTreeStructureLight />
-        </Childs>
-      )}
+      {showChilds &&
+        determinateChildsHandler(entityName).map((name, index) => (
+          <Childs
+            key={index}
+            objId={entity[FIELDS[0].name]}
+            objName={entity[FIELDS[1].name]}
+            entityName={entityName}
+            call={index}
+            childEntities={determinateChildsHandler(entityName)}
+          >
+            <PiTreeStructureLight />{name}
+          </Childs>
+        ))}
     </$RowForm>
   );
 });

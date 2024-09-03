@@ -55,3 +55,25 @@ export function entityMappingHandler(entity, entityName) {
     return acc;
   }, {});
 }
+
+export function determinateChildsHandler(entityName) {
+  switch (entityName) {
+      case "Country": return ["Location"];
+      case "Location": return ["Office", "Company"]; // "Employee", 
+      case "Office": return ["Employee"];
+      case "Company": return ["Area"];
+      case "Area": return ["Tribe"];
+      case "Tribe": return ["Team"];
+      case "Team": return ["Employee"];
+      case "Employee": return [];
+      case "Role": return ["Employee"];
+      case "Workstation": return ["Employee"];
+      case "Producer": return ["Workstation"];
+      case "System": return ["Workstation"];
+      case "Vendor": return ["System"];
+      case "Processor": return ["Workstation"];
+      case "Memory": return ["Workstation"];
+      case "Manufacturer": return ["Processor", "Memory"];
+      default: return [];
+  }
+}

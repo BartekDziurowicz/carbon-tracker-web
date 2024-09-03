@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { determinateChildsHandler } from "./Childs.utils.jsx";
 import { apiCallToGetEntityChilds } from "../../../../../../api/Api.jsx";
-import { $Childs, $Child, $Title, $Line } from "./Childs.styles.jsx";
+import { $Childs, $Child, $Title, $Line, $Message } from "./Childs.styles.jsx";
 
-export default function Childs({ entityName, children, objId, objName }) {
+function messageHandler(childName) { return "The entity does not have " + childName + " childs related."};
+
+export default function Childs({ entityName, children, objId, objName, call, childEntities }) {
   const [childs, setChilds] = useState([]);
 
   useEffect(() => {
@@ -12,7 +13,9 @@ export default function Childs({ entityName, children, objId, objName }) {
         await apiCallToGetEntityChilds(
           entityName.toLowerCase(),
           objId,
-          objName
+          objName,
+          childEntities,
+          call
         ).then((resData) => {
           setChilds((_prevData) => resData);
         });
@@ -21,26 +24,17 @@ export default function Childs({ entityName, children, objId, objName }) {
       }
     }
     fetchData();
-  }, []);
+  }, [entityName, objId, objName, call]);
 
   return (
     <>
-      {determinateChildsHandler(entityName.toLowerCase()).map(
-        (childName, index) => (
-          <div key={index}>
-            <$Line />
-            <$Childs>
-              <$Title $color={entityName}>
-                {children}
-                {childName}
-              </$Title>
-              {childs.map((child, index) => (
-                <$Child key={index}>{child}</$Child>
-              ))}
-            </$Childs>
-          </div>
-        )
-      )}
+      <$Line />
+      <$Childs>
+        <$Title $color={entityName}>{children}</$Title>
+        {childs.length === 0 ? <$Message>{messageHandler(childEntities[call])}</$Message> : childs.map((child, index) => (
+          <$Child key={index}>{child}</$Child>
+        ))}
+      </$Childs>
     </>
   );
 }

@@ -39,3 +39,11 @@ export const $Title = styled.label`
         font-size: 16px;
     }
 `
+
+export const $Message = styled.label`
+    display: flex;
+    item-align: center;
+    justify-content: center;
+    font-size: 11px;
+    color: ${appgrey};
+`

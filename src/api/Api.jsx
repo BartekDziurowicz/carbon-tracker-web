@@ -237,22 +237,42 @@ export async function apiCallToGetListOfEntities(entity, id, name, isSimple) {
   return resData;
 }
 
-export async function apiCallToGetEntityChilds(entity, id, name) {
-  let endpoint;
+export async function apiCallToGetEntityChilds(
+  entity,
+  id,
+  name,
+  childEntities,
+  call
+) {
+  let endpoints = [];
 
   switch (entity) {
     case "country":
-      endpoint = "location/cities?id=" + id + "&country=" + name;
+      endpoints.push(
+        childEntities[0].toLowerCase() + "/cities?id=" + id + "&country=" + name
+      );
+      break;
+    case "location":
+      endpoints.push(
+        childEntities[0].toLowerCase() + "/names?id=" + id + "&location=" + name
+      );
+      endpoints.push(
+        childEntities[1].toLowerCase() + "/names?id=" + id + "&location=" + name
+      );
+      // endpoints.push(childEntities[2].toLowerCase() + "/names?id=" + id + "&location=" + name);
+      break;
   }
 
-  const response = await fetch("http://localhost:8080/" + endpoint);
+  const response = await fetch("http://localhost:8080/" + endpoints[call]);
 
-  const resData = await response.json();
+  let resData;
 
-  if (!response.ok) {
-    throw new Error(
-      resData.message !== undefined ? resData.message : "Failed to get childs."
-    );
+  if (response.ok) {
+    resData = await response.json();
+  } else if(response.status === 404) {
+    resData = [];
+  } else {
+    throw new Error("Failed to get childs. Error code: " + response.status);
   }
 
   return resData;
@@ -269,7 +289,9 @@ export async function apiCallToUpdateEntity(entity, updatedEntity) {
   const resData = await response.text();
 
   if (!response.ok) {
-    throw new Error(resData.message !== undefined ? "Failed to update entity." : resData);
+    throw new Error(
+      resData.message !== undefined ? "Failed to update entity." : resData
+    );
   }
 
   return resData;
