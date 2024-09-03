@@ -77,3 +77,9 @@ export function determinateChildsHandler(entityName) {
       default: return [];
   }
 }
+
+export function determinateRelatedEntitiesHandler(entityName) {
+  const notRelatedEntities = ["Filter", "Threshold"];
+
+  return !notRelatedEntities.includes(entityName);
+}

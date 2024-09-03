@@ -15,6 +15,7 @@ import Parents from "../Parents/Parents.jsx";
 import {
   entityMappingHandler,
   determinateChildsHandler,
+  determinateRelatedEntitiesHandler,
 } from "./DetailView.utils.jsx";
 import {
   apiCallToUpdateEntity,
@@ -132,38 +133,42 @@ const Country = memo(function Country({
               <Tooltip id={"delete"} />
             </a>
           </$RowButton>
-          <$RowButton
-            type="button"
-            $color={entityName}
-            $size="16px"
-            onClick={showParentHandler}
-          >
-            <a
-              data-tooltip-id={"parents"}
-              data-tooltip-content={"Parents"}
-              data-tooltip-delay-show={1000}
-              data-tooltip-place={"top"}
-            >
-              <PiTreeStructureFill />
-              <Tooltip id={"parents"} />
-            </a>
-          </$RowButton>
-          <$RowButton
-            type="button"
-            $color={entityName}
-            $size="16px"
-            onClick={() => setShowChilds((_prevState) => !_prevState)}
-          >
-            <a
-              data-tooltip-id={"childs"}
-              data-tooltip-content={"Childs"}
-              data-tooltip-delay-show={1000}
-              data-tooltip-place={"top"}
-            >
-              <PiTreeStructureLight />
-              <Tooltip id={"childs"} />
-            </a>
-          </$RowButton>
+          {determinateRelatedEntitiesHandler(entityName) && (
+            <>
+              <$RowButton
+                type="button"
+                $color={entityName}
+                $size="16px"
+                onClick={showParentHandler}
+              >
+                <a
+                  data-tooltip-id={"parents"}
+                  data-tooltip-content={"Parents"}
+                  data-tooltip-delay-show={1000}
+                  data-tooltip-place={"top"}
+                >
+                  <PiTreeStructureFill />
+                  <Tooltip id={"parents"} />
+                </a>
+              </$RowButton>
+              <$RowButton
+                type="button"
+                $color={entityName}
+                $size="16px"
+                onClick={() => setShowChilds((_prevState) => !_prevState)}
+              >
+                <a
+                  data-tooltip-id={"childs"}
+                  data-tooltip-content={"Childs"}
+                  data-tooltip-delay-show={1000}
+                  data-tooltip-place={"top"}
+                >
+                  <PiTreeStructureLight />
+                  <Tooltip id={"childs"} />
+                </a>
+              </$RowButton>
+            </>
+          )}
         </$RowDetailsBox>
       </$RowDetailsHeader>
       {response === null ? (
@@ -184,7 +189,8 @@ const Country = memo(function Country({
             call={index}
             childEntities={determinateChildsHandler(entityName)}
           >
-            <PiTreeStructureLight />{name}
+            <PiTreeStructureLight />
+            {name}
           </Childs>
         ))}
     </$RowForm>
