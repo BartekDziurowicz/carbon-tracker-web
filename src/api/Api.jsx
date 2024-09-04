@@ -295,6 +295,44 @@ export async function apiCallToGetEntityChilds(
         childEntities[0].toLowerCase() + "/ckByRole?id=" + id + "&team=" + name
       );
       break;
+    case "workstation":
+      endpoints.push(
+        childEntities[0].toLowerCase() + "/ckByWorkstation?id=" + id + "&workstation=" + name
+      );
+      break;
+    case "producer":
+      endpoints.push(
+        childEntities[0].toLowerCase() + "/namesByProducer?id=" + id + "&producer=" + name
+      );
+      break;
+    case "system":
+      endpoints.push(
+        childEntities[0].toLowerCase() + "/namesBySystem?id=" + id + "&system=" + name
+      );
+      break;
+    case "vendor":
+      endpoints.push(
+        childEntities[0].toLowerCase() + "/specifications?id=" + id + "&vendor=" + name
+      );
+      break;
+    case "processor":
+      endpoints.push(
+        childEntities[0].toLowerCase() + "/namesByProcessor?id=" + id + "&processor=" + name
+      );
+      break;
+    case "memory":
+      endpoints.push(
+        childEntities[0].toLowerCase() + "/namesByMemory?id=" + id + "&memory=" + name
+      );
+      break;
+    case "manufacturer":
+      endpoints.push(
+        childEntities[0].toLowerCase() + "/names?id=" + id + "&manufacturer=" + name
+      );
+      endpoints.push(
+        childEntities[1].toLowerCase() + "/partNumbers?id=" + id + "&manufacturer=" + name
+      );
+      break;
   }
 
   const response = await fetch("http://localhost:8080/" + endpoints[call]);
