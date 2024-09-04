@@ -1,3 +1,14 @@
+0.24 (2024-09-04)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/14)
+* Create VMenu and Title in Company section with proper styling
+* Create generic endpoint for retrieve entities for manage
+* Create and implement tansack table to view entities
+* Implement sorting and pinning in table
+* Develop details with icons menu
+* Add functionality to save, delete (company only) and childs buttons
+* Create childs view and info / error label
+
 0.23 (2024-08-05)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/13)

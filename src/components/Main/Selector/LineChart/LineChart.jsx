@@ -132,6 +132,7 @@ export default function LineChartComponent({ style, title, type, children }) {
           <Legend iconType="plainline" />
           {uniqueGroupNames.map((group, index) => (
             <Line
+              key={index}
               dot={false}
               type="monotone"
               dataKey={group}
