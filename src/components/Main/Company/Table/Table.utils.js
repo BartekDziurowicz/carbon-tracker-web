@@ -58,8 +58,8 @@ export function determineFieldNameHandler(rowOriginal, selected) {
   }
 }
 
-export function colorHandler(submenu) {
-  switch (submenu) {
+export function colorHandler(selected) {
+  switch (selected) {
     case "Country":
     case "Location":
     case "Office":

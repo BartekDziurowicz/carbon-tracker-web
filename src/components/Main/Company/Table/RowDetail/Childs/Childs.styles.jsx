@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import { appgrey, appgreylight } from "../../../../../../utils/colors.styles.jsx";
-import { colorHandler } from "../../Table.utils.jsx";
+import { colorHandler } from "../../Table.utils.js";
 
 export const $Childs = styled.div`
     display: flex;

@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { colorHandler } from "../Table/Table.utils.jsx";
+import { colorHandler } from "../Table/Table.utils.js";
 
 export const $Title = styled.div`
   display: flex;
