@@ -24,7 +24,7 @@ import {
 
 const FIELDS = [{ name: "id" }, { name: "name" }];
 
-const Country = memo(function Country({
+const DetailView = memo(function DetailView({
   entity,
   entityName,
   fieldName,
@@ -195,4 +195,4 @@ const Country = memo(function Country({
   );
 });
 
-export default Country;
+export default DetailView;

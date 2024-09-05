@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { PiTreeStructureFill } from "react-icons/pi";
 import { determineFieldName } from "./Parents.utils.jsx";
-import { $Parents, $Message, $Title } from "./Parents.styles.jsx";
+import { $Parents, $Message, $Title, $Select } from "./Parents.styles.jsx";
 import { $Line } from "../Childs/Childs.styles.jsx";
+import Select from "./Select/Select.jsx";
 
 const ENTITY_HAVE_NO_PARENTS = "The entity does not have a parent.";
 
@@ -36,10 +37,12 @@ export default function Parents({ entityName, entity }) {
                 <PiTreeStructureFill />
                 {capitalizeFirstLetter(parent.name)}
               </$Title>
-              {parent.name === "memories"
-                ? parent.value &&
-                  parent.value.map((memory) => <>{memory.partNumber}</>)
-                : parent.value && parent.value[determineFieldName(parent.name)]}
+              {parent.name === "memories" ? (
+                parent.value &&
+                parent.value.map((memory) => <>{memory.partNumber}</>)
+              ) : (
+                <Select parent={parent} entityName={entityName} parentName={parent.name}/>
+              )}
             </>
           ))
         )}
