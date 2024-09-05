@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { PiTreeStructureFill } from "react-icons/pi";
-import { determineFieldName } from "./Parents.utils.jsx";
 import { $Parents, $Message, $Title, $Select } from "./Parents.styles.jsx";
 import { $Line } from "../Childs/Childs.styles.jsx";
 import Select from "./Select/Select.jsx";

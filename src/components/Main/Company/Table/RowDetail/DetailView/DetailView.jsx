@@ -13,10 +13,11 @@ import {
 import Childs from "../Childs/Childs.jsx";
 import Parents from "../Parents/Parents.jsx";
 import {
+  determineUniqueFieldName,
   entityMappingHandler,
   determinateChildsHandler,
   determinateRelatedEntitiesHandler,
-} from "./DetailView.utils.jsx";
+} from "./DetailView.utils.js";
 import {
   apiCallToUpdateEntity,
   apiCallToDeleteEntity,
@@ -182,7 +183,7 @@ const DetailView = memo(function DetailView({
           <Childs
             key={index}
             objId={entity[FIELDS[0].name]}
-            objName={entity[FIELDS[1].name]}
+            objName={entity[determineUniqueFieldName(entityName.toLowerCase())]}
             entityName={entityName}
             call={index}
             childEntities={determinateChildsHandler(entityName)}

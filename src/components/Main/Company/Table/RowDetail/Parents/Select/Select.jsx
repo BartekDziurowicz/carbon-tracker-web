@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { determineUniqueFieldName } from "../../DetailView/DetailView.utils.js";
 import { apiCallToGetFilterValues } from "../../../../../../../api/Api.jsx";
 import { $Select } from "./Select.styles.jsx";
 
 export default function Select({ entityName, parent, parentName }) {
   const [filters, setFilters] = useState([]);
-  const entityValue = parent.value && parent.value[determineFieldName(parent.name)];
+  const entityValue = parent.value && parent.value[determineUniqueFieldName(parent.name)];
 
   async function getEntityValuesHandler() {
     try {
@@ -13,19 +14,6 @@ export default function Select({ entityName, parent, parentName }) {
       });
     } catch (error) {
       // TO DO
-    }
-  }
-
-  function determineFieldName(entityName) {
-    switch (entityName) {
-      case "location":
-        return "city";
-      case "employee":
-        return "corporateKey";
-      case "system":
-        return "family";
-      default:
-        return "name";
     }
   }
 
