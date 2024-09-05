@@ -1,4 +1,4 @@
-import { memo, useRef, useState } from "react";
+import { memo, useState } from "react";
 import { Tooltip } from "react-tooltip";
 import { PiTreeStructureFill, PiTreeStructureLight } from "react-icons/pi";
 import { FaTrashCan } from "react-icons/fa6";
@@ -27,14 +27,13 @@ const FIELDS = [{ name: "id" }, { name: "name" }];
 const Country = memo(function Country({
   entity,
   entityName,
+  fieldName,
   updateRowHandler,
   rowIndex,
 }) {
   const [response, setResponse] = useState(null);
   const [showParents, setShowParents] = useState(false);
   const [showChilds, setShowChilds] = useState(false);
-
-  const parents = useRef({});
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -72,7 +71,7 @@ const Country = memo(function Country({
         resData = await apiCallToDeleteEntity(
           entityName.toLowerCase(),
           fd.get("id"),
-          fd.get("name")
+          fieldName
         );
       }
     } catch (error) {
@@ -87,7 +86,6 @@ const Country = memo(function Country({
   }
 
   function showParentHandler() {
-    parents.current = entity;
     setShowParents((_prevState) => !_prevState);
   }
 
@@ -178,7 +176,7 @@ const Country = memo(function Country({
       ) : (
         <$RowStatusLabel $color="error">{response.message}</$RowStatusLabel>
       )}
-      {showParents && <Parents ref={parents} />}
+      {showParents && <Parents entityName={entityName} entity={entity} />}
       {showChilds &&
         determinateChildsHandler(entityName).map((name, index) => (
           <Childs

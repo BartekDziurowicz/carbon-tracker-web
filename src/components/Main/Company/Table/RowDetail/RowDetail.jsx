@@ -33,6 +33,7 @@ export default function RowDetail({
     <DetailView
       entity={entity}
       entityName={entityName}
+      fieldName={name}
       updateRowHandler={updateRowHandler}
       rowIndex={rowIndex}
     />

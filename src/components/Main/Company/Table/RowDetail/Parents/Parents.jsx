@@ -1,26 +1,49 @@
-import { forwardRef, useEffect, useState } from "react";
-import { $Parents } from "./Parents.styles.jsx";
+import { useEffect, useState } from "react";
+import { PiTreeStructureFill } from "react-icons/pi";
+import { determineFieldName } from "./Parents.utils.jsx";
+import { $Parents, $Message, $Title } from "./Parents.styles.jsx";
 import { $Line } from "../Childs/Childs.styles.jsx";
 
 const ENTITY_HAVE_NO_PARENTS = "The entity does not have a parent.";
 
-const Parents = forwardRef(({}, ref) => {
+export default function Parents({ entityName, entity }) {
   const [parents, setParents] = useState([]);
 
   useEffect(() => {
-    for (const field in ref.current) {
-      if (typeof ref.current[field] === 'object' && ref.current[field] !== null) {
-        setParents(_prevValue => [..._prevValue, {name: field, parent: ref.current[field]}]);
+    let acc = [];
+    for (const field in entity) {
+      if (typeof entity[field] === "object" && entity[field] !== null) {
+        acc = [...acc, { name: field, value: entity[field] }];
       }
     }
-  }, []);
+    setParents((_prevValue) => acc);
+  }, [entity]);
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
   return (
     <>
       <$Line />
-      <$Parents>{parents.length === 0 ? ENTITY_HAVE_NO_PARENTS : parents.map(parent => <>{parent}</>)}</$Parents>
+      <$Parents>
+        {parents.length === 0 ? (
+          <$Message>{ENTITY_HAVE_NO_PARENTS}</$Message>
+        ) : (
+          parents.map((parent) => (
+            <>
+              <$Title $color={entityName}>
+                <PiTreeStructureFill />
+                {capitalizeFirstLetter(parent.name)}
+              </$Title>
+              {parent.name === "memories"
+                ? parent.value &&
+                  parent.value.map((memory) => <>{memory.partNumber}</>)
+                : parent.value && parent.value[determineFieldName(parent.name)]}
+            </>
+          ))
+        )}
+      </$Parents>
     </>
   );
-});
-
-export default Parents;
+}
