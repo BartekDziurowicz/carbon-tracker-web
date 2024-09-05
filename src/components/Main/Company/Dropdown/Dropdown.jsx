@@ -17,7 +17,7 @@ export default function Dropdown({ title, children }) {
   }
 
   return (
-    <$Dropdown $submenu={title}>
+    <$Dropdown $title={title}>
       <$Head onClick={toggleDropdown}>
         <$Icon>{isOpen ? <FiArrowDownCircle /> : <FiArrowRightCircle />}</$Icon>
         <$Title>{title}</$Title>
