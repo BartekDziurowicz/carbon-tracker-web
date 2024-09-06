@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { PiTreeStructureFill } from "react-icons/pi";
-import { $Parents, $Message, $Title, $Select } from "./Parents.styles.jsx";
+import { $Parents, $Message, $Title } from "./Parents.styles.jsx";
 import { $Line } from "../Childs/Childs.styles.jsx";
 import Select from "./Select/Select.jsx";
 

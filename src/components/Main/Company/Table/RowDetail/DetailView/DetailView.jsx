@@ -23,8 +23,6 @@ import {
   apiCallToDeleteEntity,
 } from "../../../../../../api/Api.jsx";
 
-const FIELDS = [{ name: "id" }, { name: "name" }];
-
 const DetailView = memo(function DetailView({
   entity,
   entityName,
@@ -182,7 +180,7 @@ const DetailView = memo(function DetailView({
         determinateChildsHandler(entityName).map((name, index) => (
           <Childs
             key={index}
-            objId={entity[FIELDS[0].name]}
+            objId={entity.id}
             objName={entity[determineUniqueFieldName(entityName.toLowerCase())]}
             entityName={entityName}
             call={index}

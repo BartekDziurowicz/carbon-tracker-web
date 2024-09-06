@@ -17,12 +17,17 @@ export default function Select({ entityName, parent, parentName }) {
     }
   }
 
+  async function getNewParent() {
+    // TO DO
+    console.log("api call do bazki po id / name o nowego parent, trafia do ctx i jak submit to sie podmienia");
+  }
+
   return (
     <$Select
       defaultValue="default"
       $color={entityName}
       onMouseDown={() => getEntityValuesHandler()}
-      //   onChange={printB}
+      onChange={() => getNewParent()}
     >
       <option value="default">
         {entityValue}

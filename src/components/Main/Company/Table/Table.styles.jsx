@@ -17,7 +17,7 @@ export const $TableBox = styled.div`
   flex-direction: column;
   flex-grow: 1;
   gap: 2px;
-  padding: 10px;
+  padding: 5px;
   background: ${appwhite};
   box-shadow: 1px 2px 10px ${appgrey};
 `;
