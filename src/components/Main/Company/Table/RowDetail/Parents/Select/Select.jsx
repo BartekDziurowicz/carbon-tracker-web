@@ -5,7 +5,7 @@ import { $Select } from "./Select.styles.jsx";
 
 export default function Select({ entityName, parent, parentName }) {
   const [filters, setFilters] = useState([]);
-  const entityValue = parent.value && parent.value[determineUniqueFieldName(parent.name)];
+  const entityValue = parent[determineUniqueFieldName(parentName)];
 
   async function getEntityValuesHandler() {
     try {

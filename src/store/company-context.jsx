@@ -3,7 +3,7 @@ import { createContext, useReducer } from "react";
 export const CompanyContext = createContext({
   selected: "",
   setSelected: () => {},
-  parents: [],
+  parents: {},
   setParents: () => {},
 });
 
@@ -29,7 +29,7 @@ function selectorReducer(state, action) {
 export default function CompanyContextProvider({ children }) {
   const [companyState, selectorDispatch] = useReducer(selectorReducer, {
     selected: "Country",
-    parents: [],
+    parents: {},
   });
 
   function setSelectedHandler(selected) {

@@ -2,6 +2,7 @@
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/15)
 * Develop parent visibility for entities
+* Extend company context by parents objects
 
 0.24 (2024-09-04)
 ===============
