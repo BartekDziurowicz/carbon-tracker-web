@@ -8,12 +8,7 @@ import { CompanyContext } from "../../../../../../store/company-context.jsx";
 const ENTITY_HAVE_NO_PARENTS = "The entity does not have a parent.";
 
 export default function Parents({ entityName, entity }) {
-  // const [parentsObj, setParentsObj] = useState({});
   const { parents } = useContext(CompanyContext);
-
-  // useEffect(() => {
-  //   setParentsObj((_prevValue) => parents);
-  // }, [entityName, entity]);
 
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -40,20 +35,6 @@ export default function Parents({ entityName, entity }) {
               )}
             </>
           ))
-          // parents.map((parent) => (
-          //   <>
-          //     <$Title $color={entityName}>
-          //       <PiTreeStructureFill />
-          //       {capitalizeFirstLetter(parent.name)}
-          //     </$Title>
-              // {parent.name === "memories" ? (
-              //   parent.value &&
-              //   parent.value.map((memory) => <>{memory.partNumber}</>)
-              // ) : (
-              //   <Select parent={parent} entityName={entityName} parentName={parent.name}/>
-              // )}
-          //   </>
-          // ))
         )}
       </$Parents>
     </>

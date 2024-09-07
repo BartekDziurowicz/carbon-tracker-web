@@ -29,7 +29,7 @@ export default function RowDetail({
     }
 
     fetchData();
-  }, [entityId, entityName]);
+  }, [entityId, entityName, name]);
 
   useEffect(() => {
     let acc = {};

@@ -3,13 +3,14 @@ import { colorHandler } from "../../../Table.utils.js";
 import { appgrey, apporange } from "../../../../../../../utils/colors.styles";
 
 export const $Select = styled.select`
-  height: 20px;
-  font-size: 11px;
+  height: 18px;
+  font-size: 10px;
   border-color: ${({$color}) => colorHandler($color)};
   cursor: pointer;
   box-shadow: none;
   min-width: 100px;
   max-width: 200px;
+  size: 10;
   color: ${appgrey};
 
   &:focus {
@@ -18,7 +19,7 @@ export const $Select = styled.select`
   }
 
   option {
-    font-size: 11px;
+    font-size: 10px;
     color: ${appgrey};
   }
 `;

@@ -42,6 +42,12 @@ export default function Table() {
   });
 
   useEffect(() => {
+    for (const row of table.getRowModel().rows) {
+      if (row.getIsExpanded()) {
+        row.toggleExpanded();
+      };
+    }
+
     async function fetchData() {
       try {
         await apiCallToGetListOfEntities(
