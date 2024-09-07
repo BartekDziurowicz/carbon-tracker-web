@@ -1,11 +1,15 @@
 import { styled } from "styled-components";
 import { colorHandler } from "../../../Table.utils.js";
-import { appgrey, apporange } from "../../../../../../../utils/colors.styles";
+import {
+  appgrey,
+  apporange,
+  appwhite,
+} from "../../../../../../../utils/colors.styles";
 
 export const $Select = styled.select`
   height: 18px;
   font-size: 10px;
-  border-color: ${({$color}) => colorHandler($color)};
+  border-color: ${({ $color }) => colorHandler($color)};
   cursor: pointer;
   box-shadow: none;
   min-width: 100px;
@@ -17,9 +21,8 @@ export const $Select = styled.select`
     border-color: ${apporange};
     outline: none;
   }
+`;
 
-  option {
-    font-size: 10px;
-    color: ${appgrey};
-  }
+export const $Option = styled.option`
+  font-size: 10px;
 `;
