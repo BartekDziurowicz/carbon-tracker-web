@@ -17,6 +17,7 @@ export function determineUniqueFieldName(entityName) {
 
 function determinateFieldType(field) {
   const numberFields = [
+    "id",
     "apartmentNumber",
     "capacity",
     "carbonLimit",

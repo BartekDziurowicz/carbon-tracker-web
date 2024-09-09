@@ -8,6 +8,7 @@ export default function RowDetail({
   entityName,
   name,
   updateRowHandler,
+  deleteRowHandler,
   rowIndex,
 }) {
   const [entity, setEntity] = useState({});
@@ -47,6 +48,7 @@ export default function RowDetail({
       entityName={entityName}
       fieldName={name}
       updateRowHandler={updateRowHandler}
+      deleteRowHandler={deleteRowHandler}
       rowIndex={rowIndex}
     />
   );

@@ -1,8 +1,10 @@
-0.24 (2024-09-??)
+0.25 (2024-09-09)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/15)
 * Develop parent visibility for entities
 * Extend company context by parents objects
+* Implement and delete and update entities
+* Fix timeout by using usRef hook
 
 0.24 (2024-09-04)
 ===============

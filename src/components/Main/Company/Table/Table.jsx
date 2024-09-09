@@ -77,6 +77,18 @@ export default function Table() {
     });
   };
 
+  const deleteRowHandler = (entityId) => {
+    for (const row of table.getRowModel().rows) {
+      if (Number(row.original.id) === Number(entityId) && row.getIsExpanded()) {
+        row.toggleExpanded();
+      };
+    }
+    setTableData((_prevData) => {
+      const data = _prevData.data.filter(row => Number(row.id) !== Number(entityId));
+      return { ..._prevData, data };
+    });
+  }
+
   return (
     <$TableContainer>
       <Search
@@ -116,6 +128,7 @@ export default function Table() {
                         entityName={selected}
                         name={determineFieldNameHandler(row.original, selected)}
                         updateRowHandler={updateRowHandler}
+                        deleteRowHandler={deleteRowHandler}
                         rowIndex={index}
                       />
                     </td>
