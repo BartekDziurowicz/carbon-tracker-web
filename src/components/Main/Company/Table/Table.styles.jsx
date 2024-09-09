@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { colorHandler } from "./Table.utils.jsx";
+import { colorHandler } from "./Table.utils.js";
 import {
   appwhite,
   appgrey,
@@ -14,7 +14,10 @@ export const $TableContainer = styled.div`
 export const $TableBox = styled.div`
   width: 100%;
   display: flex;
-  padding: 10px;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 2px;
+  padding: 5px;
   background: ${appwhite};
   box-shadow: 1px 2px 10px ${appgrey};
 `;

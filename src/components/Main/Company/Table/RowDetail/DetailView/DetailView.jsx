@@ -1,4 +1,4 @@
-import { memo, useRef, useState } from "react";
+import { memo, useContext, useRef, useState } from "react";
 import { Tooltip } from "react-tooltip";
 import { PiTreeStructureFill, PiTreeStructureLight } from "react-icons/pi";
 import { FaTrashCan } from "react-icons/fa6";
@@ -13,28 +13,31 @@ import {
 import Childs from "../Childs/Childs.jsx";
 import Parents from "../Parents/Parents.jsx";
 import {
+  determineUniqueFieldName,
   entityMappingHandler,
   determinateChildsHandler,
   determinateRelatedEntitiesHandler,
-} from "./DetailView.utils.jsx";
+} from "./DetailView.utils.js";
+import { CompanyContext } from "../../../../../../store/company-context.jsx";
 import {
   apiCallToUpdateEntity,
   apiCallToDeleteEntity,
 } from "../../../../../../api/Api.jsx";
 
-const FIELDS = [{ name: "id" }, { name: "name" }];
-
-const Country = memo(function Country({
+const DetailView = memo(function DetailView({
   entity,
   entityName,
+  fieldName,
   updateRowHandler,
+  deleteRowHandler,
   rowIndex,
 }) {
   const [response, setResponse] = useState(null);
   const [showParents, setShowParents] = useState(false);
   const [showChilds, setShowChilds] = useState(false);
+  const {parents} = useContext(CompanyContext);
 
-  const parents = useRef({});
+  const timer = useRef();
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -56,7 +59,8 @@ const Country = memo(function Country({
     });
 
     const formData = Object.fromEntries(fd.entries());
-
+    const updatedEntity = {...formData, ...parents}
+    
     disabledElements.forEach((element) => (element.disabled = true));
 
     let resData;
@@ -65,14 +69,13 @@ const Country = memo(function Country({
       if (action === "save") {
         resData = await apiCallToUpdateEntity(
           entityName.toLowerCase(),
-          formData
+          updatedEntity
         );
         updateRowHandler(rowIndex, formData);
       } else {
         resData = await apiCallToDeleteEntity(
           entityName.toLowerCase(),
-          fd.get("id"),
-          fd.get("name")
+          updatedEntity
         );
       }
     } catch (error) {
@@ -81,13 +84,17 @@ const Country = memo(function Country({
 
     setResponse((_prevResponse) => resData);
 
-    setTimeout(() => {
+    clearTimeout(timer.current);
+
+    timer.current = setTimeout(() => {
       setResponse(null);
+      if (action === "delete" && !resData instanceof Error) {
+        deleteRowHandler(fd.get('id'));
+      }
     }, 5000);
   }
 
   function showParentHandler() {
-    parents.current = entity;
     setShowParents((_prevState) => !_prevState);
   }
 
@@ -178,13 +185,13 @@ const Country = memo(function Country({
       ) : (
         <$RowStatusLabel $color="error">{response.message}</$RowStatusLabel>
       )}
-      {showParents && <Parents ref={parents} />}
+      {showParents && <Parents entityName={entityName} entity={entity} />}
       {showChilds &&
         determinateChildsHandler(entityName).map((name, index) => (
           <Childs
             key={index}
-            objId={entity[FIELDS[0].name]}
-            objName={entity[FIELDS[1].name]}
+            objId={entity.id}
+            objName={entity[determineUniqueFieldName(entityName.toLowerCase())]}
             entityName={entityName}
             call={index}
             childEntities={determinateChildsHandler(entityName)}
@@ -197,4 +204,4 @@ const Country = memo(function Country({
   );
 });
 
-export default Country;
+export default DetailView;

@@ -1,26 +1,42 @@
-import { forwardRef, useEffect, useState } from "react";
-import { $Parents } from "./Parents.styles.jsx";
+import { useContext, useEffect, useState } from "react";
+import { PiTreeStructureFill } from "react-icons/pi";
+import { $Parents, $Message, $Title } from "./Parents.styles.jsx";
 import { $Line } from "../Childs/Childs.styles.jsx";
+import Select from "./Select/Select.jsx";
+import { CompanyContext } from "../../../../../../store/company-context.jsx";
 
 const ENTITY_HAVE_NO_PARENTS = "The entity does not have a parent.";
 
-const Parents = forwardRef(({}, ref) => {
-  const [parents, setParents] = useState([]);
+export default function Parents({ entityName, entity }) {
+  const { parents } = useContext(CompanyContext);
 
-  useEffect(() => {
-    for (const field in ref.current) {
-      if (typeof ref.current[field] === 'object' && ref.current[field] !== null) {
-        setParents(_prevValue => [..._prevValue, {name: field, parent: ref.current[field]}]);
-      }
-    }
-  }, []);
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
   return (
     <>
       <$Line />
-      <$Parents>{parents.length === 0 ? ENTITY_HAVE_NO_PARENTS : parents.map(parent => <>{parent}</>)}</$Parents>
+      <$Parents>
+        {Object.keys(parents).length === 0 ? (
+          <$Message>{ENTITY_HAVE_NO_PARENTS}</$Message>
+        ) : (
+          Object.keys(parents).map((field) => (
+            <>
+              <$Title $color={entityName}>
+                <PiTreeStructureFill />
+                {capitalizeFirstLetter(field)}
+              </$Title>
+              {field === "memories" ? (
+                parents[field] &&
+                parents[field].map((memory) => <>{memory.partNumber}</>)
+              ) : (
+                <Select parent={parents[field]} entityName={entityName} parentName={field}/>
+              )}
+            </>
+          ))
+        )}
+      </$Parents>
     </>
   );
-});
-
-export default Parents;
+}

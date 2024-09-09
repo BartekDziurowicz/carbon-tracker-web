@@ -1,17 +1,18 @@
 import { createContext, useReducer } from "react";
 
 export const CompanyContext = createContext({
-  catalogInventory: [],
-  setCatalogInventory: () => {},
   selected: "",
   setSelected: () => {},
+  parents: {},
+  setParents: () => {},
 });
 
 function selectorReducer(state, action) {
-  if (action.type === "SET_CATALOG_INVENTORY") {
+
+  if (action.type === "SET_PARENTS") {
     return {
       ...state,
-      catalogInventory: action.payload,
+      parents: action.payload,
     }
   }
 
@@ -27,16 +28,9 @@ function selectorReducer(state, action) {
 
 export default function CompanyContextProvider({ children }) {
   const [companyState, selectorDispatch] = useReducer(selectorReducer, {
-    catalogInventory: [],
     selected: "Country",
+    parents: {},
   });
-
-  function setCatalogInventoryHandler(catalogInventory) {
-    selectorDispatch({
-      type: "SET_CATALOG_INVENTORY",
-      payload: catalogInventory,
-    })
-  }
 
   function setSelectedHandler(selected) {
     selectorDispatch({
@@ -45,11 +39,18 @@ export default function CompanyContextProvider({ children }) {
     });
   }
 
+  function setParentsHandler(parents) {
+    selectorDispatch({
+      type: "SET_PARENTS",
+      payload: parents,
+    })
+  }
+
   const ctxCompany = {
-    catalogInventory: companyState.catalogInventory,
-    setCatalogInventory: setCatalogInventoryHandler,
     selected: companyState.selected,
     setSelected: setSelectedHandler,
+    parents: companyState.parents,
+    setParents: setParentsHandler,
   };
 
   return (

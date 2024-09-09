@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { colorHandler } from "../Table.utils.jsx";
+import { colorHandler } from "../Table.utils.js";
 import {
   appwhite,
   apporange,

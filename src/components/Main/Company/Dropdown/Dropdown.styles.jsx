@@ -7,10 +7,10 @@ import {
 
 export const $Dropdown = styled.div`
   display: block;
-  color: ${({ $submenu }) =>
-    $submenu === "Organization"
+  color: ${({ $title }) =>
+    $title === "Organization"
       ? appgreen
-      : $submenu === "Metrics"
+      : $title === "Metrics"
       ? appgreydark
       : appblue};
 `;

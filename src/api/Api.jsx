@@ -260,12 +260,20 @@ export async function apiCallToGetEntityChilds(
         childEntities[1].toLowerCase() + "/names?id=" + id + "&location=" + name
       );
       endpoints.push(
-        childEntities[2].toLowerCase() + "/ckByLocation?id=" + id + "&location=" + name
+        childEntities[2].toLowerCase() +
+          "/ckByLocation?id=" +
+          id +
+          "&location=" +
+          name
       );
       break;
     case "office":
       endpoints.push(
-        childEntities[0].toLowerCase() + "/ckByOffice?id=" + id + "&office=" + name
+        childEntities[0].toLowerCase() +
+          "/ckByOffice?id=" +
+          id +
+          "&office=" +
+          name
       );
       break;
     case "company":
@@ -297,40 +305,72 @@ export async function apiCallToGetEntityChilds(
       break;
     case "workstation":
       endpoints.push(
-        childEntities[0].toLowerCase() + "/ckByWorkstation?id=" + id + "&workstation=" + name
+        childEntities[0].toLowerCase() +
+          "/ckByWorkstation?id=" +
+          id +
+          "&workstation=" +
+          name
       );
       break;
     case "producer":
       endpoints.push(
-        childEntities[0].toLowerCase() + "/namesByProducer?id=" + id + "&producer=" + name
+        childEntities[0].toLowerCase() +
+          "/namesByProducer?id=" +
+          id +
+          "&producer=" +
+          name
       );
       break;
     case "system":
       endpoints.push(
-        childEntities[0].toLowerCase() + "/namesBySystem?id=" + id + "&system=" + name
+        childEntities[0].toLowerCase() +
+          "/namesBySystem?id=" +
+          id +
+          "&system=" +
+          name
       );
       break;
     case "vendor":
       endpoints.push(
-        childEntities[0].toLowerCase() + "/specifications?id=" + id + "&vendor=" + name
+        childEntities[0].toLowerCase() +
+          "/specifications?id=" +
+          id +
+          "&vendor=" +
+          name
       );
       break;
     case "processor":
       endpoints.push(
-        childEntities[0].toLowerCase() + "/namesByProcessor?id=" + id + "&processor=" + name
+        childEntities[0].toLowerCase() +
+          "/namesByProcessor?id=" +
+          id +
+          "&processor=" +
+          name
       );
       break;
     case "memory":
       endpoints.push(
-        childEntities[0].toLowerCase() + "/namesByMemory?id=" + id + "&memory=" + name
+        childEntities[0].toLowerCase() +
+          "/namesByMemory?id=" +
+          id +
+          "&memory=" +
+          name
       );
       break;
     case "manufacturer":
       endpoints.push(
-        childEntities[0].toLowerCase() + "/names?id=" + id + "&manufacturer=" + name
+        childEntities[0].toLowerCase() +
+          "/names?id=" +
+          id +
+          "&manufacturer=" +
+          name
       );
       endpoints.push(
-        childEntities[1].toLowerCase() + "/partNumbers?id=" + id + "&manufacturer=" + name
+        childEntities[1].toLowerCase() +
+          "/partNumbers?id=" +
+          id +
+          "&manufacturer=" +
+          name
       );
       break;
   }
@@ -369,13 +409,14 @@ export async function apiCallToUpdateEntity(entity, updatedEntity) {
   return resData;
 }
 
-export async function apiCallToDeleteEntity(entity, id, name) {
-  const response = await fetch(
-    "http://localhost:8080/" + entity + "/delete?id=" + id + "&name=" + name,
-    {
-      method: "DELETE",
-    }
-  );
+export async function apiCallToDeleteEntity(entity, deletedEntity) {
+  const response = await fetch("http://localhost:8080/" + entity + "/delete", {
+    method: "DELETE",
+    body: JSON.stringify(deletedEntity),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
   const resData = await response.text();
 
   if (!response.ok) {

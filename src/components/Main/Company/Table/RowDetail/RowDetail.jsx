@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DetailView from "./DetailView/DetailView.jsx";
+import { CompanyContext } from "../../../../../store/company-context.jsx";
 import { apiCallToGetSingleEntity } from "../../../../../api/Api.jsx";
 
 export default function RowDetail({
@@ -7,9 +8,11 @@ export default function RowDetail({
   entityName,
   name,
   updateRowHandler,
+  deleteRowHandler,
   rowIndex,
 }) {
   const [entity, setEntity] = useState({});
+  const { setParents } = useContext(CompanyContext);
 
   useEffect(() => {
     async function fetchData() {
@@ -23,17 +26,29 @@ export default function RowDetail({
         });
       } catch (error) {
         //TODO
-      }
+      }      
     }
 
     fetchData();
-  }, [entityId, entityName]);
+  }, [entityId, entityName, name]);
+
+  useEffect(() => {
+    let acc = {};
+    for (const field in entity) {
+      if (typeof entity[field] === "object" && entity[field] !== null) {
+        acc[field] = entity[field];
+      }
+    }
+    setParents(acc);
+  }, [entity])
 
   return (
     <DetailView
       entity={entity}
       entityName={entityName}
+      fieldName={name}
       updateRowHandler={updateRowHandler}
+      deleteRowHandler={deleteRowHandler}
       rowIndex={rowIndex}
     />
   );

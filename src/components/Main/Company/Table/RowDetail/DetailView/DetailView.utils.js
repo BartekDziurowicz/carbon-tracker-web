@@ -1,7 +1,23 @@
 import { $RowDetailsBox, $RowInputField } from "../RowDetail.styles";
 
+export function determineUniqueFieldName(entityName) {
+  switch (entityName) {
+    case "location":
+      return "city";
+    case "employee":
+      return "corporateKey";
+    case "system":
+      return "family";
+    case "memory":
+      return "partNumber";
+    default:
+      return "name";
+  }
+}
+
 function determinateFieldType(field) {
   const numberFields = [
+    "id",
     "apartmentNumber",
     "capacity",
     "carbonLimit",

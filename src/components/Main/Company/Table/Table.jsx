@@ -7,11 +7,13 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { fuzzyFilter } from "./Table.utils.jsx";
-import { Box, Flex } from "@chakra-ui/react";
+import {
+  fuzzyFilter,
+  getTableColumns,
+  determineFieldNameHandler,
+} from "./Table.utils.js";
 import { CompanyContext } from "../../../../store/company-context.jsx";
 import { apiCallToGetListOfEntities } from "../../../../api/Api.jsx";
-import { getTableColumns, determineFieldNameHandler } from "./Table.utils.jsx";
 import { $TableContainer, $TableBox, $Table } from "./Table.styles.jsx";
 import Header from "./Header/Header.jsx";
 import Search from "./Search/Search.jsx";
@@ -40,7 +42,12 @@ export default function Table() {
   });
 
   useEffect(() => {
-    
+    for (const row of table.getRowModel().rows) {
+      if (row.getIsExpanded()) {
+        row.toggleExpanded();
+      };
+    }
+
     async function fetchData() {
       try {
         await apiCallToGetListOfEntities(
@@ -70,6 +77,18 @@ export default function Table() {
     });
   };
 
+  const deleteRowHandler = (entityId) => {
+    for (const row of table.getRowModel().rows) {
+      if (Number(row.original.id) === Number(entityId) && row.getIsExpanded()) {
+        row.toggleExpanded();
+      };
+    }
+    setTableData((_prevData) => {
+      const data = _prevData.data.filter(row => Number(row.id) !== Number(entityId));
+      return { ..._prevData, data };
+    });
+  }
+
   return (
     <$TableContainer>
       <Search
@@ -77,55 +96,49 @@ export default function Table() {
         onChange={(e) => table.setGlobalFilter(e.target.value)}
       />
       <$TableBox width="100%">
-        <Flex height="98%" direction={"column"} gap={2} p={2} grow="1">
-          <Box flex="1" overflow="auto">
-            <$Table>
-              <thead>
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <tr key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => (
-                      <Header header={header} color={selected} />
-                    ))}
-                  </tr>
+        <$Table>
+          <thead>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <Header header={header} color={selected} />
                 ))}
-              </thead>
+              </tr>
+            ))}
+          </thead>
 
-              <tbody>
-                {table.getRowModel().rows.map((row, index) => (
-                  <>
-                    <tr key={index}>
-                      {row.getVisibleCells().map((cell, index) => (
-                        <td key={index}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
-                        </td>
-                      ))}
-                    </tr>
-                    {row.getIsExpanded() && (
-                      <tr>
-                        <td colSpan={row.getVisibleCells().length}>
-                          <RowDetail
-                            entityId={row.original.id}
-                            entityName={selected}
-                            name={determineFieldNameHandler(
-                              row.original,
-                              selected
-                            )}
-                            updateRowHandler={updateRowHandler}
-                            rowIndex={index}
-                          />
-                        </td>
-                      </tr>
-                    )}
-                  </>
-                ))}
-              </tbody>
-            </$Table>
-          </Box>
-          <Pagination table={table} color={selected} />
-        </Flex>
+          <tbody>
+            {table.getRowModel().rows.map((row, index) => (
+              <>
+                <tr key={index}>
+                  {row.getVisibleCells().map((cell, index) => (
+                    <td key={index}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </td>
+                  ))}
+                </tr>
+                {row.getIsExpanded() && (
+                  <tr>
+                    <td colSpan={row.getVisibleCells().length}>
+                      <RowDetail
+                        entityId={row.original.id}
+                        entityName={selected}
+                        name={determineFieldNameHandler(row.original, selected)}
+                        updateRowHandler={updateRowHandler}
+                        deleteRowHandler={deleteRowHandler}
+                        rowIndex={index}
+                      />
+                    </td>
+                  </tr>
+                )}
+              </>
+            ))}
+          </tbody>
+        </$Table>
+        <Pagination table={table} color={selected} />
       </$TableBox>
     </$TableContainer>
   );
