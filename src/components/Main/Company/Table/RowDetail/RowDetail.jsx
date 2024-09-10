@@ -46,7 +46,6 @@ export default function RowDetail({
     <DetailView
       entity={entity}
       entityName={entityName}
-      fieldName={name}
       updateRowHandler={updateRowHandler}
       deleteRowHandler={deleteRowHandler}
       rowIndex={rowIndex}

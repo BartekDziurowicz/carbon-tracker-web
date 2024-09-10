@@ -13,7 +13,7 @@ import {
   determineFieldNameHandler,
 } from "./Table.utils.js";
 import { CompanyContext } from "../../../../store/company-context.jsx";
-import { apiCallToGetListOfEntities } from "../../../../api/Api.jsx";
+import { apiCallToGetListOfEntities, apiCallToGetEntityTemplate } from "../../../../api/Api.jsx";
 import { $TableContainer, $TableBox, $Table } from "./Table.styles.jsx";
 import Header from "./Header/Header.jsx";
 import Search from "./Search/Search.jsx";
@@ -21,15 +21,13 @@ import Pagination from "./Pagination/Pagination.jsx";
 import RowDetail from "./RowDetail/RowDetail.jsx";
 
 export default function Table() {
-  const [tableData, setTableData] = useState({
-    data: [{}],
-    columns: [{ accessorKey: "na", id: "na", header: "na" }],
-  });
+  const [header, setHeader] = useState([{ accessorKey: "na", id: "na", header: "na" }]);
+  const [rows, setRows] = useState([{}]);
   const { selected } = useContext(CompanyContext);
 
   const table = useReactTable({
-    data: tableData.data,
-    columns: tableData.columns,
+    data: rows,
+    columns: header,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -50,15 +48,28 @@ export default function Table() {
 
     async function fetchData() {
       try {
+        await apiCallToGetEntityTemplate(selected.toLowerCase()).then((resData) => {
+          const columns = getTableColumns(resData, selected);
+          setHeader(_prevValue => columns);
+        });
+      } catch (error) {
+        // TO DO error
+      }
+    }
+
+    fetchData();
+  }, [selected]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
         await apiCallToGetListOfEntities(
           selected.toLowerCase(),
           0,
           "",
           true
         ).then((resData) => {
-          const columns = getTableColumns(resData[0], selected);
-          const table = { data: resData, columns: columns };
-          setTableData((_prevData) => table);
+          setRows((_prevData) => resData);
         });
       } catch (error) {
         //TODO
@@ -66,14 +77,14 @@ export default function Table() {
     }
 
     fetchData();
-  }, [selected]);
+  }, [header]);
 
   const updateRowHandler = (rowIndex, newData) => {
-    setTableData((_prevData) => {
-      const data = _prevData.data.map((row, index) =>
+    setRows((_prevData) => {
+      const data = _prevData.map((row, index) =>
         index === rowIndex ? newData : row
       );
-      return { ..._prevData, data };
+      return data;
     });
   };
 
@@ -83,9 +94,9 @@ export default function Table() {
         row.toggleExpanded();
       };
     }
-    setTableData((_prevData) => {
-      const data = _prevData.data.filter(row => Number(row.id) !== Number(entityId));
-      return { ..._prevData, data };
+    setRows((_prevData) => {
+      const data = _prevData.filter(row => Number(row.id) !== Number(entityId));
+      return data;
     });
   }
 

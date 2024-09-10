@@ -27,7 +27,6 @@ import {
 const DetailView = memo(function DetailView({
   entity,
   entityName,
-  fieldName,
   updateRowHandler,
   deleteRowHandler,
   rowIndex,

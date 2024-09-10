@@ -1,3 +1,9 @@
+0.26 (2024-09-??)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/16)
+* Refactor table to have separate header and rows state
+* Implement api call to retrieve entity schema for headers
+
 0.25 (2024-09-09)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/15)
