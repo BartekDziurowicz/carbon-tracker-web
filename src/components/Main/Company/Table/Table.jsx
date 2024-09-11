@@ -86,10 +86,12 @@ export default function Table() {
   }
 
   const createRowHandler = () => {
+    shrinkTableRowsHandler();
     setRows((_prevData) => {
       const data = [template.current, ..._prevData];
       return data;
     });
+    table.getRowModel().rows[0].toggleExpanded();
   };
 
   const updateRowHandler = (rowIndex, newData) => {

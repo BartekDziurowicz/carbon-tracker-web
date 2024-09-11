@@ -1,3 +1,10 @@
+0.27 (2024-09-??)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/17)
+* Fixed width of table component
+* Fixed column names by splitting names
+* New created row is auto expanded
+
 0.26 (2024-09-11)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/16)

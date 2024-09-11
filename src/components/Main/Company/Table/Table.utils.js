@@ -17,7 +17,12 @@ export function getTableColumns(object, selected) {
       columns.push({
         accessorKey: field,
         id: field,
-        header: () => <$LabelHeader>{field.charAt(0).toUpperCase() + field.slice(1).replace(/([A-Z])/g, ' $1')}</$LabelHeader>,
+        header: () => (
+          <$LabelHeader>
+            {field.charAt(0).toUpperCase() +
+              field.slice(1).replace(/([A-Z])/g, " $1")}
+          </$LabelHeader>
+        ),
       });
     }
   }
@@ -50,11 +55,16 @@ export const fuzzyFilter = (row, columnId, value, addMeta) => {
 
 export function determineFieldNameHandler(rowOriginal, selected) {
   switch (selected) {
-    case "Location": return rowOriginal.city;
-    case "Employee": return rowOriginal.corporateKey;
-    case "System": return rowOriginal.family;
-    case "Memory": return rowOriginal.partNumber;
-    default: return rowOriginal.name;
+    case "Location":
+      return rowOriginal.city;
+    case "Employee":
+      return rowOriginal.corporateKey;
+    case "System":
+      return rowOriginal.family;
+    case "Memory":
+      return rowOriginal.partNumber;
+    default:
+      return rowOriginal.name;
   }
 }
 
