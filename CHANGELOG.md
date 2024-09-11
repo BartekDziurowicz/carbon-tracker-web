@@ -5,6 +5,7 @@
 * Fixed column names by splitting names
 * New created row is auto expanded
 * Disabling and enabling create button
+* Improve table rows styling by changing font sizes
 
 0.26 (2024-09-11)
 ===============

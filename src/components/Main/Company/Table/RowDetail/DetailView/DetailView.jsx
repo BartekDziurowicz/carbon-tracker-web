@@ -108,7 +108,7 @@ const DetailView = memo(function DetailView({
         const id = entity.id === 0 ? 0 : fd.get("id");
         deleteRowHandler(id);
       }
-    }, 2000);
+    }, 3000);
   }
 
   function showParentHandler() {

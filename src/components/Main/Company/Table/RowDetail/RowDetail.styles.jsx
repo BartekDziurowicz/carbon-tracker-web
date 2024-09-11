@@ -22,9 +22,10 @@ export const $RowDetailsBox = styled.div`
 export const $RowInputField = styled.input`
     width: 95%;
     text-align: ${({$align}) => $align};
-    font-size: 12px;
+    font-size: 11px;
     color: ${appgrey};
     border: 1px solid ${({$color}) => colorHandler($color)};
+    padding: 2px;
 
     &:focus {
       outline: none;
