@@ -1,5 +1,5 @@
 import { rankItem } from "@tanstack/match-sorter-utils";
-import { $IconCell, $IconHeader } from "./Table.styles.jsx";
+import { $IconCell, $IconHeader, $LabelHeader } from "./Table.styles.jsx";
 import { FaPlusSquare, FaMinusSquare } from "react-icons/fa";
 import {
   appblue,
@@ -17,7 +17,7 @@ export function getTableColumns(object, selected) {
       columns.push({
         accessorKey: field,
         id: field,
-        header: () => <label>{field.charAt(0).toUpperCase() + field.slice(1)}</label>,
+        header: () => <$LabelHeader>{field.charAt(0).toUpperCase() + field.slice(1).replace(/([A-Z])/g, ' $1')}</$LabelHeader>,
       });
     }
   }
