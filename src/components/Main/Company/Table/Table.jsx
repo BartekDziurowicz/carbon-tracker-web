@@ -25,6 +25,7 @@ export default function Table() {
   const [rows, setRows] = useState([{}]);
   const { selected } = useContext(CompanyContext);
   const template = useRef({});
+  const searchRef = useRef();
 
   const table = useReactTable({
     data: rows,
@@ -85,7 +86,12 @@ export default function Table() {
     }
   }
 
+  const createEntityButtonHandler = (state) => {
+    searchRef.current.changeEnabled(state);
+  }
+
   const createRowHandler = () => {
+    createEntityButtonHandler(false);
     shrinkTableRowsHandler();
     setRows((_prevData) => {
       const data = [template.current, ..._prevData];
@@ -95,12 +101,16 @@ export default function Table() {
   };
 
   const updateRowHandler = (rowIndex, newData) => {
+    console.log(rowIndex, "ddd", newData);
     setRows((_prevData) => {
       const data = _prevData.map((row, index) =>
         index === rowIndex ? newData : row
       );
       return data;
     });
+    if (rowIndex === 0) {
+      createEntityButtonHandler(true);
+    }
   };
 
   const deleteRowHandler = (entityId) => {
@@ -114,6 +124,8 @@ export default function Table() {
       const data = _prevData.filter(row => Number(row.id) !== Number(entityId));
       return data;
     });
+
+    createEntityButtonHandler(true);
   }
 
   return (
@@ -122,6 +134,7 @@ export default function Table() {
         color={selected}
         onChange={(e) => table.setGlobalFilter(e.target.value)}
         createRowHandler={createRowHandler}
+        ref={searchRef}
       />
       <$TableBox width="100%">
         <$Table>

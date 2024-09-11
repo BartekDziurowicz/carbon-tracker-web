@@ -4,6 +4,7 @@
 * Fixed width of table component
 * Fixed column names by splitting names
 * New created row is auto expanded
+* Disabling and enabling create button
 
 0.26 (2024-09-11)
 ===============
