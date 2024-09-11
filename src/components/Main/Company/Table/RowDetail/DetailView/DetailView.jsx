@@ -20,6 +20,7 @@ import {
 } from "./DetailView.utils.js";
 import { CompanyContext } from "../../../../../../store/company-context.jsx";
 import {
+  apiCallToCreateEntity,
   apiCallToUpdateEntity,
   apiCallToDeleteEntity,
 } from "../../../../../../api/Api.jsx";
@@ -34,7 +35,7 @@ const DetailView = memo(function DetailView({
   const [response, setResponse] = useState(null);
   const [showParents, setShowParents] = useState(false);
   const [showChilds, setShowChilds] = useState(false);
-  const {parents} = useContext(CompanyContext);
+  const { parents } = useContext(CompanyContext);
 
   const timer = useRef();
 
@@ -58,19 +59,31 @@ const DetailView = memo(function DetailView({
     });
 
     const formData = Object.fromEntries(fd.entries());
-    const updatedEntity = {...formData, ...parents}
-    
+    const updatedEntity = { ...formData, ...parents };
+
     disabledElements.forEach((element) => (element.disabled = true));
 
     let resData;
 
     try {
       if (action === "save") {
-        resData = await apiCallToUpdateEntity(
-          entityName.toLowerCase(),
-          updatedEntity
-        );
-        updateRowHandler(rowIndex, formData);
+        if (entity.id === 0) {
+          updatedEntity.id = null;
+          resData = await apiCallToCreateEntity(
+            entityName.toLowerCase(),
+            updatedEntity
+          )
+            .then((resData) => {
+              formData.id = resData.split(":")[1];
+              updateRowHandler(0, formData);
+              return resData.split(":")[0];
+            });
+        } else {
+          resData = await apiCallToUpdateEntity(
+            entityName.toLowerCase(),
+            updatedEntity
+          ).then(updateRowHandler(rowIndex, formData));
+        }
       } else {
         resData = await apiCallToDeleteEntity(
           entityName.toLowerCase(),
@@ -87,8 +100,8 @@ const DetailView = memo(function DetailView({
 
     timer.current = setTimeout(() => {
       setResponse(null);
-      if (action === "delete" && !resData instanceof Error) {
-        deleteRowHandler(fd.get('id'));
+      if (action === "delete" && !(resData instanceof Error)) {
+        deleteRowHandler(fd.get("id"));
       }
     }, 5000);
   }

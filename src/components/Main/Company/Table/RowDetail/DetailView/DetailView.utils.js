@@ -60,9 +60,10 @@ export function entityMappingHandler(entity, entityName) {
             name={key}
             $align="center"
             disabled={determinateFieldDisabled(key, entityName)}
-            placeholder={entity[key]}
+            placeholder={entity[key] ? entity[key] : key}
             $color={determinateFieldDisabled(key, entityName) ? "" : entityName}
             type={determinateFieldType(key)}
+            // required
           ></$RowInputField>
         </$RowDetailsBox>
       );

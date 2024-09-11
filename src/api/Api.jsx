@@ -420,6 +420,24 @@ export async function apiCallToUpdateEntity(entity, updatedEntity) {
   return resData;
 }
 
+export async function apiCallToCreateEntity(entity, createdEntity) {
+  const response = await fetch("http://localhost:8080/" + entity + "/create", {
+    method: "POST",
+    body: JSON.stringify(createdEntity),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const resData = await response.text();
+
+  if (!response.ok) {
+    throw new Error(
+      "Failed to create entity."
+    );
+  }
+  return resData;
+}
+
 export async function apiCallToDeleteEntity(entity, deletedEntity) {
   const response = await fetch("http://localhost:8080/" + entity + "/delete", {
     method: "DELETE",

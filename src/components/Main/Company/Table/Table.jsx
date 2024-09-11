@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import {
   flexRender,
   getCoreRowModel,
@@ -24,6 +24,7 @@ export default function Table() {
   const [header, setHeader] = useState([{ accessorKey: "na", id: "na", header: "na" }]);
   const [rows, setRows] = useState([{}]);
   const { selected } = useContext(CompanyContext);
+  const template = useRef({});
 
   const table = useReactTable({
     data: rows,
@@ -40,16 +41,13 @@ export default function Table() {
   });
 
   useEffect(() => {
-    for (const row of table.getRowModel().rows) {
-      if (row.getIsExpanded()) {
-        row.toggleExpanded();
-      };
-    }
+    shrinkTableRowsHandler();
 
     async function fetchData() {
       try {
         await apiCallToGetEntityTemplate(selected.toLowerCase()).then((resData) => {
           const columns = getTableColumns(resData, selected);
+          template.current = resData;
           setHeader(_prevValue => columns);
         });
       } catch (error) {
@@ -79,6 +77,21 @@ export default function Table() {
     fetchData();
   }, [header]);
 
+  const shrinkTableRowsHandler = () => {
+    for (const row of table.getRowModel().rows) {
+      if (row.getIsExpanded()) {
+        row.toggleExpanded();
+      };
+    }
+  }
+
+  const createRowHandler = () => {
+    setRows((_prevData) => {
+      const data = [template.current, ..._prevData];
+      return data;
+    });
+  };
+
   const updateRowHandler = (rowIndex, newData) => {
     setRows((_prevData) => {
       const data = _prevData.map((row, index) =>
@@ -94,6 +107,7 @@ export default function Table() {
         row.toggleExpanded();
       };
     }
+    
     setRows((_prevData) => {
       const data = _prevData.filter(row => Number(row.id) !== Number(entityId));
       return data;
@@ -105,6 +119,7 @@ export default function Table() {
       <Search
         color={selected}
         onChange={(e) => table.setGlobalFilter(e.target.value)}
+        createRowHandler={createRowHandler}
       />
       <$TableBox width="100%">
         <$Table>
@@ -132,7 +147,7 @@ export default function Table() {
                   ))}
                 </tr>
                 {row.getIsExpanded() && (
-                  <tr>
+                  <tr>                    
                     <td colSpan={row.getVisibleCells().length}>
                       <RowDetail
                         entityId={row.original.id}
@@ -141,6 +156,7 @@ export default function Table() {
                         updateRowHandler={updateRowHandler}
                         deleteRowHandler={deleteRowHandler}
                         rowIndex={index}
+                        ref={template}
                       />
                     </td>
                   </tr>
