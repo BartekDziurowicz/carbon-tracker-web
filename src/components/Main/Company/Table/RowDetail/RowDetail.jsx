@@ -1,16 +1,16 @@
-import { useContext, useEffect, useState } from "react";
+import { forwardRef, useContext, useEffect, useState } from "react";
 import DetailView from "./DetailView/DetailView.jsx";
 import { CompanyContext } from "../../../../../store/company-context.jsx";
 import { apiCallToGetSingleEntity } from "../../../../../api/Api.jsx";
 
-export default function RowDetail({
+const RowDetail = forwardRef(function RowDetail({
   entityId,
   entityName,
   name,
   updateRowHandler,
   deleteRowHandler,
   rowIndex,
-}) {
+}, ref) {
   const [entity, setEntity] = useState({});
   const { setParents } = useContext(CompanyContext);
 
@@ -29,7 +29,11 @@ export default function RowDetail({
       }      
     }
 
-    fetchData();
+    if (entityId === 0) {
+      setEntity(ref.current);
+    } else {
+      fetchData();
+    }
   }, [entityId, entityName, name]);
 
   useEffect(() => {
@@ -46,10 +50,11 @@ export default function RowDetail({
     <DetailView
       entity={entity}
       entityName={entityName}
-      fieldName={name}
       updateRowHandler={updateRowHandler}
       deleteRowHandler={deleteRowHandler}
       rowIndex={rowIndex}
     />
   );
-}
+});
+
+export default RowDetail;

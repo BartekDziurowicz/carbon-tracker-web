@@ -9,7 +9,6 @@ export const $RowForm = styled.form`
 export const $RowDetailsHeader = styled.div`
     display: flex;
     justify-content: space-between;
-    // align-items: center;
 `;
 
 export const $RowDetailsBox = styled.div`

@@ -67,6 +67,17 @@ export async function apiCallToGetCarbonThresholds() {
   return resData;
 }
 
+export async function apiCallToGetEntityTemplate(entity) {
+  const response = await fetch("http://localhost:8080/" + entity + "/template");
+  const resData = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Failed to get entity template.");
+  }
+
+  return resData;
+}
+
 export async function apiCallToGetSingleEntity(id, name, entity) {
   let endpoint;
 
@@ -406,6 +417,24 @@ export async function apiCallToUpdateEntity(entity, updatedEntity) {
     );
   }
 
+  return resData;
+}
+
+export async function apiCallToCreateEntity(entity, createdEntity) {
+  const response = await fetch("http://localhost:8080/" + entity + "/create", {
+    method: "POST",
+    body: JSON.stringify(createdEntity),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const resData = await response.text();
+
+  if (!response.ok) {
+    throw new Error(
+      resData.message !== undefined ? "Failed to create entity." : resData
+    );
+  }
   return resData;
 }
 

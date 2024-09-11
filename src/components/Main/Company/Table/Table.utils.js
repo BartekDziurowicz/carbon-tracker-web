@@ -13,7 +13,7 @@ export function getTableColumns(object, selected) {
   let columns = [];
 
   for (const field in object) {
-    if (object[field] !== null) {
+    if (typeof object[field] !== "object" || object[field] === null) {
       columns.push({
         accessorKey: field,
         id: field,
