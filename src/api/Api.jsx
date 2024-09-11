@@ -432,7 +432,7 @@ export async function apiCallToCreateEntity(entity, createdEntity) {
 
   if (!response.ok) {
     throw new Error(
-      "Failed to create entity."
+      resData.message !== undefined ? "Failed to create entity." : resData
     );
   }
   return resData;

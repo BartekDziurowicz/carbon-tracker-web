@@ -85,10 +85,14 @@ const DetailView = memo(function DetailView({
           ).then(updateRowHandler(rowIndex, formData));
         }
       } else {
-        resData = await apiCallToDeleteEntity(
-          entityName.toLowerCase(),
-          updatedEntity
-        );
+        if (entity.id === 0) {
+          resData="Canceled"
+        } else {
+          resData = await apiCallToDeleteEntity(
+            entityName.toLowerCase(),
+            updatedEntity
+          );
+        }
       }
     } catch (error) {
       resData = error;
@@ -101,9 +105,10 @@ const DetailView = memo(function DetailView({
     timer.current = setTimeout(() => {
       setResponse(null);
       if (action === "delete" && !(resData instanceof Error)) {
-        deleteRowHandler(fd.get("id"));
+        const id = entity.id === 0 ? 0 : fd.get("id");
+        deleteRowHandler(id);
       }
-    }, 5000);
+    }, 3000);
   }
 
   function showParentHandler() {

@@ -1,4 +1,4 @@
-0.26 (2024-09-??)
+0.26 (2024-09-11)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/16)
 * Refactor table to have separate header and rows state
