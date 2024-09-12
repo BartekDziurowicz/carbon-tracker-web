@@ -7,6 +7,8 @@
 * Disabling and enabling create button
 * Improve table rows styling by changing font sizes
 * Enabling / disabling rows management functions and create button for proper vmenu items
+* Label instead div for table cells
+* Checkboxes in Filter vmenu item
 
 0.26 (2024-09-11)
 ===============

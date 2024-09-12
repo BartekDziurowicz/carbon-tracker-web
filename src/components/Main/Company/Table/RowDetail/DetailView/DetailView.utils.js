@@ -29,9 +29,17 @@ function determinateFieldType(field) {
     "voltage",
   ];
 
+  const checkboxFields = [
+    "enabled"
+  ]
+
   if (numberFields.includes(field)) {
     return "number";
   }
+
+  // if (checkboxFields.includes(field)) {
+  //   return "checkbox";
+  // }
 
   return "text";
 }

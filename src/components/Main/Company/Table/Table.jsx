@@ -108,14 +108,13 @@ export default function Table() {
   };
 
   const updateRowHandler = (rowIndex, newData) => {
-    console.log(rowIndex, "ddd", newData);
     setRows((_prevData) => {
       const data = _prevData.map((row, index) =>
         index === rowIndex ? newData : row
       );
       return data;
     });
-    if (rowIndex === 0) {
+    if (rowIndex === 0 && determinateRestrictedEntitiesHandler(selected)) {
       createEntityButtonHandler(true);
     }
   };
