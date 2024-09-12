@@ -99,3 +99,9 @@ export function colorHandler(selected) {
       return appgreylight;
   }
 }
+
+export function determinateRestrictedEntitiesHandler(entityName) {
+  const notRelatedEntities = ["Filter", "Threshold"];
+
+  return !notRelatedEntities.includes(entityName);
+}

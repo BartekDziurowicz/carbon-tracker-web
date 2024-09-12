@@ -15,9 +15,9 @@ import Parents from "../Parents/Parents.jsx";
 import {
   determineUniqueFieldName,
   entityMappingHandler,
-  determinateChildsHandler,
-  determinateRelatedEntitiesHandler,
+  determinateChildsHandler
 } from "./DetailView.utils.js";
+import { determinateRestrictedEntitiesHandler } from "../../Table.utils.js";
 import { CompanyContext } from "../../../../../../store/company-context.jsx";
 import {
   apiCallToCreateEntity,
@@ -72,12 +72,11 @@ const DetailView = memo(function DetailView({
           resData = await apiCallToCreateEntity(
             entityName.toLowerCase(),
             updatedEntity
-          )
-            .then((resData) => {
-              formData.id = resData.split(":")[1];
-              updateRowHandler(0, formData);
-              return resData.split(":")[0];
-            });
+          ).then((resData) => {
+            formData.id = resData.split(":")[1];
+            updateRowHandler(0, formData);
+            return resData.split(":")[0];
+          });
         } else {
           resData = await apiCallToUpdateEntity(
             entityName.toLowerCase(),
@@ -86,7 +85,7 @@ const DetailView = memo(function DetailView({
         }
       } else {
         if (entity.id === 0) {
-          resData="Canceled"
+          resData = "Canceled";
         } else {
           resData = await apiCallToDeleteEntity(
             entityName.toLowerCase(),
@@ -140,30 +139,29 @@ const DetailView = memo(function DetailView({
               <Tooltip id={"save"} />
             </a>
           </$RowButton>
-          <$RowButton
-            type="submit"
-            name="action"
-            value="delete"
-            $color="delete"
-            $size="13px"
-          >
-            <a
-              data-tooltip-id={"delete"}
-              data-tooltip-content={"Delete"}
-              data-tooltip-delay-show={1000}
-              data-tooltip-place={"top"}
-            >
-              <FaTrashCan />
-              <Tooltip id={"delete"} />
-            </a>
-          </$RowButton>
-          {determinateRelatedEntitiesHandler(entityName) && (
-            <>
+              <$RowButton
+                type={determinateRestrictedEntitiesHandler(entityName) ? "submit" : "button"}
+                name="action"
+                value="delete"
+                $color={determinateRestrictedEntitiesHandler(entityName) ? "delete" : ""}
+                $size="13px"
+              >
+                <a
+                  data-tooltip-id={"delete"}
+                  data-tooltip-content={"Delete"}
+                  data-tooltip-delay-show={1000}
+                  data-tooltip-place={"top"}
+                >
+                  <FaTrashCan />
+                  <Tooltip id={"delete"} />
+                </a>
+              </$RowButton>
+
               <$RowButton
                 type="button"
-                $color={entityName}
+                $color={determinateRestrictedEntitiesHandler(entityName) ? entityName : ""}
                 $size="16px"
-                onClick={showParentHandler}
+                onClick={determinateRestrictedEntitiesHandler(entityName) ? showParentHandler : () => {}}
               >
                 <a
                   data-tooltip-id={"parents"}
@@ -177,9 +175,9 @@ const DetailView = memo(function DetailView({
               </$RowButton>
               <$RowButton
                 type="button"
-                $color={entityName}
+                $color={determinateRestrictedEntitiesHandler(entityName) ? entityName : ""}
                 $size="16px"
-                onClick={() => setShowChilds((_prevState) => !_prevState)}
+                onClick={determinateRestrictedEntitiesHandler(entityName) ? () => setShowChilds((_prevState) => !_prevState) : () => {}}
               >
                 <a
                   data-tooltip-id={"childs"}
@@ -191,8 +189,6 @@ const DetailView = memo(function DetailView({
                   <Tooltip id={"childs"} />
                 </a>
               </$RowButton>
-            </>
-          )}
         </$RowDetailsBox>
       </$RowDetailsHeader>
       {response === null ? (

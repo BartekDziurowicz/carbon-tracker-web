@@ -11,6 +11,7 @@ import {
   fuzzyFilter,
   getTableColumns,
   determineFieldNameHandler,
+  determinateRestrictedEntitiesHandler
 } from "./Table.utils.js";
 import { CompanyContext } from "../../../../store/company-context.jsx";
 import { apiCallToGetListOfEntities, apiCallToGetEntityTemplate } from "../../../../api/Api.jsx";
@@ -43,6 +44,12 @@ export default function Table() {
 
   useEffect(() => {
     shrinkTableRowsHandler();
+
+    if (determinateRestrictedEntitiesHandler(selected)) {
+      createEntityButtonHandler(true);
+    } else {
+      createEntityButtonHandler(false);
+    }
 
     async function fetchData() {
       try {
