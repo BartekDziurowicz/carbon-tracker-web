@@ -3,13 +3,7 @@ import { Tooltip } from "react-tooltip";
 import { PiTreeStructureFill, PiTreeStructureLight } from "react-icons/pi";
 import { FaTrashCan } from "react-icons/fa6";
 import { FaSave } from "react-icons/fa";
-import {
-  $RowButton,
-  $RowDetailsHeader,
-  $RowDetailsBox,
-  $RowForm,
-  $RowStatusLabel,
-} from "../RowDetail.styles.jsx";
+import { $RowDetailsHeader, $RowStatusLabel, $RowForm, $RowButton, $RowDetailsBox } from "./DetailView.styles.jsx";
 import Childs from "../Childs/Childs.jsx";
 import Parents from "../Parents/Parents.jsx";
 import {
@@ -38,6 +32,7 @@ const DetailView = memo(function DetailView({
   const { parents } = useContext(CompanyContext);
 
   const timer = useRef();
+  const enabledRef = useRef(entity.enabled);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -59,6 +54,12 @@ const DetailView = memo(function DetailView({
     });
 
     const formData = Object.fromEntries(fd.entries());
+
+    if (entityName === "Filter") {
+      formData.enabled = formData.enabled === '0' ? false : true;
+      enabledRef.current = formData.enabled === '0' ? false : true;
+    }
+
     const updatedEntity = { ...formData, ...parents };
 
     disabledElements.forEach((element) => (element.disabled = true));
@@ -114,12 +115,10 @@ const DetailView = memo(function DetailView({
     setShowParents((_prevState) => !_prevState);
   }
 
-  const mappedObject = entityMappingHandler(entity, entityName);
-
   return (
     <$RowForm onSubmit={handleSubmit}>
       <$RowDetailsHeader>
-        {Object.values(mappedObject)}
+        {Object.values(entityMappingHandler(entity, entityName))}
 
         <$RowDetailsBox $justify="flex-end" $gap="0px">
           <$RowButton

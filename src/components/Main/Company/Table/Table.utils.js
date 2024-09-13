@@ -1,7 +1,6 @@
 import { rankItem } from "@tanstack/match-sorter-utils";
 import { $IconCell, $IconHeader, $LabelHeader } from "./Table.styles.jsx";
 import { FaPlusSquare, FaMinusSquare } from "react-icons/fa";
-import { FaRegSquareCheck } from "react-icons/fa6";
 import {
   appblue,
   appblack,
@@ -31,12 +30,11 @@ export function getTableColumns(object, selected) {
           if (renderValue() === false || renderValue() === 'false') {
             return <label><input type="checkbox" defaultChecked={false} disabled /></label>;
           }          
-          return <label>{renderValue()}</label>;          
+          return <label>{renderValue()}</label>;
         }          
       });
     }
   }
-
 
   columns.push({
     id: "expand",

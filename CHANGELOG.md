@@ -9,6 +9,7 @@
 * Enabling / disabling rows management functions and create button for proper vmenu items
 * Label instead div for table cells
 * Checkboxes in Filter vmenu item
+* Input type range in filter detaisl to eanble / disable filter
 
 0.26 (2024-09-11)
 ===============

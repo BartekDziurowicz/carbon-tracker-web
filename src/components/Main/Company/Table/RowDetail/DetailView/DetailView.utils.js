@@ -1,4 +1,4 @@
-import { $RowDetailsBox, $RowInputField } from "../RowDetail.styles";
+import { $RowInputRange, $RowInputField, $RowDetailsBox } from "./DetailView.styles.jsx";
 
 export function determineUniqueFieldName(entityName) {
   switch (entityName) {
@@ -29,17 +29,9 @@ function determinateFieldType(field) {
     "voltage",
   ];
 
-  const checkboxFields = [
-    "enabled"
-  ]
-
   if (numberFields.includes(field)) {
     return "number";
   }
-
-  // if (checkboxFields.includes(field)) {
-  //   return "checkbox";
-  // }
 
   return "text";
 }
@@ -57,21 +49,40 @@ function determinateFieldDisabled(field, entityName) {
   return false;
 }
 
+function determinateProperInputRangeField(enabled, key) {
+  if (enabled === 'true' || enabled === true) {
+    return <$RowInputRange type="range" name={key} min="0" max="1" step="1" defaultValue={1} />
+  } else {
+    return <label><$RowInputRange type="range" name={key} min="0" max="1" step="1" defaultValue={0} /></label>
+  }
+}
+
 export function entityMappingHandler(entity, entityName) {
   return Object.keys(entity).reduce((acc, key) => {
     if (typeof entity[key] !== "object" || entity[key] === null) {
-      acc[key] = <div>{entity[key]}</div>;
 
       acc[key] = (
         <$RowDetailsBox $justify="center" $gap="0px">
-          <$RowInputField
-            name={key}
-            $align="center"
-            disabled={determinateFieldDisabled(key, entityName)}
-            placeholder={(entity.id !== 0 && entity[key] === 0) ? 0 : entity[key] ? entity[key] : key}
-            $color={determinateFieldDisabled(key, entityName) ? "" : entityName}
-            type={determinateFieldType(key)}
-          ></$RowInputField>
+          {key !== "enabled" ? (
+            <$RowInputField
+              name={key}
+              $align="center"
+              disabled={determinateFieldDisabled(key, entityName)}
+              placeholder={
+                entity.id !== 0 && entity[key] === 0
+                  ? 0
+                  : entity[key]
+                  ? entity[key]
+                  : key
+              }
+              $color={
+                determinateFieldDisabled(key, entityName) ? "" : entityName
+              }
+              type={determinateFieldType(key)}
+            ></$RowInputField>
+          ) : (
+            determinateProperInputRangeField(entity.enabled, key)
+          )}
         </$RowDetailsBox>
       );
     }
@@ -81,22 +92,39 @@ export function entityMappingHandler(entity, entityName) {
 
 export function determinateChildsHandler(entityName) {
   switch (entityName) {
-      case "Country": return ["Location"];
-      case "Location": return ["Office", "Company", "Employee"];
-      case "Office": return ["Employee"];
-      case "Company": return ["Area"];
-      case "Area": return ["Tribe"];
-      case "Tribe": return ["Team"];
-      case "Team": return ["Employee"];
-      case "Employee": return [null];
-      case "Role": return ["Employee"];
-      case "Workstation": return ["Employee"];
-      case "Producer": return ["Workstation"];
-      case "System": return ["Workstation"];
-      case "Vendor": return ["System"];
-      case "Processor": return ["Workstation"];
-      case "Memory": return ["Workstation"];
-      case "Manufacturer": return ["Processor", "Memory"];
-      default: return [];
+    case "Country":
+      return ["Location"];
+    case "Location":
+      return ["Office", "Company", "Employee"];
+    case "Office":
+      return ["Employee"];
+    case "Company":
+      return ["Area"];
+    case "Area":
+      return ["Tribe"];
+    case "Tribe":
+      return ["Team"];
+    case "Team":
+      return ["Employee"];
+    case "Employee":
+      return [null];
+    case "Role":
+      return ["Employee"];
+    case "Workstation":
+      return ["Employee"];
+    case "Producer":
+      return ["Workstation"];
+    case "System":
+      return ["Workstation"];
+    case "Vendor":
+      return ["System"];
+    case "Processor":
+      return ["Workstation"];
+    case "Memory":
+      return ["Workstation"];
+    case "Manufacturer":
+      return ["Processor", "Memory"];
+    default:
+      return [];
   }
 }
