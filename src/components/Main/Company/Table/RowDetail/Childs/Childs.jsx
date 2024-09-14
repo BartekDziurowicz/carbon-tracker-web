@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { ClipLoader } from "react-spinners";
 import { apiCallToGetEntityChilds } from "../../../../../../api/Api.jsx";
+import { colorHandler } from "../../Table.utils.js";
 import { $Childs, $Child, $Title, $Line, $Message } from "./Childs.styles.jsx";
 
 function messageHandler(childName) {
@@ -18,6 +20,7 @@ export default function Childs({
   childEntities,
 }) {
   const [childs, setChilds] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -30,6 +33,7 @@ export default function Childs({
           call
         ).then((resData) => {
           setChilds((_prevData) => resData);
+          setLoading(_prevValue => false);
         });
       } catch (error) {
         setChilds((_prevData) => [error.message]);
@@ -44,6 +48,13 @@ export default function Childs({
   return (
     <>
       <$Line />
+      <ClipLoader
+        color={colorHandler(entityName)}
+        loading={loading}
+        size={15}
+        speedMultiplier={0.75}
+        aria-label="Loading Spinner"
+      />
       <$Childs>
         {childEntities[0] === null ? (
           <$Message>{messageHandler("NA")}</$Message>

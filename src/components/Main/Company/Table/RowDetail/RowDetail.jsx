@@ -49,7 +49,6 @@ const RowDetail = forwardRef(function RowDetail(
 
   return (
     <>
-      {" "}
       <ClipLoader
         color={colorHandler(entityName)}
         loading={loading}
