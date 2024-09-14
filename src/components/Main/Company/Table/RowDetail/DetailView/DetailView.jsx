@@ -1,5 +1,6 @@
 import { memo, useContext, useRef, useState } from "react";
 import { Tooltip } from "react-tooltip";
+import { ClipLoader } from "react-spinners";
 import { PiTreeStructureFill, PiTreeStructureLight } from "react-icons/pi";
 import { FaTrashCan } from "react-icons/fa6";
 import { FaSave } from "react-icons/fa";
@@ -17,7 +18,7 @@ import {
   entityMappingHandler,
   determinateChildsHandler,
 } from "./DetailView.utils.js";
-import { determinateRestrictedEntitiesHandler } from "../../Table.utils.js";
+import { determinateRestrictedEntitiesHandler, colorHandler } from "../../Table.utils.js";
 import { CompanyContext } from "../../../../../../store/company-context.jsx";
 import {
   apiCallToCreateEntity,
@@ -35,6 +36,7 @@ const DetailView = memo(function DetailView({
   const [response, setResponse] = useState(null);
   const [showParents, setShowParents] = useState(false);
   const [showChilds, setShowChilds] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { parents } = useContext(CompanyContext);
 
   const timer = useRef();
@@ -42,6 +44,7 @@ const DetailView = memo(function DetailView({
 
   async function handleSubmit(event) {
     event.preventDefault();
+    setLoading(true);
 
     const form = event.target;
     const disabledElements = form.querySelectorAll(":disabled");
@@ -111,6 +114,7 @@ const DetailView = memo(function DetailView({
     }
 
     setResponse((_prevResponse) => resData);
+    setLoading(false);
 
     clearTimeout(timer.current);
 
@@ -220,6 +224,13 @@ const DetailView = memo(function DetailView({
           </$RowButton>
         </$RowDetailsBox>
       </$RowDetailsHeader>
+      <ClipLoader
+        color={colorHandler(entityName)}
+        loading={loading}
+        size={15}
+        speedMultiplier={0.75}
+        aria-label="Loading Spinner"
+      />
       {response === null ? (
         ""
       ) : response.message === undefined ? (

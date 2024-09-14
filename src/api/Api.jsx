@@ -244,13 +244,13 @@ export async function apiCallToGetListOfEntities(entity, id, name, isSimple) {
       break;
   }
 
-  const response = await fetch("http://localhost:8080/" + entity + endpoint);
-
-  const resData = await response.json();
+  const response = await fetch("http://localhost:8080/" + entity + endpoint);  
 
   if (!response.ok) {
-    throw new Error(resData.message !== undefined ? "Failed to get list of entities. Error " + response.status : resData);
+    throw new Error("Failed to get list of entities. Error " + response.status);
   }
+
+  const resData = await response.json();
 
   return resData;
 }
