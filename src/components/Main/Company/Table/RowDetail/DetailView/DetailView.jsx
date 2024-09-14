@@ -3,13 +3,19 @@ import { Tooltip } from "react-tooltip";
 import { PiTreeStructureFill, PiTreeStructureLight } from "react-icons/pi";
 import { FaTrashCan } from "react-icons/fa6";
 import { FaSave } from "react-icons/fa";
-import { $RowDetailsHeader, $RowStatusLabel, $RowForm, $RowButton, $RowDetailsBox } from "./DetailView.styles.jsx";
+import {
+  $RowDetailsHeader,
+  $RowStatusLabel,
+  $RowForm,
+  $RowButton,
+  $RowDetailsBox,
+} from "./DetailView.styles.jsx";
 import Childs from "../Childs/Childs.jsx";
 import Parents from "../Parents/Parents.jsx";
 import {
   determineUniqueFieldName,
   entityMappingHandler,
-  determinateChildsHandler
+  determinateChildsHandler,
 } from "./DetailView.utils.js";
 import { determinateRestrictedEntitiesHandler } from "../../Table.utils.js";
 import { CompanyContext } from "../../../../../../store/company-context.jsx";
@@ -56,8 +62,8 @@ const DetailView = memo(function DetailView({
     const formData = Object.fromEntries(fd.entries());
 
     if (entityName === "Filter") {
-      formData.enabled = formData.enabled === '0' ? false : true;
-      enabledRef.current = formData.enabled === '0' ? false : true;
+      formData.enabled = formData.enabled === "0" ? false : true;
+      enabledRef.current = formData.enabled === "0" ? false : true;
     }
 
     const updatedEntity = { ...formData, ...parents };
@@ -66,36 +72,42 @@ const DetailView = memo(function DetailView({
 
     let resData;
 
-    try {
-      if (action === "save") {
-        if (entity.id === 0) {
-          updatedEntity.id = null;
-          resData = await apiCallToCreateEntity(
-            entityName.toLowerCase(),
-            updatedEntity
-          ).then((resData) => {
+    if (action === "save") {
+      if (entity.id === 0) {
+        updatedEntity.id = null;
+        resData = await apiCallToCreateEntity(
+          entityName.toLowerCase(),
+          updatedEntity
+        )
+          .then((resData) => {
             formData.id = resData.split(":")[1];
             updateRowHandler(0, formData);
             return resData.split(":")[0];
-          });
-        } else {
-          resData = await apiCallToUpdateEntity(
-            entityName.toLowerCase(),
-            updatedEntity
-          ).then(updateRowHandler(rowIndex, formData));
-        }
+          })
+          .catch((error) => error);
       } else {
-        if (entity.id === 0) {
-          resData = "Canceled";
-        } else {
-          resData = await apiCallToDeleteEntity(
-            entityName.toLowerCase(),
-            updatedEntity
-          );
-        }
+        resData = await apiCallToUpdateEntity(
+          entityName.toLowerCase(),
+          updatedEntity
+        )
+          .then((resData) => {
+            updateRowHandler(rowIndex, formData);
+            return resData;
+          })
+          .catch((error) => {
+            console.log(error);
+            return error;
+          });
       }
-    } catch (error) {
-      resData = error;
+    } else {
+      if (entity.id === 0) {
+        resData = "Canceled";
+      } else {
+        resData = await apiCallToDeleteEntity(
+          entityName.toLowerCase(),
+          updatedEntity
+        ).catch((error) => error);
+      }
     }
 
     setResponse((_prevResponse) => resData);
@@ -138,56 +150,74 @@ const DetailView = memo(function DetailView({
               <Tooltip id={"save"} />
             </a>
           </$RowButton>
-              <$RowButton
-                type={determinateRestrictedEntitiesHandler(entityName) ? "submit" : "button"}
-                name="action"
-                value="delete"
-                $color={determinateRestrictedEntitiesHandler(entityName) ? "delete" : ""}
-                $size="13px"
-              >
-                <a
-                  data-tooltip-id={"delete"}
-                  data-tooltip-content={"Delete"}
-                  data-tooltip-delay-show={1000}
-                  data-tooltip-place={"top"}
-                >
-                  <FaTrashCan />
-                  <Tooltip id={"delete"} />
-                </a>
-              </$RowButton>
+          <$RowButton
+            type={
+              determinateRestrictedEntitiesHandler(entityName)
+                ? "submit"
+                : "button"
+            }
+            name="action"
+            value="delete"
+            $color={
+              determinateRestrictedEntitiesHandler(entityName) ? "delete" : ""
+            }
+            $size="13px"
+          >
+            <a
+              data-tooltip-id={"delete"}
+              data-tooltip-content={"Delete"}
+              data-tooltip-delay-show={1000}
+              data-tooltip-place={"top"}
+            >
+              <FaTrashCan />
+              <Tooltip id={"delete"} />
+            </a>
+          </$RowButton>
 
-              <$RowButton
-                type="button"
-                $color={determinateRestrictedEntitiesHandler(entityName) ? entityName : ""}
-                $size="16px"
-                onClick={determinateRestrictedEntitiesHandler(entityName) ? showParentHandler : () => {}}
-              >
-                <a
-                  data-tooltip-id={"parents"}
-                  data-tooltip-content={"Parents"}
-                  data-tooltip-delay-show={1000}
-                  data-tooltip-place={"top"}
-                >
-                  <PiTreeStructureFill />
-                  <Tooltip id={"parents"} />
-                </a>
-              </$RowButton>
-              <$RowButton
-                type="button"
-                $color={determinateRestrictedEntitiesHandler(entityName) ? entityName : ""}
-                $size="16px"
-                onClick={determinateRestrictedEntitiesHandler(entityName) ? () => setShowChilds((_prevState) => !_prevState) : () => {}}
-              >
-                <a
-                  data-tooltip-id={"childs"}
-                  data-tooltip-content={"Childs"}
-                  data-tooltip-delay-show={1000}
-                  data-tooltip-place={"top"}
-                >
-                  <PiTreeStructureLight />
-                  <Tooltip id={"childs"} />
-                </a>
-              </$RowButton>
+          <$RowButton
+            type="button"
+            $color={
+              determinateRestrictedEntitiesHandler(entityName) ? entityName : ""
+            }
+            $size="16px"
+            onClick={
+              determinateRestrictedEntitiesHandler(entityName)
+                ? showParentHandler
+                : () => {}
+            }
+          >
+            <a
+              data-tooltip-id={"parents"}
+              data-tooltip-content={"Parents"}
+              data-tooltip-delay-show={1000}
+              data-tooltip-place={"top"}
+            >
+              <PiTreeStructureFill />
+              <Tooltip id={"parents"} />
+            </a>
+          </$RowButton>
+          <$RowButton
+            type="button"
+            $color={
+              determinateRestrictedEntitiesHandler(entityName) ? entityName : ""
+            }
+            $size="16px"
+            onClick={
+              determinateRestrictedEntitiesHandler(entityName)
+                ? () => setShowChilds((_prevState) => !_prevState)
+                : () => {}
+            }
+          >
+            <a
+              data-tooltip-id={"childs"}
+              data-tooltip-content={"Childs"}
+              data-tooltip-delay-show={1000}
+              data-tooltip-place={"top"}
+            >
+              <PiTreeStructureLight />
+              <Tooltip id={"childs"} />
+            </a>
+          </$RowButton>
         </$RowDetailsBox>
       </$RowDetailsHeader>
       {response === null ? (

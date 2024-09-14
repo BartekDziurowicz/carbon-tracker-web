@@ -13,6 +13,7 @@ export const $RowDetailsHeader = styled.div`
 
 export const $RowInputRange = styled.input`
     cursor: pointer;
+    max-width: 50px;
 `
 
 export const $RowStatusLabel = styled.div`

@@ -50,7 +50,9 @@ export async function apiCallToGetFilterValues(filter) {
   const resData = await response.json();
 
   if (!response.ok) {
-    throw new Error("Failed to get " + filter + " filters.");
+    throw new Error(
+      resData.message !== undefined ? "Failed to get filters. Error " + response.status : resData
+    );
   }
 
   return resData;
@@ -61,7 +63,9 @@ export async function apiCallToGetCarbonThresholds() {
   const resData = await response.json();
 
   if (!response.ok) {
-    throw new Error("Failed to get carbon thresholds.");
+    throw new Error(
+      resData.message !== undefined ? "Failed to get alerts thresholds. Error " + response.status : resData
+    );
   }
 
   return resData;
@@ -72,7 +76,9 @@ export async function apiCallToGetEntityTemplate(entity) {
   const resData = await response.json();
 
   if (!response.ok) {
-    throw new Error("Failed to get entity template.");
+    throw new Error(
+      resData.message !== undefined ? "Failed to get entity template. Error " + response.status : resData
+    );
   }
 
   return resData;
@@ -142,12 +148,13 @@ export async function apiCallToGetSingleEntity(id, name, entity) {
 
   const response = await fetch("http://localhost:8080/" + entity + endpoint);
 
-  const resData = await response.json();
-
   if (!response.ok) {
-    throw new Error("Failed to get companies.");
+    throw new Error(      
+      "Failed to get entity details. Error " + response.status
+    );
   }
 
+  const resData = await response.json();
   return resData;
 }
 
@@ -242,7 +249,7 @@ export async function apiCallToGetListOfEntities(entity, id, name, isSimple) {
   const resData = await response.json();
 
   if (!response.ok) {
-    throw new Error("Failed to get companies.");
+    throw new Error(resData.message !== undefined ? "Failed to get list of entities. Error " + response.status : resData);
   }
 
   return resData;
@@ -395,7 +402,8 @@ export async function apiCallToGetEntityChilds(
   } else if (response.status === 404) {
     resData = [];
   } else {
-    throw new Error("Failed to get childs. Error code: " + response.status);
+    throw new Error(
+      resData.message !== undefined ? "Failed to get childs. Error " + response.status : resData);
   }
 
   return resData;
@@ -412,8 +420,8 @@ export async function apiCallToUpdateEntity(entity, updatedEntity) {
   const resData = await response.text();
 
   if (!response.ok) {
-    throw new Error(
-      resData.message !== undefined ? "Failed to update entity." : resData
+    throw new Error(      
+      resData.message !== undefined ? "Failed to update entity. Error " + response.status : resData
     );
   }
 
@@ -432,7 +440,7 @@ export async function apiCallToCreateEntity(entity, createdEntity) {
 
   if (!response.ok) {
     throw new Error(
-      resData.message !== undefined ? "Failed to create entity." : resData
+      resData.message !== undefined ? "Failed to create entity. Error " + response.status : resData
     );
   }
   return resData;
@@ -449,7 +457,9 @@ export async function apiCallToDeleteEntity(entity, deletedEntity) {
   const resData = await response.text();
 
   if (!response.ok) {
-    throw new Error(resData);
+    throw new Error(
+      resData.message !== undefined ? "Failed to delete entity. Error " + response.status : resData
+    );
   }
 
   return resData;

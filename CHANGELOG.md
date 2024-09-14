@@ -9,7 +9,9 @@
 * Enabling / disabling rows management functions and create button for proper vmenu items
 * Label instead div for table cells
 * Checkboxes in Filter vmenu item
-* Input type range in filter detaisl to eanble / disable filter
+* Input type range in filter details to eanble / disable filter
+* Add error handling for retrieve single entity details
+* Add spinner to table details when waiting for response
 
 0.26 (2024-09-11)
 ===============
