@@ -230,6 +230,7 @@ const DetailView = memo(function DetailView({
       <ClipLoader
         color={colorHandler(entityName)}
         loading={loading}
+        cssOverride={{margin: "10px auto 0px auto"}}
         size={15}
         speedMultiplier={0.75}
         aria-label="Loading Spinner"

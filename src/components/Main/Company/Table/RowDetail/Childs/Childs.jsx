@@ -51,6 +51,7 @@ export default function Childs({
       <ClipLoader
         color={colorHandler(entityName)}
         loading={loading}
+        cssOverride={{margin: "7px auto 0px auto"}}
         size={15}
         speedMultiplier={0.75}
         aria-label="Loading Spinner"
