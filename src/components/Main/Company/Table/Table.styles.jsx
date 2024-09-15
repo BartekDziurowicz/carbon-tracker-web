@@ -5,6 +5,7 @@ import {
   appgrey,
   apporange,
   appgreylight,
+  appred
 } from "../../../../utils/colors.styles.jsx";
 
 export const $TableContainer = styled.div`
@@ -12,10 +13,8 @@ export const $TableContainer = styled.div`
 `
 
 export const $TableBox = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
   gap: 2px;
   padding: 5px;
   background: ${appwhite};
@@ -27,7 +26,7 @@ export const $Table = styled.table`
   border-collapse: collapse;
 
   & td {
-    font-size: 12px;
+    font-size: 11px;
     padding: 10px 0;
     text-align: center;
   }
@@ -35,6 +34,10 @@ export const $Table = styled.table`
   & tbody tr {
     border-bottom: 1px solid ${appgreylight};
   }
+`
+
+export const $LabelHeader = styled.label`
+  font-size: 13px;
 `
 
 export const $IconHeader = styled.div`
@@ -61,5 +64,11 @@ export const $IconCell = styled.div`
       cursor: pointer;
     }
   }
+`
+
+export const $ErrorLabel = styled.label`
+  text-align: center;
+  padding: 10px;
+  color: ${appred};
 `
 

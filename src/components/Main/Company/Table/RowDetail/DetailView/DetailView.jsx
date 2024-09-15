@@ -1,23 +1,27 @@
 import { memo, useContext, useRef, useState } from "react";
 import { Tooltip } from "react-tooltip";
+import { ClipLoader } from "react-spinners";
 import { PiTreeStructureFill, PiTreeStructureLight } from "react-icons/pi";
 import { FaTrashCan } from "react-icons/fa6";
 import { FaSave } from "react-icons/fa";
 import {
-  $RowButton,
   $RowDetailsHeader,
-  $RowDetailsBox,
-  $RowForm,
   $RowStatusLabel,
-} from "../RowDetail.styles.jsx";
+  $RowForm,
+  $RowButton,
+  $RowDetailsBox,
+} from "./DetailView.styles.jsx";
 import Childs from "../Childs/Childs.jsx";
 import Parents from "../Parents/Parents.jsx";
 import {
   determineUniqueFieldName,
   entityMappingHandler,
   determinateChildsHandler,
-  determinateRelatedEntitiesHandler,
 } from "./DetailView.utils.js";
+import {
+  determinateRestrictedEntitiesHandler,
+  colorHandler,
+} from "../../Table.utils.js";
 import { CompanyContext } from "../../../../../../store/company-context.jsx";
 import {
   apiCallToCreateEntity,
@@ -35,12 +39,15 @@ const DetailView = memo(function DetailView({
   const [response, setResponse] = useState(null);
   const [showParents, setShowParents] = useState(false);
   const [showChilds, setShowChilds] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { parents } = useContext(CompanyContext);
 
   const timer = useRef();
+  const enabledRef = useRef(entity.enabled);
 
   async function handleSubmit(event) {
     event.preventDefault();
+    setLoading(true);
 
     const form = event.target;
     const disabledElements = form.querySelectorAll(":disabled");
@@ -59,46 +66,58 @@ const DetailView = memo(function DetailView({
     });
 
     const formData = Object.fromEntries(fd.entries());
+
+    if (entityName === "Filter") {
+      formData.enabled = formData.enabled === "0" ? false : true;
+      enabledRef.current = formData.enabled === "0" ? false : true;
+    }
+
     const updatedEntity = { ...formData, ...parents };
 
     disabledElements.forEach((element) => (element.disabled = true));
 
     let resData;
 
-    try {
-      if (action === "save") {
-        if (entity.id === 0) {
-          updatedEntity.id = null;
-          resData = await apiCallToCreateEntity(
-            entityName.toLowerCase(),
-            updatedEntity
-          )
-            .then((resData) => {
-              formData.id = resData.split(":")[1];
-              updateRowHandler(0, formData);
-              return resData.split(":")[0];
-            });
-        } else {
-          resData = await apiCallToUpdateEntity(
-            entityName.toLowerCase(),
-            updatedEntity
-          ).then(updateRowHandler(rowIndex, formData));
-        }
+    if (action === "save") {
+      if (entity.id === 0) {
+        updatedEntity.id = null;
+        resData = await apiCallToCreateEntity(
+          entityName.toLowerCase(),
+          updatedEntity
+        )
+          .then((resData) => {
+            formData.id = resData.split(":")[1];
+            updateRowHandler(0, formData);
+            return resData.split(":")[0];
+          })
+          .catch((error) => error);
       } else {
-        if (entity.id === 0) {
-          resData="Canceled"
-        } else {
-          resData = await apiCallToDeleteEntity(
-            entityName.toLowerCase(),
-            updatedEntity
-          );
-        }
+        resData = await apiCallToUpdateEntity(
+          entityName.toLowerCase(),
+          updatedEntity
+        )
+          .then((resData) => {
+            updateRowHandler(rowIndex, formData);
+            return resData;
+          })
+          .catch((error) => {
+            console.log(error);
+            return error;
+          });
       }
-    } catch (error) {
-      resData = error;
+    } else {
+      if (entity.id === 0) {
+        resData = "Canceled";
+      } else {
+        resData = await apiCallToDeleteEntity(
+          entityName.toLowerCase(),
+          updatedEntity
+        ).catch((error) => error);
+      }
     }
 
     setResponse((_prevResponse) => resData);
+    setLoading(false);
 
     clearTimeout(timer.current);
 
@@ -115,12 +134,10 @@ const DetailView = memo(function DetailView({
     setShowParents((_prevState) => !_prevState);
   }
 
-  const mappedObject = entityMappingHandler(entity, entityName);
-
   return (
     <$RowForm onSubmit={handleSubmit}>
       <$RowDetailsHeader>
-        {Object.values(mappedObject)}
+        {Object.values(entityMappingHandler(entity, entityName))}
 
         <$RowDetailsBox $justify="flex-end" $gap="0px">
           <$RowButton
@@ -141,10 +158,16 @@ const DetailView = memo(function DetailView({
             </a>
           </$RowButton>
           <$RowButton
-            type="submit"
+            type={
+              determinateRestrictedEntitiesHandler(entityName)
+                ? "submit"
+                : "button"
+            }
             name="action"
             value="delete"
-            $color="delete"
+            $color={
+              determinateRestrictedEntitiesHandler(entityName) ? "delete" : ""
+            }
             $size="13px"
           >
             <a
@@ -157,50 +180,72 @@ const DetailView = memo(function DetailView({
               <Tooltip id={"delete"} />
             </a>
           </$RowButton>
-          {determinateRelatedEntitiesHandler(entityName) && (
-            <>
-              <$RowButton
-                type="button"
-                $color={entityName}
-                $size="16px"
-                onClick={showParentHandler}
-              >
-                <a
-                  data-tooltip-id={"parents"}
-                  data-tooltip-content={"Parents"}
-                  data-tooltip-delay-show={1000}
-                  data-tooltip-place={"top"}
-                >
-                  <PiTreeStructureFill />
-                  <Tooltip id={"parents"} />
-                </a>
-              </$RowButton>
-              <$RowButton
-                type="button"
-                $color={entityName}
-                $size="16px"
-                onClick={() => setShowChilds((_prevState) => !_prevState)}
-              >
-                <a
-                  data-tooltip-id={"childs"}
-                  data-tooltip-content={"Childs"}
-                  data-tooltip-delay-show={1000}
-                  data-tooltip-place={"top"}
-                >
-                  <PiTreeStructureLight />
-                  <Tooltip id={"childs"} />
-                </a>
-              </$RowButton>
-            </>
-          )}
+
+          <$RowButton
+            type="button"
+            $color={
+              determinateRestrictedEntitiesHandler(entityName) ? entityName : ""
+            }
+            $size="16px"
+            onClick={
+              determinateRestrictedEntitiesHandler(entityName)
+                ? showParentHandler
+                : () => {}
+            }
+          >
+            <a
+              data-tooltip-id={"parents"}
+              data-tooltip-content={"Parents"}
+              data-tooltip-delay-show={1000}
+              data-tooltip-place={"top"}
+            >
+              <PiTreeStructureFill />
+              <Tooltip id={"parents"} />
+            </a>
+          </$RowButton>
+          <$RowButton
+            type="button"
+            $color={
+              determinateRestrictedEntitiesHandler(entityName) ? entityName : ""
+            }
+            $size="16px"
+            onClick={
+              determinateRestrictedEntitiesHandler(entityName)
+                ? () => setShowChilds((_prevState) => !_prevState)
+                : () => {}
+            }
+          >
+            <a
+              data-tooltip-id={"childs"}
+              data-tooltip-content={"Childs"}
+              data-tooltip-delay-show={1000}
+              data-tooltip-place={"top"}
+            >
+              <PiTreeStructureLight />
+              <Tooltip id={"childs"} />
+            </a>
+          </$RowButton>
         </$RowDetailsBox>
       </$RowDetailsHeader>
-      {response === null ? (
-        ""
-      ) : response.message === undefined ? (
-        <$RowStatusLabel $color="ok">{response}</$RowStatusLabel>
-      ) : (
-        <$RowStatusLabel $color="error">{response.message}</$RowStatusLabel>
+      <ClipLoader
+        color={colorHandler(entityName)}
+        loading={loading}
+        cssOverride={{margin: "10px auto 0px auto"}}
+        size={15}
+        speedMultiplier={0.75}
+        aria-label="Loading Spinner"
+      />
+      {!loading && (
+        <>
+          {" "}
+          {response === null ? (
+            ""
+          ) : response.message === undefined ? (
+            <$RowStatusLabel $color="ok">{response}</$RowStatusLabel>
+          ) : (
+            <$RowStatusLabel $color="error">{response.message}</$RowStatusLabel>
+          )}
+        </>
       )}
       {showParents && <Parents entityName={entityName} entity={entity} />}
       {showChilds &&

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { ClipLoader } from "react-spinners";
 import { apiCallToGetEntityChilds } from "../../../../../../api/Api.jsx";
+import { colorHandler } from "../../Table.utils.js";
 import { $Childs, $Child, $Title, $Line, $Message } from "./Childs.styles.jsx";
 
 function messageHandler(childName) {
@@ -18,6 +20,7 @@ export default function Childs({
   childEntities,
 }) {
   const [childs, setChilds] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -30,6 +33,7 @@ export default function Childs({
           call
         ).then((resData) => {
           setChilds((_prevData) => resData);
+          setLoading((_prevValue) => false);
         });
       } catch (error) {
         setChilds((_prevData) => [error.message]);
@@ -44,20 +48,32 @@ export default function Childs({
   return (
     <>
       <$Line />
-      <$Childs>
-        {childEntities[0] === null ? (
-          <$Message>{messageHandler("NA")}</$Message>
-        ) : (
-          <>
-            <$Title $color={entityName}>{children}</$Title>
-            {childs.length === 0 ? (
-              <$Message>{messageHandler(childEntities[call])}</$Message>
-            ) : (
-              childs.map((child, index) => <$Child key={index}>{child}</$Child>)
-            )}
-          </>
-        )}
-      </$Childs>
+      <ClipLoader
+        color={colorHandler(entityName)}
+        loading={loading}
+        cssOverride={{margin: "7px auto 0px auto"}}
+        size={15}
+        speedMultiplier={0.75}
+        aria-label="Loading Spinner"
+      />
+      {!loading && (
+        <$Childs>
+          {childEntities[0] === null ? (
+            <$Message>{messageHandler("NA")}</$Message>
+          ) : (
+            <>
+              <$Title $color={entityName}>{children}</$Title>
+              {childs.length === 0 ? (
+                <$Message>{messageHandler(childEntities[call])}</$Message>
+              ) : (
+                childs.map((child, index) => (
+                  <$Child key={index}>{child}</$Child>
+                ))
+              )}
+            </>
+          )}
+        </$Childs>
+      )}
     </>
   );
 }

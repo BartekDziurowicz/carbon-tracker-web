@@ -1,32 +1,31 @@
 import { forwardRef, useContext, useEffect, useState } from "react";
+import { ClipLoader } from "react-spinners";
+import { $ErrorLabel } from "./RowDetail.styles.jsx";
 import DetailView from "./DetailView/DetailView.jsx";
 import { CompanyContext } from "../../../../../store/company-context.jsx";
 import { apiCallToGetSingleEntity } from "../../../../../api/Api.jsx";
+import { colorHandler } from "../Table.utils.js";
 
-const RowDetail = forwardRef(function RowDetail({
-  entityId,
-  entityName,
-  name,
-  updateRowHandler,
-  deleteRowHandler,
-  rowIndex,
-}, ref) {
+const RowDetail = forwardRef(function RowDetail(
+  { entityId, entityName, name, updateRowHandler, deleteRowHandler, rowIndex },
+  ref
+) {
   const [entity, setEntity] = useState({});
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
   const { setParents } = useContext(CompanyContext);
 
   useEffect(() => {
     async function fetchData() {
-      try {
-        await apiCallToGetSingleEntity(
-          entityId,
-          name,
-          entityName.toLowerCase()
-        ).then((resData) => {
+      await apiCallToGetSingleEntity(entityId, name, entityName.toLowerCase())
+        .then((resData) => {
           setEntity((_prevEntity) => resData);
+          setLoading(false);
+        })
+        .catch((error) => {
+          setError(error);
+          setLoading(false);
         });
-      } catch (error) {
-        //TODO
-      }      
     }
 
     if (entityId === 0) {
@@ -37,23 +36,42 @@ const RowDetail = forwardRef(function RowDetail({
   }, [entityId, entityName, name]);
 
   useEffect(() => {
-    let acc = {};
-    for (const field in entity) {
-      if (typeof entity[field] === "object" && entity[field] !== null) {
-        acc[field] = entity[field];
+    if (error === null) {
+      let acc = {};
+      for (const field in entity) {
+        if (typeof entity[field] === "object" && entity[field] !== null) {
+          acc[field] = entity[field];
+        }
       }
+      setParents(acc);
     }
-    setParents(acc);
-  }, [entity])
+  }, [entity]);
 
   return (
-    <DetailView
-      entity={entity}
-      entityName={entityName}
-      updateRowHandler={updateRowHandler}
-      deleteRowHandler={deleteRowHandler}
-      rowIndex={rowIndex}
-    />
+    <>
+      <ClipLoader
+        color={colorHandler(entityName)}
+        loading={loading}
+        size={15}
+        speedMultiplier={0.75}
+        aria-label="Loading Spinner"
+      />
+      {!loading && (
+        <>
+          {error === null ? (
+            <DetailView
+              entity={entity}
+              entityName={entityName}
+              updateRowHandler={updateRowHandler}
+              deleteRowHandler={deleteRowHandler}
+              rowIndex={rowIndex}
+            />
+          ) : (
+            <$ErrorLabel>{error.message}</$ErrorLabel>
+          )}
+        </>
+      )}
+    </>
   );
 });
 

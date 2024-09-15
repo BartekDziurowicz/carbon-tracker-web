@@ -1,3 +1,17 @@
+0.27 (2024-09-15)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/17)
+* Fixed width of table component
+* Fixed column names by splitting names
+* New created row is auto expanded
+* Disabling and enabling create button
+* Improve table rows styling by changing font sizes
+* Enabling / disabling rows management functions and create button for proper vmenu items
+* Label instead div for table cells
+* Checkboxes in Filter vmenu item
+* Input type range in filter details to eanble / disable filter
+* Add spinners and error handling to organization tab
+
 0.26 (2024-09-11)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/16)

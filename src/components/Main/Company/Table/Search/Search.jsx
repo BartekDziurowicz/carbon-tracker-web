@@ -1,9 +1,19 @@
+import { forwardRef, useImperativeHandle, useState } from "react";
 import { Tooltip } from "react-tooltip";
 import { $Search, $Input, $Icon } from "./Search.styles.jsx";
 import { CiSearch } from "react-icons/ci";
 import { IoIosAddCircleOutline } from "react-icons/io";
 
-export default function Search({ color, onChange, createRowHandler }) {
+const Search = forwardRef(function Search({ color, onChange, createRowHandler }, ref) {
+
+  const[enabled, setEnabled] = useState(true);
+
+  useImperativeHandle(ref, () => ({
+    changeEnabled: (state) => {
+        setEnabled(_prevValue => state);      
+    }
+  }));
+
   return (
     <$Search>
       <$Icon $color={color}>
@@ -16,11 +26,13 @@ export default function Search({ color, onChange, createRowHandler }) {
         data-tooltip-delay-show={1000}
         data-tooltip-place={"top-start"}
       >
-        <$Icon $color={color} $action={true} onClick={createRowHandler}>
+        <$Icon $color={enabled && color} $action={true} onClick={enabled ? createRowHandler : () => {}}>
           <IoIosAddCircleOutline />
         </$Icon>
         <Tooltip id={"create_tooltip"} />
       </a>
     </$Search>
   );
-}
+});
+
+export default Search;

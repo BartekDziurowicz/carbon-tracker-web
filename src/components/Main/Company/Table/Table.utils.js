@@ -1,5 +1,5 @@
 import { rankItem } from "@tanstack/match-sorter-utils";
-import { $IconCell, $IconHeader } from "./Table.styles.jsx";
+import { $IconCell, $IconHeader, $LabelHeader } from "./Table.styles.jsx";
 import { FaPlusSquare, FaMinusSquare } from "react-icons/fa";
 import {
   appblue,
@@ -17,7 +17,21 @@ export function getTableColumns(object, selected) {
       columns.push({
         accessorKey: field,
         id: field,
-        header: () => <label>{field.charAt(0).toUpperCase() + field.slice(1)}</label>,
+        header: () => (
+          <$LabelHeader>
+            {field.charAt(0).toUpperCase() +
+              field.slice(1).replace(/([A-Z])/g, " $1")}
+          </$LabelHeader>
+        ),
+        cell: ({ renderValue }) => {
+          if (renderValue() === true || renderValue() === 'true') {
+            return <input type="checkbox" defaultChecked disabled/>;
+          }
+          if (renderValue() === false || renderValue() === 'false') {
+            return <label><input type="checkbox" defaultChecked={false} disabled /></label>;
+          }          
+          return <label>{renderValue()}</label>;
+        }          
       });
     }
   }
@@ -50,11 +64,16 @@ export const fuzzyFilter = (row, columnId, value, addMeta) => {
 
 export function determineFieldNameHandler(rowOriginal, selected) {
   switch (selected) {
-    case "Location": return rowOriginal.city;
-    case "Employee": return rowOriginal.corporateKey;
-    case "System": return rowOriginal.family;
-    case "Memory": return rowOriginal.partNumber;
-    default: return rowOriginal.name;
+    case "Location":
+      return rowOriginal.city;
+    case "Employee":
+      return rowOriginal.corporateKey;
+    case "System":
+      return rowOriginal.family;
+    case "Memory":
+      return rowOriginal.partNumber;
+    default:
+      return rowOriginal.name;
   }
 }
 
@@ -88,4 +107,10 @@ export function colorHandler(selected) {
     default:
       return appgreylight;
   }
+}
+
+export function determinateRestrictedEntitiesHandler(entityName) {
+  const notRelatedEntities = ["Filter", "Threshold"];
+
+  return !notRelatedEntities.includes(entityName);
 }
