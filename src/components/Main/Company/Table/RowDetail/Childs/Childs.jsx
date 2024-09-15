@@ -33,7 +33,7 @@ export default function Childs({
           call
         ).then((resData) => {
           setChilds((_prevData) => resData);
-          setLoading(_prevValue => false);
+          setLoading((_prevValue) => false);
         });
       } catch (error) {
         setChilds((_prevData) => [error.message]);
@@ -55,20 +55,24 @@ export default function Childs({
         speedMultiplier={0.75}
         aria-label="Loading Spinner"
       />
-      <$Childs>
-        {childEntities[0] === null ? (
-          <$Message>{messageHandler("NA")}</$Message>
-        ) : (
-          <>
-            <$Title $color={entityName}>{children}</$Title>
-            {childs.length === 0 ? (
-              <$Message>{messageHandler(childEntities[call])}</$Message>
-            ) : (
-              childs.map((child, index) => <$Child key={index}>{child}</$Child>)
-            )}
-          </>
-        )}
-      </$Childs>
+      {!loading && (
+        <$Childs>
+          {childEntities[0] === null ? (
+            <$Message>{messageHandler("NA")}</$Message>
+          ) : (
+            <>
+              <$Title $color={entityName}>{children}</$Title>
+              {childs.length === 0 ? (
+                <$Message>{messageHandler(childEntities[call])}</$Message>
+              ) : (
+                childs.map((child, index) => (
+                  <$Child key={index}>{child}</$Child>
+                ))
+              )}
+            </>
+          )}
+        </$Childs>
+      )}
     </>
   );
 }

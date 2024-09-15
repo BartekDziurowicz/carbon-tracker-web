@@ -56,16 +56,20 @@ const RowDetail = forwardRef(function RowDetail(
         speedMultiplier={0.75}
         aria-label="Loading Spinner"
       />
-      {error === null ? (
-        <DetailView
-          entity={entity}
-          entityName={entityName}
-          updateRowHandler={updateRowHandler}
-          deleteRowHandler={deleteRowHandler}
-          rowIndex={rowIndex}
-        />
-      ) : (
-        <$ErrorLabel>{error.message}</$ErrorLabel>
+      {!loading && (
+        <>
+          {error === null ? (
+            <DetailView
+              entity={entity}
+              entityName={entityName}
+              updateRowHandler={updateRowHandler}
+              deleteRowHandler={deleteRowHandler}
+              rowIndex={rowIndex}
+            />
+          ) : (
+            <$ErrorLabel>{error.message}</$ErrorLabel>
+          )}
+        </>
       )}
     </>
   );

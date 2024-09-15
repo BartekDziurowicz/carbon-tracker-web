@@ -18,7 +18,10 @@ import {
   entityMappingHandler,
   determinateChildsHandler,
 } from "./DetailView.utils.js";
-import { determinateRestrictedEntitiesHandler, colorHandler } from "../../Table.utils.js";
+import {
+  determinateRestrictedEntitiesHandler,
+  colorHandler,
+} from "../../Table.utils.js";
 import { CompanyContext } from "../../../../../../store/company-context.jsx";
 import {
   apiCallToCreateEntity,
@@ -231,12 +234,17 @@ const DetailView = memo(function DetailView({
         speedMultiplier={0.75}
         aria-label="Loading Spinner"
       />
-      {response === null ? (
-        ""
-      ) : response.message === undefined ? (
-        <$RowStatusLabel $color="ok">{response}</$RowStatusLabel>
-      ) : (
-        <$RowStatusLabel $color="error">{response.message}</$RowStatusLabel>
+      {!loading && (
+        <>
+          {" "}
+          {response === null ? (
+            ""
+          ) : response.message === undefined ? (
+            <$RowStatusLabel $color="ok">{response}</$RowStatusLabel>
+          ) : (
+            <$RowStatusLabel $color="error">{response.message}</$RowStatusLabel>
+          )}
+        </>
       )}
       {showParents && <Parents entityName={entityName} entity={entity} />}
       {showChilds &&
