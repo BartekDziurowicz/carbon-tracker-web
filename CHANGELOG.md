@@ -1,3 +1,8 @@
+0.28 (2024-09-??)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/18)
+* Use defer hook for menu items together with Await and Suspense
+
 0.27 (2024-09-15)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/17)
