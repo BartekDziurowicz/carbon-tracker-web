@@ -74,6 +74,7 @@ export default function Table() {
         })
         .catch((error) => {
           setError((_prevValue) => error);
+          createEntityButtonHandler(false);
           setLoading(_prevValue => false);
         });
     }
@@ -90,6 +91,7 @@ export default function Table() {
         })
         .catch((error) => {
           setError((_prevValue) => error);
+          createEntityButtonHandler(false);
           setLoading(_prevValue => false);
         });
     }
