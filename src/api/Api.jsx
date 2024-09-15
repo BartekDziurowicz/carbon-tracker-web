@@ -73,13 +73,14 @@ export async function apiCallToGetCarbonThresholds() {
 
 export async function apiCallToGetEntityTemplate(entity) {
   const response = await fetch("http://localhost:8080/" + entity + "/template");
-  const resData = await response.json();
 
   if (!response.ok) {
     throw new Error(
-      resData.message !== undefined ? "Failed to get entity template. Error " + response.status : resData
+      "Failed to get entity template. Error " + response.status
     );
   }
+
+  const resData = await response.json();
 
   return resData;
 }

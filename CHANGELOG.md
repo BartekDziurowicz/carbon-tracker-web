@@ -1,4 +1,4 @@
-0.27 (2024-09-??)
+0.27 (2024-09-15)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/17)
 * Fixed width of table component
@@ -10,8 +10,7 @@
 * Label instead div for table cells
 * Checkboxes in Filter vmenu item
 * Input type range in filter details to eanble / disable filter
-* Add error handling for retrieve single entity details
-* Add spinner to table details, entity save/delete and entity childs when waiting for response
+* Add spinners and error handling to organization tab
 
 0.26 (2024-09-11)
 ===============

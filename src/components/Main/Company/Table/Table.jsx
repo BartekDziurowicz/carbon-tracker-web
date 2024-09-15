@@ -7,23 +7,37 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { ClipLoader } from "react-spinners";
 import {
   fuzzyFilter,
   getTableColumns,
   determineFieldNameHandler,
-  determinateRestrictedEntitiesHandler
+  determinateRestrictedEntitiesHandler,
+  colorHandler
 } from "./Table.utils.js";
 import { CompanyContext } from "../../../../store/company-context.jsx";
-import { apiCallToGetListOfEntities, apiCallToGetEntityTemplate } from "../../../../api/Api.jsx";
-import { $TableContainer, $TableBox, $Table } from "./Table.styles.jsx";
+import {
+  apiCallToGetListOfEntities,
+  apiCallToGetEntityTemplate,
+} from "../../../../api/Api.jsx";
+import {
+  $TableContainer,
+  $TableBox,
+  $Table,
+  $ErrorLabel,
+} from "./Table.styles.jsx";
 import Header from "./Header/Header.jsx";
 import Search from "./Search/Search.jsx";
 import Pagination from "./Pagination/Pagination.jsx";
 import RowDetail from "./RowDetail/RowDetail.jsx";
 
 export default function Table() {
-  const [header, setHeader] = useState([{ accessorKey: "na", id: "na", header: "na" }]);
+  const [header, setHeader] = useState([
+    { accessorKey: "na", id: "na", header: "na" },
+  ]);
   const [rows, setRows] = useState([{}]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
   const { selected } = useContext(CompanyContext);
   const template = useRef({});
   const searchRef = useRef();
@@ -52,15 +66,16 @@ export default function Table() {
     }
 
     async function fetchData() {
-      try {
-        await apiCallToGetEntityTemplate(selected.toLowerCase()).then((resData) => {
+      await apiCallToGetEntityTemplate(selected.toLowerCase())
+        .then((resData) => {
           const columns = getTableColumns(resData, selected);
           template.current = resData;
-          setHeader(_prevValue => columns);
+          setHeader((_prevValue) => columns);
+        })
+        .catch((error) => {
+          setError((_prevValue) => error);
+          setLoading(_prevValue => false);
         });
-      } catch (error) {
-        // TO DO error
-      }
     }
 
     fetchData();
@@ -68,18 +83,15 @@ export default function Table() {
 
   useEffect(() => {
     async function fetchData() {
-      try {
-        await apiCallToGetListOfEntities(
-          selected.toLowerCase(),
-          0,
-          "",
-          true
-        ).then((resData) => {
+      await apiCallToGetListOfEntities(selected.toLowerCase(), 0, "", true)
+        .then((resData) => {
           setRows((_prevData) => resData);
+          setLoading(_prevValue => false);
+        })
+        .catch((error) => {
+          setError((_prevValue) => error);
+          setLoading(_prevValue => false);
         });
-      } catch (error) {
-        //TODO
-      }
     }
 
     fetchData();
@@ -89,13 +101,13 @@ export default function Table() {
     for (const row of table.getRowModel().rows) {
       if (row.getIsExpanded()) {
         row.toggleExpanded();
-      };
+      }
     }
-  }
+  };
 
   const createEntityButtonHandler = (state) => {
     searchRef.current.changeEnabled(state);
-  }
+  };
 
   const createRowHandler = () => {
     createEntityButtonHandler(false);
@@ -123,16 +135,18 @@ export default function Table() {
     for (const row of table.getRowModel().rows) {
       if (Number(row.original.id) === Number(entityId) && row.getIsExpanded()) {
         row.toggleExpanded();
-      };
+      }
     }
-    
+
     setRows((_prevData) => {
-      const data = _prevData.filter(row => Number(row.id) !== Number(entityId));
+      const data = _prevData.filter(
+        (row) => Number(row.id) !== Number(entityId)
+      );
       return data;
     });
 
     createEntityButtonHandler(true);
-  }
+  };
 
   return (
     <$TableContainer>
@@ -143,50 +157,69 @@ export default function Table() {
         ref={searchRef}
       />
       <$TableBox width="100%">
-        <$Table>
-          <thead>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <Header header={header} color={selected} />
-                ))}
-              </tr>
-            ))}
-          </thead>
-
-          <tbody>
-            {table.getRowModel().rows.map((row, index) => (
-              <>
-                <tr key={index}>
-                  {row.getVisibleCells().map((cell, index) => (
-                    <td key={index}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </td>
+      <ClipLoader
+        color={colorHandler(selected)}
+        loading={loading}
+        cssOverride={{margin: "10px auto 10px auto"}}
+        size={20}
+        speedMultiplier={0.75}
+        aria-label="Loading Spinner"
+      />
+        {!loading && (
+          <>
+            {error === null ? (
+              <$Table>
+                <thead>
+                  {table.getHeaderGroups().map((headerGroup) => (
+                    <tr key={headerGroup.id}>
+                      {headerGroup.headers.map((header) => (
+                        <Header header={header} color={selected} />
+                      ))}
+                    </tr>
                   ))}
-                </tr>
-                {row.getIsExpanded() && (
-                  <tr>                    
-                    <td colSpan={row.getVisibleCells().length}>
-                      <RowDetail
-                        entityId={row.original.id}
-                        entityName={selected}
-                        name={determineFieldNameHandler(row.original, selected)}
-                        updateRowHandler={updateRowHandler}
-                        deleteRowHandler={deleteRowHandler}
-                        rowIndex={index}
-                        ref={template}
-                      />
-                    </td>
-                  </tr>
-                )}
-              </>
-            ))}
-          </tbody>
-        </$Table>
-        <Pagination table={table} color={selected} />
+                </thead>
+
+                <tbody>
+                  {table.getRowModel().rows.map((row, index) => (
+                    <>
+                      <tr key={index}>
+                        {row.getVisibleCells().map((cell, index) => (
+                          <td key={index}>
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
+                            )}
+                          </td>
+                        ))}
+                      </tr>
+                      {row.getIsExpanded() && (
+                        <tr>
+                          <td colSpan={row.getVisibleCells().length}>
+                            <RowDetail
+                              entityId={row.original.id}
+                              entityName={selected}
+                              name={determineFieldNameHandler(
+                                row.original,
+                                selected
+                              )}
+                              updateRowHandler={updateRowHandler}
+                              deleteRowHandler={deleteRowHandler}
+                              rowIndex={index}
+                              ref={template}
+                            />
+                          </td>
+                        </tr>
+                      )}
+                    </>
+                  ))}
+                </tbody>
+              </$Table>
+            ) : (
+              <$ErrorLabel>{error.message}</$ErrorLabel>
+            )}
+            <Pagination table={table} color={selected} />
+          </>
+        )}
       </$TableBox>
     </$TableContainer>
   );

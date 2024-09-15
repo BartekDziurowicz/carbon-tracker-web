@@ -5,6 +5,7 @@ import {
   appgrey,
   apporange,
   appgreylight,
+  appred
 } from "../../../../utils/colors.styles.jsx";
 
 export const $TableContainer = styled.div`
@@ -63,5 +64,11 @@ export const $IconCell = styled.div`
       cursor: pointer;
     }
   }
+`
+
+export const $ErrorLabel = styled.label`
+  text-align: center;
+  padding: 10px;
+  color: ${appred};
 `
 
