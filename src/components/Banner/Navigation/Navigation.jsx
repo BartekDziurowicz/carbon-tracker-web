@@ -25,7 +25,7 @@ export default function Navigation() {
   return (
     <>
       <$NavigationSelectedItem>
-        {selectedNavItem.toUpperCase()}
+        {selectedNavItem && selectedNavItem.toUpperCase()}
       </$NavigationSelectedItem>
 
       <$Navigation onClick={selectionHandler}>

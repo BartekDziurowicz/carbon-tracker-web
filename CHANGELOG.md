@@ -2,6 +2,7 @@
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/18)
 * Use defer hook for menu items together with Await and Suspense
+* Create errorElement for not exisitng page
 
 0.27 (2024-09-15)
 ===============
