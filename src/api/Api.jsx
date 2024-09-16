@@ -46,14 +46,15 @@ export async function apiCallToGetFilterValues(filter) {
   const extractedFilter = filter.split(" ");
   const response = await fetch(
     "http://localhost:8080/" + extractedFilter.pop().toLowerCase() + "/filters"
-  );
-  const resData = await response.json();
+  );  
 
   if (!response.ok) {
     throw new Error(
-      resData.message !== undefined ? "Failed to get filters. Error " + response.status : resData
+      "Failed to get filters. Error " + response.status
     );
   }
+
+  const resData = await response.json();
 
   return resData;
 }

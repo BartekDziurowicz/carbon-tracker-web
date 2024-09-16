@@ -53,7 +53,6 @@ export default function Metrics() {
           <BeatLoader
             color={appgreen}
             loading={true}
-            cssOverride={{ margin: "20px auto 10px auto" }}
             size={35}
             speedMultiplier={0.75}
             aria-label="Loading Spinner"
