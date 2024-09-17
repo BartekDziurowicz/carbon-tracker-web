@@ -30,3 +30,11 @@ export const $Title = styled.div`
   font-size: ${({$style}) => $style === "total_carbon" ? "18px" : "16px"};
   text-align: right;
 `;
+
+export const $Spinner = styled.div`
+  display: flex;
+  height: 100%;
+  direction: row-direction;
+  justify-content: center;
+  align-items: center;
+`

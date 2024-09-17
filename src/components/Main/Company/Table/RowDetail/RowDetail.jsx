@@ -30,6 +30,7 @@ const RowDetail = forwardRef(function RowDetail(
 
     if (entityId === 0) {
       setEntity(ref.current);
+      setLoading(_prevValue => false);
     } else {
       fetchData();
     }

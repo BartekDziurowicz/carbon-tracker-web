@@ -29,11 +29,17 @@ export async function apiCallToGetCalculatedMetrics(
       },
     }
   );
-  const resData = await response.json();
 
+  console.log(response.status)
   if (!response.ok) {
-    throw new Error("Failed to get calculated metrics");
+    throw new Error("Failed to get calculated metrics. Error " + response.status);
   }
+
+  if (response.status === 204) {
+    throw {status: response.status, message: "Metric records match given criteria were not found"};
+  }
+
+  const resData = await response.json();
 
   return resData;
 }
@@ -46,27 +52,29 @@ export async function apiCallToGetFilterValues(filter) {
   const extractedFilter = filter.split(" ");
   const response = await fetch(
     "http://localhost:8080/" + extractedFilter.pop().toLowerCase() + "/filters"
-  );
-  const resData = await response.json();
+  );  
 
   if (!response.ok) {
     throw new Error(
-      resData.message !== undefined ? "Failed to get filters. Error " + response.status : resData
+      "Failed to get filters. Error " + response.status
     );
   }
+
+  const resData = await response.json();
 
   return resData;
 }
 
 export async function apiCallToGetCarbonThresholds() {
-  const response = await fetch("http://localhost:8080/threshold/thresholds");
-  const resData = await response.json();
+  let response = await fetch("http://localhost:8080/threshold/thresholds");
 
   if (!response.ok) {
     throw new Error(
-      resData.message !== undefined ? "Failed to get alerts thresholds. Error " + response.status : resData
+      "Failed to get alerts thresholds. Error " + response.status
     );
   }
+
+  const resData = await response.json();
 
   return resData;
 }
