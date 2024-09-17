@@ -2,7 +2,8 @@
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/18)
 * Use defer hook for menu items together with Await and Suspense
-* Create errorElement for not exisitng page
+* Create errorElements for not exisitng page and route error
+* Implement error label and spinners for metrics tab
 
 0.27 (2024-09-15)
 ===============

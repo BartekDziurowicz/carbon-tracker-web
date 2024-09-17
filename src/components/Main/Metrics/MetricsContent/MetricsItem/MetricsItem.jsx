@@ -59,9 +59,11 @@ export default function MetricsItem({ metric, index, stepInfoHandler }) {
 
   function carbonBalance() {
     const balance = parseFloat(usage);
+
     const threshold = thresholds.findIndex(
       (element) => balance > element
     );
+
     return threshold;
   }
 

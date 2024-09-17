@@ -14,10 +14,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    errorElement: <RouteError />,
+    errorElement: <RouteError root={true}/>,
     children: [
-      { index: true, element: <Metrics />, loader: thresholdsLoader},
-      { path: '/selector', element: <SelectorContextProvider><Selector /></SelectorContextProvider>, loader: filtersLoader},
+      { index: true, element: <Metrics />, errorElement: <RouteError />, loader: thresholdsLoader},
+      { path: '/selector', element: <SelectorContextProvider><Selector /></SelectorContextProvider>, errorElement: <RouteError />, loader: filtersLoader},
       { path: '/company', element: <CompanyContextProvider><Company /></CompanyContextProvider>},
       { path: '/user', element: <User />},
     ],

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState, useRef } from "react";
 import { SelectorContext } from "../../../../store/selector-context.jsx";
 import {
   IoSearch,
@@ -11,9 +11,11 @@ import Label from "./Label/Label.jsx";
 import SelectKey from "./Select/SelectKey.jsx";
 import SelectValue from "./Select/SelectValue.jsx";
 import { apiCallToGetCalculatedMetrics } from "../../../../api/Api.jsx";
-import $SelectorForm from "./SelectorForm.styles.jsx";
+import $SelectorForm, { $ErrorLabel} from "./SelectorForm.styles.jsx";
 
 export default function SelectorForm() {
+  const [error, setError] = useState(null)
+  const timer = useRef();
   const {
     showCriteria,
     setShowCriteria,
@@ -40,20 +42,29 @@ export default function SelectorForm() {
       return accumulator;
     }, {});
 
-    const moment = require('moment');
+    const moment = require("moment");
     const date = new Date();
-    const startDate = moment().startOf('month').format('DD-MM-YYYY HH:mm:ss');
-    const endDate = moment(date).format('DD-MM-YYYY HH:mm:ss');
+    const startDate = moment().startOf("month").format("DD-MM-YYYY HH:mm:ss");
+    const endDate = moment(date).format("DD-MM-YYYY HH:mm:ss");
     const period = 900;
 
-    try {
-      await apiCallToGetCalculatedMetrics(showCriteria, startDate, endDate, period, whereCriteriaMap).then(resData => {
+    await apiCallToGetCalculatedMetrics(
+      showCriteria,
+      startDate,
+      endDate,
+      period,
+      whereCriteriaMap
+    )
+      .then((resData) => {
         setCalculatedMetrics(resData);
+      })
+      .catch((error) => {        
+        setError(error.message);
+        clearTimeout(timer.current);
+        timer.current = setTimeout(() => {
+          setError(null);
+        }, 3000);
       });
-    } catch (error) {
-      console.log(error);
-      //TODO
-    }
   }
 
   function setWhereCriteriaHandler() {
@@ -61,6 +72,7 @@ export default function SelectorForm() {
   }
 
   return (
+    <>
     <$SelectorForm onSubmit={fetchCalculatedMetrics}>
       <Button type="submit" name="Show" enabled={showCriteria !== ""}>
         <IoSearch />
@@ -83,5 +95,7 @@ export default function SelectorForm() {
         <IoAddCircleOutline />
       </Button>
     </$SelectorForm>
+    {error !== null ? <$ErrorLabel>{error}</$ErrorLabel> : null}
+    </>
   );
 }
