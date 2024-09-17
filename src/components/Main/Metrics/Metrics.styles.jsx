@@ -6,6 +6,8 @@ export const $Metrics = styled.div`
 
 export const $Fallback = styled.div`
   display: flex;
+  justify-content: center;
+  margin: 27px;
 `;
 
 export default $Metrics;

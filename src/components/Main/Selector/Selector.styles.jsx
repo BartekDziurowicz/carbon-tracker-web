@@ -8,4 +8,10 @@ export const $Selector = styled.div`
   }
 `;
 
+export const $Fallback = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 27px 0 28px 0;
+`
+
 export default $Selector;

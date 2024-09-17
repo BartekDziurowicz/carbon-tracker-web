@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from "react";
+import { ClipLoader } from "react-spinners";
 import {
   $Head,
   $Icon,
   $LineChartComponent,
   $Title,
+  $Spinner,
 } from "./LineChart.styles.jsx";
 import {
   Legend,
@@ -16,8 +18,13 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import colors from "./colors.js";
-import { chartgreen, chartblue, appgrey} from "../../../../utils/colors.styles.jsx";
+import {
+  chartgreen,
+  chartblue,
+  appgrey,
+} from "../../../../utils/colors.styles.jsx";
 import { SelectorContext } from "../../../../store/selector-context.jsx";
+import { appgreen } from "../../../../utils/colors.styles.jsx";
 
 const TOTAL_CARBON_AVG_GROUPS = ["Footprint", "CPU", "RAM"];
 const TOTAL_CARBON_AVG_COLORS = [appgrey, chartblue, chartgreen];
@@ -25,9 +32,11 @@ const TOTAL_CARBON_AVG_COLORS = [appgrey, chartblue, chartgreen];
 export default function LineChartComponent({ style, title, type, children }) {
   const [uniqueGroupNames, setUniqueGroupNames] = useState([]);
   const [selectedMetrics, setSelectedMetrics] = useState({});
+  const [loading, setLoading] = useState(false);
   const { calculatedMetrics } = useContext(SelectorContext);
 
   useEffect(() => {
+    setLoading(_prevValue => true);
     switch (type) {
       case "total_carbon_avg":
         setUniqueGroupNames((_prevValue) => TOTAL_CARBON_AVG_GROUPS);
@@ -38,9 +47,11 @@ export default function LineChartComponent({ style, title, type, children }) {
         );
         setUniqueGroupNames((_prevValue) => uniqueGroupNames);
     }
+    setLoading(_prevValue => false);
   }, [selectedMetrics]);
 
   useEffect(() => {
+    setLoading(_prevValue => true);
     let data = [];
     switch (type) {
       case "total_carbon_avg":
@@ -105,6 +116,7 @@ export default function LineChartComponent({ style, title, type, children }) {
         console.log("Unsupported type: " + type);
     }
     setSelectedMetrics(Object.values(data));
+    setLoading(_prevValue => false)
   }, [calculatedMetrics]);
 
   return (
@@ -113,33 +125,50 @@ export default function LineChartComponent({ style, title, type, children }) {
         <$Icon $style={style}>{children}</$Icon>
         <$Title $style={style}>{title}</$Title>
       </$Head>
+
       <ResponsiveContainer width="100%" height={200}>
-        <LineChart
-          width={1024}
-          height={200}
-          data={selectedMetrics}
-          margin={{
-            top: 10,
-            right: 30,
-            left: 10,
-            bottom: 0,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" minTickGap={10} height={30} />
-          <YAxis />
-          <Tooltip />
-          <Legend iconType="plainline" />
-          {uniqueGroupNames.map((group, index) => (
-            <Line
-              key={index}
-              dot={false}
-              type="monotone"
-              dataKey={group}
-              stroke={type !== "total_carbon_avg" ? colors[index] : TOTAL_CARBON_AVG_COLORS[index]}
+        {loading ? (
+          <$Spinner>
+            <ClipLoader
+              color={appgreen}
+              loading={loading}
+              size={50}
+              speedMultiplier={0.75}
+              aria-label="Loading Spinner"
             />
-          ))}
-        </LineChart>
+          </$Spinner>
+        ) : (
+          <LineChart
+            width={1024}
+            height={200}
+            data={selectedMetrics}
+            margin={{
+              top: 10,
+              right: 30,
+              left: 10,
+              bottom: 0,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" minTickGap={10} height={30} />
+            <YAxis />
+            <Tooltip />
+            <Legend iconType="plainline" />
+            {uniqueGroupNames.map((group, index) => (
+              <Line
+                key={index}
+                dot={false}
+                type="monotone"
+                dataKey={group}
+                stroke={
+                  type !== "total_carbon_avg"
+                    ? colors[index]
+                    : TOTAL_CARBON_AVG_COLORS[index]
+                }
+              />
+            ))}
+          </LineChart>
+        )}
       </ResponsiveContainer>
     </$LineChartComponent>
   );
