@@ -15,6 +15,7 @@ import $SelectorForm, { $ErrorLabel} from "./SelectorForm.styles.jsx";
 
 export default function SelectorForm() {
   const [error, setError] = useState(null)
+
   const timer = useRef();
   const {
     showCriteria,
