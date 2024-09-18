@@ -4,8 +4,8 @@ import { AiOutlineLogout } from "react-icons/ai";
 import { BsBracesAsterisk } from "react-icons/bs";
 import { FaCubes } from "react-icons/fa";
 import { IoIosStats } from "react-icons/io";
-import { MdOutlineManageAccounts } from "react-icons/md";
 import { PiTreeStructure } from "react-icons/pi";
+import { HiOutlineDocumentReport } from "react-icons/hi";
 import {
   $Navigation,
   $NavigationIcon,
@@ -52,9 +52,9 @@ export default function Navigation() {
         </NavigationItem>
       </Link>
 
-      <Link to="/user">
-        <NavigationItem name="User" position={4} hidden={!isSelected}>
-          <MdOutlineManageAccounts />
+      <Link to="/reports">
+        <NavigationItem name="Reports" position={4} hidden={!isSelected}>
+          <HiOutlineDocumentReport />
         </NavigationItem>
       </Link>
 
