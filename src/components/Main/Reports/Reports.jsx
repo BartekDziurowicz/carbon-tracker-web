@@ -1,3 +1,3 @@
 export default function Reports() {
-    return <h1>REPORTS</h1>
+    return <><input type="date" /><input type="time" /><h1>REPORTS</h1></>
 }
