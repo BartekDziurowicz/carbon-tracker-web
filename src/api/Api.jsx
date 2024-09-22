@@ -131,6 +131,9 @@ export async function apiCallToGetSingleEntity(id, name, entity) {
     case "filter":
       endpoint = "/filter?id=" + id + "&name=" + name;
       break;
+    case "indicator":
+      endpoint = "/indicator?id=" + id + "&name=" + name;
+      break;
 
     case "workstation":
       endpoint = "/workstation?id=" + id + "&name=" + name;
@@ -209,6 +212,9 @@ export async function apiCallToGetListOfEntities(entity, id, name, isSimple) {
       break;
     case "threshold":
       endpoint = "/thresholds";
+      break;
+    case "indicator":
+      endpoint = "/indicators"
       break;
 
     case "workstation":

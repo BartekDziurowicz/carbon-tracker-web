@@ -2,6 +2,7 @@
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/19)
 * Create reports ctx
+* Create logic to handle new indicator endpoint and logic
 
 0.28 (2024-09-17)
 ===============
