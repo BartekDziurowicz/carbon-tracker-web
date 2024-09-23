@@ -1,8 +1,10 @@
 import { createContext, useReducer } from "react";
 
 export const ReportsContext = createContext({
-    indicator: "",
-    setIndicator: () => {},
+    currentIndicator: "",
+    setCurrentIndicator: () => {},
+    indicators: [],
+    setIndicators: () => {},
     countries: [],
     setCountries: () => {},
     period: "",
@@ -10,10 +12,17 @@ export const ReportsContext = createContext({
   });
 
 function reportsReducer(state, action) {
-    if (action.type === "SET_INDICATOR") {
+    if (action.type === "SET_CURRENT_INDICATOR") {
       return {
         ...state,
-        indicator: action.payload,
+        currentIndicator: action.payload,
+      };
+    }
+
+    if (action.type === "SET_INDICATORS") {
+      return {
+        ...state,
+        indicators: action.payload,
       };
     }
 
@@ -37,15 +46,23 @@ function reportsReducer(state, action) {
 export default function ReportsContextProvider({ children }) {
 
   const [reportsState, reportsDispatch] = useReducer(reportsReducer, {
-    indicator: "",
+    currentIndicator: "",
+    indicators: [],
     countries: [],
     period: "",
   });
 
-  function setIndicatorHandler(indicator) {
+  function setCurrentIndicatorHandler(indicator) {
     reportsDispatch({
-      type: "SET_INDICATOR",
+      type: "SET_CURRENT_INDICATOR",
       payload: indicator,
+    });
+  }
+
+  function setIndicatorsHandler(indicators) {
+    reportsDispatch({
+      type: "SET_INDICATORS",
+      payload: indicators,
     });
   }
 
@@ -64,8 +81,10 @@ export default function ReportsContextProvider({ children }) {
   }
 
   const ctxReports = {
-    indicator: reportsState.indicator,
-    setIndicator: setIndicatorHandler,
+    currentIndicator: reportsState.currentIndicator,
+    setCurrentIndicator: setCurrentIndicatorHandler,
+    indicators: reportsState.indicators,
+    setIndicators: setIndicatorsHandler,
     countries: reportsState.countries,
     setCountries: setCountriesHandler,
     period: reportsState.period,

@@ -44,6 +44,22 @@ export async function apiCallToGetCalculatedMetrics(
   return resData;
 }
 
+export async function apiCallToGetIndicatorValues() {
+  const response = await fetch (
+    "http://localhost:8080/indicator/indicators"
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      "Failed to get filters. Error " + response.status
+    );
+  }
+
+  const resData = await response.json();
+
+  return resData;
+}
+
 export async function apiCallToGetFilterValues(filter) {
   if (!filter) {
     return [];

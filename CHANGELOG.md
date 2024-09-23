@@ -1,8 +1,9 @@
-0.29 (2024-09-17)
+0.29 (2024-09-??)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/19)
 * Create reports ctx
-* Create logic to handle new indicator endpoint and logic
+* Create logic to handle new indicator endpoint
+* Develop reports component with select, label and button sub-components
 
 0.28 (2024-09-17)
 ===============
