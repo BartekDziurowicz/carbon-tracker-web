@@ -15,4 +15,9 @@ export const $DatePicker = styled.input`
     border-color: ${appgreenlight};
     outline: none;
   }
+
+  &:hover {
+    border-color: ${appgreenlight};
+    outline: none;
+  }
 `;

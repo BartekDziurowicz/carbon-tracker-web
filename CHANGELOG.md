@@ -1,4 +1,4 @@
-0.29 (2024-09-??)
+0.29 (2024-09-25)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/19)
 * Create reports ctx
