@@ -67,7 +67,7 @@ const DetailView = memo(function DetailView({
 
     const formData = Object.fromEntries(fd.entries());
 
-    if (entityName === "Filter") {
+    if (entityName === "Filter" || entityName === "Indicator") {
       formData.enabled = formData.enabled === "0" ? false : true;
       enabledRef.current = formData.enabled === "0" ? false : true;
     }

@@ -4,6 +4,47 @@ export function apiCallToGetEmployeeCarbonFootprint(employeeId) {
   return Mock.Carbon;
 }
 
+export async function apiCallToGetCalculatedIndicators(
+  group,
+  startDate,
+  endDate,
+  countries
+) {
+  const response = await fetch(
+    "http://localhost:8080/indicator/get?group=" +
+      group +
+      "&start=" +
+      startDate +
+      "&end=" +
+      endDate,
+    {
+      method: "POST",
+      body: JSON.stringify(countries),
+      headers: {
+        "Content-Type": "application/json",
+        "X-HTTP-Method-Override": "GET",
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      "Failed to get calculated indicators. Error " + response.status
+    );
+  }
+
+  if (response.status === 204) {
+    throw {
+      status: response.status,
+      message: "Indicator records match given criteria were not found",
+    };
+  }
+
+  const resData = await response.json();
+
+  return resData;
+}
+
 export async function apiCallToGetCalculatedMetrics(
   group,
   startDate,
@@ -30,13 +71,29 @@ export async function apiCallToGetCalculatedMetrics(
     }
   );
 
-  console.log(response.status)
   if (!response.ok) {
-    throw new Error("Failed to get calculated metrics. Error " + response.status);
+    throw new Error(
+      "Failed to get calculated metrics. Error " + response.status
+    );
   }
 
   if (response.status === 204) {
-    throw {status: response.status, message: "Metric records match given criteria were not found"};
+    throw {
+      status: response.status,
+      message: "Metric records match given criteria were not found",
+    };
+  }
+
+  const resData = await response.json();
+
+  return resData;
+}
+
+export async function apiCallToGetIndicatorValues() {
+  const response = await fetch("http://localhost:8080/indicator/indicators");
+
+  if (!response.ok) {
+    throw new Error("Failed to get filters. Error " + response.status);
   }
 
   const resData = await response.json();
@@ -52,12 +109,10 @@ export async function apiCallToGetFilterValues(filter) {
   const extractedFilter = filter.split(" ");
   const response = await fetch(
     "http://localhost:8080/" + extractedFilter.pop().toLowerCase() + "/filters"
-  );  
+  );
 
   if (!response.ok) {
-    throw new Error(
-      "Failed to get filters. Error " + response.status
-    );
+    throw new Error("Failed to get filters. Error " + response.status);
   }
 
   const resData = await response.json();
@@ -83,9 +138,7 @@ export async function apiCallToGetEntityTemplate(entity) {
   const response = await fetch("http://localhost:8080/" + entity + "/template");
 
   if (!response.ok) {
-    throw new Error(
-      "Failed to get entity template. Error " + response.status
-    );
+    throw new Error("Failed to get entity template. Error " + response.status);
   }
 
   const resData = await response.json();
@@ -131,6 +184,9 @@ export async function apiCallToGetSingleEntity(id, name, entity) {
     case "filter":
       endpoint = "/filter?id=" + id + "&name=" + name;
       break;
+    case "indicator":
+      endpoint = "/indicator?id=" + id + "&name=" + name;
+      break;
 
     case "workstation":
       endpoint = "/workstation?id=" + id + "&name=" + name;
@@ -158,9 +214,7 @@ export async function apiCallToGetSingleEntity(id, name, entity) {
   const response = await fetch("http://localhost:8080/" + entity + endpoint);
 
   if (!response.ok) {
-    throw new Error(      
-      "Failed to get entity details. Error " + response.status
-    );
+    throw new Error("Failed to get entity details. Error " + response.status);
   }
 
   const resData = await response.json();
@@ -210,6 +264,9 @@ export async function apiCallToGetListOfEntities(entity, id, name, isSimple) {
     case "threshold":
       endpoint = "/thresholds";
       break;
+    case "indicator":
+      endpoint = "/indicators";
+      break;
 
     case "workstation":
       endpoint =
@@ -253,7 +310,7 @@ export async function apiCallToGetListOfEntities(entity, id, name, isSimple) {
       break;
   }
 
-  const response = await fetch("http://localhost:8080/" + entity + endpoint);  
+  const response = await fetch("http://localhost:8080/" + entity + endpoint);
 
   if (!response.ok) {
     throw new Error("Failed to get list of entities. Error " + response.status);
@@ -412,7 +469,10 @@ export async function apiCallToGetEntityChilds(
     resData = [];
   } else {
     throw new Error(
-      resData.message !== undefined ? "Failed to get childs. Error " + response.status : resData);
+      resData.message !== undefined
+        ? "Failed to get childs. Error " + response.status
+        : resData
+    );
   }
 
   return resData;
@@ -429,8 +489,10 @@ export async function apiCallToUpdateEntity(entity, updatedEntity) {
   const resData = await response.text();
 
   if (!response.ok) {
-    throw new Error(      
-      resData.message !== undefined ? "Failed to update entity. Error " + response.status : resData
+    throw new Error(
+      resData.message !== undefined
+        ? "Failed to update entity. Error " + response.status
+        : resData
     );
   }
 
@@ -449,7 +511,9 @@ export async function apiCallToCreateEntity(entity, createdEntity) {
 
   if (!response.ok) {
     throw new Error(
-      resData.message !== undefined ? "Failed to create entity. Error " + response.status : resData
+      resData.message !== undefined
+        ? "Failed to create entity. Error " + response.status
+        : resData
     );
   }
   return resData;
@@ -467,7 +531,9 @@ export async function apiCallToDeleteEntity(entity, deletedEntity) {
 
   if (!response.ok) {
     throw new Error(
-      resData.message !== undefined ? "Failed to delete entity. Error " + response.status : resData
+      resData.message !== undefined
+        ? "Failed to delete entity. Error " + response.status
+        : resData
     );
   }
 

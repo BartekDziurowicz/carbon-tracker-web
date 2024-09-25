@@ -92,6 +92,7 @@ export function colorHandler(selected) {
       return appgreen;
     case "Threshold":
     case "Filter":
+    case "Indicator":
       return appblack;
     case "Workstation":
     case "Producer":
@@ -110,7 +111,7 @@ export function colorHandler(selected) {
 }
 
 export function determinateRestrictedEntitiesHandler(entityName) {
-  const notRelatedEntities = ["Filter", "Threshold"];
+  const notRelatedEntities = ["Filter", "Threshold", "Indicator"];
 
   return !notRelatedEntities.includes(entityName);
 }

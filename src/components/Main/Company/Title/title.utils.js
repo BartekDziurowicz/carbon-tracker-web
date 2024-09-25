@@ -5,7 +5,7 @@ import { VscOrganization } from "react-icons/vsc";
 import { SlGlobeAlt, SlOrganization } from "react-icons/sl";
 import { RiBuilding2Line } from "react-icons/ri";
 import { PiMaskHappy, PiShieldWarning, PiCpuFill, PiWindowsLogoLight, PiFactory } from "react-icons/pi";
-import { IoFilterCircleOutline, IoConstructOutline } from "react-icons/io5";
+import { IoFilterCircleOutline, IoConstructOutline, IoPieChartOutline } from "react-icons/io5";
 import { HiOutlineComputerDesktop } from "react-icons/hi2";
 import { GrSystem } from "react-icons/gr";
 import { FaMemory } from "react-icons/fa";
@@ -34,6 +34,8 @@ export function iconHandler(selected) {
       return <PiShieldWarning />;
     case "Filter":
       return <IoFilterCircleOutline />;
+    case "Indicator":
+      return <IoPieChartOutline />;
     case "Workstation":
       return <HiOutlineComputerDesktop />;
     case "Producer":

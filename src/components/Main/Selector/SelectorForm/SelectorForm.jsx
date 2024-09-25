@@ -11,10 +11,10 @@ import Label from "./Label/Label.jsx";
 import SelectKey from "./Select/SelectKey.jsx";
 import SelectValue from "./Select/SelectValue.jsx";
 import { apiCallToGetCalculatedMetrics } from "../../../../api/Api.jsx";
-import $SelectorForm, { $ErrorLabel} from "./SelectorForm.styles.jsx";
+import $SelectorForm, { $ErrorLabel } from "./SelectorForm.styles.jsx";
 
 export default function SelectorForm() {
-  const [error, setError] = useState(null)
+  const [error, setError] = useState(null);
 
   const timer = useRef();
   const {
@@ -59,7 +59,7 @@ export default function SelectorForm() {
       .then((resData) => {
         setCalculatedMetrics(resData);
       })
-      .catch((error) => {        
+      .catch((error) => {
         setError(error.message);
         clearTimeout(timer.current);
         timer.current = setTimeout(() => {
@@ -74,29 +74,31 @@ export default function SelectorForm() {
 
   return (
     <>
-    <$SelectorForm onSubmit={fetchCalculatedMetrics}>
-      <Button type="submit" name="Show" enabled={showCriteria !== ""}>
-        <IoSearch />
-      </Button>
-      <SelectKey onChange={handleShowCriteriaChange} />
-      <Label name="where">
-        <IoArrowForwardCircleOutline />
-      </Label>
-      <SelectKey onChange={handleWhereCriteriaChange} />
-      <Label name="is">
-        <IoCheckmarkCircleOutline />
-      </Label>
-      <SelectValue />
-      <Button
-        type="button"
-        name="Add"
-        enabled={tempWhereCriteria.key !== "" && tempWhereCriteria.value !== ""}
-        onClick={setWhereCriteriaHandler}
-      >
-        <IoAddCircleOutline />
-      </Button>
-    </$SelectorForm>
-    {error !== null ? <$ErrorLabel>{error}</$ErrorLabel> : null}
+      <$SelectorForm onSubmit={fetchCalculatedMetrics}>
+        <Button type="submit" name="Show" enabled={showCriteria !== ""}>
+          <IoSearch />
+        </Button>
+        <SelectKey onChange={handleShowCriteriaChange} />
+        <Label name="where">
+          <IoArrowForwardCircleOutline />
+        </Label>
+        <SelectKey onChange={handleWhereCriteriaChange} />
+        <Label name="is">
+          <IoCheckmarkCircleOutline />
+        </Label>
+        <SelectValue />
+        <Button
+          type="button"
+          name="Add"
+          enabled={
+            tempWhereCriteria.key !== "" && tempWhereCriteria.value !== ""
+          }
+          onClick={setWhereCriteriaHandler}
+        >
+          <IoAddCircleOutline />
+        </Button>
+      </$SelectorForm>
+      {error !== null ? <$ErrorLabel>{error}</$ErrorLabel> : null}
     </>
   );
 }

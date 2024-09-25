@@ -66,9 +66,9 @@ export default function LineChartComponent({ style, title, type, children }) {
             };
           }
           acc[period_start].Footprint +=
-            (obj.mem_carbon_avg + obj.proc_carbon_avg) / 4;
-          acc[period_start].RAM += obj.mem_carbon_avg / 4;
-          acc[period_start].CPU += obj.proc_carbon_avg / 4;
+            (obj.mem_carbon_avg + obj.proc_carbon_avg);
+          acc[period_start].RAM += obj.mem_carbon_avg;
+          acc[period_start].CPU += obj.proc_carbon_avg;
           return acc;
         }, {});
         break;

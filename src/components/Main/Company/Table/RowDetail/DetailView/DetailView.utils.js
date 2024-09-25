@@ -46,6 +46,9 @@ function determinateFieldDisabled(field, entityName) {
   if (entityName === "Threshold" && field === "name") {
     return true;
   }
+  if (entityName === "Indicator" && field === "name") {
+    return true;
+  }
   return false;
 }
 

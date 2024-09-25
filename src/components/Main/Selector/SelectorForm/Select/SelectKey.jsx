@@ -3,7 +3,7 @@ import { SelectorContext } from "../../../../../store/selector-context.jsx";
 import $Select from "./Select.styles.jsx";
 
 export default function Select({ onChange }) {
-  const { selectorFilters, setShowCriteria, setTempWhereCriteria } =
+  const { selectorFilters } =
     useContext(SelectorContext);
 
   return (

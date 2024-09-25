@@ -10,7 +10,7 @@ export const ORGANIZATION = [
     { name: "Role" }
 ];
 
-export const METRICS = [{ name: "Threshold" }, { name: "Filter" }];
+export const METRICS = [{ name: "Threshold" }, { name: "Filter" }, {name: "Indicator"}];
 
 export const EQUIPMENT = [
     { name: "Workstation" },
