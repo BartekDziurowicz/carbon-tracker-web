@@ -4,6 +4,9 @@
 * Create reports ctx
 * Create logic to handle new indicator endpoint
 * Develop reports component with select, label and button sub-components
+* Implement new api call to retrieve calculated indicators
+* Extend reports context by calculatedIndicators and setCalculatedIndicators
+* Implement logic for generate button
 
 0.28 (2024-09-17)
 ===============

@@ -3,6 +3,8 @@ import { createContext, useReducer } from "react";
 export const ReportsContext = createContext({
     currentIndicator: "",
     setCurrentIndicator: () => {},
+    calculatedIndicator: [],
+    setCalculatedIndicator: () => {},
     indicators: [],
     setIndicators: () => {},
     countries: [],
@@ -25,6 +27,13 @@ function reportsReducer(state, action) {
       return {
         ...state,
         indicators: action.payload,
+      };
+    }
+
+    if (action.type === "SET_CALCULATED_INDICATOR") {
+      return {
+        ...state,
+        calculatedIndicator: action.payload,
       };
     }
 
@@ -57,6 +66,7 @@ export default function ReportsContextProvider({ children }) {
   const [reportsState, reportsDispatch] = useReducer(reportsReducer, {
     currentIndicator: "",
     indicators: [],
+    calculatedIndicator: [],
     countries: [],
     period: {},
     isOpen: false,
@@ -73,6 +83,13 @@ export default function ReportsContextProvider({ children }) {
     reportsDispatch({
       type: "SET_INDICATORS",
       payload: indicators,
+    });
+  }
+
+  function setCalculatedIndicatorHandler(calculatedIndicator) {
+    reportsDispatch({
+      type: "SET_CALCULATED_INDICATOR",
+      payload: calculatedIndicator,
     });
   }
 
@@ -102,6 +119,8 @@ export default function ReportsContextProvider({ children }) {
     setCurrentIndicator: setCurrentIndicatorHandler,
     indicators: reportsState.indicators,
     setIndicators: setIndicatorsHandler,
+    calculatedIndicator: reportsState.calculatedIndicator,
+    setCalculatedIndicator: setCalculatedIndicatorHandler,
     countries: reportsState.countries,
     setCountries: setCountriesHandler,
     period: reportsState.period,

@@ -9,7 +9,7 @@ import Button from "./Button/Button.jsx";
 import Label from "./Label/Label.jsx";
 import Select from "./Select/Select.jsx";
 import DatePicker from "./DatePicker/DatePicker.jsx";
-import $ReportsForm, { $ErrorLabel, $Icon } from "./ReportsForm.styles.jsx";
+import $ReportsForm, { $ErrorLabel } from "./ReportsForm.styles.jsx";
 import { apiCallToGetCalculatedIndicators } from "../../../../api/Api.jsx";
 
 export default function ReportsForm() {
@@ -17,7 +17,7 @@ export default function ReportsForm() {
 
   const timer = useRef();
 
-  const { currentIndicator, period, isOpen, setIsOpen, countries } =
+  const { currentIndicator, period, isOpen, setIsOpen, countries, setCalculatedIndicator } =
     useContext(ReportsContext);
 
   const moment = require("moment");
@@ -48,8 +48,14 @@ export default function ReportsForm() {
         getLastDayOfMonth(period.end),
         selectedCountryIds
       )
-        .then((resData) => console.log(JSON.stringify(resData)))
-        .catch((error) => console.log(error));
+        .then((resData) => setCalculatedIndicator(resData))
+        .catch((error) => {
+          setError(error.message);
+          clearTimeout(timer.current);
+          timer.current = setTimeout(() => {
+            setError(null);
+          }, 3000);
+        });
     }
   }
 
@@ -77,34 +83,37 @@ export default function ReportsForm() {
   }
 
   return (
-    <$ReportsForm onSubmit={fetchCalculatedReports}>
-      <Button
-        type="submit"
-        name="Generate"
-        enabled={generateButtonEnabledHandler()}
-      >
-        <IoCreateOutline />
-      </Button>
-      <Select />
-      <Label name="for">
-        <IoArrowForwardCircleOutline />
-      </Label>
-      <Button
-        type="button"
-        name="Countries"
-        enabled={true}
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <IoEarthOutline />
-      </Button>
-      <Label name="between">
-        <IoArrowForwardCircleOutline />
-      </Label>
-      <DatePicker dateType="start" />
-      <Label name="and">
-        <IoArrowForwardCircleOutline />
-      </Label>
-      <DatePicker dateType="end" />
-    </$ReportsForm>
+    <>
+      <$ReportsForm onSubmit={fetchCalculatedReports}>
+        <Button
+          type="submit"
+          name="Generate"
+          enabled={generateButtonEnabledHandler()}
+        >
+          <IoCreateOutline />
+        </Button>
+        <Select />
+        <Label name="for">
+          <IoArrowForwardCircleOutline />
+        </Label>
+        <Button
+          type="button"
+          name="Countries"
+          enabled={true}
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <IoEarthOutline />
+        </Button>
+        <Label name="between">
+          <IoArrowForwardCircleOutline />
+        </Label>
+        <DatePicker dateType="start" />
+        <Label name="and">
+          <IoArrowForwardCircleOutline />
+        </Label>
+        <DatePicker dateType="end" />
+      </$ReportsForm>
+      {error !== null ? <$ErrorLabel>{error}</$ErrorLabel> : null}
+    </>
   );
 }
