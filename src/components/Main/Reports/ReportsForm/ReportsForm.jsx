@@ -18,8 +18,7 @@ export default function ReportsForm() {
 
   const {
     currentIndicator,
-    setCurrentIndicator,
-    indicators,
+    period,
     isOpen,
     setIsOpen,
     countries,
@@ -27,17 +26,44 @@ export default function ReportsForm() {
 
   async function fetchCalculatedReports(event) {
     event.preventDefault();
-    if (currentIndicator !== "") {
+    if (generateButtonEnabledHandler()) {
       const selectedCountryIds = countries
         .filter((country) => country.selected)
         .map((country) => country.id);
-        console.log(selectedCountryIds); //TO DO
+
+
+        console.log(selectedCountryIds, period.start, period.end, currentIndicator); //TO DO
     }
+  }
+
+  function generateButtonEnabledHandler() {
+    const moment = require("moment");
+
+    if (currentIndicator === "") {
+      return false;
+    }
+
+    if (!countries.some(country => country.selected)) {
+      return false;
+    }
+
+    if (period.start === undefined || period.end === undefined) {
+      return false;
+    }
+
+    const start = moment(period.start, 'YYYY-MM');
+    const end = moment(period.end, 'YYYY-MM');
+
+    if (start.isAfter(end)) {
+      return false;
+    }
+
+    return true;
   }
 
   return (
     <$ReportsForm onSubmit={fetchCalculatedReports}>
-      <Button type="submit" name="Generate" enabled={currentIndicator !== ""}>
+      <Button type="submit" name="Generate" enabled={generateButtonEnabledHandler()}>
         <IoCreateOutline />
       </Button>
       <Select />
