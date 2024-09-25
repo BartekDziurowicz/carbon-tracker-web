@@ -7,8 +7,10 @@ export const ReportsContext = createContext({
     setIndicators: () => {},
     countries: [],
     setCountries: () => {},
-    period: "",
+    period: {},
     setPeriod: () => {},
+    isOpen: false,
+    setIsOpen: () => {},
   });
 
 function reportsReducer(state, action) {
@@ -40,6 +42,13 @@ function reportsReducer(state, action) {
       };
     }
 
+    if (action.type === "SET_IS_OPEN") {
+      return {
+        ...state,
+        isOpen: action.payload,
+      };
+    }
+
     return state;
 }
 
@@ -49,7 +58,8 @@ export default function ReportsContextProvider({ children }) {
     currentIndicator: "",
     indicators: [],
     countries: [],
-    period: "",
+    period: {},
+    isOpen: false,
   });
 
   function setCurrentIndicatorHandler(indicator) {
@@ -80,6 +90,13 @@ export default function ReportsContextProvider({ children }) {
     });
   }
 
+  function setIsOpenHandler(isOpen) {
+    reportsDispatch({
+      type: "SET_IS_OPEN",
+      payload: isOpen,
+    });
+  }
+
   const ctxReports = {
     currentIndicator: reportsState.currentIndicator,
     setCurrentIndicator: setCurrentIndicatorHandler,
@@ -89,6 +106,8 @@ export default function ReportsContextProvider({ children }) {
     setCountries: setCountriesHandler,
     period: reportsState.period,
     setPeriod: setPeriodHandler,
+    isOpen: reportsState.isOpen,
+    setIsOpen: setIsOpenHandler,
   };
 
   return (

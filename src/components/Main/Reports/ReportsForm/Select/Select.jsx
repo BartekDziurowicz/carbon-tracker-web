@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ReportsContext } from "../../../../../store/reports-context.jsx";
 import $Select from "./Select.styles.jsx";
 
-export default function SelectIndicator() {
+export default function Select() {
   const { setCurrentIndicator, indicators } =
     useContext(ReportsContext);
 

@@ -1,16 +1,22 @@
 import { useContext, useEffect, Suspense } from "react";
 import { useLoaderData, defer, Await } from "react-router-dom";
+import { CSSTransition } from "react-transition-group";
 import { BeatLoader } from "react-spinners";
-import { $Reports, $Fallback } from "./Reports.styles.jsx";
+import { $Reports, $Fallback, $Children } from "./Reports.styles.jsx";
 import ReportsForm from "./ReportsForm/ReportsForm.jsx";
-import { apiCallToGetIndicatorValues } from "../../../api/Api";
+import Countries from "./Countries/Countries.jsx";
+import {
+  apiCallToGetIndicatorValues,
+  apiCallToGetFilterValues,
+} from "../../../api/Api";
 import { ReportsContext } from "../../../store/reports-context";
 import { appgreen } from "../../../utils/colors.styles.jsx";
 
 export default function Reports() {
-  const { indicators } = useLoaderData();
+  const { indicators, countries } = useLoaderData();
 
-  const { setIndicators } = useContext(ReportsContext);
+  const { setIndicators, setCountries, isOpen } =
+    useContext(ReportsContext);
 
   useEffect(() => {
     async function resolveIndicators() {
@@ -20,9 +26,17 @@ export default function Reports() {
     resolveIndicators();
   }, [indicators]);
 
+  useEffect(() => {
+    async function resolveCountries() {
+      await countries.then((resolved) => setCountries(resolved));
+    }
+
+    resolveCountries();
+  }, [countries]);
+
   return (
     <$Reports>
-        <Suspense
+      <Suspense
         fallback={
           <$Fallback>
             <BeatLoader
@@ -37,10 +51,36 @@ export default function Reports() {
       >
         <Await resolve={indicators}>
           {() => {
+            return <ReportsForm />;
+          }}
+        </Await>
+      </Suspense>
+      <Suspense
+        fallback={
+          <$Fallback>
+            <BeatLoader
+              color={appgreen}
+              loading={true}
+              size={35}
+              speedMultiplier={0.75}
+              aria-label="Loading Spinner"
+            />
+          </$Fallback>
+        }
+      >
+        <Await resolve={countries}>
+          {() => {
             return (
-              <>
-                <ReportsForm>my form</ReportsForm>
-              </>
+              <CSSTransition
+                in={isOpen}
+                timeout={300}
+                classNames="dropdown"
+                unmountOnExit
+              >
+                <$Children className="dropdown">
+                  <Countries />
+                </$Children>
+              </CSSTransition>
             );
           }}
         </Await>
@@ -50,14 +90,21 @@ export default function Reports() {
   );
 }
 
-async function loader() {
+async function indicatorsLoader() {
   const resData = await apiCallToGetIndicatorValues();
 
   return resData;
 }
 
-export function indicatorsLoader() {
+async function countriesLoader() {
+  const resData = await apiCallToGetFilterValues("country");
+
+  return resData;
+}
+
+export function reportsLoader() {
   return defer({
-    indicators: loader(),
+    indicators: indicatorsLoader(),
+    countries: countriesLoader(),
   });
 }

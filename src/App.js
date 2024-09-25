@@ -3,7 +3,7 @@ import Root from "./Root.js";
 import Metrics, { thresholdsLoader } from "./components/Main/Metrics/Metrics.jsx";
 import Company from "./components/Main/Company/Company.jsx";
 import Selector, { filtersLoader } from "./components/Main/Selector/Selector.jsx";
-import Reports, { indicatorsLoader } from "./components/Main/Reports/Reports.jsx";
+import Reports, { reportsLoader } from "./components/Main/Reports/Reports.jsx";
 import SelectorContextProvider from "./store/selector-context.jsx";
 import CompanyContextProvider from "./store/company-context.jsx";
 import ReportsContextProvider from "./store/reports-context.jsx";
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
       { index: true, element: <Metrics />, errorElement: <RouteError />, loader: thresholdsLoader},
       { path: '/selector', element: <SelectorContextProvider><Selector /></SelectorContextProvider>, errorElement: <RouteError />, loader: filtersLoader},
       { path: '/company', element: <CompanyContextProvider><Company /></CompanyContextProvider>},
-      { path: '/reports', element: <ReportsContextProvider><Reports /></ReportsContextProvider>, errorElement: <RouteError />, loader: indicatorsLoader},
+      { path: '/reports', element: <ReportsContextProvider><Reports /></ReportsContextProvider>, errorElement: <RouteError />, loader: reportsLoader},
     ],
   },
 ]);
