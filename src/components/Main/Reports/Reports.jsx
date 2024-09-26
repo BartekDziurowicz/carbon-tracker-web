@@ -5,6 +5,7 @@ import { BeatLoader } from "react-spinners";
 import { $Reports, $Fallback, $Children } from "./Reports.styles.jsx";
 import ReportsForm from "./ReportsForm/ReportsForm.jsx";
 import Countries from "./Countries/Countries.jsx";
+import Documents from "./Documents/Documents.jsx";
 import {
   apiCallToGetIndicatorValues,
   apiCallToGetFilterValues,
@@ -85,7 +86,7 @@ export default function Reports() {
           }}
         </Await>
       </Suspense>
-      <h1>REPORTS</h1>
+      <Documents />
     </$Reports>
   );
 }
