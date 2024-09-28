@@ -2,6 +2,7 @@
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/20)
 * Develop document component ui
+* Create reports table UI and logic
 
 0.29 (2024-09-25)
 ===============

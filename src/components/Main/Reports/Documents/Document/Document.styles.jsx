@@ -13,12 +13,24 @@ export const $Title = styled.div`
   align-items: center;
   background-color: ${appgreen};
   color: ${appwhite};
-  font-size: 16px;
+  font-size: 15px;
+  font-weight: bold;
   width: 100%;
   cursor: default;
 
   & :first-child {
     font-size: 26px;
+    padding: 5px 10px;
+  }
+
+  & :nth-child(2) {
+    width: 100%;
+    text-align: right;
+    font-size: 13px;
+  }
+
+  & :nth-child(3) {
+    font-size: 24px;
     padding: 5px 10px;
   }
 `

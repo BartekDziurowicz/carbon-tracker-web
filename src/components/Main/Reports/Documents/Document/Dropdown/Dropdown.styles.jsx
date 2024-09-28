@@ -41,6 +41,7 @@ export const $Head = styled.div`
   justify-content: space-between;
   gap: 20px;
   cursor: pointer;
+  margin-bottom: 5px;
 `;
 
 export const $Icon = styled.div`
@@ -52,6 +53,7 @@ export const $Icon = styled.div`
 `;
 
 export const $Title = styled.div`
-  font-size: 16px;
+  font-size: 14px;
   text-align: right;
+  font-weight: bold;
 `;
