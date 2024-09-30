@@ -65,7 +65,7 @@ export default function Document({ countryIndicator }) {
         <IoFlagOutline />
         {splittedCountryIndicator.country.toUpperCase()}
         <div>{period.start} - {period.end}</div>
-        <CiCalendar />
+        <CiCalendar />             
       </$Title>
       <Page indicatorData={splittedCountryIndicator.workstation} section="workstation"/>
       <$Line />
@@ -77,7 +77,6 @@ export default function Document({ countryIndicator }) {
         <Page indicatorData={splittedCountryIndicator.memory} section="memory"/>
       </Dropdown>
       <$Line />
-      <div>TO DO button download</div>
     </$Document>
   );
 }

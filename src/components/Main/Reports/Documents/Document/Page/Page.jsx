@@ -26,8 +26,6 @@ export default function Page({ indicatorData, section }) {
           content={"car_avg_um"}
           colors={colors}
         />
-        {/* <LineChartComponent indicatorData={indicatorData} content={"car_sum_t"} colors={colors}/>
-        <LineChartComponent indicatorData={indicatorData} content={"car_avg_um"} colors={colors}/> */}
         <LineChartComponent
           indicatorData={indicatorData}
           content={"car_avg_th"}
