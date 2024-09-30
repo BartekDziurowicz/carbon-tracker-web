@@ -1,4 +1,4 @@
-0.30 (2024-09-??)
+0.30 (2024-09-30)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/20)
 * Develop document component ui
