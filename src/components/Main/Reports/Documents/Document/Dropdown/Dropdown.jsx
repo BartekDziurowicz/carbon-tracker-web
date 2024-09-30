@@ -1,13 +1,19 @@
 import { useState } from "react";
 import { CSSTransition } from "react-transition-group";
-import { FiArrowDownCircle, FiArrowRightCircle } from "react-icons/fi";
+import {
+  MdOutlineKeyboardArrowDown,
+  MdOutlineKeyboardArrowRight,
+} from "react-icons/md";
+import { TbReportAnalytics } from "react-icons/tb";
+import { FaMemory } from "react-icons/fa";
+import { PiCpuFill } from "react-icons/pi";
 import {
   $Children,
   $Dropdown,
   $Head,
   $Icon,
   $Title,
-} from "../Dropdown/Dropdown.styles.jsx";
+} from "./Dropdown.styles.jsx";
 
 export default function Dropdown({ title, children }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,9 +23,17 @@ export default function Dropdown({ title, children }) {
   }
 
   return (
-    <$Dropdown>
+    <$Dropdown $title={title}>
       <$Head onClick={toggleDropdown}>
-        <$Icon>{isOpen ? <FiArrowDownCircle /> : <FiArrowRightCircle />}</$Icon>
+        <$Icon>
+          <TbReportAnalytics />
+          {title === "Processor details" ? <PiCpuFill /> : <FaMemory />}
+          {isOpen ? (
+            <MdOutlineKeyboardArrowDown />
+          ) : (
+            <MdOutlineKeyboardArrowRight />
+          )}
+        </$Icon>
         <$Title>{title}</$Title>
       </$Head>
       <CSSTransition
