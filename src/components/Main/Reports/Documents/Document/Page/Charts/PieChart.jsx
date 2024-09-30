@@ -8,7 +8,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { headerContentHandler } from "./Charts.utils.js";
-import { $LineChartComponent, $ChartHeader } from "./Charts.styles.jsx";
+import { $ChartComponent, $ChartHeader } from "./Charts.styles.jsx";
 
 const PieChartComponent = memo(function PieChartComponent({
   indicatorData,
@@ -129,7 +129,7 @@ const PieChartComponent = memo(function PieChartComponent({
   };
 
   return (
-    <$LineChartComponent>
+    <$ChartComponent>
       <$ChartHeader>{headerContentHandler(content)}</$ChartHeader>
       <ResponsiveContainer width="100%" height={220}>
         <PieChart width="100%" height={220}>
@@ -141,7 +141,6 @@ const PieChartComponent = memo(function PieChartComponent({
             cy="50%"
             innerRadius={60}
             outerRadius={80}
-            fill="#8884d8"
             paddingAngle={5}
             dataKey="value"
             label={renderCustomizedLabel}
@@ -156,7 +155,7 @@ const PieChartComponent = memo(function PieChartComponent({
           </Pie>
         </PieChart>
       </ResponsiveContainer>
-    </$LineChartComponent>
+    </$ChartComponent>
   );
 });
 

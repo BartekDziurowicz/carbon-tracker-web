@@ -41,4 +41,6 @@ export const $Table = styled.table`
       font-weight: normal;
     }
   }
+
+  margin-bottom: 5px;
 `;

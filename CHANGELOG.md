@@ -4,6 +4,7 @@
 * Develop document component ui
 * Create reports table UI and logic
 * Develop linecharts, piecharts and logic to manipulate charts data 
+* Create charts for kgco2e summary
 
 0.29 (2024-09-25)
 ===============

@@ -1,13 +1,19 @@
-import $Page, {$Charts, $PieCharts} from "./Page.styles.jsx";
+import $Page, {$BasicCharts, $Charts, $PieCharts} from "./Page.styles.jsx";
 import Table from "./Table/Table.jsx";
 import LineChartComponent from "./Charts/LineChart.jsx";
 import PieChartComponent from "./Charts/PieChart.jsx";
+import BarChartComponent from "./Charts/BarChart.jsx";
+import PieChartCarbon from "./Charts/PieChartCarbon.jsx";
 import colors from "./colors.js";
 
 export default function Page({ indicatorData, section }) {
   return (
     <$Page>
       <Table indicatorData={indicatorData} section={section}/>
+      <$BasicCharts>
+        <BarChartComponent indicatorData={indicatorData} colors={colors}/>
+        <PieChartCarbon indicatorData={indicatorData}/>
+      </$BasicCharts>
       <$Charts>
         <LineChartComponent indicatorData={indicatorData} content={"car_sum_t"} colors={colors}/>
         <LineChartComponent indicatorData={indicatorData} content={"car_avg_um"} colors={colors}/>

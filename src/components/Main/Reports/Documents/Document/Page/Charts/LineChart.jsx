@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import {
   Legend,
   LineChart,
@@ -10,9 +10,13 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { headerContentHandler } from "./Charts.utils.js";
-import { $LineChartComponent, $ChartHeader } from "./Charts.styles.jsx";
+import { $ChartComponent, $ChartHeader } from "./Charts.styles.jsx";
 
-export default function LineChartComponent({ indicatorData, content, colors }) {
+const LineChartComponent = memo(function LineChartComponent({
+  indicatorData,
+  content,
+  colors,
+}) {
   const [uniqueGroupNames, setUniqueGroupNames] = useState([]);
   const [selectedIndicator, setSelectedIndicator] = useState({});
 
@@ -83,7 +87,7 @@ export default function LineChartComponent({ indicatorData, content, colors }) {
   }, [indicatorData, content]);
 
   return (
-    <$LineChartComponent>
+    <$ChartComponent>
       <$ChartHeader>{headerContentHandler(content)}</$ChartHeader>
       <ResponsiveContainer width="100%" height={200}>
         <LineChart
@@ -92,8 +96,8 @@ export default function LineChartComponent({ indicatorData, content, colors }) {
           data={selectedIndicator}
           margin={{
             top: 10,
-            right: 30,
-            left: 10,
+            right: 15,
+            left: -15,
             bottom: 0,
           }}
         >
@@ -119,6 +123,8 @@ export default function LineChartComponent({ indicatorData, content, colors }) {
           ))}
         </LineChart>
       </ResponsiveContainer>
-    </$LineChartComponent>
+    </$ChartComponent>
   );
-}
+});
+
+export default LineChartComponent;

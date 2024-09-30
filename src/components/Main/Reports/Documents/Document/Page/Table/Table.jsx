@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, memo } from "react";
 import {
   flexRender,
   getCoreRowModel,
@@ -8,7 +8,7 @@ import { ReportsContext } from "../../../../../../../store/reports-context.jsx";
 import { getTableColumns } from "./Table.utils.js";
 import { $Table } from "./Table.styles.jsx";
 
-export default function Table({ indicatorData, section }) {
+const Table = memo(function Table({ indicatorData, section }) {
   const [header, setHeader] = useState([
     { accessorKey: "na", id: "na", header: "na" },
   ]);
@@ -104,4 +104,6 @@ export default function Table({ indicatorData, section }) {
         </tfoot>
       </$Table>
   );
-}
+});
+
+export default Table;

@@ -4,6 +4,25 @@ export const $Page = styled.div`
     display: block;
 `
 
+export const $BasicCharts = styled.div`
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 15px 15px;
+    grid-template-areas:
+        "car_sum_t_bar car_sum_t_pie";
+
+    & :first-child {
+        grid-area: car_sum_t_bar;
+    }
+
+    & :nth-child(2) {
+        grid-area: car_sum_t_pie;
+    }
+
+    margin-bottom: 15px;
+`;
+
 export const $Charts = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -28,6 +47,8 @@ export const $Charts = styled.div`
     & :nth-child(4) {
         grid-area: usa_avg_th;
     }
+
+    margin-bottom: 15px;
 `;
 
 export const $PieCharts = styled.div`
@@ -54,7 +75,5 @@ export const $PieCharts = styled.div`
         grid-area: car_avg_um;
     }
 `;
-
-
 
 export default $Page;

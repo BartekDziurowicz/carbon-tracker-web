@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { appgreylight, appgrey } from "../../../../../../../utils/colors.styles";
 
-export const $LineChartComponent = styled.div`
+export const $ChartComponent = styled.div`
     font-size: 10px;
 `
 
