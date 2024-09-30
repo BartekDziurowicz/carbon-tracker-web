@@ -134,7 +134,7 @@ const PieChartComponent = memo(function PieChartComponent({
       <ResponsiveContainer width="100%" height={220}>
         <PieChart width="100%" height={220}>
           <Tooltip />
-          <Legend />
+          {/* <Legend /> */}
           <Pie
             data={selectedIndicator}
             cx="50%"

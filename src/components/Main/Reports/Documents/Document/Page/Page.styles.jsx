@@ -1,10 +1,12 @@
 import { styled } from "styled-components";
+import { appblack } from "../../../../../../utils/colors.styles";
 
 export const $Page = styled.div`
     display: block;
 `
 
 export const $BasicCharts = styled.div`
+    color: ${appblack};
     display: grid;
     grid-template-columns: 3fr 1fr;
     grid-template-rows: 1fr;
@@ -24,6 +26,7 @@ export const $BasicCharts = styled.div`
 `;
 
 export const $Charts = styled.div`
+    color: ${appblack};
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;

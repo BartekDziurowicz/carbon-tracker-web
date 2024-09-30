@@ -1,8 +1,8 @@
 import { useEffect, useState, memo } from "react";
 import {
   Legend,
-  LineChart,
-  Line,
+  AreaChart,
+  Area,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -12,7 +12,7 @@ import {
 import { headerContentHandler } from "./Charts.utils.js";
 import { $ChartComponent, $ChartHeader } from "./Charts.styles.jsx";
 
-const LineChartComponent = memo(function LineChartComponent({
+const AreaChartComponent = memo(function AreaChartComponent({
   indicatorData,
   content,
   colors,
@@ -90,7 +90,7 @@ const LineChartComponent = memo(function LineChartComponent({
     <$ChartComponent>
       <$ChartHeader>{headerContentHandler(content)}</$ChartHeader>
       <ResponsiveContainer width="100%" height={200}>
-        <LineChart
+        <AreaChart
           width={1024}
           height={200}
           data={selectedIndicator}
@@ -112,19 +112,29 @@ const LineChartComponent = memo(function LineChartComponent({
           <YAxis type="number" allowDuplicatedCategory={false} />
           <Tooltip />
           {/* <Legend iconType="plainline" /> */}
+          <defs>
+            {uniqueGroupNames.map((group, index) => (
+              <linearGradient id={index} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor={colors[index % colors.length]} stopOpacity={0.5} />
+                <stop offset="95%" stopColor={colors[index % colors.length]} stopOpacity={0} />
+              </linearGradient>
+            ))}
+          </defs>
           {uniqueGroupNames.map((group, index) => (
-            <Line
+            <Area
               key={index}
               dot={true}
               type="monotone"
               dataKey={group}
               stroke={colors[index % colors.length]}
+              fillOpacity={1}
+              fill={`url(#${index})`}
             />
           ))}
-        </LineChart>
+        </AreaChart>
       </ResponsiveContainer>
     </$ChartComponent>
   );
 });
 
-export default LineChartComponent;
+export default AreaChartComponent;
