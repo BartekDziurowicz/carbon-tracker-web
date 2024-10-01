@@ -1,5 +1,4 @@
 import { styled } from "styled-components";
-import { appwhite, appgrey } from "../../../utils/colors.styles";
 
 export const $Reports = styled.div`
   display: block;

@@ -5,7 +5,7 @@ export const $InfoLabel = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 54px;
+    margin: ${({ $margin }) => $margin};
 `
 
 export const $Icon = styled.div`

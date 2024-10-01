@@ -87,7 +87,7 @@ export default function Reports() {
           }}
         </Await>
       </Suspense>
-      {calculatedIndicator.length === 0 ? <InfoLabel /> : <Documents />}  
+      {calculatedIndicator.length === 0 ? <InfoLabel margin='56px'/> : <Documents />}  
     </$Reports>
   );
 }

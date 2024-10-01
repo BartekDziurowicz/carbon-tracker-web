@@ -64,7 +64,7 @@ export default function Selector() {
         </Await>
       </Suspense>
       {calculatedMetrics.length === 0 ? (
-        <InfoLabel />
+        <InfoLabel margin='41px'/>
       ) : (
         <>
           <LineChartComponent

@@ -1,9 +1,9 @@
 import { CiCircleInfo } from "react-icons/ci";
 import { $InfoLabel, $Icon, $Message } from "./InfoLabel.styles.jsx";
 
-export default function InfoLabel() {
+export default function InfoLabel({ margin }) {
   return (
-    <$InfoLabel>
+    <$InfoLabel $margin={margin}>
       <$Icon>
         <CiCircleInfo />
       </$Icon>
