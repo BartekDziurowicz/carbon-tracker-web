@@ -3,9 +3,14 @@ import { appblack, appgrey, apporange, appwhite } from "../../../../utils/colors
 
 export const $LineChartComponent = styled.div`
   padding: 10px;
-  min-width: 200px;
+  min-width: 200px;  
   background: ${appwhite};
   box-shadow: 1px 2px 10px ${appgrey};
+  font-size: 10px;
+
+  & .recharts-legend-item {
+    font-size: 12px;
+  }
 `;
 
 export const $Head = styled.div`

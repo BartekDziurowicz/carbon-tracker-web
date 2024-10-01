@@ -2,6 +2,7 @@
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/21)
 * Add info label for reports and selector when data are not fetched
+* Change Selector LineCharts font sizes
 
 0.30 (2024-09-30)
 ===============
