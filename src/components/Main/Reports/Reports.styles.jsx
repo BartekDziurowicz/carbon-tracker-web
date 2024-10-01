@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import { appwhite, appgrey } from "../../../utils/colors.styles";
 
 export const $Reports = styled.div`
   display: block;
@@ -37,4 +38,11 @@ export const $Children = styled.div`
     max-height: 0;
     transition: opacity 300ms, max-height 500ms;
   }
+`;
+
+export const $Message = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 28px;
 `;

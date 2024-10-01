@@ -1,3 +1,8 @@
+0.31 (2024-10-??)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/21)
+* Add info label for reports and selector when data are not fetched
+
 0.30 (2024-09-30)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/20)
