@@ -9,6 +9,7 @@
 * Implement Brush component form ReCharts to selector LineCharts
 * Restore VMenu colors in Company tab
 * Fix infinity spinner for "no child relations"
+* Add different icons for "between" and "and" labels in reports tab
 
 0.30 (2024-09-30)
 ===============
