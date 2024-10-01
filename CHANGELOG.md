@@ -4,6 +4,7 @@
 * Add info label for reports and selector when data are not fetched
 * Change Selector LineCharts font sizes
 * Change employee charts font sizes
+* Change reports date picker hight
 
 0.30 (2024-09-30)
 ===============
