@@ -5,9 +5,17 @@ import Main from "./components/Main/Main.jsx";
 import { NavigationContext } from "./store/navigation-context.jsx";
 
 export default function Root() {
-  const [selectedNavItem, setSelectedNavItem] = useState("Metrics");
+  const [selectedNavItem, setSelectedNavItem] = useState(() => {
+    const storedNavItem = JSON.parse(sessionStorage.getItem("selectedNavItem"));
+    if (storedNavItem === undefined || storedNavItem === null) {
+      return "Metrics";
+    } else {
+      return storedNavItem;
+    }
+  });
 
   function selectNavItemHandler(selectedItem) {
+    sessionStorage.setItem("selectedNavItem", JSON.stringify(selectedItem))
     setSelectedNavItem(() => selectedItem);
   }
 

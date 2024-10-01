@@ -38,3 +38,10 @@ export const $Children = styled.div`
     transition: opacity 300ms, max-height 500ms;
   }
 `;
+
+export const $Message = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 28px;
+`;

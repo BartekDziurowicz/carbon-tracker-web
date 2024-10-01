@@ -31,4 +31,9 @@ export const $Title = styled.div`
 export const $Content = styled.div`
   display: flex;
   justify-content: center;
+  font-size: 10px;
+
+  & .recharts-legend-item {
+    font-size: 14px;
+  }
 `;

@@ -6,7 +6,7 @@ import {
 } from "../../../../../utils/colors.styles.jsx";
 
 export const $DatePicker = styled.input`
-  height: 34px;
+  height: 33px;
   border: 1px solid ${appgreen};
   cursor: pointer;
   color: ${appgrey};

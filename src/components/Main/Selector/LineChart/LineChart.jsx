@@ -8,6 +8,7 @@ import {
   $Spinner,
 } from "./LineChart.styles.jsx";
 import {
+  Brush,
   Legend,
   LineChart,
   Line,
@@ -126,7 +127,7 @@ export default function LineChartComponent({ style, title, type, children }) {
         <$Title $style={style}>{title}</$Title>
       </$Head>
 
-      <ResponsiveContainer width="100%" height={200}>
+      <ResponsiveContainer width="100%" height={220}>
         {loading ? (
           <$Spinner>
             <ClipLoader
@@ -152,8 +153,7 @@ export default function LineChartComponent({ style, title, type, children }) {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" minTickGap={10} height={30} />
             <YAxis />
-            <Tooltip />
-            <Legend iconType="plainline" />
+            <Tooltip />            
             {uniqueGroupNames.map((group, index) => (
               <Line
                 key={index}
@@ -167,6 +167,8 @@ export default function LineChartComponent({ style, title, type, children }) {
                 }
               />
             ))}
+            <Brush height={20} />
+            <Legend iconType="plainline" />
           </LineChart>
         )}
       </ResponsiveContainer>

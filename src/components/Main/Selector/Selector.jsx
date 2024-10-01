@@ -2,6 +2,7 @@ import { useContext, useEffect, Suspense } from "react";
 import { useLoaderData, defer, Await } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
 import SelectorForm from "./SelectorForm/SelectorForm.jsx";
+import InfoLabel from "../InfoLabel/InfoLabel.jsx";
 import SelectorCurrentFilters from "./SelectorCurrentFilters/SelectorCurrentFilters.jsx";
 import LineChartComponent from "./LineChart/LineChart.jsx";
 import { GiFootprint } from "react-icons/gi";
@@ -26,7 +27,7 @@ const TITLE = {
 export default function Selector() {
   const { filters } = useLoaderData();
 
-  const { setSelectorFilters } = useContext(SelectorContext);
+  const { setSelectorFilters, calculatedMetrics } = useContext(SelectorContext);
 
   useEffect(() => {
     async function resolveFilters() {
@@ -62,52 +63,57 @@ export default function Selector() {
           }}
         </Await>
       </Suspense>
-
-      <LineChartComponent
-        title={TITLE.totalCarbon}
-        type="total_carbon_avg"
-        style="total_carbon"
-      >
-        <GiFootprint />
-        <TbSum />
-        <MdCo2 />
-      </LineChartComponent>
-      <LineChartComponent
-        title={TITLE.cpuCarbon}
-        type="proc_carbon_avg"
-        style="carbon"
-      >
-        <GiFootprint />
-        <PiCpuFill />
-        <MdCo2 />
-      </LineChartComponent>
-      <LineChartComponent
-        title={TITLE.cpuUsage}
-        type="proc_usage_avg"
-        style="usage"
-      >
-        <FaChartBar />
-        <PiCpuFill />
-        <CgMathPercent />
-      </LineChartComponent>
-      <LineChartComponent
-        title={TITLE.memCarbon}
-        type="mem_carbon_avg"
-        style="carbon"
-      >
-        <GiFootprint />
-        <FaMemory />
-        <MdCo2 />
-      </LineChartComponent>
-      <LineChartComponent
-        title={TITLE.memUsage}
-        type="mem_usage_avg"
-        style="usage"
-      >
-        <FaChartBar />
-        <FaMemory />
-        <CgMathPercent />
-      </LineChartComponent>
+      {calculatedMetrics.length === 0 ? (
+        <InfoLabel margin='41px'/>
+      ) : (
+        <>
+          <LineChartComponent
+            title={TITLE.totalCarbon}
+            type="total_carbon_avg"
+            style="total_carbon"
+          >
+            <GiFootprint />
+            <TbSum />
+            <MdCo2 />
+          </LineChartComponent>
+          <LineChartComponent
+            title={TITLE.cpuCarbon}
+            type="proc_carbon_avg"
+            style="carbon"
+          >
+            <GiFootprint />
+            <PiCpuFill />
+            <MdCo2 />
+          </LineChartComponent>
+          <LineChartComponent
+            title={TITLE.cpuUsage}
+            type="proc_usage_avg"
+            style="usage"
+          >
+            <FaChartBar />
+            <PiCpuFill />
+            <CgMathPercent />
+          </LineChartComponent>
+          <LineChartComponent
+            title={TITLE.memCarbon}
+            type="mem_carbon_avg"
+            style="carbon"
+          >
+            <GiFootprint />
+            <FaMemory />
+            <MdCo2 />
+          </LineChartComponent>
+          <LineChartComponent
+            title={TITLE.memUsage}
+            type="mem_usage_avg"
+            style="usage"
+          >
+            <FaChartBar />
+            <FaMemory />
+            <CgMathPercent />
+          </LineChartComponent>
+        </>
+      )}
     </$Selector>
   );
 }

@@ -1,3 +1,16 @@
+0.31 (2024-10-01)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/21)
+* Add info label for reports and selector when data are not fetched
+* Change Selector LineCharts font sizes
+* Change employee charts font sizes
+* Change reports date picker hight
+* Add selected nav item to session storage
+* Implement Brush component form ReCharts to selector LineCharts
+* Restore VMenu colors in Company tab
+* Fix infinity spinner for "no child relations"
+* Add different icons for "between" and "and" labels in reports tab
+
 0.30 (2024-09-30)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/20)
