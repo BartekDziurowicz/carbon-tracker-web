@@ -6,6 +6,7 @@
 * Change employee charts font sizes
 * Change reports date picker hight
 * Add selected nav item to session storage
+* Implement Brush component form ReCharts to selector LineCharts
 
 0.30 (2024-09-30)
 ===============

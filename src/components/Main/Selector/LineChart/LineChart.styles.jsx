@@ -10,6 +10,7 @@ export const $LineChartComponent = styled.div`
 
   & .recharts-legend-item {
     font-size: 12px;
+    margin: 10px 0px 0px 0px;
   }
 `;
 
