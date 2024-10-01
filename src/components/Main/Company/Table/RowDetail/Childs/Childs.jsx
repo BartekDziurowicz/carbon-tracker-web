@@ -42,6 +42,8 @@ export default function Childs({
 
     if (childEntities[0] !== null) {
       fetchData();
+    } else {
+      setLoading((_prevValue) => false);
     }
   }, [entityName, objId, objName, call]);
 

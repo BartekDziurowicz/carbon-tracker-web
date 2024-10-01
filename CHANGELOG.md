@@ -8,6 +8,7 @@
 * Add selected nav item to session storage
 * Implement Brush component form ReCharts to selector LineCharts
 * Restore VMenu colors in Company tab
+* Fix infinity spinner for "no child relations"
 
 0.30 (2024-09-30)
 ===============
