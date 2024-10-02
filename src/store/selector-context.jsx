@@ -13,7 +13,7 @@ export const SelectorContext = createContext({
   setSelectorFilters: () => {},
   calculatedMetrics: [],
   setCalculatedMetrics: () => {},
-  period: {start: "", end: "", interval: ""},
+  period: {start: null, end: null, interval: null},
   setPeriod: () => {},
 });
 
@@ -102,7 +102,7 @@ export default function SelectorContextProvider({ children }) {
     tempWhereCriteria: { key: "", value: "" },
     selectorFilters: [],
     calculatedMetrics: [],
-    period: {start: "", end: "", interval: ""},
+    period: {start: null, end: null, interval: null},
   });
 
   function setShowCriteriaHandler(showCriteria) {

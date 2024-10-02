@@ -3,6 +3,7 @@
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/22)
 * Extend selector context by period object
 * Implement new components and functions to handle period values
+* Create period nad dates handling in selector tab
 
 0.31 (2024-10-01)
 ===============

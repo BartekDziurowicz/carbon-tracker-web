@@ -54,15 +54,15 @@ export default function SelectorForm() {
 
     const moment = require("moment");
     const date = new Date();
-    const startDate = moment().startOf("month").format("DD-MM-YYYY HH:mm:ss");
-    const endDate = moment(date).format("DD-MM-YYYY HH:mm:ss");
-    const period = 900;
+    const startDate = period.start !== null ? period.start : moment().startOf("month").format("DD-MM-YYYY HH:mm:ss");
+    const endDate = period.end !== null ? period.end : moment(date).format("DD-MM-YYYY HH:mm:ss");
+    const interval = period.interval !== null ? period.interval : 900;
 
     await apiCallToGetCalculatedMetrics(
       showCriteria,
       startDate,
       endDate,
-      period,
+      interval,
       whereCriteriaMap
     )
       .then((resData) => {
