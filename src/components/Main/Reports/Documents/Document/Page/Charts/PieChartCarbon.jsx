@@ -1,4 +1,5 @@
 import { useEffect, useState, memo } from "react";
+import { Tooltip as ReactTooltip } from "react-tooltip";
 import {
   PieChart,
   Pie,
@@ -7,7 +8,6 @@ import {
   Cell,
   ResponsiveContainer,
 } from "recharts";
-import { headerContentHandler } from "./Charts.utils.js";
 import { $ChartComponent, $ChartHeader } from "./Charts.styles.jsx";
 
 const RADIAN = Math.PI / 180;
@@ -28,7 +28,6 @@ const renderCustomizedLabel = ({
     <text
       x={x}
       y={y}
-      //   fill={appwhite}
       textAnchor={x > cx ? "start" : "end"}
       dominantBaseline="central"
     >
@@ -71,7 +70,20 @@ const PieChartCarbon = memo(function PieChartCarbon({ indicatorData }) {
 
   return (
     <$ChartComponent>
-      <$ChartHeader>Carbon [kgCO₂e]</$ChartHeader>
+      <$ChartHeader>
+        {" "}
+        <a
+          data-tooltip-id={"pie_chart_summary"}
+          data-tooltip-content={
+            "The graph shows the sum of the carbon footprint produced per month."
+          }
+          data-tooltip-delay-show={1000}
+          data-tooltip-place={"top"}
+        >
+          Carbon [kgCO₂e]
+          <ReactTooltip id={"pie_chart_summary"} />
+        </a>
+      </$ChartHeader>
       <ResponsiveContainer width="100%" height={220}>
         <PieChart width={200} height={200}>
           <Tooltip />

@@ -1,4 +1,5 @@
 import { useEffect, useState, memo } from "react";
+import { Tooltip as ReactTooltip } from "react-tooltip";
 import {
   PieChart,
   Pie,
@@ -7,13 +8,16 @@ import {
   Cell,
   ResponsiveContainer,
 } from "recharts";
-import { headerContentHandler } from "./Charts.utils.js";
+import {
+  headerContentHandler,
+  chartsTooltipContentHandler,
+} from "./Charts.utils.js";
 import { $ChartComponent, $ChartHeader } from "./Charts.styles.jsx";
 
 const PieChartComponent = memo(function PieChartComponent({
   indicatorData,
   content,
-  colors
+  colors,
 }) {
   const [selectedIndicator, setSelectedIndicator] = useState([]);
 
@@ -53,11 +57,11 @@ const PieChartComponent = memo(function PieChartComponent({
           const group = summary[group_name];
           return {
             name: group_name,
-            value: Number((group.car_avg_th/group.count).toFixed(9)),
+            value: Number((group.car_avg_th / group.count).toFixed(9)),
           };
         });
         break;
-        case "usa_avg_th":
+      case "usa_avg_th":
         summary = indicatorData.reduce((acc, curr) => {
           const group = acc[curr.group_name] || {
             usa_avg_th: 0,
@@ -73,7 +77,7 @@ const PieChartComponent = memo(function PieChartComponent({
           const group = summary[group_name];
           return {
             name: group_name,
-            value: Number((group.usa_avg_th/group.count).toFixed(9)),
+            value: Number((group.usa_avg_th / group.count).toFixed(9)),
           };
         });
         break;
@@ -130,7 +134,17 @@ const PieChartComponent = memo(function PieChartComponent({
 
   return (
     <$ChartComponent>
-      <$ChartHeader>{headerContentHandler(content)}</$ChartHeader>
+      <$ChartHeader>
+        <a
+          data-tooltip-id={"pie_chart_" + content}
+          data-tooltip-content={chartsTooltipContentHandler(content)}
+          data-tooltip-delay-show={1000}
+          data-tooltip-place={"top"}
+        >
+          {headerContentHandler(content)}
+          <ReactTooltip id={"pie_chart_" + content} />
+        </a>
+      </$ChartHeader>
       <ResponsiveContainer width="100%" height={220}>
         <PieChart width="100%" height={220}>
           <Tooltip />

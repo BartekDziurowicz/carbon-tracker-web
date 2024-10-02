@@ -1,4 +1,5 @@
 import { useEffect, useState, memo } from "react";
+import { Tooltip as ReactTooltip } from "react-tooltip";
 import {
   BarChart,
   Bar,
@@ -28,24 +29,36 @@ const BarChartComponent = memo(function BarChartComponent({
 
   useEffect(() => {
     let transformedData = indicatorData.reduce((acc, obj) => {
-        const { period, group_name, car_sum_t } = obj;
-      
-        if (!acc[period]) {
-          acc[period] = { period, Summary: 0 };
-        }
-      
-        acc[period][group_name] = car_sum_t;
-        acc[period].Summary += car_sum_t;
-      
-        return acc;
-      }, {});
+      const { period, group_name, car_sum_t } = obj;
+
+      if (!acc[period]) {
+        acc[period] = { period, Summary: 0 };
+      }
+
+      acc[period][group_name] = car_sum_t;
+      acc[period].Summary += car_sum_t;
+
+      return acc;
+    }, {});
 
     setSelectedIndicator(Object.values(transformedData));
   }, [indicatorData]);
 
   return (
     <$ChartComponent>
-      <$ChartHeader>Carbon [kgCO₂e]</$ChartHeader>
+      <$ChartHeader>
+        <a
+          data-tooltip-id={"bar_chart_summary"}
+          data-tooltip-content={
+            "The graph shows the sum of the carbon footprint produced per month with a breakdown by units."
+          }
+          data-tooltip-delay-show={1000}
+          data-tooltip-place={"top"}
+        >
+          Carbon [kgCO₂e]
+          <ReactTooltip id={"bar_chart_summary"} />
+        </a>
+      </$ChartHeader>
       <ResponsiveContainer width="100%" height={220}>
         <BarChart
           data={selectedIndicator}

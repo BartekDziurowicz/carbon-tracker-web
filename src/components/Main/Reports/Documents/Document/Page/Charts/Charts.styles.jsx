@@ -12,5 +12,14 @@ export const $ChartHeader = styled.div`
   background-color: ${appgreylight};
   color: ${appgrey};
   padding: 5px;
+
+  & a {
+    cursor: help;
+
+    & :first-child {
+      font-size: 10px;
+      font-weight: normal;
+    }
+  }
 `
 
