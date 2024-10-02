@@ -6,10 +6,13 @@ import {
   IoArrowForwardCircleOutline,
   IoCheckmarkCircleOutline,
 } from "react-icons/io5";
+import { CiClock1, CiClock2, CiTimer } from "react-icons/ci";
 import Button from "./Button/Button.jsx";
 import Label from "./Label/Label.jsx";
 import SelectKey from "./Select/SelectKey.jsx";
 import SelectValue from "./Select/SelectValue.jsx";
+import SelectInterval from "./Select/SelectInterval.jsx";
+import DatePicker from "./DatePicker/DatePicker.jsx";
 import { apiCallToGetCalculatedMetrics } from "../../../../api/Api.jsx";
 import $SelectorForm, { $ErrorLabel } from "./SelectorForm.styles.jsx";
 
@@ -25,6 +28,8 @@ export default function SelectorForm() {
     whereCriteria,
     setWhereCriteria,
     setCalculatedMetrics,
+    setPeriod,
+    period
   } = useContext(SelectorContext);
 
   function handleShowCriteriaChange(event) {
@@ -33,6 +38,10 @@ export default function SelectorForm() {
 
   function handleWhereCriteriaChange(event) {
     setTempWhereCriteria({ key: event.target.value, value: "", id: "" });
+  }
+
+  function handlePeriodIntervalChange(event) {
+    setPeriod({interval: event.target.value});
   }
 
   async function fetchCalculatedMetrics(event) {
@@ -97,6 +106,19 @@ export default function SelectorForm() {
         >
           <IoAddCircleOutline />
         </Button>
+        <div style={{ flexBasis: '100%' }}></div>
+        <Label name="between">
+          <CiClock1 />
+        </Label>
+        <DatePicker dateType="start"/>
+        <Label name="and">
+          <CiClock2 />
+        </Label>
+        <DatePicker dateType="end"/>
+        <Label name="interval">
+          <CiTimer />
+        </Label>
+        <SelectInterval onChange={handlePeriodIntervalChange}/>
       </$SelectorForm>
       {error !== null ? <$ErrorLabel>{error}</$ErrorLabel> : null}
     </>
