@@ -6,7 +6,9 @@ export const $SelectorForm = styled.form`
   display: flex;
   justify-content: flex-start;
   column-gap: 10px;
+  row-gap: 5px;
   align-items: center;
+  flex-wrap: wrap;
 `
 
 export const $ErrorLabel = styled.div`

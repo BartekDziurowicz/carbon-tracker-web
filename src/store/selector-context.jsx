@@ -13,6 +13,8 @@ export const SelectorContext = createContext({
   setSelectorFilters: () => {},
   calculatedMetrics: [],
   setCalculatedMetrics: () => {},
+  period: {start: null, end: null, interval: null},
+  setPeriod: () => {},
 });
 
 function selectorReducer(state, action) {
@@ -81,6 +83,14 @@ function selectorReducer(state, action) {
     }
   }
 
+  if (action.type === "SET_PERIOD") {
+    const updatedPeriod = {...state.period, ...action.payload};
+    return {
+      ...state,
+      period: updatedPeriod,
+    }
+  }
+
   return state;
 }
 
@@ -92,6 +102,7 @@ export default function SelectorContextProvider({ children }) {
     tempWhereCriteria: { key: "", value: "" },
     selectorFilters: [],
     calculatedMetrics: [],
+    period: {start: null, end: null, interval: null},
   });
 
   function setShowCriteriaHandler(showCriteria) {
@@ -142,6 +153,13 @@ export default function SelectorContextProvider({ children }) {
     })
   }
 
+  function setPeriodHandler(period) {
+    selectorDispatch({
+      type: "SET_PERIOD",
+      payload: period
+    })
+  }
+
   const ctxSelector = {
     showCriteria: selectorState.showCriteria,
     setShowCriteria: setShowCriteriaHandler,
@@ -155,6 +173,8 @@ export default function SelectorContextProvider({ children }) {
     setSelectorFilters: setSelectorFiltersHandler,
     calculatedMetrics: selectorState.calculatedMetrics,
     setCalculatedMetrics: setCalculatedMetricsHandler,
+    period: selectorState.period,
+    setPeriod: setPeriodHandler,
   };
 
   return (

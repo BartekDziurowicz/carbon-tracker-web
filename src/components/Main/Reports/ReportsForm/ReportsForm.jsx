@@ -5,8 +5,7 @@ import {
   IoEarthOutline,
   IoArrowForwardCircleOutline,
 } from "react-icons/io5";
-import { CgSpaceBetween } from "react-icons/cg";
-import { TbAmpersand } from "react-icons/tb";
+import { CiClock1, CiClock2 } from "react-icons/ci";
 import Button from "./Button/Button.jsx";
 import Label from "./Label/Label.jsx";
 import Select from "./Select/Select.jsx";
@@ -107,11 +106,11 @@ export default function ReportsForm() {
           <IoEarthOutline />
         </Button>
         <Label name="between">
-          <CgSpaceBetween />
+          <CiClock1 />
         </Label>
         <DatePicker dateType="start" />
         <Label name="and">
-          <TbAmpersand />
+          <CiClock2 />
         </Label>
         <DatePicker dateType="end" />
       </$ReportsForm>

@@ -167,7 +167,7 @@ export default function LineChartComponent({ style, title, type, children }) {
                 }
               />
             ))}
-            <Brush height={20} />
+            <Brush height={15} />
             <Legend iconType="plainline" />
           </LineChart>
         )}
