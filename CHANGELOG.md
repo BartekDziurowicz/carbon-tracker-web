@@ -2,6 +2,7 @@
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/23)
 * Fixed decimal to fixed 9 in selector line charts
+* Fixed errors handling on create entity
 
 0.32 (2024-10-02)
 ===============
