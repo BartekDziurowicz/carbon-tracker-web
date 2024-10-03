@@ -4,6 +4,7 @@
 * Fixed decimal to fixed 9 in selector line charts
 * Fixed errors handling on create entity
 * Create tooltips for reports headers
+* Fix margin between reports menu and content
 
 0.32 (2024-10-02)
 ===============
