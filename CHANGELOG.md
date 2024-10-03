@@ -1,4 +1,4 @@
-0.33 (2024-10-??)
+0.33 (2024-10-03)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/23)
 * Fixed decimal to fixed 9 in selector line charts
