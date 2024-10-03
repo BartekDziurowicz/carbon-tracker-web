@@ -6,7 +6,7 @@
 * Create tooltips for reports headers
 * Fix margin between reports menu and content
 * Add error handling for parents component in organization menu
-* Add error handling for retrieving employee metrics
+* Add error handling in metrics content and employee metrics
 
 0.32 (2024-10-02)
 ===============
