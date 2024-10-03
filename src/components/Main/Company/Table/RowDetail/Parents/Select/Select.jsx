@@ -31,17 +31,15 @@ export default function Select({ entityName, parent, parentName, errorHandler })
       const selectedOption = event.target.options[event.target.selectedIndex];
       const selectedKey = selectedOption.getAttribute("id");
 
-      try {
         await apiCallToGetSingleEntity(
           selectedKey,
           event.target.value,
           parentName
         ).then((resData) => {
           setParents({ ...parents, [parentName]: resData });
+        }).catch(error => {
+          errorHandler(error);
         });
-      } catch (error) {
-        // TO DO
-      }
     }
   }
 
