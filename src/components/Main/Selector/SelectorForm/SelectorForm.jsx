@@ -29,7 +29,7 @@ export default function SelectorForm() {
     setWhereCriteria,
     setCalculatedMetrics,
     setPeriod,
-    period
+    period,
   } = useContext(SelectorContext);
 
   function handleShowCriteriaChange(event) {
@@ -41,7 +41,7 @@ export default function SelectorForm() {
   }
 
   function handlePeriodIntervalChange(event) {
-    setPeriod({interval: event.target.value});
+    setPeriod({ interval: event.target.value });
   }
 
   async function fetchCalculatedMetrics(event) {
@@ -54,8 +54,14 @@ export default function SelectorForm() {
 
     const moment = require("moment");
     const date = new Date();
-    const startDate = period.start !== null ? period.start : moment().startOf("month").format("DD-MM-YYYY HH:mm:ss");
-    const endDate = period.end !== null ? period.end : moment(date).format("DD-MM-YYYY HH:mm:ss");
+    const startDate =
+      period.start !== null
+        ? period.start
+        : moment().startOf("month").format("DD-MM-YYYY HH:mm:ss");
+    const endDate =
+      period.end !== null
+        ? period.end
+        : moment(date).format("DD-MM-YYYY HH:mm:ss");
     const interval = period.interval !== null ? period.interval : 900;
 
     await apiCallToGetCalculatedMetrics(
@@ -69,12 +75,16 @@ export default function SelectorForm() {
         setCalculatedMetrics(resData);
       })
       .catch((error) => {
-        setError(error.message);
-        clearTimeout(timer.current);
-        timer.current = setTimeout(() => {
-          setError(null);
-        }, 3000);
+        errorHandler(error);
       });
+  }
+
+  function errorHandler(error) {
+    setError(error.message);
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => {
+      setError(null);
+    }, 3000);
   }
 
   function setWhereCriteriaHandler() {
@@ -95,7 +105,7 @@ export default function SelectorForm() {
         <Label name="is">
           <IoCheckmarkCircleOutline />
         </Label>
-        <SelectValue />
+        <SelectValue errorHandler={errorHandler}/>
         <Button
           type="button"
           name="Add"
@@ -106,19 +116,19 @@ export default function SelectorForm() {
         >
           <IoAddCircleOutline />
         </Button>
-        <div style={{ flexBasis: '100%' }}></div>
+        <div style={{ flexBasis: "100%" }}></div>
         <Label name="between">
           <CiClock1 />
         </Label>
-        <DatePicker dateType="start"/>
+        <DatePicker dateType="start" />
         <Label name="and">
           <CiClock2 />
         </Label>
-        <DatePicker dateType="end"/>
+        <DatePicker dateType="end" />
         <Label name="interval">
           <CiTimer />
         </Label>
-        <SelectInterval onChange={handlePeriodIntervalChange}/>
+        <SelectInterval onChange={handlePeriodIntervalChange} />
       </$SelectorForm>
       {error !== null ? <$ErrorLabel>{error}</$ErrorLabel> : null}
     </>
