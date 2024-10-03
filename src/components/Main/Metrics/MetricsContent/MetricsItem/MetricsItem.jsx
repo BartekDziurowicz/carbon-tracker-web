@@ -41,14 +41,14 @@ export default function MetricsItem({ metric, index, stepInfoHandler }) {
   const threshold = carbonBalance();
 
   useEffect(() => {
-    // To DO strzal do bazy po current usage dla company/tribe etc
+    // TO DO strzal do bazy po current usage dla company/tribe etc
     const usage = 90;
     setCurrentUsage(usage);
   }, []);
 
   function descendantsCount(id) {
     // w zaleznosci co ma zwrocic czy areas, tribes... inne dla employee
-    // TODO api call to get numebr of areas where company.id = id
+    // TO DO api call to get numebr of areas where company.id = id
     // na razei mock, powinno byc jako useEffect
     return 12;
   }
