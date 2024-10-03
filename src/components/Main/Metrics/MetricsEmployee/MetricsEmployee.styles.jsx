@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import { appred } from "../../../../utils/colors.styles.jsx";
 
 export const $MetricsEmployee = styled.div`
   display: grid;
@@ -34,3 +35,10 @@ export const $MetricsEmployee = styled.div`
     grid-area: BarChart;
   }
 `;
+
+export const $ErrorLabel = styled.div`
+  color: ${appred};
+  text-align: center;
+  font-size: 14px;
+  margin: 35px;
+`

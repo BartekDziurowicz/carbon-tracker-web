@@ -6,6 +6,7 @@ export const $Countries = styled.div`
     flex-wrap: wrap;
     align-items: center;
     gap: 5px;
+    margin-top: -10px;
 `
 
 export const $Label = styled.label`

@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import { colorHandler } from "../../Table.utils.js";
-import { appgrey, apporange } from "../../../../../../utils/colors.styles";
+import { appgrey, apporange, appred } from "../../../../../../utils/colors.styles";
 
 export const $Parents = styled.div`
     display: flex;
@@ -53,3 +53,9 @@ export const $Select = styled.select`
     color: ${appgrey};
   }
 `;
+
+export const $ErrorLabel = styled.div`
+  color: ${appred};
+  text-align: center;
+  font-size: 11px;
+`

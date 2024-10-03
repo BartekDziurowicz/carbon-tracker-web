@@ -507,15 +507,18 @@ export async function apiCallToCreateEntity(entity, createdEntity) {
       "Content-Type": "application/json",
     },
   });
-  const resData = await response.text();
 
   if (!response.ok) {
+    const errorResponse = await response.json();
     throw new Error(
-      resData.message !== undefined
+      errorResponse.message !== undefined
         ? "Failed to create entity. Error " + response.status
-        : resData
+        : errorResponse.error + ". Error " + errorResponse.status
     );
   }
+
+  const resData = await response.text();
+
   return resData;
 }
 

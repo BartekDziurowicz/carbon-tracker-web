@@ -1,9 +1,20 @@
-0.32 (2024-10-??)
+0.33 (2024-10-03)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/23)
+* Fixed decimal to fixed 9 in selector line charts
+* Fixed errors handling on create entity
+* Create tooltips for reports headers
+* Fix margin between reports menu and content
+* Add error handling for parents component in organization menu
+* Add error handling in metrics content and employee metrics
+
+0.32 (2024-10-02)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/22)
 * Extend selector context by period object
 * Implement new components and functions to handle period values
 * Create period nad dates handling in selector tab
+* Fixed decimal to fixed 9 in selectro line charts (was not commited)
 
 0.31 (2024-10-01)
 ===============

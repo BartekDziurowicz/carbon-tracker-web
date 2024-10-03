@@ -1,4 +1,5 @@
 import { useEffect, useState, memo } from "react";
+import { Tooltip as ReactTooltip } from "react-tooltip";
 import {
   Legend,
   LineChart,
@@ -9,7 +10,10 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { headerContentHandler } from "./Charts.utils.js";
+import {
+  headerContentHandler,
+  chartsTooltipContentHandler,
+} from "./Charts.utils.js";
 import { $ChartComponent, $ChartHeader } from "./Charts.styles.jsx";
 
 const LineChartComponent = memo(function LineChartComponent({
@@ -88,7 +92,17 @@ const LineChartComponent = memo(function LineChartComponent({
 
   return (
     <$ChartComponent>
-      <$ChartHeader>{headerContentHandler(content)}</$ChartHeader>
+      <$ChartHeader>
+        <a
+          data-tooltip-id={"line_chart_" + content}
+          data-tooltip-content={chartsTooltipContentHandler(content)}
+          data-tooltip-delay-show={1000}
+          data-tooltip-place={"top"}
+        >
+          {headerContentHandler(content)}
+          <ReactTooltip id={"line_chart_" + content} />
+        </a>
+      </$ChartHeader>
       <ResponsiveContainer width="100%" height={200}>
         <LineChart
           width={1024}

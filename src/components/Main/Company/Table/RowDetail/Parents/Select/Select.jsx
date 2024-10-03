@@ -7,7 +7,7 @@ import {
 import { $Option, $Select } from "./Select.styles.jsx";
 import { CompanyContext } from "../../../../../../../store/company-context.jsx";
 
-export default function Select({ entityName, parent, parentName }) {
+export default function Select({ entityName, parent, parentName, errorHandler }) {
   const [filters, setFilters] = useState([]);
   const [selected, setSelected] = useState(
     parent[determineUniqueFieldName(parentName)]
@@ -19,13 +19,11 @@ export default function Select({ entityName, parent, parentName }) {
   }, [parents]);
 
   async function getEntityValuesHandler() {
-    try {
       await apiCallToGetFilterValues(parentName).then((resData) => {
         setFilters((_prevValue) => resData);
+      }).catch(error => {
+        errorHandler(error);
       });
-    } catch (error) {
-      // TO DO
-    }
   }
 
   async function getNewParent(event) {
@@ -33,17 +31,15 @@ export default function Select({ entityName, parent, parentName }) {
       const selectedOption = event.target.options[event.target.selectedIndex];
       const selectedKey = selectedOption.getAttribute("id");
 
-      try {
         await apiCallToGetSingleEntity(
           selectedKey,
           event.target.value,
           parentName
         ).then((resData) => {
           setParents({ ...parents, [parentName]: resData });
+        }).catch(error => {
+          errorHandler(error);
         });
-      } catch (error) {
-        // TO DO
-      }
     }
   }
 

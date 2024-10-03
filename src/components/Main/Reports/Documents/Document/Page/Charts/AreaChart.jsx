@@ -1,4 +1,5 @@
 import { useEffect, useState, memo } from "react";
+import { Tooltip as ReactTooltip } from "react-tooltip";
 import {
   Legend,
   AreaChart,
@@ -9,7 +10,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { headerContentHandler } from "./Charts.utils.js";
+import { headerContentHandler, chartsTooltipContentHandler } from "./Charts.utils.js";
 import { $ChartComponent, $ChartHeader } from "./Charts.styles.jsx";
 
 const AreaChartComponent = memo(function AreaChartComponent({
@@ -88,7 +89,17 @@ const AreaChartComponent = memo(function AreaChartComponent({
 
   return (
     <$ChartComponent>
-      <$ChartHeader>{headerContentHandler(content)}</$ChartHeader>
+      <$ChartHeader>
+        <a
+          data-tooltip-id={"area_chart_" + content}
+          data-tooltip-content={chartsTooltipContentHandler(content)}
+          data-tooltip-delay-show={1000}
+          data-tooltip-place={"top"}
+        >
+          {headerContentHandler(content)}
+          <ReactTooltip id={"area_chart_" + content} />
+        </a>
+      </$ChartHeader>
       <ResponsiveContainer width="100%" height={200}>
         <AreaChart
           width={1024}
@@ -115,8 +126,16 @@ const AreaChartComponent = memo(function AreaChartComponent({
           <defs>
             {uniqueGroupNames.map((group, index) => (
               <linearGradient id={index} x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor={colors[index % colors.length]} stopOpacity={0.5} />
-                <stop offset="95%" stopColor={colors[index % colors.length]} stopOpacity={0} />
+                <stop
+                  offset="5%"
+                  stopColor={colors[index % colors.length]}
+                  stopOpacity={0.5}
+                />
+                <stop
+                  offset="95%"
+                  stopColor={colors[index % colors.length]}
+                  stopOpacity={0}
+                />
               </linearGradient>
             ))}
           </defs>
