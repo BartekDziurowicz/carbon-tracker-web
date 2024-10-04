@@ -130,3 +130,11 @@ export const $Carbon = styled.a`
     color: ${({ $threshold }) => colorHandlerContent($threshold)};
   }
 `;
+
+export const $ErrorLabel = styled.div`
+  cursor: default;
+  font-size: 11px;
+  text-align: center;
+  padding: 10px 0px 0px 0px;
+  color: ${appred};
+`

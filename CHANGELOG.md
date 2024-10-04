@@ -1,3 +1,8 @@
+0.34 (2024-10-0?)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/24)
+* Create metric item child api call and error handler
+
 0.33 (2024-10-03)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/23)

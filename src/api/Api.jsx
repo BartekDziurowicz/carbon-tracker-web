@@ -321,6 +321,32 @@ export async function apiCallToGetListOfEntities(entity, id, name, isSimple) {
   return resData;
 }
 
+export async function apiCallToGetEntityChildsCapacity(entity, id, name) {
+  let child;
+  switch (entity) {
+    case "company": child = "area"; break;
+    case "area": child = "tribe"; break;
+    case "tribe": child = "team"; break;
+    case "team": child = "employee"; break;
+    default: break;
+  }
+
+  const response = await fetch("http://localhost:8080/" + child + "/capacity?id=" + id + "&company=" + name);
+
+  if (!response.ok) {
+    const errorResponse = await response.json();
+    throw new Error(
+      errorResponse.message !== undefined
+        ? "Failed to create entity. Error " + response.status
+        : errorResponse.error + ". Error " + errorResponse.status
+    );
+  }
+
+  const resData = await response.text();
+
+  return resData;
+}
+
 export async function apiCallToGetEntityChilds(
   entity,
   id,
