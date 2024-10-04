@@ -331,7 +331,7 @@ export async function apiCallToGetEntityChildsCapacity(entity, id, name) {
     default: break;
   }
 
-  const response = await fetch("http://localhost:8080/" + child + "/capacity?id=" + id + "&company=" + name);
+  const response = await fetch("http://localhost:8080/" + child + "/capacity?id=" + id + "&" + entity + "=" + name);
 
   if (!response.ok) {
     const errorResponse = await response.json();

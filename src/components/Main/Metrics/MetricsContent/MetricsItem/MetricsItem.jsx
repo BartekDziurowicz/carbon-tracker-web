@@ -36,12 +36,11 @@ function descendantTooltipHandler(currentStep, role) {
 
 export default function MetricsItem({ metric, index, stepInfoHandler }) {
   const { currentStep, stepHandler, thresholds } = useContext(MetricsContext);
-  const [currentUsage, setCurrentUsage] = useState(0);
-  const [childsCapacityAndCarbon, setChildsCapacityAndCarbon] = useState({childsCapacity: 0, carbonFootprint: 0});
+  const [childsCapacityAndCarbon, setChildsCapacityAndCarbon] = useState({childsCapacity: 0, currentFootprint: 0});
   const [error, setError] = useState(null);
 
   const { id, name, carbonLimit, corporateKey } = metric;
-  const usage = ((currentUsage / carbonLimit) * 100).toFixed(2) + " %";
+  const usage = ((childsCapacityAndCarbon.currentFootprint / carbonLimit) * 100).toFixed(2) + " %";
   const threshold = carbonBalance();
 
   useEffect(() => {
@@ -57,7 +56,9 @@ export default function MetricsItem({ metric, index, stepInfoHandler }) {
           setChildsCapacityAndCarbon({...childsCapacityAndCarbon, childsCapacity: "err"});
           throw error;
         });
-        setChildsCapacityAndCarbon({childsCapacity: childsCapacity})
+
+        const carbonFootprint = 190;
+        setChildsCapacityAndCarbon({childsCapacity: childsCapacity, currentFootprint: carbonFootprint})
       } catch (error) {
         setError(error);
       }
@@ -65,12 +66,6 @@ export default function MetricsItem({ metric, index, stepInfoHandler }) {
 
     fetchData();
   }, [metric]);
-
-  useEffect(() => {
-    // TO DO strzal do bazy po current usage dla company/tribe etc
-    const usage = 90;
-    setCurrentUsage(usage);
-  }, []);
 
   function roleAsDescendant() {
     return metric.role && metric.role.name.charAt(0);
@@ -135,8 +130,8 @@ export default function MetricsItem({ metric, index, stepInfoHandler }) {
         data-tooltip-place={"bottom"}
       >
         <div>{carbonLimit}</div>
-        <div>{currentUsage}</div>
-        <div>{carbonLimit - currentUsage}</div>
+        <div>{childsCapacityAndCarbon.currentFootprint}</div>
+        <div>{carbonLimit - childsCapacityAndCarbon.currentFootprint}</div>
         <Tooltip id={"carbon_tooltip_" + index} />
       </$Carbon>
       {error !== null ? <$ErrorLabel>{error.message}</$ErrorLabel> : null}
