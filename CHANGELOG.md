@@ -1,7 +1,9 @@
-0.34 (2024-10-0?)
+0.34 (2024-10-05)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/24)
 * Create metric item child api call and error handler
+* Implement metric item current footprint api call
+* Change item item tooltips
 
 0.33 (2024-10-03)
 ===============

@@ -15,12 +15,10 @@ import {
   MetricsContext,
   STEPS,
 } from "../../../../../store/metrics-context.jsx";
-import { apiCallToGetEntityChildsCapacity } from "../../../../../api/Api.jsx";
-
-const TOOLTIPS = {
-  carbon: "Limit, current usage and balance of Carbon in kg",
-  summary: "Carbon usage in %",
-};
+import {
+  apiCallToGetEntityChildsCapacity,
+  apiCallToGetTotalCarbonSum,
+} from "../../../../../api/Api.jsx";
 
 function descendantTooltipHandler(currentStep, role) {
   switch (currentStep) {
@@ -36,11 +34,17 @@ function descendantTooltipHandler(currentStep, role) {
 
 export default function MetricsItem({ metric, index, stepInfoHandler }) {
   const { currentStep, stepHandler, thresholds } = useContext(MetricsContext);
-  const [childsCapacityAndCarbon, setChildsCapacityAndCarbon] = useState({childsCapacity: 0, currentFootprint: 0});
+  const [childsCapacityAndCarbon, setChildsCapacityAndCarbon] = useState({
+    childsCapacity: 0,
+    currentFootprint: 0,
+  });
   const [error, setError] = useState(null);
 
   const { id, name, carbonLimit, corporateKey } = metric;
-  const usage = ((childsCapacityAndCarbon.currentFootprint / carbonLimit) * 100).toFixed(2) + " %";
+  const usage =
+    ((childsCapacityAndCarbon.currentFootprint / carbonLimit) * 100).toFixed(
+      2
+    ) + " %";
   const threshold = carbonBalance();
 
   useEffect(() => {
@@ -52,13 +56,29 @@ export default function MetricsItem({ metric, index, stepInfoHandler }) {
           STEPS[currentStep].stepName.toLowerCase(),
           metric.id,
           metric.name
-        ).catch(error => {
-          setChildsCapacityAndCarbon({...childsCapacityAndCarbon, childsCapacity: "err"});
+        ).catch((error) => {
+          setChildsCapacityAndCarbon({
+            ...childsCapacityAndCarbon,
+            childsCapacity: "err",
+          });
           throw error;
         });
 
-        const carbonFootprint = 190;
-        setChildsCapacityAndCarbon({childsCapacity: childsCapacity, currentFootprint: carbonFootprint})
+        const carbonFootprint = await apiCallToGetTotalCarbonSum(
+          STEPS[currentStep].stepName.toLowerCase(),
+          metric.id
+        ).catch((error) => {
+          setChildsCapacityAndCarbon({
+            ...childsCapacityAndCarbon,
+            currentFootprint: -1,
+          });
+          throw error;
+        });
+
+        setChildsCapacityAndCarbon({
+          childsCapacity: childsCapacity,
+          currentFootprint: carbonFootprint,
+        });
       } catch (error) {
         setError(error);
       }
@@ -107,13 +127,17 @@ export default function MetricsItem({ metric, index, stepInfoHandler }) {
           data-tooltip-delay-show={1000}
           data-tooltip-place={"left"}
         >
-          <p>{currentStep < 4 ? childsCapacityAndCarbon.childsCapacity : roleAsDescendant()}</p>
+          <p>
+            {currentStep < 4
+              ? childsCapacityAndCarbon.childsCapacity
+              : roleAsDescendant()}
+          </p>
           <Tooltip id={"descendant_tooltip_" + index} />
         </$Descendants>
         <$Summary
           $threshold={threshold}
           data-tooltip-id={"summary_tooltip_" + index}
-          data-tooltip-content={TOOLTIPS.summary}
+          data-tooltip-content={"Carbon usage in %"}
           data-tooltip-delay-show={1000}
           data-tooltip-place={"right"}
         >
@@ -122,17 +146,42 @@ export default function MetricsItem({ metric, index, stepInfoHandler }) {
         </$Summary>
       </$Content>
 
-      <$Carbon
-        $threshold={threshold}
-        data-tooltip-id={"carbon_tooltip_" + index}
-        data-tooltip-content={TOOLTIPS.carbon}
-        data-tooltip-delay-show={1000}
-        data-tooltip-place={"bottom"}
-      >
-        <div>{carbonLimit}</div>
-        <div>{childsCapacityAndCarbon.currentFootprint}</div>
-        <div>{carbonLimit - childsCapacityAndCarbon.currentFootprint}</div>
-        <Tooltip id={"carbon_tooltip_" + index} />
+      <$Carbon $threshold={threshold}>
+        <a
+          data-tooltip-id={"carbon_tooltip_limit" + index}
+          data-tooltip-content={"Carbon limit [kg]"}
+          data-tooltip-delay-show={1000}
+          data-tooltip-place={"bottom"}
+        >
+          {carbonLimit}
+          <Tooltip id={"carbon_tooltip_limit" + index} />
+        </a>
+        <a
+          data-tooltip-id={"carbon_tooltip_current" + index}
+          data-tooltip-content={
+            "Current carbon footprint [" +
+            childsCapacityAndCarbon.currentFootprint +
+            " kg]"
+          }
+          data-tooltip-delay-show={1000}
+          data-tooltip-place={"bottom"}
+        >
+          {Number(childsCapacityAndCarbon.currentFootprint).toFixed(3)}
+          <Tooltip id={"carbon_tooltip_current" + index} />
+        </a>
+        <a
+          data-tooltip-id={"carbon_tooltip_bilance" + index}
+          data-tooltip-content={
+            "Carbon footprint bilance [" +
+            (carbonLimit - childsCapacityAndCarbon.currentFootprint) +
+            " kg]"
+          }
+          data-tooltip-delay-show={1000}
+          data-tooltip-place={"bottom"}
+        >
+          {(carbonLimit - childsCapacityAndCarbon.currentFootprint).toFixed(3)}
+          <Tooltip id={"carbon_tooltip_bilance" + index} />
+        </a>
       </$Carbon>
       {error !== null ? <$ErrorLabel>{error.message}</$ErrorLabel> : null}
     </$MetricsItem>
