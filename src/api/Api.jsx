@@ -1,8 +1,3 @@
-import * as Mock from "./mocked-data.jsx";
-
-export function apiCallToGetEmployeeCarbonFootprint(employeeId) {
-  return Mock.Carbon;
-}
 
 export async function apiCallToGetCalculatedIndicators(
   group,
@@ -317,6 +312,49 @@ export async function apiCallToGetListOfEntities(entity, id, name, isSimple) {
   }
 
   const resData = await response.json();
+
+  return resData;
+}
+
+export async function apiCallToGetTotalCarbonSum(entity, id) {
+  const response = await fetch("http://localhost:8080/metrics/carbonSum?entity=" + entity + "&id=" + id);
+
+  if (!response.ok) {
+    const errorResponse = await response.json();
+    throw new Error(
+      errorResponse.message !== undefined
+        ? "Failed to get total carbon sum. Error " + response.status
+        : errorResponse.error + ". Error " + errorResponse.status
+    );
+  }
+
+  const resData = await response.json();
+
+  return resData;
+}
+
+export async function apiCallToGetEntityChildsCapacity(entity, id, name) {
+  let child;
+  switch (entity) {
+    case "company": child = "area"; break;
+    case "area": child = "tribe"; break;
+    case "tribe": child = "team"; break;
+    case "team": child = "employee"; break;
+    default: return;
+  }
+
+  const response = await fetch("http://localhost:8080/" + child + "/capacity?id=" + id + "&" + entity + "=" + name);
+
+  if (!response.ok) {
+    const errorResponse = await response.json();
+    throw new Error(
+      errorResponse.message !== undefined
+        ? "Failed to get entity child. Error " + response.status
+        : errorResponse.error + ". Error " + errorResponse.status
+    );
+  }
+
+  const resData = await response.text();
 
   return resData;
 }

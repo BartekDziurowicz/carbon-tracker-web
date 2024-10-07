@@ -101,6 +101,11 @@ export const $Descendants = styled.a`
     border: 1px solid ${({ $threshold }) => colorHandlerContent($threshold)};
     color: ${({ $threshold }) => colorHandlerContent($threshold)};
   }
+
+  & :nth-child(2) {
+    color: ${appwhite};
+    font-size: 12px;
+  }
 `;
 
 export const $Summary = styled.a`
@@ -110,12 +115,24 @@ export const $Summary = styled.a`
     font-size: 24px;
     text-align: right;
   }
+
+  & :nth-child(2) {
+    color: ${appwhite};
+    font-size: 12px;
+  }
 `;
 
 export const $Carbon = styled.a`
   display: flex;
   direction: row-direction;
   justify-content: space-around;
+
+  & a {
+    & :first-child {
+      font-size: 12px;
+      color: ${appwhite};
+    }    
+  }
 
   & :first-child {
     color: ${({ $threshold }) => colorHandlerFe($threshold)};
@@ -130,3 +147,11 @@ export const $Carbon = styled.a`
     color: ${({ $threshold }) => colorHandlerContent($threshold)};
   }
 `;
+
+export const $ErrorLabel = styled.div`
+  cursor: default;
+  font-size: 11px;
+  text-align: center;
+  padding: 10px 0px 0px 0px;
+  color: ${appred};
+`
