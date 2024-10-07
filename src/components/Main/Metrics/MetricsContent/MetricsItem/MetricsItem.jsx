@@ -77,7 +77,7 @@ export default function MetricsItem({ metric, index, stepInfoHandler }) {
 
         setChildsCapacityAndCarbon({
           childsCapacity: childsCapacity,
-          currentFootprint: carbonFootprint,
+          currentFootprint: carbonFootprint[0],
         });
       } catch (error) {
         setError(error);

@@ -10,11 +10,19 @@ import {
   MetricsContext,
 } from "../../../../store/metrics-context.jsx";
 import { $MetricsEmployee, $ErrorLabel } from "./MetricsEmployee.styles.jsx";
-import { apiCallToGetEmployeeCarbonFootprint } from "../../../../api/Api.jsx";
+import {
+  apiCallToGetEmployeeCarbonFootprint,
+  apiCallToGetTotalCarbonSum,
+} from "../../../../api/Api.jsx";
 
 export default function MetricsEmployee() {
   const { currentStep } = useContext(MetricsContext);
-  const [employeeMetric, setEmployeeMetric] = useState({});
+  const [employeeMetric, setEmployeeMetric] = useState({id: 0});
+  const [currentFootprint, setCurrentFootprint] = useState({
+    footprintKg: 0,
+    footprintCpuKg: 0,
+    footprintRamKg: 0,
+  });
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -54,9 +62,22 @@ export default function MetricsEmployee() {
     fetchData();
   }, []);
 
-  const carbonFootprint = useMemo(() => {
-    return apiCallToGetEmployeeCarbonFootprint(0);
-    // TO DO
+  useEffect(() => {
+    async function fetchData() {
+      await apiCallToGetTotalCarbonSum("employee", employeeMetric.id)
+        .then((resData) =>
+          setCurrentFootprint({
+            footprintKg: resData[0],
+            footprintCpuKg: resData[1],
+            footprintRamKg: resData[2],
+          })
+        )
+        .catch((error) => {
+          setError(error);
+        });
+    }
+
+    fetchData();
   }, [employeeMetric]);
 
   function getEmployeeData() {
@@ -84,14 +105,14 @@ export default function MetricsEmployee() {
           <Workstation workstation={getWorkstationData()} />
           <Carbon
             employeeId={employeeMetric.id}
-            carbonFootprint={carbonFootprint}
+            carbonFootprint={currentFootprint}
             carbonLimit={employeeMetric.carbonLimit}
           />
           <BarChartComponent
-            carbonFootprint={carbonFootprint}
+            carbonFootprint={currentFootprint}
             carbonLimit={employeeMetric.carbonLimit}
           />
-          <PieChartComponent carbonFootprint={carbonFootprint} />
+          <PieChartComponent carbonFootprint={currentFootprint} />
         </$MetricsEmployee>
       ) : (
         <$ErrorLabel>{error.message}</$ErrorLabel>

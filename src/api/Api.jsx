@@ -1,8 +1,3 @@
-import * as Mock from "./mocked-data.jsx";
-
-export function apiCallToGetEmployeeCarbonFootprint(employeeId) {
-  return Mock.Carbon;
-}
 
 export async function apiCallToGetCalculatedIndicators(
   group,
@@ -333,7 +328,7 @@ export async function apiCallToGetTotalCarbonSum(entity, id) {
     );
   }
 
-  const resData = await response.text();
+  const resData = await response.json();
 
   return resData;
 }
