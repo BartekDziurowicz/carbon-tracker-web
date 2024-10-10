@@ -1,10 +1,10 @@
-
 export async function apiCallToGetCalculatedIndicators(
   group,
   startDate,
   endDate,
   countries
 ) {
+  const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
     "http://localhost:8080/indicator/get?group=" +
       group +
@@ -18,6 +18,7 @@ export async function apiCallToGetCalculatedIndicators(
       headers: {
         "Content-Type": "application/json",
         "X-HTTP-Method-Override": "GET",
+        traceId: uuidv4(),
       },
     }
   );
@@ -47,6 +48,7 @@ export async function apiCallToGetCalculatedMetrics(
   period,
   criteria
 ) {
+  const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
     "http://localhost:8080/metrics/get?group=" +
       group +
@@ -62,6 +64,7 @@ export async function apiCallToGetCalculatedMetrics(
       headers: {
         "Content-Type": "application/json",
         "X-HTTP-Method-Override": "GET",
+        traceId: uuidv4(),
       },
     }
   );
@@ -85,7 +88,14 @@ export async function apiCallToGetCalculatedMetrics(
 }
 
 export async function apiCallToGetIndicatorValues() {
-  const response = await fetch("http://localhost:8080/indicator/indicators");
+  const { v4: uuidv4 } = require("uuid");
+  const response = await fetch("http://localhost:8080/indicator/indicators", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      traceId: uuidv4(),
+    },
+  });
 
   if (!response.ok) {
     throw new Error("Failed to get filters. Error " + response.status);
@@ -97,13 +107,21 @@ export async function apiCallToGetIndicatorValues() {
 }
 
 export async function apiCallToGetFilterValues(filter) {
+  const { v4: uuidv4 } = require("uuid");
   if (!filter) {
     return [];
   }
 
   const extractedFilter = filter.split(" ");
   const response = await fetch(
-    "http://localhost:8080/" + extractedFilter.pop().toLowerCase() + "/filters"
+    "http://localhost:8080/" + extractedFilter.pop().toLowerCase() + "/filters",
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        traceId: uuidv4(),
+      },
+    }
   );
 
   if (!response.ok) {
@@ -116,7 +134,14 @@ export async function apiCallToGetFilterValues(filter) {
 }
 
 export async function apiCallToGetCarbonThresholds() {
-  let response = await fetch("http://localhost:8080/threshold/thresholds");
+  const { v4: uuidv4 } = require("uuid");
+  let response = await fetch("http://localhost:8080/threshold/thresholds", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      traceId: uuidv4(),
+    },
+  });
 
   if (!response.ok) {
     throw new Error(
@@ -130,7 +155,17 @@ export async function apiCallToGetCarbonThresholds() {
 }
 
 export async function apiCallToGetEntityTemplate(entity) {
-  const response = await fetch("http://localhost:8080/" + entity + "/template");
+  const { v4: uuidv4 } = require("uuid");
+  const response = await fetch(
+    "http://localhost:8080/" + entity + "/template",
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        traceId: uuidv4(),
+      },
+    }
+  );
 
   if (!response.ok) {
     throw new Error("Failed to get entity template. Error " + response.status);
@@ -142,6 +177,7 @@ export async function apiCallToGetEntityTemplate(entity) {
 }
 
 export async function apiCallToGetSingleEntity(id, name, entity) {
+  const { v4: uuidv4 } = require("uuid");
   let endpoint;
 
   switch (entity) {
@@ -206,7 +242,13 @@ export async function apiCallToGetSingleEntity(id, name, entity) {
       break;
   }
 
-  const response = await fetch("http://localhost:8080/" + entity + endpoint);
+  const response = await fetch("http://localhost:8080/" + entity + endpoint, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      traceId: uuidv4(),
+    },
+  });
 
   if (!response.ok) {
     throw new Error("Failed to get entity details. Error " + response.status);
@@ -217,6 +259,7 @@ export async function apiCallToGetSingleEntity(id, name, entity) {
 }
 
 export async function apiCallToGetListOfEntities(entity, id, name, isSimple) {
+  const { v4: uuidv4 } = require("uuid");
   let endpoint;
 
   switch (entity) {
@@ -305,7 +348,13 @@ export async function apiCallToGetListOfEntities(entity, id, name, isSimple) {
       break;
   }
 
-  const response = await fetch("http://localhost:8080/" + entity + endpoint);
+  const response = await fetch("http://localhost:8080/" + entity + endpoint, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      traceId: uuidv4(),
+    },
+  });
 
   if (!response.ok) {
     throw new Error("Failed to get list of entities. Error " + response.status);
@@ -317,7 +366,17 @@ export async function apiCallToGetListOfEntities(entity, id, name, isSimple) {
 }
 
 export async function apiCallToGetTotalCarbonSum(entity, id) {
-  const response = await fetch("http://localhost:8080/metrics/carbonSum?entity=" + entity + "&id=" + id);
+  const { v4: uuidv4 } = require("uuid");
+  const response = await fetch(
+    "http://localhost:8080/metrics/carbonSum?entity=" + entity + "&id=" + id,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        traceId: uuidv4(),
+      },
+    }
+  );
 
   if (!response.ok) {
     const errorResponse = await response.json();
@@ -334,16 +393,42 @@ export async function apiCallToGetTotalCarbonSum(entity, id) {
 }
 
 export async function apiCallToGetEntityChildsCapacity(entity, id, name) {
+  const { v4: uuidv4 } = require("uuid");
   let child;
   switch (entity) {
-    case "company": child = "area"; break;
-    case "area": child = "tribe"; break;
-    case "tribe": child = "team"; break;
-    case "team": child = "employee"; break;
-    default: return;
+    case "company":
+      child = "area";
+      break;
+    case "area":
+      child = "tribe";
+      break;
+    case "tribe":
+      child = "team";
+      break;
+    case "team":
+      child = "employee";
+      break;
+    default:
+      return;
   }
 
-  const response = await fetch("http://localhost:8080/" + child + "/capacity?id=" + id + "&" + entity + "=" + name);
+  const response = await fetch(
+    "http://localhost:8080/" +
+      child +
+      "/capacity?id=" +
+      id +
+      "&" +
+      entity +
+      "=" +
+      name,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "plain/text",
+        traceId: uuidv4(),
+      },
+    }
+  );
 
   if (!response.ok) {
     const errorResponse = await response.json();
@@ -366,6 +451,7 @@ export async function apiCallToGetEntityChilds(
   childEntities,
   call
 ) {
+  const { v4: uuidv4 } = require("uuid");
   let endpoints = [];
 
   switch (entity) {
@@ -497,7 +583,13 @@ export async function apiCallToGetEntityChilds(
       break;
   }
 
-  const response = await fetch("http://localhost:8080/" + endpoints[call]);
+  const response = await fetch("http://localhost:8080/" + endpoints[call], {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      traceId: uuidv4(),
+    },
+  });
 
   let resData;
 
@@ -517,11 +609,13 @@ export async function apiCallToGetEntityChilds(
 }
 
 export async function apiCallToUpdateEntity(entity, updatedEntity) {
+  const { v4: uuidv4 } = require("uuid");
   const response = await fetch("http://localhost:8080/" + entity + "/update", {
     method: "PUT",
     body: JSON.stringify(updatedEntity),
     headers: {
       "Content-Type": "application/json",
+      traceId: uuidv4(),
     },
   });
   const resData = await response.text();
@@ -538,11 +632,13 @@ export async function apiCallToUpdateEntity(entity, updatedEntity) {
 }
 
 export async function apiCallToCreateEntity(entity, createdEntity) {
+  const { v4: uuidv4 } = require("uuid");
   const response = await fetch("http://localhost:8080/" + entity + "/create", {
     method: "POST",
     body: JSON.stringify(createdEntity),
     headers: {
       "Content-Type": "application/json",
+      traceId: uuidv4(),
     },
   });
 
@@ -561,11 +657,13 @@ export async function apiCallToCreateEntity(entity, createdEntity) {
 }
 
 export async function apiCallToDeleteEntity(entity, deletedEntity) {
+  const { v4: uuidv4 } = require("uuid");
   const response = await fetch("http://localhost:8080/" + entity + "/delete", {
     method: "DELETE",
     body: JSON.stringify(deletedEntity),
     headers: {
       "Content-Type": "application/json",
+      traceId: uuidv4(),
     },
   });
   const resData = await response.text();
@@ -582,8 +680,16 @@ export async function apiCallToDeleteEntity(entity, deletedEntity) {
 }
 
 export async function apiCallToGetCompanies() {
+  const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
-    "http://localhost:8080/company/companies?isSimple=true"
+    "http://localhost:8080/company/companies?isSimple=true",
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        traceId: uuidv4(),
+      },
+    }
   );
   const resData = await response.json();
 
@@ -595,12 +701,20 @@ export async function apiCallToGetCompanies() {
 }
 
 export async function apiCallToGetAreas(companyId, companyName) {
+  const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
     "http://localhost:8080/area/areas?id=" +
       companyId +
       "&company=" +
       companyName +
-      "&isSimple=true"
+      "&isSimple=true",
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        traceId: uuidv4(),
+      },
+    }
   );
   const resData = await response.json();
 
@@ -612,12 +726,20 @@ export async function apiCallToGetAreas(companyId, companyName) {
 }
 
 export async function apiCallToGetTribes(areaId, areaName) {
+  const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
     "http://localhost:8080/tribe/tribes?id=" +
       areaId +
       "&area=" +
       areaName +
-      "&isSimple=true"
+      "&isSimple=true",
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        traceId: uuidv4(),
+      },
+    }
   );
   const resData = await response.json();
 
@@ -629,12 +751,20 @@ export async function apiCallToGetTribes(areaId, areaName) {
 }
 
 export async function apiCallToGetTeams(tribeId, tribeName) {
+  const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
     "http://localhost:8080/team/teams?id=" +
       tribeId +
       "&tribe=" +
       tribeName +
-      "&isSimple=true"
+      "&isSimple=true",
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        traceId: uuidv4(),
+      },
+    }
   );
   const resData = await response.json();
 
@@ -646,12 +776,20 @@ export async function apiCallToGetTeams(tribeId, tribeName) {
 }
 
 export async function apiCallToGetEmployees(teamId, teamName) {
+  const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
     "http://localhost:8080/employee/allByTeam?id=" +
       teamId +
       "&team=" +
       teamName +
-      "&isSimple=true"
+      "&isSimple=true",
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        traceId: uuidv4(),
+      },
+    }
   );
   const resData = await response.json();
 
@@ -663,11 +801,19 @@ export async function apiCallToGetEmployees(teamId, teamName) {
 }
 
 export async function apiCallToGetEmployeeMetric(employeeId, corporateKey) {
+  const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
     "http://localhost:8080/employee/employee?id=" +
       employeeId +
       "&ck=" +
-      corporateKey
+      corporateKey,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        traceId: uuidv4(),
+      },
+    }
   );
   const resData = await response.json();
 
