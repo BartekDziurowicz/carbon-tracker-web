@@ -1,3 +1,8 @@
+0.35 (2024-10-??)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/25)
+* Add carbon tracker icon
+
 0.34 (2024-10-07)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/24)
