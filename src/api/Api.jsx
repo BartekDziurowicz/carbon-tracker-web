@@ -6,7 +6,7 @@ export async function apiCallToGetCalculatedIndicators(
 ) {
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
-    "http://localhost:8080/indicator/get?group=" +
+    "http://localhost:8080/metrics/getIndicators?group=" +
       group +
       "&start=" +
       startDate +
@@ -50,7 +50,7 @@ export async function apiCallToGetCalculatedMetrics(
 ) {
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
-    "http://localhost:8080/metrics/get?group=" +
+    "http://localhost:8080/metrics/getMetrics?group=" +
       group +
       "&start=" +
       startDate +

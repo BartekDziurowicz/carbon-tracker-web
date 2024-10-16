@@ -57,6 +57,7 @@ export default function Table() {
   });
 
   useEffect(() => {
+    setError(null);
     shrinkTableRowsHandler();
 
     if (determinateRestrictedEntitiesHandler(selected)) {
