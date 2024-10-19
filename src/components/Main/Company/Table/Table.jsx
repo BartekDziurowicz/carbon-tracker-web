@@ -11,7 +11,6 @@ import { ClipLoader } from "react-spinners";
 import {
   fuzzyFilter,
   getTableColumns,
-  determineFieldNameHandler,
   determinateRestrictedEntitiesHandler,
   colorHandler
 } from "./Table.utils.js";
@@ -201,10 +200,6 @@ export default function Table() {
                             <RowDetail
                               entityId={row.original.id}
                               entityName={selected}
-                              name={determineFieldNameHandler(
-                                row.original,
-                                selected
-                              )}
                               updateRowHandler={updateRowHandler}
                               deleteRowHandler={deleteRowHandler}
                               rowIndex={index}

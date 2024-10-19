@@ -176,69 +176,69 @@ export async function apiCallToGetEntityTemplate(entity) {
   return resData;
 }
 
-export async function apiCallToGetSingleEntity(id, name, entity) {
+export async function apiCallToGetSingleEntity(id, entity) {
   const { v4: uuidv4 } = require("uuid");
   let endpoint;
 
   switch (entity) {
     case "country":
-      endpoint = "/country?id=" + id + "&name=" + name;
+      endpoint = "/country?id=" + id;
       break;
     case "location":
-      endpoint = "/location?id=" + id + "&city=" + name;
+      endpoint = "/location?id=" + id;
       break;
     case "office":
-      endpoint = "/office?id=" + id + "&name=" + name;
+      endpoint = "/office?id=" + id;
       break;
     case "company":
-      endpoint = "/company?id=" + id + "&name=" + name;
+      endpoint = "/company?id=" + id;
       break;
     case "area":
-      endpoint = "/area?id=" + id + "&name=" + name;
+      endpoint = "/area?id=" + id;
       break;
     case "tribe":
-      endpoint = "/tribe?id=" + id + "&name=" + name;
+      endpoint = "/tribe?id=" + id;
       break;
     case "team":
-      endpoint = "/team?id=" + id + "&name=" + name;
+      endpoint = "/team?id=" + id;
       break;
     case "employee":
-      endpoint = "/employee?id=" + id + "&ck=" + name;
+      endpoint = "/employee?id=" + id;
       break;
     case "role":
-      endpoint = "/role?id=" + id + "&name=" + name;
+      endpoint = "/role?id=" + id;
       break;
 
     case "threshold":
-      endpoint = "/threshold?id=" + id + "&name=" + name;
+      endpoint = "/threshold?id=" + id;
       break;
     case "filter":
-      endpoint = "/filter?id=" + id + "&name=" + name;
+      endpoint = "/filter?id=" + id;
       break;
     case "indicator":
-      endpoint = "/indicator?id=" + id + "&name=" + name;
+      endpoint = "/indicator?id=" + id;
       break;
 
     case "workstation":
-      endpoint = "/workstation?id=" + id + "&name=" + name;
+      endpoint = "/workstation?id=" + id;
       break;
     case "producer":
-      endpoint = "/producer?id=" + id + "&name=" + name;
+      endpoint = "/producer?id=" + id;
       break;
     case "system":
-      endpoint = "/system?id=" + id + "&name=" + name;
+      endpoint = "/system?id=" + id;
       break;
     case "vendor":
-      endpoint = "/vendor?id=" + id + "&name=" + name;
+      endpoint = "/vendor?id=" + id;
       break;
     case "processor":
-      endpoint = "/processor?id=" + id + "&name=" + name;
+      endpoint = "/processor?id=" + id;
       break;
     case "memory":
-      endpoint = "/memory?id=" + id + "&number=" + name;
+      endpoint = "/memory?id=" + id;
       break;
     case "manufacturer":
-      endpoint = "/manufacturer?id=" + id + "&name=" + name;
+      endpoint = "/manufacturer?id=" + id;
       break;
   }
 

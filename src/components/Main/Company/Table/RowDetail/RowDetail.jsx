@@ -7,7 +7,7 @@ import { apiCallToGetSingleEntity } from "../../../../../api/Api.jsx";
 import { colorHandler } from "../Table.utils.js";
 
 const RowDetail = forwardRef(function RowDetail(
-  { entityId, entityName, name, updateRowHandler, deleteRowHandler, rowIndex },
+  { entityId, entityName, updateRowHandler, deleteRowHandler, rowIndex },
   ref
 ) {
   const [entity, setEntity] = useState({});
@@ -17,7 +17,7 @@ const RowDetail = forwardRef(function RowDetail(
 
   useEffect(() => {
     async function fetchData() {
-      await apiCallToGetSingleEntity(entityId, name, entityName.toLowerCase())
+      await apiCallToGetSingleEntity(entityId, entityName.toLowerCase())
         .then((resData) => {
           setEntity((_prevEntity) => resData);
           setLoading(false);
@@ -34,7 +34,7 @@ const RowDetail = forwardRef(function RowDetail(
     } else {
       fetchData();
     }
-  }, [entityId, entityName, name]);
+  }, [entityId, entityName]);
 
   useEffect(() => {
     if (error === null) {
