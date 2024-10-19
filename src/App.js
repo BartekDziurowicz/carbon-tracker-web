@@ -1,15 +1,15 @@
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./Root.js";
-import SelectorContextProvider from "./store/selector-context.jsx";
-import CompanyContextProvider from "./store/company-context.jsx";
-import ReportsContextProvider from "./store/reports-context.jsx";
 import RouteError from "./components/RouteError/RouteError.jsx";
 import "./App.css";
 
 const Metrics = lazy(() => import('./components/Main/Metrics/Metrics.jsx'));
+const SelectorContextProvider = lazy(() => import('./store/selector-context.jsx'));
 const Selector = lazy(() => import('./components/Main/Selector/Selector.jsx'));
+const CompanyContextProvider = lazy(() => import('./store/company-context.jsx'));
 const Company = lazy(() => import('./components/Main/Company/Company.jsx'));
+const ReportsContextProvider = lazy(() => import('./store/reports-context.jsx'));
 const Reports = lazy(() => import('./components/Main/Reports/Reports.jsx'));
 
 const router = createBrowserRouter([
@@ -18,10 +18,10 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <RouteError root={true}/>,
     children: [
-      { index: true, element: <Metrics />, errorElement: <RouteError />, loader: () => import('./components/Main/Metrics/Metrics.jsx').then(module => module.thresholdsLoader())},
-      { path: '/selector', element: <SelectorContextProvider><Selector /></SelectorContextProvider>, errorElement: <RouteError />, loader: () => import('./components/Main/Selector/Selector.jsx').then(module => module.filtersLoader())},
-      { path: '/company', element: <CompanyContextProvider><Company /></CompanyContextProvider>},
-      { path: '/reports', element: <ReportsContextProvider><Reports /></ReportsContextProvider>, errorElement: <RouteError />, loader: () => import('./components/Main/Reports/Reports.jsx').then(module => module.reportsLoader())},
+      { index: true, element: <Suspense><Metrics /></Suspense>, errorElement: <RouteError />, loader: () => import('./components/Main/Metrics/Metrics.jsx').then(module => module.thresholdsLoader())},
+      { path: '/selector', element: <Suspense><SelectorContextProvider><Selector /></SelectorContextProvider></Suspense>, errorElement: <RouteError />, loader: () => import('./components/Main/Selector/Selector.jsx').then(module => module.filtersLoader())},
+      { path: '/company', element: <Suspense><CompanyContextProvider><Company /></CompanyContextProvider></Suspense>},
+      { path: '/reports', element: <Suspense><ReportsContextProvider><Reports /></ReportsContextProvider></Suspense>, errorElement: <RouteError />, loader: () => import('./components/Main/Reports/Reports.jsx').then(module => module.reportsLoader())},
     ],
   },
 ]);
