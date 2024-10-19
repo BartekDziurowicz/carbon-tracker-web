@@ -20,11 +20,11 @@ const RowDetail = forwardRef(function RowDetail(
       await apiCallToGetSingleEntity(entityId, entityName.toLowerCase())
         .then((resData) => {
           setEntity((_prevEntity) => resData);
-          setLoading(false);
+          setLoading(_prevValue => false);
         })
         .catch((error) => {
           setError(error);
-          setLoading(false);
+          setLoading(_prevValue => false);
         });
     }
 

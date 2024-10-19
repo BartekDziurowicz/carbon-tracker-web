@@ -1,3 +1,7 @@
+import { createBaseUrl } from "./api.utils.js";
+
+const baseUrl = createBaseUrl();
+
 export async function apiCallToGetCalculatedIndicators(
   group,
   startDate,
@@ -6,12 +10,7 @@ export async function apiCallToGetCalculatedIndicators(
 ) {
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
-    "http://localhost:8080/metrics/getIndicators?group=" +
-      group +
-      "&start=" +
-      startDate +
-      "&end=" +
-      endDate,
+    `${baseUrl}/metrics/getIndicators?group=${group}&start=${startDate}&end=${endDate}`,
     {
       method: "POST",
       body: JSON.stringify(countries),
@@ -50,14 +49,7 @@ export async function apiCallToGetCalculatedMetrics(
 ) {
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
-    "http://localhost:8080/metrics/getMetrics?group=" +
-      group +
-      "&start=" +
-      startDate +
-      "&end=" +
-      endDate +
-      "&period=" +
-      period,
+    `${baseUrl}/metrics/getMetrics?group=${group}&start=${startDate}&end=${endDate}&period=${period}`,
     {
       method: "POST",
       body: JSON.stringify(criteria),
@@ -89,7 +81,7 @@ export async function apiCallToGetCalculatedMetrics(
 
 export async function apiCallToGetIndicatorValues() {
   const { v4: uuidv4 } = require("uuid");
-  const response = await fetch("http://localhost:8080/indicator/indicators", {
+  const response = await fetch(`${baseUrl}/indicator/indicators`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -114,7 +106,7 @@ export async function apiCallToGetFilterValues(filter) {
 
   const extractedFilter = filter.split(" ");
   const response = await fetch(
-    "http://localhost:8080/" + extractedFilter.pop().toLowerCase() + "/filters",
+    `${baseUrl}/${extractedFilter.pop().toLowerCase()}/filters`,
     {
       method: "GET",
       headers: {
@@ -135,7 +127,7 @@ export async function apiCallToGetFilterValues(filter) {
 
 export async function apiCallToGetCarbonThresholds() {
   const { v4: uuidv4 } = require("uuid");
-  let response = await fetch("http://localhost:8080/threshold/thresholds", {
+  let response = await fetch(`${baseUrl}/threshold/thresholds`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -157,7 +149,7 @@ export async function apiCallToGetCarbonThresholds() {
 export async function apiCallToGetEntityTemplate(entity) {
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
-    "http://localhost:8080/" + entity + "/template",
+    `${baseUrl}/${entity}/template`,
     {
       method: "GET",
       headers: {
@@ -182,67 +174,67 @@ export async function apiCallToGetSingleEntity(id, entity) {
 
   switch (entity) {
     case "country":
-      endpoint = "/country?id=" + id;
+      endpoint = "country?id=" + id;
       break;
     case "location":
-      endpoint = "/location?id=" + id;
+      endpoint = "location?id=" + id;
       break;
     case "office":
-      endpoint = "/office?id=" + id;
+      endpoint = "office?id=" + id;
       break;
     case "company":
-      endpoint = "/company?id=" + id;
+      endpoint = "company?id=" + id;
       break;
     case "area":
-      endpoint = "/area?id=" + id;
+      endpoint = "area?id=" + id;
       break;
     case "tribe":
-      endpoint = "/tribe?id=" + id;
+      endpoint = "tribe?id=" + id;
       break;
     case "team":
-      endpoint = "/team?id=" + id;
+      endpoint = "team?id=" + id;
       break;
     case "employee":
-      endpoint = "/employee?id=" + id;
+      endpoint = "employee?id=" + id;
       break;
     case "role":
-      endpoint = "/role?id=" + id;
+      endpoint = "role?id=" + id;
       break;
 
     case "threshold":
-      endpoint = "/threshold?id=" + id;
+      endpoint = "threshold?id=" + id;
       break;
     case "filter":
-      endpoint = "/filter?id=" + id;
+      endpoint = "filter?id=" + id;
       break;
     case "indicator":
-      endpoint = "/indicator?id=" + id;
+      endpoint = "indicator?id=" + id;
       break;
 
     case "workstation":
-      endpoint = "/workstation?id=" + id;
+      endpoint = "workstation?id=" + id;
       break;
     case "producer":
-      endpoint = "/producer?id=" + id;
+      endpoint = "producer?id=" + id;
       break;
     case "system":
-      endpoint = "/system?id=" + id;
+      endpoint = "system?id=" + id;
       break;
     case "vendor":
-      endpoint = "/vendor?id=" + id;
+      endpoint = "vendor?id=" + id;
       break;
     case "processor":
-      endpoint = "/processor?id=" + id;
+      endpoint = "processor?id=" + id;
       break;
     case "memory":
-      endpoint = "/memory?id=" + id;
+      endpoint = "memory?id=" + id;
       break;
     case "manufacturer":
-      endpoint = "/manufacturer?id=" + id;
+      endpoint = "manufacturer?id=" + id;
       break;
   }
 
-  const response = await fetch("http://localhost:8080/" + entity + endpoint, {
+  const response = await fetch(`${baseUrl}/${entity}/${endpoint}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -264,51 +256,51 @@ export async function apiCallToGetListOfEntities(entity, id, name, isSimple) {
 
   switch (entity) {
     case "country":
-      endpoint = "/countries";
+      endpoint = "countries";
       break;
     case "location":
       endpoint =
-        "/locations?id=" + id + "&country=" + name + "&isSimple=" + isSimple;
+        "locations?id=" + id + "&country=" + name + "&isSimple=" + isSimple;
       break;
     case "office":
       endpoint =
-        "/offices?id=" + id + "&city=" + name + "&isSimple=" + isSimple;
+        "offices?id=" + id + "&city=" + name + "&isSimple=" + isSimple;
       break;
     case "company":
       endpoint =
-        "/companies?id=" + id + "&city=" + name + "&isSimple=" + isSimple;
+        "companies?id=" + id + "&city=" + name + "&isSimple=" + isSimple;
       break;
     case "area":
       endpoint =
-        "/areas?id=" + id + "&company=" + name + "&isSimple=" + isSimple;
+        "areas?id=" + id + "&company=" + name + "&isSimple=" + isSimple;
       break;
     case "tribe":
-      endpoint = "/tribes?id=" + id + "&area=" + name + "&isSimple=" + isSimple;
+      endpoint = "tribes?id=" + id + "&area=" + name + "&isSimple=" + isSimple;
       break;
     case "team":
-      endpoint = "/teams?id=" + id + "&tribe=" + name + "&isSimple=" + isSimple;
+      endpoint = "teams?id=" + id + "&tribe=" + name + "&isSimple=" + isSimple;
       break;
     case "employee":
       endpoint =
-        "/allByTeam?id=" + id + "&team=" + name + "&isSimple=" + isSimple;
+        "allByTeam?id=" + id + "&team=" + name + "&isSimple=" + isSimple;
       break;
     case "role":
-      endpoint = "/roles";
+      endpoint = "roles";
       break;
 
     case "filter":
-      endpoint = "/filters";
+      endpoint = "filters";
       break;
     case "threshold":
-      endpoint = "/thresholds";
+      endpoint = "thresholds";
       break;
     case "indicator":
-      endpoint = "/indicators";
+      endpoint = "indicators";
       break;
 
     case "workstation":
       endpoint =
-        "/workstations?id=" +
+        "workstations?id=" +
         id +
         "&producer=" +
         name +
@@ -316,18 +308,18 @@ export async function apiCallToGetListOfEntities(entity, id, name, isSimple) {
         isSimple;
       break;
     case "producer":
-      endpoint = "/producers";
+      endpoint = "producers";
       break;
     case "system":
       endpoint =
-        "/systems?id=" + id + "&vendor=" + name + "&isSimple=" + isSimple;
+        "systems?id=" + id + "&vendor=" + name + "&isSimple=" + isSimple;
       break;
     case "vendor":
-      endpoint = "/vendors";
+      endpoint = "vendors";
       break;
     case "processor":
       endpoint =
-        "/processors?id=" +
+        "processors?id=" +
         id +
         "&manufacturer=" +
         name +
@@ -336,7 +328,7 @@ export async function apiCallToGetListOfEntities(entity, id, name, isSimple) {
       break;
     case "memory":
       endpoint =
-        "/memories?id=" +
+        "memories?id=" +
         id +
         "&manufacturer=" +
         name +
@@ -344,11 +336,11 @@ export async function apiCallToGetListOfEntities(entity, id, name, isSimple) {
         isSimple;
       break;
     case "manufacturer":
-      endpoint = "/manufacturers";
+      endpoint = "manufacturers";
       break;
   }
 
-  const response = await fetch("http://localhost:8080/" + entity + endpoint, {
+  const response = await fetch(`${baseUrl}/${entity}/${endpoint}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -368,7 +360,7 @@ export async function apiCallToGetListOfEntities(entity, id, name, isSimple) {
 export async function apiCallToGetTotalCarbonSum(entity, id) {
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
-    "http://localhost:8080/metrics/carbonSum?entity=" + entity + "&id=" + id,
+    `${baseUrl}/metrics/carbonSum?entity=${entity}&id=${id}`,
     {
       method: "GET",
       headers: {
@@ -413,14 +405,7 @@ export async function apiCallToGetEntityChildsCapacity(entity, id, name) {
   }
 
   const response = await fetch(
-    "http://localhost:8080/" +
-      child +
-      "/capacity?id=" +
-      id +
-      "&" +
-      entity +
-      "=" +
-      name,
+    `${baseUrl}/${child}/capacity?id=${id}&${entity}=${name}`,
     {
       method: "GET",
       headers: {
@@ -583,7 +568,7 @@ export async function apiCallToGetEntityChilds(
       break;
   }
 
-  const response = await fetch("http://localhost:8080/" + endpoints[call], {
+  const response = await fetch(`${baseUrl}/${endpoints[call]}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -610,7 +595,7 @@ export async function apiCallToGetEntityChilds(
 
 export async function apiCallToUpdateEntity(entity, updatedEntity) {
   const { v4: uuidv4 } = require("uuid");
-  const response = await fetch("http://localhost:8080/" + entity + "/update", {
+  const response = await fetch(`${baseUrl}/${entity}/update`, {
     method: "PUT",
     body: JSON.stringify(updatedEntity),
     headers: {
@@ -633,7 +618,7 @@ export async function apiCallToUpdateEntity(entity, updatedEntity) {
 
 export async function apiCallToCreateEntity(entity, createdEntity) {
   const { v4: uuidv4 } = require("uuid");
-  const response = await fetch("http://localhost:8080/" + entity + "/create", {
+  const response = await fetch(`${baseUrl}/${entity}/create`, {
     method: "POST",
     body: JSON.stringify(createdEntity),
     headers: {
@@ -682,7 +667,7 @@ export async function apiCallToDeleteEntity(entity, deletedEntity) {
 export async function apiCallToGetCompanies() {
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
-    "http://localhost:8080/company/companies?isSimple=true",
+    `${baseUrl}/company/companies?isSimple=true`,
     {
       method: "GET",
       headers: {
@@ -703,11 +688,7 @@ export async function apiCallToGetCompanies() {
 export async function apiCallToGetAreas(companyId, companyName) {
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
-    "http://localhost:8080/area/areas?id=" +
-      companyId +
-      "&company=" +
-      companyName +
-      "&isSimple=true",
+    `${baseUrl}/area/areas?id=${companyId}&company=${companyName}&isSimple=true`,
     {
       method: "GET",
       headers: {
@@ -728,11 +709,7 @@ export async function apiCallToGetAreas(companyId, companyName) {
 export async function apiCallToGetTribes(areaId, areaName) {
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
-    "http://localhost:8080/tribe/tribes?id=" +
-      areaId +
-      "&area=" +
-      areaName +
-      "&isSimple=true",
+    `${baseUrl}/tribe/tribes?id=${areaId}&area=${areaName}&isSimple=true`,
     {
       method: "GET",
       headers: {
@@ -753,11 +730,7 @@ export async function apiCallToGetTribes(areaId, areaName) {
 export async function apiCallToGetTeams(tribeId, tribeName) {
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
-    "http://localhost:8080/team/teams?id=" +
-      tribeId +
-      "&tribe=" +
-      tribeName +
-      "&isSimple=true",
+    `${baseUrl}/team/teams?id=${tribeId}&tribe=${tribeName}&isSimple=true`,
     {
       method: "GET",
       headers: {
@@ -778,11 +751,7 @@ export async function apiCallToGetTeams(tribeId, tribeName) {
 export async function apiCallToGetEmployees(teamId, teamName) {
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
-    "http://localhost:8080/employee/allByTeam?id=" +
-      teamId +
-      "&team=" +
-      teamName +
-      "&isSimple=true",
+    `${baseUrl}/employee/allByTeam?id=${teamId}&team=${teamName}&isSimple=true`,
     {
       method: "GET",
       headers: {
@@ -803,10 +772,7 @@ export async function apiCallToGetEmployees(teamId, teamName) {
 export async function apiCallToGetEmployeeMetric(employeeId, corporateKey) {
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
-    "http://localhost:8080/employee/employee?id=" +
-      employeeId +
-      "&ck=" +
-      corporateKey,
+    `${baseUrl}/employee/employee?id=${employeeId}&ck=${corporateKey}`,
     {
       method: "GET",
       headers: {
