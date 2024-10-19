@@ -4,6 +4,7 @@
 * Implement react lazy loading in react app.js
 * Add loader to MetricsItem when fetching data
 * Create baseUrl function and refactor api calls
+* Create manifest json file
 
 0.35 (2024-10-19)
 ===============
