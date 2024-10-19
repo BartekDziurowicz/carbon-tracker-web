@@ -1,3 +1,10 @@
+0.35 (2024-10-19)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/25)
+* Add carbon tracker icon
+* Add header with traceId (uuid) to each api call
+* Align endpoint names with backend
+
 0.34 (2024-10-07)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/24)

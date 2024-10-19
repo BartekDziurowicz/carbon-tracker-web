@@ -33,7 +33,6 @@ export default function Select({ entityName, parent, parentName, errorHandler })
 
         await apiCallToGetSingleEntity(
           selectedKey,
-          event.target.value,
           parentName
         ).then((resData) => {
           setParents({ ...parents, [parentName]: resData });
