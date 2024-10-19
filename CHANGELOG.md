@@ -1,3 +1,9 @@
+0.36 (2024-10-??)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/26)
+* Implement react lazy loading in react app.js
+* Add loader to MetricsItem when fetching data
+
 0.35 (2024-10-19)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/25)

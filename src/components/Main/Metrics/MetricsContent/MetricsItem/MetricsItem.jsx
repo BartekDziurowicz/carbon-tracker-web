@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Tooltip } from "react-tooltip";
+import { ClipLoader } from "react-spinners";
 import {
   $Carbon,
   $Content,
@@ -19,6 +20,7 @@ import {
   apiCallToGetEntityChildsCapacity,
   apiCallToGetTotalCarbonSum,
 } from "../../../../../api/Api.jsx";
+import { appgreen } from "../../../../../utils/colors.styles.jsx";
 
 function descendantTooltipHandler(currentStep, role) {
   switch (currentStep) {
@@ -38,6 +40,7 @@ export default function MetricsItem({ metric, index, stepInfoHandler }) {
     childsCapacity: 0,
     currentFootprint: 0,
   });
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const { id, name, carbonLimit, corporateKey } = metric;
@@ -79,8 +82,10 @@ export default function MetricsItem({ metric, index, stepInfoHandler }) {
           childsCapacity: childsCapacity,
           currentFootprint: carbonFootprint[0],
         });
+        setLoading((_prevValue) => false);
       } catch (error) {
         setError(error);
+        setLoading((_prevValue) => false);
       }
     }
 
@@ -110,79 +115,93 @@ export default function MetricsItem({ metric, index, stepInfoHandler }) {
       $index={index}
       onClick={stepValueAndStepInfoHandler}
     >
-      <$Head>
-        <$Icon $threshold={threshold}>{STEPS[currentStep].icon}</$Icon>
-        <$Title $threshold={threshold}>
-          {name} {metric.surname && metric.surname}
-        </$Title>
-      </$Head>
-      <$Content>
-        <$Descendants
-          $threshold={threshold}
-          data-tooltip-id={"descendant_tooltip_" + index}
-          data-tooltip-content={descendantTooltipHandler(
-            currentStep,
-            metric.role && metric.role
-          )}
-          data-tooltip-delay-show={1000}
-          data-tooltip-place={"left"}
-        >
-          <p>
-            {currentStep < 4
-              ? childsCapacityAndCarbon.childsCapacity
-              : roleAsDescendant()}
-          </p>
-          <Tooltip id={"descendant_tooltip_" + index} />
-        </$Descendants>
-        <$Summary
-          $threshold={threshold}
-          data-tooltip-id={"summary_tooltip_" + index}
-          data-tooltip-content={"Carbon usage in %"}
-          data-tooltip-delay-show={1000}
-          data-tooltip-place={"right"}
-        >
-          <p>{usage}</p>
-          <Tooltip id={"summary_tooltip_" + index} />
-        </$Summary>
-      </$Content>
+      <ClipLoader
+        color={appgreen}
+        loading={loading}
+        cssOverride={{ margin: "25px 75px 25px 75px" }}
+        size={50}
+        speedMultiplier={0.75}
+        aria-label="Loading Spinner"
+      />
+      {!loading && (
+        <>
+          <$Head>
+            <$Icon $threshold={threshold}>{STEPS[currentStep].icon}</$Icon>
+            <$Title $threshold={threshold}>
+              {name} {metric.surname && metric.surname}
+            </$Title>
+          </$Head>
+          <$Content>
+            <$Descendants
+              $threshold={threshold}
+              data-tooltip-id={"descendant_tooltip_" + index}
+              data-tooltip-content={descendantTooltipHandler(
+                currentStep,
+                metric.role && metric.role
+              )}
+              data-tooltip-delay-show={1000}
+              data-tooltip-place={"left"}
+            >
+              <p>
+                {currentStep < 4
+                  ? childsCapacityAndCarbon.childsCapacity
+                  : roleAsDescendant()}
+              </p>
+              <Tooltip id={"descendant_tooltip_" + index} />
+            </$Descendants>
+            <$Summary
+              $threshold={threshold}
+              data-tooltip-id={"summary_tooltip_" + index}
+              data-tooltip-content={"Carbon usage in %"}
+              data-tooltip-delay-show={1000}
+              data-tooltip-place={"right"}
+            >
+              <p>{usage}</p>
+              <Tooltip id={"summary_tooltip_" + index} />
+            </$Summary>
+          </$Content>
 
-      <$Carbon $threshold={threshold}>
-        <a
-          data-tooltip-id={"carbon_tooltip_limit" + index}
-          data-tooltip-content={"Carbon limit [kg]"}
-          data-tooltip-delay-show={1000}
-          data-tooltip-place={"bottom"}
-        >
-          {carbonLimit}
-          <Tooltip id={"carbon_tooltip_limit" + index} />
-        </a>
-        <a
-          data-tooltip-id={"carbon_tooltip_current" + index}
-          data-tooltip-content={
-            "Current carbon footprint [" +
-            childsCapacityAndCarbon.currentFootprint +
-            " kg]"
-          }
-          data-tooltip-delay-show={1000}
-          data-tooltip-place={"bottom"}
-        >
-          {Number(childsCapacityAndCarbon.currentFootprint).toFixed(3)}
-          <Tooltip id={"carbon_tooltip_current" + index} />
-        </a>
-        <a
-          data-tooltip-id={"carbon_tooltip_bilance" + index}
-          data-tooltip-content={
-            "Carbon footprint bilance [" +
-            (carbonLimit - childsCapacityAndCarbon.currentFootprint) +
-            " kg]"
-          }
-          data-tooltip-delay-show={1000}
-          data-tooltip-place={"bottom"}
-        >
-          {(carbonLimit - childsCapacityAndCarbon.currentFootprint).toFixed(3)}
-          <Tooltip id={"carbon_tooltip_bilance" + index} />
-        </a>
-      </$Carbon>
+          <$Carbon $threshold={threshold}>
+            <a
+              data-tooltip-id={"carbon_tooltip_limit" + index}
+              data-tooltip-content={"Carbon limit [kg]"}
+              data-tooltip-delay-show={1000}
+              data-tooltip-place={"bottom"}
+            >
+              {carbonLimit}
+              <Tooltip id={"carbon_tooltip_limit" + index} />
+            </a>
+            <a
+              data-tooltip-id={"carbon_tooltip_current" + index}
+              data-tooltip-content={
+                "Current carbon footprint [" +
+                childsCapacityAndCarbon.currentFootprint +
+                " kg]"
+              }
+              data-tooltip-delay-show={1000}
+              data-tooltip-place={"bottom"}
+            >
+              {Number(childsCapacityAndCarbon.currentFootprint).toFixed(3)}
+              <Tooltip id={"carbon_tooltip_current" + index} />
+            </a>
+            <a
+              data-tooltip-id={"carbon_tooltip_bilance" + index}
+              data-tooltip-content={
+                "Carbon footprint bilance [" +
+                (carbonLimit - childsCapacityAndCarbon.currentFootprint) +
+                " kg]"
+              }
+              data-tooltip-delay-show={1000}
+              data-tooltip-place={"bottom"}
+            >
+              {(carbonLimit - childsCapacityAndCarbon.currentFootprint).toFixed(
+                3
+              )}
+              <Tooltip id={"carbon_tooltip_bilance" + index} />
+            </a>
+          </$Carbon>
+        </>
+      )}
       {error !== null ? <$ErrorLabel>{error.message}</$ErrorLabel> : null}
     </$MetricsItem>
   );
