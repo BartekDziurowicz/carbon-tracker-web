@@ -1,6 +1,6 @@
 import { useContext, useState, useRef } from "react";
 import { PiTreeStructureFill } from "react-icons/pi";
-import { $Parents, $Message, $Title, $ErrorLabel } from "./Parents.styles.jsx";
+import { $Parents, $ParentWrapper, $Message, $Title, $ErrorLabel } from "./Parents.styles.jsx";
 import { $Line } from "../Childs/Childs.styles.jsx";
 import Select from "./Select/Select.jsx";
 import { CompanyContext } from "../../../../../../store/company-context.jsx";
@@ -33,7 +33,7 @@ export default function Parents({ entityName }) {
             <$Message>{ENTITY_HAVE_NO_PARENTS}</$Message>
           ) : (
             Object.keys(parents).map((field) => (
-              <>
+              <$ParentWrapper>
                 <$Title $color={entityName}>
                   <PiTreeStructureFill />
                   {capitalizeFirstLetter(field)}
@@ -49,7 +49,7 @@ export default function Parents({ entityName }) {
                     errorHandler={errorHandler}
                   />
                 )}
-              </>
+              </$ParentWrapper>
             ))
           )}
         </$Parents>

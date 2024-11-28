@@ -1,3 +1,8 @@
+0.37 (2024-11-??)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/27)
+* Implement logic to handle extended  by LDAP calls and objects
+
 0.36 (2024-10-19)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/26)

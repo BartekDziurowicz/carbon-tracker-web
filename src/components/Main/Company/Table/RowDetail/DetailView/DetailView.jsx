@@ -60,7 +60,7 @@ const DetailView = memo(function DetailView({
     ).value;
 
     form.querySelectorAll("input").forEach((element) => {
-      if (!element.value && element.placeholder) {
+      if (!element.value && element.placeholder && element.name !== "password") {
         fd.set(element.name, element.placeholder);
       }
     });

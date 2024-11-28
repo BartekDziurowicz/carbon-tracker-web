@@ -1,6 +1,9 @@
 import { createBaseUrl } from "./api.utils.js";
 
 const baseUrl = createBaseUrl();
+// TODO login page and pass storage somewhere
+const user = 'Bartek';
+const password = 'Password1!'
 
 export async function apiCallToGetCalculatedIndicators(
   group,
@@ -15,6 +18,7 @@ export async function apiCallToGetCalculatedIndicators(
       method: "POST",
       body: JSON.stringify(countries),
       headers: {
+        'Authorization': 'Basic ' + btoa(user + ':' + password),
         "Content-Type": "application/json",
         "X-HTTP-Method-Override": "GET",
         traceId: uuidv4(),
@@ -54,6 +58,7 @@ export async function apiCallToGetCalculatedMetrics(
       method: "POST",
       body: JSON.stringify(criteria),
       headers: {
+        'Authorization': 'Basic ' + btoa(user + ':' + password),
         "Content-Type": "application/json",
         "X-HTTP-Method-Override": "GET",
         traceId: uuidv4(),
@@ -84,6 +89,7 @@ export async function apiCallToGetIndicatorValues() {
   const response = await fetch(`${baseUrl}/indicator/indicators`, {
     method: "GET",
     headers: {
+      'Authorization': 'Basic ' + btoa(user + ':' + password),
       "Content-Type": "application/json",
       traceId: uuidv4(),
     },
@@ -105,12 +111,17 @@ export async function apiCallToGetFilterValues(filter) {
   }
 
   const extractedFilter = filter.split(" ");
+  const entityName = extractedFilter.pop().toLowerCase();
+  const url = entityName.includes('group') ? `ldap/groups` : `${entityName}/filters`
+
   const response = await fetch(
-    `${baseUrl}/${extractedFilter.pop().toLowerCase()}/filters`,
+    `${baseUrl}/${url}`,
     {
       method: "GET",
       headers: {
+        'Authorization': 'Basic ' + btoa(user + ':' + password),
         "Content-Type": "application/json",
+        'Authorization': 'Basic ' + btoa(user + ':' + password),
         traceId: uuidv4(),
       },
     }
@@ -130,6 +141,7 @@ export async function apiCallToGetCarbonThresholds() {
   let response = await fetch(`${baseUrl}/threshold/thresholds`, {
     method: "GET",
     headers: {
+      'Authorization': 'Basic ' + btoa(user + ':' + password),
       "Content-Type": "application/json",
       traceId: uuidv4(),
     },
@@ -153,6 +165,7 @@ export async function apiCallToGetEntityTemplate(entity) {
     {
       method: "GET",
       headers: {
+        'Authorization': 'Basic ' + btoa(user + ':' + password),
         "Content-Type": "application/json",
         traceId: uuidv4(),
       },
@@ -237,6 +250,7 @@ export async function apiCallToGetSingleEntity(id, entity) {
   const response = await fetch(`${baseUrl}/${entity}/${endpoint}`, {
     method: "GET",
     headers: {
+      'Authorization': 'Basic ' + btoa(user + ':' + password),
       "Content-Type": "application/json",
       traceId: uuidv4(),
     },
@@ -343,6 +357,7 @@ export async function apiCallToGetListOfEntities(entity, id, name, isSimple) {
   const response = await fetch(`${baseUrl}/${entity}/${endpoint}`, {
     method: "GET",
     headers: {
+      'Authorization': 'Basic ' + btoa(user + ':' + password),
       "Content-Type": "application/json",
       traceId: uuidv4(),
     },
@@ -364,6 +379,7 @@ export async function apiCallToGetTotalCarbonSum(entity, id) {
     {
       method: "GET",
       headers: {
+        'Authorization': 'Basic ' + btoa(user + ':' + password),
         "Content-Type": "application/json",
         traceId: uuidv4(),
       },
@@ -409,6 +425,7 @@ export async function apiCallToGetEntityChildsCapacity(entity, id, name) {
     {
       method: "GET",
       headers: {
+        'Authorization': 'Basic ' + btoa(user + ':' + password),
         "Content-Type": "plain/text",
         traceId: uuidv4(),
       },
@@ -571,6 +588,7 @@ export async function apiCallToGetEntityChilds(
   const response = await fetch(`${baseUrl}/${endpoints[call]}`, {
     method: "GET",
     headers: {
+      'Authorization': 'Basic ' + btoa(user + ':' + password),
       "Content-Type": "application/json",
       traceId: uuidv4(),
     },
@@ -599,6 +617,7 @@ export async function apiCallToUpdateEntity(entity, updatedEntity) {
     method: "PUT",
     body: JSON.stringify(updatedEntity),
     headers: {
+      'Authorization': 'Basic ' + btoa(user + ':' + password),
       "Content-Type": "application/json",
       traceId: uuidv4(),
     },
@@ -622,18 +641,25 @@ export async function apiCallToCreateEntity(entity, createdEntity) {
     method: "POST",
     body: JSON.stringify(createdEntity),
     headers: {
+      'Authorization': 'Basic ' + btoa(user + ':' + password),
       "Content-Type": "application/json",
       traceId: uuidv4(),
     },
   });
 
   if (!response.ok) {
-    const errorResponse = await response.json();
-    throw new Error(
-      errorResponse.message !== undefined
-        ? "Failed to create entity. Error " + response.status
-        : errorResponse.error + ". Error " + errorResponse.status
-    );
+    let errorMessage;
+    try {
+      errorMessage = await response.text();
+    } catch (error) {
+      const errorResponse = await response.json();
+      errorMessage = errorResponse.message !== undefined
+          ? "Failed to create entity. Error " + response.status
+          : errorResponse.error + ". Error " + response.status;
+    }
+    throw new Error (
+      errorMessage
+    )
   }
 
   const resData = await response.text();
@@ -647,6 +673,7 @@ export async function apiCallToDeleteEntity(entity, deletedEntity) {
     method: "DELETE",
     body: JSON.stringify(deletedEntity),
     headers: {
+      'Authorization': 'Basic ' + btoa(user + ':' + password),
       "Content-Type": "application/json",
       traceId: uuidv4(),
     },
@@ -671,6 +698,7 @@ export async function apiCallToGetCompanies() {
     {
       method: "GET",
       headers: {
+        'Authorization': 'Basic ' + btoa(user + ':' + password),
         "Content-Type": "application/json",
         traceId: uuidv4(),
       },
@@ -692,6 +720,7 @@ export async function apiCallToGetAreas(companyId, companyName) {
     {
       method: "GET",
       headers: {
+        'Authorization': 'Basic ' + btoa(user + ':' + password),
         "Content-Type": "application/json",
         traceId: uuidv4(),
       },
@@ -713,6 +742,7 @@ export async function apiCallToGetTribes(areaId, areaName) {
     {
       method: "GET",
       headers: {
+        'Authorization': 'Basic ' + btoa(user + ':' + password),
         "Content-Type": "application/json",
         traceId: uuidv4(),
       },
@@ -734,6 +764,7 @@ export async function apiCallToGetTeams(tribeId, tribeName) {
     {
       method: "GET",
       headers: {
+        'Authorization': 'Basic ' + btoa(user + ':' + password),
         "Content-Type": "application/json",
         traceId: uuidv4(),
       },
@@ -755,6 +786,7 @@ export async function apiCallToGetEmployees(teamId, teamName) {
     {
       method: "GET",
       headers: {
+        'Authorization': 'Basic ' + btoa(user + ':' + password),
         "Content-Type": "application/json",
         traceId: uuidv4(),
       },
@@ -776,6 +808,7 @@ export async function apiCallToGetEmployeeMetric(employeeId, corporateKey) {
     {
       method: "GET",
       headers: {
+        'Authorization': 'Basic ' + btoa(user + ':' + password),
         "Content-Type": "application/json",
         traceId: uuidv4(),
       },

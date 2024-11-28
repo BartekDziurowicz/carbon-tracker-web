@@ -28,8 +28,11 @@ export default function Select({ entityName, parent, parentName, errorHandler })
 
   async function getNewParent(event) {
     if (selected !== event.target.value) {
-      const selectedOption = event.target.options[event.target.selectedIndex];
-      const selectedKey = selectedOption.getAttribute("id");
+      if (parentName.includes("group")) {
+        setParents({ ...parents, [parentName]: event.target.value });
+      } else {
+        const selectedOption = event.target.options[event.target.selectedIndex];
+        const selectedKey = selectedOption.getAttribute("id");
 
         await apiCallToGetSingleEntity(
           selectedKey,
@@ -39,6 +42,7 @@ export default function Select({ entityName, parent, parentName, errorHandler })
         }).catch(error => {
           errorHandler(error);
         });
+      }
     }
   }
 
@@ -52,11 +56,25 @@ export default function Select({ entityName, parent, parentName, errorHandler })
       <$Option hidden id={parents[parentName].id} value="default" disabled>
         {selected}
       </$Option>
-      {filters.map((filter, index) => (
-        <$Option id={filter.id} key={index}>
-          {filter.name}
-        </$Option>
-      ))}
+      {parentName.includes("group") ?
+        filters.map((filter, index) => (
+          <$Option id={filter.id} key={index}>
+            {filter}
+          </$Option>
+        ))
+        :
+        filters.map((filter, index) => (
+          <$Option id={filter.id} key={index}>
+            {filter.name}
+          </$Option>
+        ))
+      }
     </$Select>
   );
 }
+
+// {filters.map((filter, index) => (
+//   <$Option id={filter.id} key={index}>
+//     {filter.name}
+//   </$Option>
+// ))}

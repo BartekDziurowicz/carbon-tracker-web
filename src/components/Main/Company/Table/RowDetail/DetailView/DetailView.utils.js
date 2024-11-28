@@ -29,8 +29,16 @@ function determinateFieldType(field) {
     "voltage",
   ];
 
+  const passwordField = [
+    "password"
+  ]
+
   if (numberFields.includes(field)) {
     return "number";
+  }
+
+  if (passwordField.includes(field)) {
+    return "password";
   }
 
   return "text";
