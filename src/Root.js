@@ -4,14 +4,14 @@ import Banner from "./components/Banner/Banner.jsx";
 import Main from "./components/Main/Main.jsx";
 import Login from "./components/Login/Login.jsx";
 import { NavigationContext } from "./store/navigation-context.jsx";
-import {EmployeeContext} from "./store/employee-context.jsx";
+import { EmployeeContext } from "./store/employee-context.jsx";
 
 export default function Root() {
   const { authenticated } = useContext(EmployeeContext);
   const [selectedNavItem, setSelectedNavItem] = useState(() => {
     const storedNavItem = JSON.parse(sessionStorage.getItem("selectedNavItem"));
     if (storedNavItem === undefined || storedNavItem === null) {
-      return "Metrics";
+      return "Home";
     } else {
       return storedNavItem;
     }

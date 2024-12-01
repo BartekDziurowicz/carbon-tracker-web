@@ -1,5 +1,4 @@
 import { useContext, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import { $Login, $Form, $Input, $Button, $Logo } from "./Login.styles.jsx";
 import logo from "../../assets/carbon-tracker-logo-pure.svg";
 import { EmployeeContext } from "../../store/employee-context.jsx";
@@ -7,7 +6,6 @@ import { apiCallForAuthentication } from "../../api/Api.jsx";
 
 const Login = () => {
   const { setEmployeeData } = useContext(EmployeeContext);
-  const navigate = useNavigate();
 
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
@@ -20,7 +18,6 @@ const Login = () => {
       }).then((employeeData) => {
         setEmployeeData((_prevData) => ({ ...employeeData }));
         setUserData({ ...employeeData });
-        navigate('/metrics');
         usernameRef.current.value="";
         passwordRef.current.value="";
       })
