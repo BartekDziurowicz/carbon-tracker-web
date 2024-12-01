@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Banner from "./components/Banner/Banner.jsx";
 import Main from "./components/Main/Main.jsx";
+import Footer from "./components/Footer/Footer.jsx";
 import Login from "./components/Login/Login.jsx";
 import { NavigationContext } from "./store/navigation-context.jsx";
 import { EmployeeContext } from "./store/employee-context.jsx";
@@ -45,6 +46,7 @@ export default function Root() {
           <Main>
             <Outlet />
           </Main>
+          <Footer />
         </NavigationContext.Provider>
       }
     </>
