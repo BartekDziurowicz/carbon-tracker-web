@@ -5,3 +5,7 @@ export const createBaseUrl = () => {
         return `${window.location.protocol}//${window.location.host}`;
     }
 };
+
+export const getUserCredentials = () => {
+    return JSON.parse(sessionStorage.getItem("userCredentials"));
+}

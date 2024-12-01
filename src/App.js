@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./Root.js";
 import RouteError from "./components/RouteError/RouteError.jsx";
 import Login from "./components/Login/Login.jsx";
+import EmployeeContextProvider from "./store/employee-context.jsx";
 import "./App.css";
 
 const Metrics = lazy(() => import('./components/Main/Metrics/Metrics.jsx'));
@@ -16,7 +17,7 @@ const Reports = lazy(() => import('./components/Main/Reports/Reports.jsx'));
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: <EmployeeContextProvider><Root /></EmployeeContextProvider>,
     errorElement: <RouteError root={true}/>,
     children: [
       { index: true, element: <Suspense><Metrics /></Suspense>, errorElement: <RouteError />, loader: () => import('./components/Main/Metrics/Metrics.jsx').then(module => module.thresholdsLoader())},
