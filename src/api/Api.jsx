@@ -1,9 +1,9 @@
 import { createBaseUrl, getUserCredentials } from "./api.utils.js";
 
 const baseUrl = createBaseUrl();
-const userCredentials = getUserCredentials();
 
 export async function apiCallForAuthentication(corporateKey) {
+  const userCredentials = getUserCredentials();
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
     `${baseUrl}/ldap/authenticate?ck=${corporateKey}`,
@@ -34,6 +34,7 @@ export async function apiCallToGetCalculatedIndicators(
   endDate,
   countries
 ) {
+  const userCredentials = getUserCredentials();
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
     `${baseUrl}/metrics/getIndicators?group=${group}&start=${startDate}&end=${endDate}`,
@@ -74,6 +75,7 @@ export async function apiCallToGetCalculatedMetrics(
   period,
   criteria
 ) {
+  const userCredentials = getUserCredentials();
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
     `${baseUrl}/metrics/getMetrics?group=${group}&start=${startDate}&end=${endDate}&period=${period}`,
@@ -108,6 +110,7 @@ export async function apiCallToGetCalculatedMetrics(
 }
 
 export async function apiCallToGetIndicatorValues() {
+  const userCredentials = getUserCredentials();
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch(`${baseUrl}/indicator/indicators`, {
     method: "GET",
@@ -128,6 +131,7 @@ export async function apiCallToGetIndicatorValues() {
 }
 
 export async function apiCallToGetFilterValues(filter) {
+  const userCredentials = getUserCredentials();
   const { v4: uuidv4 } = require("uuid");
   if (!filter) {
     return [];
@@ -160,6 +164,8 @@ export async function apiCallToGetFilterValues(filter) {
 }
 
 export async function apiCallToGetCarbonThresholds() {
+  const userCredentials = getUserCredentials();
+  console.log("loader call", userCredentials)
   const { v4: uuidv4 } = require("uuid");
   let response = await fetch(`${baseUrl}/threshold/thresholds`, {
     method: "GET",
@@ -182,6 +188,7 @@ export async function apiCallToGetCarbonThresholds() {
 }
 
 export async function apiCallToGetEntityTemplate(entity) {
+  const userCredentials = getUserCredentials();
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
     `${baseUrl}/${entity}/template`,
@@ -205,6 +212,7 @@ export async function apiCallToGetEntityTemplate(entity) {
 }
 
 export async function apiCallToGetSingleEntity(id, entity) {
+  const userCredentials = getUserCredentials();
   const { v4: uuidv4 } = require("uuid");
   let endpoint;
 
@@ -288,6 +296,7 @@ export async function apiCallToGetSingleEntity(id, entity) {
 }
 
 export async function apiCallToGetListOfEntities(entity, id, name, isSimple) {
+  const userCredentials = getUserCredentials();
   const { v4: uuidv4 } = require("uuid");
   let endpoint;
 
@@ -396,6 +405,7 @@ export async function apiCallToGetListOfEntities(entity, id, name, isSimple) {
 }
 
 export async function apiCallToGetTotalCarbonSum(entity, id) {
+  const userCredentials = getUserCredentials();
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
     `${baseUrl}/metrics/carbonSum?entity=${entity}&id=${id}`,
@@ -424,6 +434,7 @@ export async function apiCallToGetTotalCarbonSum(entity, id) {
 }
 
 export async function apiCallToGetEntityChildsCapacity(entity, id, name) {
+  const userCredentials = getUserCredentials();
   const { v4: uuidv4 } = require("uuid");
   let child;
   switch (entity) {
@@ -476,6 +487,7 @@ export async function apiCallToGetEntityChilds(
   childEntities,
   call
 ) {
+  const userCredentials = getUserCredentials();
   const { v4: uuidv4 } = require("uuid");
   let endpoints = [];
 
@@ -635,6 +647,7 @@ export async function apiCallToGetEntityChilds(
 }
 
 export async function apiCallToUpdateEntity(entity, updatedEntity) {
+  const userCredentials = getUserCredentials();
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch(`${baseUrl}/${entity}/update`, {
     method: "PUT",
@@ -659,6 +672,7 @@ export async function apiCallToUpdateEntity(entity, updatedEntity) {
 }
 
 export async function apiCallToCreateEntity(entity, createdEntity) {
+  const userCredentials = getUserCredentials();
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch(`${baseUrl}/${entity}/create`, {
     method: "POST",
@@ -691,6 +705,7 @@ export async function apiCallToCreateEntity(entity, createdEntity) {
 }
 
 export async function apiCallToDeleteEntity(entity, deletedEntity) {
+  const userCredentials = getUserCredentials();
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch("http://localhost:8080/" + entity + "/delete", {
     method: "DELETE",
@@ -715,6 +730,7 @@ export async function apiCallToDeleteEntity(entity, deletedEntity) {
 }
 
 export async function apiCallToGetCompanies() {
+  const userCredentials = getUserCredentials();
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
     `${baseUrl}/company/companies?isSimple=true`,
@@ -737,6 +753,7 @@ export async function apiCallToGetCompanies() {
 }
 
 export async function apiCallToGetAreas(companyId, companyName) {
+  const userCredentials = getUserCredentials();
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
     `${baseUrl}/area/areas?id=${companyId}&company=${companyName}&isSimple=true`,
@@ -759,6 +776,7 @@ export async function apiCallToGetAreas(companyId, companyName) {
 }
 
 export async function apiCallToGetTribes(areaId, areaName) {
+  const userCredentials = getUserCredentials();
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
     `${baseUrl}/tribe/tribes?id=${areaId}&area=${areaName}&isSimple=true`,
@@ -781,6 +799,7 @@ export async function apiCallToGetTribes(areaId, areaName) {
 }
 
 export async function apiCallToGetTeams(tribeId, tribeName) {
+  const userCredentials = getUserCredentials();
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
     `${baseUrl}/team/teams?id=${tribeId}&tribe=${tribeName}&isSimple=true`,
@@ -803,6 +822,7 @@ export async function apiCallToGetTeams(tribeId, tribeName) {
 }
 
 export async function apiCallToGetEmployees(teamId, teamName) {
+  const userCredentials = getUserCredentials();
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
     `${baseUrl}/employee/allByTeam?id=${teamId}&team=${teamName}&isSimple=true`,
@@ -825,6 +845,7 @@ export async function apiCallToGetEmployees(teamId, teamName) {
 }
 
 export async function apiCallToGetEmployeeMetric(employeeId, corporateKey) {
+  const userCredentials = getUserCredentials();
   const { v4: uuidv4 } = require("uuid");
   const response = await fetch(
     `${baseUrl}/employee/employee?id=${employeeId}&ck=${corporateKey}`,
