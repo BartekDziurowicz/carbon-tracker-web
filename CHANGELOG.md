@@ -5,6 +5,7 @@
 * Create login page and login handling using base auth
 * Handle location/path when manually changed
 * Add Link to home pae on carbon tracker logo
+* Create Home page with slider
 
 0.36 (2024-10-19)
 ===============
