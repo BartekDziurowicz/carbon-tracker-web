@@ -24,11 +24,9 @@ export default function Root() {
 
   function checkCurrentSession() {
     const userData = JSON.parse(sessionStorage.getItem("userData"));
-    console.log("asd", userData);
     if (userData !== null && userData.authenticated === true) {
       return true;
     }
-    console.log("s");
     return false;
   }
 

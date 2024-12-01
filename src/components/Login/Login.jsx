@@ -14,18 +14,20 @@ const Login = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    const employeeData = await setUserCredentials()
+    setUserCredentials()
       .then(() => {
-        console.log("kurwa mac", usernameRef.current.value);
         return apiCallForAuthentication(usernameRef.current.value);
+      }).then((employeeData) => {
+        setEmployeeData((_prevData) => ({ ...employeeData }));
+        setUserData({ ...employeeData });
+        navigate('/metrics');
+        usernameRef.current.value="";
+        passwordRef.current.value="";
       })
       .catch((error) => {
         sessionStorage.removeItem("userCredentials");
         throw error;
       });
-    setEmployeeData((_prevData) => ({ ...employeeData }));
-    setUserData({ ...employeeData });
-    navigate('/metrics');
   };
 
   async function setUserCredentials() {
