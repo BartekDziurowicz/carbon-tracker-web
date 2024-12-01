@@ -11,7 +11,6 @@ import {
 
 export function getTableColumns(object, selected) {
   let columns = [];
-
   for (const field in object) {
     if (typeof object[field] !== "object" || object[field] === null) {
       columns.push({
@@ -29,7 +28,10 @@ export function getTableColumns(object, selected) {
           }
           if (renderValue() === false || renderValue() === 'false') {
             return <label><input type="checkbox" defaultChecked={false} disabled /></label>;
-          }          
+          }     
+          if (field.includes("password")) {
+            return <label>{"*****"}</label>;
+          }
           return <label>{renderValue()}</label>;
         }          
       });

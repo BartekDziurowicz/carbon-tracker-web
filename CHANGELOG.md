@@ -1,3 +1,12 @@
+0.37 (2024-12-01)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/27)
+* Implement logic to handle extended  by LDAP calls and objects
+* Create login page and login handling using base auth
+* Handle location/path when manually changed
+* Add Link to home pae on carbon tracker logo
+* Create Home page with slider
+
 0.36 (2024-10-19)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/26)

@@ -34,7 +34,7 @@ export default function Navigation() {
         </$NavigationIcon>
       </$Navigation>
 
-      <Link to="">
+      <Link to="/metrics">
         <NavigationItem name="Metrics" position={1} hidden={!isSelected}>
           <IoIosStats />
         </NavigationItem>

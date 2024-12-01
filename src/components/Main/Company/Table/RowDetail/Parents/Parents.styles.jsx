@@ -6,9 +6,18 @@ export const $Parents = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 5px;
     padding: 2px 0 0 0;
     font-size: 11px;
+`
+
+export const $ParentWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0 7px 0 7px;
 `
 
 export const $Message = styled.label`
@@ -26,7 +35,6 @@ export const $Title = styled.label`
     gap: 4px;
     font-size: 11px;
     color: ${({$color}) => colorHandler($color)};
-    padding: 0 5px 0 15px;
 
     & :first-child {
         font-size: 16px;
