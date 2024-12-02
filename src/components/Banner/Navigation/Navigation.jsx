@@ -22,6 +22,12 @@ export default function Navigation() {
     setIsSelected((selection) => !selection);
   }
 
+  const userData = JSON.parse(sessionStorage.getItem("userData"));
+
+  function checkAuthorization(groups) {
+    return groups.includes(userData.group);
+  }
+
   return (
     <>
       <$NavigationSelectedItem>
@@ -34,35 +40,45 @@ export default function Navigation() {
         </$NavigationIcon>
       </$Navigation>
 
-      <Link to="/metrics">
-        <NavigationItem name="Metrics" position={1} hidden={!isSelected}>
-          <IoIosStats />
-        </NavigationItem>
-      </Link>
+      {checkAuthorization("Employee,Manager,Admin") && (
+        <Link to="/metrics">
+          <NavigationItem name="Metrics" position={1} hidden={!isSelected}>
+            <IoIosStats />
+          </NavigationItem>
+        </Link>
+      )}
 
-      <Link to="/selector">
-        <NavigationItem name="Selector" position={2} hidden={!isSelected}>
-          <BsBracesAsterisk />
-        </NavigationItem>
-      </Link>
+      {checkAuthorization("Manager,Admin") && (
+        <Link to="/selector">
+          <NavigationItem name="Selector" position={2} hidden={!isSelected}>
+            <BsBracesAsterisk />
+          </NavigationItem>
+        </Link>
+      )}
 
-      <Link to="/company">
-        <NavigationItem name="Company" position={3} hidden={!isSelected}>
-          <PiTreeStructure />
-        </NavigationItem>
-      </Link>
+      {checkAuthorization("Admin") && (
+        <Link to="/company">
+          <NavigationItem name="Company" position={3} hidden={!isSelected}>
+            <PiTreeStructure />
+          </NavigationItem>
+        </Link>
+      )}
 
-      <Link to="/reports">
-        <NavigationItem name="Reports" position={4} hidden={!isSelected}>
-          <HiOutlineDocumentReport />
-        </NavigationItem>
-      </Link>
+      {checkAuthorization("Manager,Admin") && (
+        <Link to="/reports">
+          <NavigationItem name="Reports" position={4} hidden={!isSelected}>
+            <HiOutlineDocumentReport />
+          </NavigationItem>
+        </Link>
+      )}
 
-      <Link to="/logout">
-        <NavigationItem name="Logout" position={5} hidden={!isSelected}>
-          <AiOutlineLogout />
-        </NavigationItem>
-      </Link>
+      {checkAuthorization("Employee,Manager,Admin") && (
+        <Link to="/logout">
+          <NavigationItem name="Logout" position={5} hidden={!isSelected}>
+            <AiOutlineLogout />
+          </NavigationItem>
+        </Link>
+      )}
     </>
   );
 }
