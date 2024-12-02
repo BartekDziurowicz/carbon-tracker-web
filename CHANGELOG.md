@@ -1,8 +1,9 @@
-0.38 (2024-12-??)
+0.38 (2024-12-02)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/28)
 * Create and implement logout components and functionality
 * Add user info to banner
+* Add info on login page for 401 response status
 
 0.37 (2024-12-01)
 ===============

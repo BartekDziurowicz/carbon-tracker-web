@@ -1,14 +1,16 @@
-import { useContext, useRef } from "react";
-import { $Login, $Form, $Input, $Button, $Logo } from "./Login.styles.jsx";
+import { useContext, useRef, useState } from "react";
+import { $Login, $Form, $Input, $Button, $Logo, $ErrorMessage } from "./Login.styles.jsx";
 import logo from "../../assets/carbon-tracker-logo-pure.svg";
 import { EmployeeContext } from "../../store/employee-context.jsx";
 import { apiCallForAuthentication } from "../../api/Api.jsx";
 
 const Login = () => {
+  const [ error, setError ] = useState(null);
   const { setEmployeeData } = useContext(EmployeeContext);
 
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
+  const timer = useRef();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -23,9 +25,18 @@ const Login = () => {
       })
       .catch((error) => {
         sessionStorage.removeItem("userCredentials");
+        errorHandler(error);
         throw error;
       });
   };
+
+  function errorHandler(error) {
+    setError(error.message.includes("401") ? `Invalid credentials` : error.message);
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => {
+      setError(null);
+    }, 3000);
+  }
 
   async function setUserCredentials() {
     sessionStorage.setItem(
@@ -58,6 +69,7 @@ const Login = () => {
           required
         />
         <$Button type="submit">Login</$Button>
+        <$ErrorMessage>{error === null ? "" : error}</$ErrorMessage>
       </$Form>
     </$Login>
   );
