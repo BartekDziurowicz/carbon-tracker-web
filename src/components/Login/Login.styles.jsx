@@ -1,5 +1,5 @@
 import { styled, keyframes } from "styled-components";
-import { appgreenlight, appwhite, appgreen, appgrey, apporange } from "../../utils/colors.styles";
+import { appgreenlight, appwhite, appgreen, appgrey, apporange, appred } from "../../utils/colors.styles";
 
 const shake = keyframes`
   0% {
@@ -81,4 +81,10 @@ export const $Button = styled.button`
     color: ${appgreen};
     border: 1px solid ${appgreenlight};
   }
+`
+
+export const $ErrorMessage = styled.div`
+  color: ${appred};
+  font-size: 12px;
+  text-align: center;
 `

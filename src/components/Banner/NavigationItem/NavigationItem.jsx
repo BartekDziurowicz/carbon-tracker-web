@@ -5,7 +5,7 @@ import { $NavigationItem, $NavigationItemIcon, $NavigationItemTooltip } from "./
 
 const TOOLTIP_PLACES= ['', 'left', 'left-end', 'bottom', 'right-end', 'right'];
 
-export default function NavigationItem({ name, position, hidden, children }) {
+export default function NavigationItem({ auth, name, position, hidden, children }) {
   const { selectNavItemHandler } = useContext(NavigationContext);
 
   return (
