@@ -2,6 +2,7 @@
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/28)
 * Create and implement logout components and functionality
+* Add user info to banner
 
 0.37 (2024-12-01)
 ===============

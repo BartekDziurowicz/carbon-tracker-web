@@ -2,6 +2,7 @@ import { useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import $Banner from './Banner.styles.jsx';
 import Logo from './Logo/Logo.jsx';
+import UserInfo from './UserInfo/UserInfo.jsx';
 import Navigation from './Navigation/Navigation.jsx';
 import { NavigationContext } from '../../store/navigation-context.jsx';
 
@@ -20,6 +21,7 @@ export default function Banner () {
     return (
         <$Banner>
             <Logo />
+            <UserInfo />
             <Navigation />
         </$Banner>
     );
