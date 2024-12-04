@@ -11,6 +11,7 @@ export default function SelectValue({ errorHandler }) {
 
   useEffect(() => {
     async function fetchData() {
+      console.log("use effect SelectValue", tempWhereCriteria.key);
       await apiCallToGetFilterValues(tempWhereCriteria.key)
         .then((resData) => {
           setFilterValues((_prevFilterValues) => resData);
@@ -26,7 +27,7 @@ export default function SelectValue({ errorHandler }) {
           errorHandler(error)});
     }
     tempWhereCriteria.key && fetchData();
-  }, [tempWhereCriteria]);
+  }, [tempWhereCriteria.key]);
 
   function handleWhereCriteriaChange(event) {
     setFirstOption(event.target.value);

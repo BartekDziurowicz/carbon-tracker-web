@@ -165,7 +165,6 @@ export async function apiCallToGetFilterValues(filter) {
 
 export async function apiCallToGetCarbonThresholds() {
   const userCredentials = getUserCredentials();
-  console.log("loader call", userCredentials)
   const { v4: uuidv4 } = require("uuid");
   let response = await fetch(`${baseUrl}/threshold/thresholds`, {
     method: "GET",
