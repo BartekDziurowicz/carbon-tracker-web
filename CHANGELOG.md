@@ -3,6 +3,7 @@
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/29)
 * fix bug in selector, infinite loop detected because of useEffect dependency
 * Add min width to body
+* Add environment variable for backend url
 
 0.38 (2024-12-02)
 ===============
