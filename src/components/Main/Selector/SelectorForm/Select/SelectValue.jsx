@@ -26,7 +26,7 @@ export default function SelectValue({ errorHandler }) {
           errorHandler(error)});
     }
     tempWhereCriteria.key && fetchData();
-  }, [tempWhereCriteria]);
+  }, [tempWhereCriteria.key]);
 
   function handleWhereCriteriaChange(event) {
     setFirstOption(event.target.value);
