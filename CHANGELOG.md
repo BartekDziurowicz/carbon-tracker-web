@@ -1,9 +1,11 @@
-0.39 (2024-12-??)
+0.39 (2024-12-24)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/29)
 * fix bug in selector, infinite loop detected because of useEffect dependency
 * Add min width to body
 * Add environment variable for backend url
+* Create Dockerfile
+* Create git actions file to build and push image to AWS
 
 0.38 (2024-12-02)
 ===============
