@@ -2,7 +2,7 @@ export const createBaseUrl = () => {
     if (window.location.host.includes('localhost')) {
         return 'http://localhost:8080';
     } else {
-        return process.env.REACT_APP_BACKEND_URL;
+        return 'api';
     }
 };
 
