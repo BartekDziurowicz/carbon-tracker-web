@@ -20,6 +20,7 @@ export default function Navigation() {
 
   function selectionHandler() {
     setIsSelected((selection) => !selection);
+    console.log("Menu state toggled:", !isSelected);
   }
 
   const userData = JSON.parse(sessionStorage.getItem("userData"));
@@ -42,7 +43,7 @@ export default function Navigation() {
 
       {checkAuthorization("Employee,Manager,Admin") && (
         <Link to="/metrics">
-          <NavigationItem name="Metrics" position={1} hidden={!isSelected}>
+          <NavigationItem name="Metrics" position={1} hidden={false}>
             <IoIosStats />
           </NavigationItem>
         </Link>
