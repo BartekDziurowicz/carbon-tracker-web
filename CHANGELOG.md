@@ -1,3 +1,8 @@
+0.41 (2024-12-27)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/35)
+* Change redirect path after logging
+
 0.40 (2024-12-27)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/33)
