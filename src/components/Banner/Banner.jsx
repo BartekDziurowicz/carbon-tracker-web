@@ -22,7 +22,7 @@ export default function Banner () {
         if (checkAuthorization(path)) {
             selectNavItemHandler(path.charAt(0).toUpperCase() + path.slice(1));
         } else {
-            navigate("/");
+            navigate("/home");
         }
 
     }, [location]);

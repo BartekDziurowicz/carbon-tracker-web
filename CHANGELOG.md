@@ -1,3 +1,8 @@
+0.40 (2024-12-27)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/30)
+* fix bug in selector, infinite loop detected because of useEffect dependency
+
 0.39 (2024-12-24)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/29)
