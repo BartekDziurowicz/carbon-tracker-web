@@ -15,17 +15,23 @@ export default function Banner () {
 
     useEffect(() => {
         let path = location.pathname;
-        if (path.startsWith('/')) { 
-            path = path.slice(1); 
+        console.log("Current path:", path);
+        
+        if (path.startsWith('/')) {
+            path = path.slice(1);
         }
-
+        console.log("Processed path:", path);
+        
         if (checkAuthorization(path)) {
             selectNavItemHandler(path.charAt(0).toUpperCase() + path.slice(1));
         } else {
-            navigate("/home");
+            if (path !== 'home') {
+                console.log("Navigating to /home");
+                navigate("/home");
+            }
         }
-
     }, [location]);
+    
 
     function checkAuthorization(path) {
         switch (path) {
