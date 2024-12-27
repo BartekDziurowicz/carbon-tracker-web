@@ -1,7 +1,7 @@
 0.40 (2024-12-27)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/30)
-* fix bug in selector, infinite loop detected because of useEffect dependency
+* Change redirect path after logging
 
 0.39 (2024-12-24)
 ===============
