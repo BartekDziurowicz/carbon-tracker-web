@@ -1,4 +1,4 @@
-0.41 (2024-12-27)
+0.41 (2024-12-28)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/35)
 * Create nginx configuration file to handle react router
