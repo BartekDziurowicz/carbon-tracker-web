@@ -1,7 +1,7 @@
 0.41 (2024-12-27)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/35)
-* Add logging for investigation
+* Create nginx configuration file to handle react router
 
 0.40 (2024-12-27)
 ===============
