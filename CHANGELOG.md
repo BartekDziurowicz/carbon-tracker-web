@@ -1,3 +1,8 @@
+0.41 (2024-12-29)
+===============
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/41)
+* Change employee groups to upper case characters
+
 0.40 (2024-12-27)
 ===============
 * [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/33)
