@@ -1,7 +1,7 @@
-0.41 (2024-12-28)
+0.41 (2024-12-28/29)
 ===============
-* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/35)
-* Create nginx configuration file to handle react router
+* [@BartoszDziurowicz](https://github.com/BartekDziurowicz/carbon-tracker-web/pull/35 -40)
+* Create nginx configuration file to handle react router - rollbacked
 
 0.40 (2024-12-27)
 ===============
