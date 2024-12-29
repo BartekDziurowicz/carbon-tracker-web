@@ -2,7 +2,7 @@
   "name": "Carbon Tracker Web",
   "short_name": "CTW",
   "description": "Carbon Footprint Monitoring Application",
-  "version": "0.40",
+  "version": "0.41",
   "theme_color": "#000000",
   "background_color": "#FFFFFF",
   "display": "standalone",

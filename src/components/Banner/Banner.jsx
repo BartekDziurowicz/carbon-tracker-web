@@ -15,18 +15,15 @@ export default function Banner () {
 
     useEffect(() => {
         let path = location.pathname;
-        console.log("Current path:", path);
         
         if (path.startsWith('/')) {
             path = path.slice(1);
         }
-        console.log("Processed path:", path);
         
         if (checkAuthorization(path)) {
             selectNavItemHandler(path.charAt(0).toUpperCase() + path.slice(1));
         } else {
             if (path !== 'home') {
-                console.log("Navigating to /home");
                 navigate("/home");
             }
         }
@@ -36,17 +33,17 @@ export default function Banner () {
     function checkAuthorization(path) {
         switch (path) {
             case "home":
-                return "Employee,Manager,Admin".includes(userData.group);
+                return "EMPLOYEE,MANAGER,ADMIN".includes(userData.group);
             case "metrics":
-                return "Employee,Manager,Admin".includes(userData.group);
+                return "EMPLOYEE,MANAGER,ADMIN".includes(userData.group);
             case "selector":
-                return "Manager,Admin".includes(userData.group);
+                return "MANAGER,ADMIN".includes(userData.group);
             case "company":
-                return "Admin".includes(userData.group);
+                return "ADMIN".includes(userData.group);
             case "reports":
-                return "Manager,Admin".includes(userData.group);
+                return "MANAGER,ADMIN".includes(userData.group);
             case "logout":
-                return "Employee,Manager,Admin".includes(userData.group);
+                return "EMPLOYEE,MANAGER,ADMIN".includes(userData.group);
             default: return false;
         }
     }

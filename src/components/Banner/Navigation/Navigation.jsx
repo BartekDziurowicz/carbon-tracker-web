@@ -40,7 +40,7 @@ export default function Navigation() {
         </$NavigationIcon>
       </$Navigation>
 
-      {checkAuthorization("Employee,Manager,Admin") && (
+      {checkAuthorization("EMPLOYEE,Manager,ADMIN") && (
         <Link to="/metrics">
           <NavigationItem name="Metrics" position={1} hidden={!isSelected}>
             <IoIosStats />
@@ -48,7 +48,7 @@ export default function Navigation() {
         </Link>
       )}
 
-      {checkAuthorization("Manager,Admin") && (
+      {checkAuthorization("MANAGER,ADMIN") && (
         <Link to="/selector">
           <NavigationItem name="Selector" position={2} hidden={!isSelected}>
             <BsBracesAsterisk />
@@ -56,7 +56,7 @@ export default function Navigation() {
         </Link>
       )}
 
-      {checkAuthorization("Admin") && (
+      {checkAuthorization("ADMIN") && (
         <Link to="/company">
           <NavigationItem name="Company" position={3} hidden={!isSelected}>
             <PiTreeStructure />
@@ -64,7 +64,7 @@ export default function Navigation() {
         </Link>
       )}
 
-      {checkAuthorization("Manager,Admin") && (
+      {checkAuthorization("MANAGER,ADMIN") && (
         <Link to="/reports">
           <NavigationItem name="Reports" position={4} hidden={!isSelected}>
             <HiOutlineDocumentReport />
@@ -72,7 +72,7 @@ export default function Navigation() {
         </Link>
       )}
 
-      {checkAuthorization("Employee,Manager,Admin") && (
+      {checkAuthorization("EMPLOYEE,MANAGER,ADMIN") && (
         <Link to="/logout">
           <NavigationItem name="Logout" position={5} hidden={!isSelected}>
             <AiOutlineLogout />
