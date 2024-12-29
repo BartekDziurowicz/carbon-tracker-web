@@ -33,17 +33,17 @@ export default function Banner () {
     function checkAuthorization(path) {
         switch (path) {
             case "home":
-                return "Employee,Manager,Admin".includes(userData.group);
+                return "EMPLOYEE,MANAGER,ADMIN".includes(userData.group);
             case "metrics":
-                return "Employee,Manager,Admin".includes(userData.group);
+                return "EMPLOYEE,MANAGER,ADMIN".includes(userData.group);
             case "selector":
-                return "Manager,Admin".includes(userData.group);
+                return "MANAGER,ADMIN".includes(userData.group);
             case "company":
-                return "Admin".includes(userData.group);
+                return "ADMIN".includes(userData.group);
             case "reports":
-                return "Manager,Admin".includes(userData.group);
+                return "MANAGER,ADMIN".includes(userData.group);
             case "logout":
-                return "Employee,Manager,Admin".includes(userData.group);
+                return "EMPLOYEE,MANAGER,ADMIN".includes(userData.group);
             default: return false;
         }
     }
